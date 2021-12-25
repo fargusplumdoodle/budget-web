@@ -1,15 +1,34 @@
 import * as React from "react";
-import { bulkGenerator, generateTestTransaction } from "../../util/generators";
 import TransactionsTable from "./TransactionsTable";
+import { FunctionComponent, useEffect } from "react";
+import { Transaction } from "../../store/types/models";
+import { connect, useDispatch } from "react-redux";
+import { RootState } from "../../store/configureStore";
+import { fetchTransactions } from "../../store/actions/transactionActions";
 
-interface Props {}
+interface OwnProps {
+  transactions: Transaction[];
+}
 
-export default function TransactionsPage(props: Props) {
-  const transactions = bulkGenerator(generateTestTransaction, 100);
+type Props = OwnProps;
+
+const TransactionsPage: FunctionComponent<Props> = ({ transactions }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (transactions.length == 0) {
+      dispatch(fetchTransactions());
+    }
+  });
   return (
     <>
       <h1>Transactions</h1>
       <TransactionsTable transactions={transactions} showBudget />
     </>
   );
-}
+};
+
+const mapStateToProps = (state: RootState) => ({
+  transactions: state.transactions.list,
+});
+
+export default connect(mapStateToProps)(TransactionsPage);

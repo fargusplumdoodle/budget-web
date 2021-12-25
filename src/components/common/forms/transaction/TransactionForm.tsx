@@ -70,6 +70,8 @@ export default function TransactionForm(props: Props) {
     // }
   };
 
+  /// TMP
+  return <p>not implemented</p>;
   return (
     <div>
       <br />
@@ -132,7 +134,10 @@ export default function TransactionForm(props: Props) {
           <Autocomplete
             disablePortal
             options={budgets}
-            // value={{ label: transaction.budget.name, value: transaction.budget }}
+            value={{
+              label: transaction.budget.name,
+              value: transaction.budget,
+            }}
             onChange={budgetSelectOnChange}
             renderInput={(params) => <TextField {...params} label="Budget" />}
           />

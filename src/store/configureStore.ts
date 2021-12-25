@@ -12,16 +12,11 @@ declare global {
   }
 }
 
-const persistConfig = {
-  key: "root",
-  storage,
-};
-
 export function configureStore(initialState: any) {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   return createStore(
-    persistReducer(persistConfig, rootReducer),
+    rootReducer,
     initialState,
     composeEnhancers(applyMiddleware(thunk))
   );

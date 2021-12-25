@@ -17,12 +17,11 @@ export function fetchBudgets() {
     budgetAPI
       .receiveBudgets()
       .then((budgets: Budget[]) => {
-        console.log("ay we got the budgets");
         dispatch(loadBudgetsSuccess(budgets));
       })
       .catch((err) => {
         dispatch(apiCallError());
-        // throw err;
+        //throw err;
       });
   };
 }

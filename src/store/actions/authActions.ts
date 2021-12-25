@@ -3,6 +3,7 @@ import { AppDispatch } from "../configureStore";
 import { apiCallError, beginApiCall } from "./apiStatusActions";
 import * as authAPI from "../../api/auth";
 import { AuthState } from "../types/stateTypes";
+import axios from "axios";
 
 export function setAuthTokenSuccess(authToken: AuthState) {
   return {
@@ -13,6 +14,12 @@ export function setAuthTokenSuccess(authToken: AuthState) {
 export function clearAuthToken() {
   return {
     type: authActionTypes.CLEAR_AUTH_TOKEN,
+  };
+}
+export function logOut() {
+  return (dispatch: AppDispatch) => {
+    axios.defaults.headers.common.Authorization = undefined;
+    dispatch(clearAuthToken());
   };
 }
 

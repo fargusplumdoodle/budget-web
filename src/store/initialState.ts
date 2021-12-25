@@ -1,5 +1,9 @@
-import { ApiStatusState, AuthState, BudgetState } from "./types/stateTypes";
-import { Budget } from "./types/models";
+import {
+  ApiStatusState,
+  AuthState,
+  BudgetState,
+  TransactionState,
+} from "./types/stateTypes";
 
 const initialAuthState: AuthState = {
   authenticated: false,
@@ -18,8 +22,14 @@ const initialBudgetState: BudgetState = {
   byId: {},
 };
 
+const initialTransactionState: TransactionState = {
+  list: [],
+  byId: {},
+};
+
 export default {
   auth: initialAuthState,
   apiStatus: initialApiStatusState,
   budgets: initialBudgetState,
+  transactions: initialTransactionState,
 };

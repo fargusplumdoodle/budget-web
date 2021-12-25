@@ -11,3 +11,6 @@ export const apiStatusActionTypes = {
 export const budgetActionTypes = {
   LOAD_BUDGETS_SUCCESS: "LOAD_BUDGETS_SUCCESS",
 };
+export const transactionActionTypes = {
+  LOAD_TRANSACTIONS_SUCCESS: "LOAD_TRANSACTIONS_SUCCESS",
+};

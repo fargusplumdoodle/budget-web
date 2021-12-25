@@ -7,24 +7,25 @@ import DashboardTile from "./DashboardTile";
 import BudgetHistoryGraph from "./BudgetHistoryGraph";
 import StatusOverview from "./StatusOverview";
 import TransactionForm from "../common/forms/transaction/TransactionForm";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, shallowEqual, useDispatch, useSelector } from "react-redux";
 import { fetchBudgets } from "../../store/actions/budgetActions";
 import { RootState } from "../../store/configureStore";
+import { Budget } from "../../store/types/models";
 
-interface OwnProps {}
+interface OwnProps {
+  budgets: Budget[];
+}
 
 type Props = OwnProps;
 
-const DashboardPage: FunctionComponent<Props> = (props) => {
+const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
   const dispatch = useDispatch();
-  const [budgets, setBudgets] = useSelector(
-    (state: RootState) => state.budgets.list
-  );
-  console.log(typeof budgets, budgets);
-
   useEffect(() => {
-    dispatch(fetchBudgets());
+    if (budgets.length == 0) {
+      dispatch(fetchBudgets());
+    }
   }, []);
+
   return (
     <>
       <h1>Dashboard</h1>
@@ -35,13 +36,13 @@ const DashboardPage: FunctionComponent<Props> = (props) => {
               title="Budget Overview"
               description="Describes current status of budgets"
             >
-              {/*<BudgetTable budgets={budgets} />*/}
+              <BudgetTable budgets={budgets} />
             </DashboardTile>
             <DashboardTile
               title="Add Transaction"
               description="Add a new Transaction"
             >
-              {/*<TransactionForm />*/}
+              <TransactionForm />
               <p>ey p</p>
             </DashboardTile>
           </Stack>
@@ -55,7 +56,7 @@ const DashboardPage: FunctionComponent<Props> = (props) => {
               title="Balance History"
               description="Describes historical balance of your budgets"
             >
-              {/*<BudgetHistoryGraph budgets={budgets} />*/}
+              <BudgetHistoryGraph budgets={budgets} />
             </DashboardTile>
             <DashboardTile small={true}>
               <h2>Information! Wow</h2>
@@ -76,4 +77,8 @@ const DashboardPage: FunctionComponent<Props> = (props) => {
   );
 };
 
-export default DashboardPage;
+const mapStateToProps = (state: RootState) => ({
+  budgets: state.budgets.list,
+});
+
+export default connect(mapStateToProps)(DashboardPage);

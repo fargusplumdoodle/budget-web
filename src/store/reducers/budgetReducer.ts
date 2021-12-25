@@ -11,7 +11,6 @@ export default function authReducer(
   switch (action.type) {
     case budgetActionTypes.LOAD_BUDGETS_SUCCESS:
       const budgets = [...action.payload];
-
       return {
         list: budgets,
         byId: Object.fromEntries(budgets.map((budget) => [budget.id, budget])),

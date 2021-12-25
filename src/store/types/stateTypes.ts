@@ -1,4 +1,4 @@
-import { Budget } from "./models";
+import { Budget, Transaction } from "./models";
 
 export interface AuthState {
   authenticated: boolean;
@@ -15,4 +15,9 @@ export interface ApiStatusState {
 export interface BudgetState {
   list: Budget[];
   byId: { [k: number]: Budget };
+}
+
+export interface TransactionState {
+  list: Transaction[];
+  byId: { [k: number]: Transaction };
 }

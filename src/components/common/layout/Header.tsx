@@ -4,7 +4,7 @@ import { FunctionComponent, ReactElement } from "react";
 import settings from "../../../app/settings";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/configureStore";
-import { clearAuthToken } from "../../../store/actions/authActions";
+import { logOut } from "../../../store/actions/authActions";
 
 interface OwnProps {}
 
@@ -21,7 +21,7 @@ const Header: FunctionComponent<Props> = () => {
         <Button
           variant="contained"
           onClick={() => {
-            dispatch(clearAuthToken());
+            dispatch(logOut());
           }}
         >
           LOG OUT
