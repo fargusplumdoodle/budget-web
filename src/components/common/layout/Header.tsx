@@ -10,7 +10,7 @@ interface OwnProps {}
 
 type Props = OwnProps;
 
-const Header: FunctionComponent<Props> = (props) => {
+const Header: FunctionComponent<Props> = () => {
   const dispatch = useDispatch();
   const authenticated = useSelector(
     (state: RootState) => state.auth.authenticated
