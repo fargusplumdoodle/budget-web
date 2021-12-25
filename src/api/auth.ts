@@ -1,6 +1,6 @@
 import axios from "axios";
 import settings from "../app/settings";
-import {AuthState} from "../store/types/stateTypes";
+import { AuthState } from "../store/types/stateTypes";
 
 // eslint-disable-next-line no-unused-vars
 interface tokenResponse {
@@ -22,7 +22,6 @@ export async function retrieveToken(authCode: string): Promise<AuthState> {
     redirect_uri: settings.auth.callbackUrl,
     grant_type: "authorization_code",
   };
-  // const r = await axios.post("/o/token/", requestData, config);
   const r = await axios({
     method: "post",
     url: "/o/token/",
@@ -31,8 +30,7 @@ export async function retrieveToken(authCode: string): Promise<AuthState> {
       "Cache-Control": "no-cache",
     },
   });
-
-  axios.defaults.headers.common.Authorization = `${r.data.tokenType} ${r.data.accessToken}`;
+  axios.defaults.headers.common.Authorization = `${r.data.token_type} ${r.data.access_token}`;
 
   const data: tokenResponse = r.data;
   // TODO: VALIDATE RESPONSE

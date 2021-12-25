@@ -9,8 +9,9 @@ export default function authReducer(
 ) {
   switch (action.type) {
     case authActionTypes.SET_AUTH_TOKEN_SUCCESS:
-      console.log("setting auth", action.payload);
       return { ...action.payload };
+    case authActionTypes.CLEAR_AUTH_TOKEN:
+      return { ...initialState.auth };
     default:
       return state;
   }

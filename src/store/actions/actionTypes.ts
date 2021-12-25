@@ -7,3 +7,7 @@ export const apiStatusActionTypes = {
   BEGIN_API_CALL: "BEGIN_API_CALL",
   API_CALL_ERROR: "API_CALL_ERROR",
 };
+
+export const budgetActionTypes = {
+  LOAD_BUDGETS_SUCCESS: "LOAD_BUDGETS_SUCCESS",
+};

@@ -1,3 +1,5 @@
+import { Budget } from "./models";
+
 export interface AuthState {
   authenticated: boolean;
   accessToken: string;
@@ -8,4 +10,9 @@ export interface AuthState {
 
 export interface ApiStatusState {
   count: number;
+}
+
+export interface BudgetState {
+  list: Budget[];
+  byId: { [k: number]: Budget };
 }

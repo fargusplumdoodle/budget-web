@@ -1,30 +1,37 @@
 import * as React from "react";
-import { FunctionComponent } from "react";
-import { generateBudget } from "../../util/generators";
+import { FunctionComponent, useEffect } from "react";
+import { generateTestBudget } from "../../util/generators";
 import BudgetTable from "./BudgetTable";
-import { Grid } from "@mui/material";
+import { Button, Grid, Stack } from "@mui/material";
 import DashboardTile from "./DashboardTile";
 import BudgetHistoryGraph from "./BudgetHistoryGraph";
 import StatusOverview from "./StatusOverview";
+import TransactionForm from "../common/forms/transaction/TransactionForm";
+import { useDispatch } from "react-redux";
+import { fetchBudgets } from "../../store/actions/budgetActions";
 
 interface OwnProps {}
 
 type Props = OwnProps;
 
 const DashboardPage: FunctionComponent<Props> = (props) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchBudgets());
+  });
   const budgets = [
-    generateBudget({ name: "housing", percentage: 41 }),
-    generateBudget({ name: "food", percentage: 22 }),
-    generateBudget({ name: "debt", percentage: 11 }),
-    generateBudget({ name: "transportation", percentage: 6 }),
-    generateBudget({ name: "savings", percentage: 6 }),
-    generateBudget({ name: "personal", percentage: 5 }),
-    generateBudget({ name: "phone", percentage: 3 }),
-    generateBudget({ name: "health", percentage: 2 }),
-    generateBudget({ name: "camping", percentage: 1 }),
-    generateBudget({ name: "server", percentage: 1 }),
-    generateBudget({ name: "clothing", percentage: 1 }),
-    generateBudget({ name: "charity", percentage: 1 }),
+    generateTestBudget({ name: "housing", percentage: 41 }),
+    generateTestBudget({ name: "food", percentage: 22 }),
+    generateTestBudget({ name: "debt", percentage: 11 }),
+    generateTestBudget({ name: "transportation", percentage: 6 }),
+    generateTestBudget({ name: "savings", percentage: 6 }),
+    generateTestBudget({ name: "personal", percentage: 5 }),
+    generateTestBudget({ name: "phone", percentage: 3 }),
+    generateTestBudget({ name: "health", percentage: 2 }),
+    generateTestBudget({ name: "camping", percentage: 1 }),
+    generateTestBudget({ name: "server", percentage: 1 }),
+    generateTestBudget({ name: "clothing", percentage: 1 }),
+    generateTestBudget({ name: "charity", percentage: 1 }),
   ];
   // sx={{ display: "flex", p: 1, m: 1, bgcolor: "background.paper" }}
   return (
@@ -32,21 +39,46 @@ const DashboardPage: FunctionComponent<Props> = (props) => {
       <h1>Dashboard</h1>
       <Grid container spacing={1}>
         <Grid item xs={6} justifyContent="center" alignItems="center">
-          <DashboardTile
-            title="Budget Overview"
-            description="Describes current status of budgets"
-            child={<BudgetTable budgets={budgets} />}
-          />
+          <Stack spacing={1}>
+            <DashboardTile
+              title="Budget Overview"
+              description="Describes current status of budgets"
+            >
+              <BudgetTable budgets={budgets} />
+            </DashboardTile>
+            <DashboardTile
+              title="Add Transaction"
+              description="Add a new Transaction"
+            >
+              {/*<TransactionForm />*/}
+              <p>ey p</p>
+            </DashboardTile>
+          </Stack>
         </Grid>
         <Grid item xs={6} alignItems="center">
-          <DashboardTile
-            title="Balance History"
-            description="Describes historical balance of your budgets"
-            child={<BudgetHistoryGraph budgets={budgets} />}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <DashboardTile child={<StatusOverview />} />
+          <Stack spacing={1}>
+            <DashboardTile small={true}>
+              <StatusOverview />
+            </DashboardTile>
+            <DashboardTile
+              title="Balance History"
+              description="Describes historical balance of your budgets"
+            >
+              <BudgetHistoryGraph budgets={budgets} />
+            </DashboardTile>
+            <DashboardTile small={true}>
+              <h2>Information! Wow</h2>
+            </DashboardTile>
+            <DashboardTile small={true}>
+              <Button
+                onClick={() => {
+                  dispatch(fetchBudgets());
+                }}
+              >
+                Request a thing
+              </Button>
+            </DashboardTile>
+          </Stack>
         </Grid>
       </Grid>
     </>

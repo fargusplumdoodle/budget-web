@@ -21,30 +21,10 @@ const Callback: FunctionComponent<Props> = ({ requestAuthToken }) => {
 
   useEffect(() => {
     if (!authenticated && authCode) {
-      // TODO: HANDLE FAILURES
-      dispatch(requestAuthToken(authCode));
+      requestAuthToken(authCode);
       navigate("/");
     }
   }, []);
-
-  if (!authenticated) {
-    // TODO: HANDLE FAILURES
-    // dispatch(requestAuthToken(authCode));
-    // navigate("/");
-    // AuthAPI.retrieveToken(authCode)
-    //   .then((authState) => {
-    //     this.props.setToken(authState);
-    //
-    //     // window.location.assign('/')
-    //   })
-    //   .catch((err) => {
-    //     if (err.response) {
-    //       setMessage(`Error:\n${JSON.stringify(err.response.data)}`);
-    //     } else {
-    //       setMessage(`Error:\n${err}`);
-    //     }
-    //   });
-  }
 
   return <h1>Redirecting</h1>;
 };

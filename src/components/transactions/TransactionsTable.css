@@ -1,0 +1,28 @@
+.transactionDrawerClosed {
+  display: none;
+  transition: all 0.3s ease-in-out;
+  min-height: 20px;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.transactionDrawerExpanded {
+  display: block;
+  transition: all 0.3s ease-in-out;
+  min-height: 200px;
+}
+
+@keyframes lineInserted {
+  from {
+    height: 0;
+  }
+  to {
+    height: 20px; /* your line height here */
+  }
+}
+
+div[contenteditable] > div {
+  animation-duration: 0.3s;
+  animation-name: lineInserted;
+  transition: height 0.3s;
+}

@@ -1,11 +1,8 @@
 import * as React from "react";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import Chart from "react-apexcharts";
-import { Grid } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { DesktopDatePicker } from "@mui/lab";
-import { LocalizationProvider } from "@mui/lab";
+import { Budget } from "../../store/types/models";
+
 interface OwnProps {
   budgets: Budget[];
 }

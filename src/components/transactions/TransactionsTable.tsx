@@ -7,27 +7,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Typography } from "@mui/material";
-import { Budget } from "../../store/types/models";
+import "./TransactionsTable.css";
+import { Transaction } from "../../store/types/models";
 
-interface OwnProps {
-  budgets: Budget[];
+interface TransactionTableProps {
+  transactions: Transaction[];
+  showBudget: boolean;
 }
 
-type Props = OwnProps;
-
-const BudgetTable: FunctionComponent<Props> = (props: Props) => {
-  const headers = [
-    "Name",
-    "Percentage",
-    "Income Per Month",
-    "Outcome Per Month",
-    "balance",
-  ];
+const TransactionTable: FunctionComponent<TransactionTableProps> = (
+  props: TransactionTableProps
+) => {
+  const headers = ["Budget", "Description", "Date", "Amount"];
   return (
-    <TableContainer
-      sx={{ height: 500, overflow: "scroll", alignContent: "center" }}
-    >
-      <Table aria-label="budget overview">
+    <TableContainer sx={{ overflow: "scroll", alignContent: "center" }}>
+      <Table aria-label="transaction list">
         <TableHead>
           <TableRow>
             {headers.map((headerName) => {
@@ -40,14 +34,13 @@ const BudgetTable: FunctionComponent<Props> = (props: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.budgets.map((budget) => {
+          {props.transactions.map((trans) => {
             return (
-              <TableRow key={budget.id}>
-                <TableCell>{budget.name}</TableCell>
-                <TableCell>{budget.percentage}</TableCell>
-                <TableCell>{budget.income_per_month}</TableCell>
-                <TableCell>{budget.outcome_per_month}</TableCell>
-                <TableCell>{budget.balance}</TableCell>
+              <TableRow key={trans.id}>
+                <TableCell>{trans.budget.name}</TableCell>
+                <TableCell>{trans.description}</TableCell>
+                <TableCell>{trans.date.toLocaleDateString("en-CA")}</TableCell>
+                <TableCell>{trans.amount}</TableCell>
               </TableRow>
             );
           })}
@@ -56,5 +49,4 @@ const BudgetTable: FunctionComponent<Props> = (props: Props) => {
     </TableContainer>
   );
 };
-
-export default BudgetTable;
+export default TransactionTable;

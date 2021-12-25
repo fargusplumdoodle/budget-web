@@ -10,14 +10,19 @@ export function setAuthTokenSuccess(authToken: AuthState) {
     payload: authToken,
   };
 }
+export function clearAuthToken() {
+  return {
+    type: authActionTypes.CLEAR_AUTH_TOKEN,
+  };
+}
 
 export function requestAuthToken(authCode: string) {
-  return (dispatch: AppDispatch) => {
+  return async (dispatch: AppDispatch) => {
     dispatch(beginApiCall());
     return authAPI
       .retrieveToken(authCode)
       .then((authToken: AuthState) => {
-        // dispatch(setAuthTokenSuccess(authToken));
+        dispatch(setAuthTokenSuccess(authToken));
       })
       .catch((err) => {
         dispatch(apiCallError());

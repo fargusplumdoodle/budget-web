@@ -12,7 +12,6 @@ declare global {
 export function configureStore(initialState: any) {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
   return createStore(
     rootReducer,
     initialState,
@@ -20,7 +19,5 @@ export function configureStore(initialState: any) {
   );
 }
 export const store = configureStore(initialState);
-
 export type RootState = ReturnType<typeof store.getState>;
-
 export type AppDispatch = typeof store.dispatch;
