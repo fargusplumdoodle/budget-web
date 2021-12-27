@@ -6,13 +6,23 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Typography } from "@mui/material";
-import "./TransactionsTable.css";
-import { Transaction } from "../../store/types/models";
+import { TablePagination, Typography } from "@mui/material";
+import "../TransactionsTable.css";
+import { Transaction } from "../../../store/types/models";
 
 interface TransactionTableProps {
   transactions: Transaction[];
   showBudget: boolean;
+  rowsPerPage: number;
+  count: number;
+  page: number;
+  onPageChange: (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    page: number
+  ) => void;
+  handlePageSizeChange: (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
 }
 
 const TransactionTable: FunctionComponent<TransactionTableProps> = (
@@ -23,6 +33,15 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
     <TableContainer sx={{ overflow: "scroll", alignContent: "center" }}>
       <Table aria-label="transaction list">
         <TableHead>
+          <TableRow>
+            <TablePagination
+              count={props.count}
+              page={props.page}
+              onPageChange={props.onPageChange}
+              rowsPerPage={props.rowsPerPage}
+              onRowsPerPageChange={props.handlePageSizeChange}
+            />
+          </TableRow>
           <TableRow>
             {headers.map((headerName) => {
               return (

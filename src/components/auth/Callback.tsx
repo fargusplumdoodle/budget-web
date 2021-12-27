@@ -21,8 +21,9 @@ const Callback: FunctionComponent<Props> = ({ requestAuthToken }) => {
 
   useEffect(() => {
     if (!authenticated && authCode) {
-      requestAuthToken(authCode);
-      navigate("/");
+      requestAuthToken(authCode).then(() => {
+        navigate("/");
+      });
     }
   }, []);
 

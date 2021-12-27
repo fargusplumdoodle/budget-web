@@ -30,7 +30,6 @@ export async function retrieveToken(authCode: string): Promise<AuthState> {
       "Cache-Control": "no-cache",
     },
   });
-  axios.defaults.headers.common.Authorization = `${r.data.token_type} ${r.data.access_token}`;
 
   const data: tokenResponse = r.data;
   // TODO: VALIDATE RESPONSE

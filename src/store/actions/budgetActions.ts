@@ -21,7 +21,7 @@ export function fetchBudgets() {
       })
       .catch((err) => {
         dispatch(apiCallError());
-        //throw err;
+        throw err;
       });
   };
 }

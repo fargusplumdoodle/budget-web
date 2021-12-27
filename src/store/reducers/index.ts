@@ -13,7 +13,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: persistReducer(persistConfig, auth),
   apiStatus,
-  budgets,
+  budgets: persistReducer(persistConfig, budgets),
   transactions,
 });
 export default rootReducer;
