@@ -1,0 +1,70 @@
+stages:
+  - qa
+  - build
+  - deploy
+
+variables:
+  NODE_ENV: production
+  IMAGE: hub.sekhnet.ra/budget-web
+
+default:
+  image: node
+  cache:
+    paths:
+      - ./node_modules/
+  before_script:
+    - npm install --save-dev
+
+lint:
+  stage: qa
+  script:
+    - npx eslint .
+
+build-prod:
+  image: docker:latest
+  stage: build
+  before_script: []
+  services: []
+  only:
+    - main
+  script:
+    - docker pull $IMAGE:latest || true
+    - docker build -t "$IMAGE:latest" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:latest . 
+    - docker image push --all-tags "$IMAGE"
+
+
+build-dev:
+  image: docker:latest
+  stage: build
+  before_script: []
+  services: []
+  only:
+    - dev
+  script:
+    - docker pull $IMAGE:latest || true
+    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:latest . 
+    - docker image push --all-tags "$IMAGE"
+
+deploy-staging:
+  stage: deploy
+  before_script: []
+  services: []
+  image: dtzar/helm-kubectl
+  only:
+    - dev
+  script:
+    - git clone http://gitlab-ci-token:${CI_JOB_TOKEN}@git.sekhnet.ra/sekhnet/applications/budget/budget-helm.git
+    - ./budget-helm/scripts/setup-ci-service-account.sh $STAGING_TOKEN $CA
+    - helm upgrade -n $NAMESPACE-staging $NAMESPACE-staging ./budget-helm --set=web.image.tag="$IMAGE:$CI_COMMIT_SHA"
+
+deploy-prod:
+  stage: deploy
+  before_script: []
+  services: []
+  image: dtzar/helm-kubectl
+  only:
+    - main
+  script:
+    - git clone http://gitlab-ci-token:${CI_JOB_TOKEN}@git.sekhnet.ra/sekhnet/applications/budget/budget-helm.git
+    - ./budget-helm/scripts/setup-ci-service-account.sh $PROD_TOKEN $CA
+    - helm upgrade -n $NAMESPACE $NAMESPACE ./budget-helm --set=web.image.tag="$IMAGE:$CI_COMMIT_SHA"
