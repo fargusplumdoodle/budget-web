@@ -13,7 +13,7 @@ default:
     paths:
       - ./node_modules/
   before_script:
-    - npm install --save-dev
+    - npm install
 
 lint:
   stage: qa
@@ -55,7 +55,7 @@ deploy-staging:
   script:
     - git clone http://gitlab-ci-token:${CI_JOB_TOKEN}@git.sekhnet.ra/sekhnet/applications/budget/budget-helm.git
     - ./budget-helm/scripts/setup-ci-service-account.sh $STAGING_TOKEN $CA
-    - helm upgrade -n $NAMESPACE-staging $NAMESPACE-staging ./budget-helm --set=web.image.tag="$IMAGE:$CI_COMMIT_SHA" --reuse-values
+    - helm upgrade -n $NAMESPACE-staging $NAMESPACE-staging ./budget-helm --set=web.image.tag="$CI_COMMIT_SHA" --reuse-values --atomic
 
 deploy-prod:
   stage: deploy
@@ -67,4 +67,4 @@ deploy-prod:
   script:
     - git clone http://gitlab-ci-token:${CI_JOB_TOKEN}@git.sekhnet.ra/sekhnet/applications/budget/budget-helm.git
     - ./budget-helm/scripts/setup-ci-service-account.sh $PROD_TOKEN $CA
-    - helm upgrade -n $NAMESPACE $NAMESPACE ./budget-helm --set=web.image.tag="$IMAGE:$CI_COMMIT_SHA" --reuse-values
+    - helm upgrade -n $NAMESPACE $NAMESPACE ./budget-helm --set=web.image.tag="$CI_COMMIT_SHA" --reuse-values --atomic
