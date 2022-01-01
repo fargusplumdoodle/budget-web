@@ -1,6 +1,6 @@
 import * as React from "react";
-import { FunctionComponent, useEffect, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { FunctionComponent, useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { requestAuthToken } from "../../store/actions/authActions";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,6 @@ const Callback: FunctionComponent<Props> = ({ requestAuthToken }) => {
   const authenticated = useSelector(
     (state: RootState) => state.auth.authenticated
   );
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const authCode = new URLSearchParams(window.location.search).get("code");
@@ -25,7 +24,7 @@ const Callback: FunctionComponent<Props> = ({ requestAuthToken }) => {
         navigate("/");
       });
     }
-  }, []);
+  }, [authenticated, authCode, navigate, requestAuthToken]);
 
   return <h1>Redirecting</h1>;
 };

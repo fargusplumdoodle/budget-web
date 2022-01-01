@@ -1,13 +1,12 @@
 import * as React from "react";
 import { FunctionComponent, useEffect } from "react";
-import { generateTestBudget } from "../../util/generators";
 import BudgetTable from "./BudgetTable";
 import { Button, Grid, Stack } from "@mui/material";
 import DashboardTile from "./DashboardTile";
 import BudgetHistoryGraph from "./BudgetHistoryGraph";
 import StatusOverview from "./StatusOverview";
 import TransactionForm from "../common/forms/transaction/TransactionForm";
-import { connect, shallowEqual, useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { fetchBudgets } from "../../store/actions/budgetActions";
 import { RootState } from "../../store/configureStore";
 import { Budget } from "../../store/types/models";
@@ -21,10 +20,10 @@ type Props = OwnProps;
 const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    if (budgets.length == 0) {
+    if (budgets.length === 0) {
       dispatch(fetchBudgets());
     }
-  }, []);
+  }, [budgets.length, dispatch]);
 
   return (
     <>

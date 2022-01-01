@@ -14,7 +14,6 @@ import { Transaction, Budget } from "../../../../store/types/models";
 import {
   bulkGenerator,
   generateTestBudget,
-  generateTestTransaction,
   generateTransaction,
 } from "../../../../util/generators";
 import { SyntheticEvent } from "react";
@@ -37,7 +36,6 @@ export default function TransactionForm(props: Props) {
   const budgets = bulkGenerator(generateTestBudget, 12).map((budget) => {
     return { label: budget.name, value: budget };
   });
-  const existingTransactions = bulkGenerator(generateTestTransaction, 100);
 
   const handleChange =
     (prop: keyof Transaction) =>
@@ -70,8 +68,6 @@ export default function TransactionForm(props: Props) {
     // }
   };
 
-  /// TMP
-  return <p>not implemented</p>;
   return (
     <div>
       <br />

@@ -27,9 +27,10 @@ const initialTransactionState: TransactionState = {
   byId: {},
 };
 
-export default {
+const initalState = {
   auth: initialAuthState,
   apiStatus: initialApiStatusState,
   budgets: initialBudgetState,
   transactions: initialTransactionState,
 };
+export default initalState;

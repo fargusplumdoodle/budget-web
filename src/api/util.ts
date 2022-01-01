@@ -1,4 +1,4 @@
-import axios, { AxiosPromise, AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { store } from "../store/configureStore";
 
 export async function makeRequest(params: AxiosRequestConfig) {

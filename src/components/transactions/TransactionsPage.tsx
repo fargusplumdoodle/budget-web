@@ -1,8 +1,7 @@
 import * as React from "react";
-import TransactionsTable from "./_components/TransactionsTable";
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent } from "react";
 import { Transaction } from "../../store/types/models";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import TransactionTableContainer from "./_components/TransactionTableContainer";
 

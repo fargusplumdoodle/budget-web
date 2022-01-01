@@ -6,19 +6,17 @@ stages:
 variables:
   NODE_ENV: production
   IMAGE: hub.sekhnet.ra/budget-web
+  NAMESPACE: budget
 
-default:
+lint:
   image: node
+  stage: qa
   cache:
     paths:
       - ./node_modules/
-  before_script:
-    - npm install
-
-lint:
-  stage: qa
   script:
-    - npx eslint .
+    - npm install eslint
+    - ./scripts/lint.sh
 
 build-prod:
   image: docker:latest

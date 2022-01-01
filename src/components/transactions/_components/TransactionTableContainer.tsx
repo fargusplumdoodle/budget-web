@@ -56,10 +56,10 @@ const TransactionTableContainer: FunctionComponent<Props> = (props) => {
   };
 
   useEffect(() => {
-    if (state.transactions.length == 0) {
+    if (state.transactions.length === 0) {
       getPage(null, 0);
     }
-  }, []);
+  }, [state.transactions.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (state.loading) {
     return <CircularProgress />;

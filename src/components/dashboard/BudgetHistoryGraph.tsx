@@ -30,9 +30,6 @@ const BudgetHistoryGraph: FunctionComponent<Props> = (props) => {
       },
     ],
   };
-  const [startDate, setStartDate] = React.useState<Date | null>(null);
-  const [endDate, setEndDate] = React.useState<Date | null>(null);
-
   return (
     <>
       <Chart

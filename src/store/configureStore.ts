@@ -1,10 +1,8 @@
 import rootReducer from "./reducers";
 import { createStore, applyMiddleware, compose } from "redux";
-import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
 import thunk from "redux-thunk";
 import initialState from "./initialState";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { persistReducer, persistStore } from "redux-persist";
+import { persistStore } from "redux-persist";
 
 declare global {
   interface Window {
