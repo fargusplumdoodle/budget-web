@@ -4,7 +4,7 @@ import { TransactionState } from "../types/stateTypes";
 import { transactionActionTypes } from "../actions/actionTypes";
 import { Transaction } from "../types/models";
 
-export default function authReducer(
+export default function transactionReducer(
   state: TransactionState = initialState.transactions,
   action: PayloadAction<Transaction[]>
 ): TransactionState {

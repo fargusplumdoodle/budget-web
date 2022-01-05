@@ -1,10 +1,11 @@
 import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 import * as React from "react";
-import { FunctionComponent, ReactElement } from "react";
+import { FunctionComponent, ReactElement, useEffect } from "react";
 import settings from "../../../app/settings";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../store/configureStore";
+import { RootState, store } from "../../../store/configureStore";
 import { logOut } from "../../../store/actions/authActions";
+import InitializeData from "../../../app/InitializeData";
 
 interface OwnProps {}
 
@@ -39,8 +40,10 @@ const Header: FunctionComponent<Props> = () => {
       </Button>
     );
   }
+
   return (
     <Box>
+      <InitializeData />
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

@@ -19,6 +19,8 @@ import {
 import { SyntheticEvent } from "react";
 import { DatePicker, LocalizationProvider, ToggleButton } from "@mui/lab";
 import { Add, Remove } from "@mui/icons-material";
+import { RootState, store } from "../../../../store/configureStore";
+import { useSelector } from "react-redux";
 
 export interface Props {
   transaction?: Transaction;
@@ -33,9 +35,13 @@ export default function TransactionForm(props: Props) {
   const [transaction, setTransaction] = React.useState(
     props.transaction || generateTransaction({ date: new Date() })
   );
-  const budgets = bulkGenerator(generateTestBudget, 12).map((budget) => {
+  const budgets = useSelector((state: RootState) => state.budgets.list);
+  const budgetOptions = budgets.map((budget) => {
     return { label: budget.name, value: budget };
   });
+  const defaultBudget = budgetOptions.find(
+    (budgetOption) => budgetOption.label === "food"
+  );
 
   const handleChange =
     (prop: keyof Transaction) =>
@@ -73,14 +79,14 @@ export default function TransactionForm(props: Props) {
       <br />
       <Box
         sx={{
-          display: "flex",
-          flexWrap: "wrap",
+          // display: "flex",
+          // flexWrap: "wrap",
           justifyContent: "center",
           maxWidth: "715px",
         }}
       >
         <FormControl
-          sx={{ m: 1, display: "flex", flexDirection: "row", width: "47%" }}
+          sx={{ m: 1, display: "flex", flexDirection: "row", width: "51%" }}
         >
           <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
           <Input
@@ -103,7 +109,7 @@ export default function TransactionForm(props: Props) {
             </ToggleButton>
           </ToggleButtonGroup>
         </FormControl>
-        <FormControl sx={{ m: 1, width: "47%" }}>
+        <FormControl sx={{ m: 1, width: "51%" }}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               disableFuture
@@ -116,29 +122,24 @@ export default function TransactionForm(props: Props) {
             />
           </LocalizationProvider>
         </FormControl>
-      </Box>
-      <FormControl sx={{ m: 1, width: "47%" }}>
-        <InputLabel htmlFor="description">Description</InputLabel>
-        <Input
-          id="description"
-          value={transaction.description}
-          onChange={handleChange("description")}
-        />
-      </FormControl>
-      <FormControl sx={{ m: 1, width: "47%" }}>
-        <FormControl sx={{ m: 1, width: "47%" }}>
+        <FormControl sx={{ m: 1, width: "51%" }}>
+          <InputLabel htmlFor="description">Description</InputLabel>
+          <Input
+            id="description"
+            value={transaction.description}
+            onChange={handleChange("description")}
+          />
+        </FormControl>
+        <FormControl sx={{ m: 1, width: "51%" }}>
           <Autocomplete
             disablePortal
-            options={budgets}
-            value={{
-              label: transaction.budget.name,
-              value: transaction.budget,
-            }}
+            options={budgetOptions}
+            value={defaultBudget}
             onChange={budgetSelectOnChange}
             renderInput={(params) => <TextField {...params} label="Budget" />}
           />
         </FormControl>
-      </FormControl>
+      </Box>
     </div>
   );
 }

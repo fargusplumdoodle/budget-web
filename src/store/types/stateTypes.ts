@@ -1,4 +1,4 @@
-import { Budget, Transaction } from "./models";
+import { Budget, Tag, Transaction } from "./models";
 
 export interface AuthState {
   authenticated: boolean;
@@ -20,4 +20,10 @@ export interface BudgetState {
 export interface TransactionState {
   list: Transaction[];
   byId: { [k: number]: Transaction };
+}
+
+export interface TagState {
+  list: Tag[];
+  byName: { [k: string]: Tag };
+  byId: { [k: number]: Tag };
 }

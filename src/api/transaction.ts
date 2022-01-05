@@ -3,7 +3,7 @@ import { store } from "../store/configureStore";
 import { makeRequest } from "./util";
 import { PaginatedQueryParams, PaginatedResponse } from "./types";
 
-export async function fetchTransactions(
+export async function fetchTransactionPage(
   page: number,
   pageSize: number = 25
 ): Promise<PaginatedResponse<Transaction>> {

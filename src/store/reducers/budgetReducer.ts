@@ -4,7 +4,7 @@ import { BudgetState } from "../types/stateTypes";
 import { budgetActionTypes } from "../actions/actionTypes";
 import { Budget } from "../types/models";
 
-export default function authReducer(
+export default function budgetReducer(
   state: BudgetState = initialState.budgets,
   action: PayloadAction<Budget[]>
 ): BudgetState {

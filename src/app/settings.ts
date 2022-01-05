@@ -1,6 +1,8 @@
 // TODO: FIX ALL OF THIS
 const CLIENT_ID = "web-client";
-const CALLBACK_URL = "http://127.0.0.1:3000/auth/callback";
+const CALLBACK_URL = `${window.location.protocol}//${window.location.hostname}${
+  window.location.port === "3000" ? ":" + window.location.port : ""
+}/auth/callback`;
 
 const settings = {
   auth: {

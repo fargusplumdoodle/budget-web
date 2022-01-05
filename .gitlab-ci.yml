@@ -5,7 +5,7 @@ stages:
 
 variables:
   NODE_ENV: production
-  IMAGE: hub.sekhnet.ra/budget-web
+  IMAGE: hub.sekhnet.ra/budget-web-v2
   NAMESPACE: budget
 
 lint:
@@ -49,7 +49,8 @@ deploy-staging:
   services: []
   image: dtzar/helm-kubectl
   only:
-    - dev
+    #- dev
+    - this-step-is-currently-disabled
   script:
     - git clone http://gitlab-ci-token:${CI_JOB_TOKEN}@git.sekhnet.ra/sekhnet/applications/budget/budget-helm.git
     - ./budget-helm/scripts/setup-ci-service-account.sh $STAGING_TOKEN $CA
@@ -61,7 +62,9 @@ deploy-prod:
   services: []
   image: dtzar/helm-kubectl
   only:
-    - main
+    #- main
+    #- dev
+    - this-step-is-currently-disabled
   script:
     - git clone http://gitlab-ci-token:${CI_JOB_TOKEN}@git.sekhnet.ra/sekhnet/applications/budget/budget-helm.git
     - ./budget-helm/scripts/setup-ci-service-account.sh $PROD_TOKEN $CA
