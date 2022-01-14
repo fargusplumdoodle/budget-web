@@ -14,6 +14,9 @@ export default function budgetReducer(
       return {
         list: budgets,
         byId: Object.fromEntries(budgets.map((budget) => [budget.id, budget])),
+        byName: Object.fromEntries(
+          budgets.map((budget) => [budget.name, budget])
+        ),
       };
     default:
       return state;

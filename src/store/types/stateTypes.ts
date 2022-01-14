@@ -15,6 +15,7 @@ export interface ApiStatusState {
 export interface BudgetState {
   list: Budget[];
   byId: { [k: number]: Budget };
+  byName: { [k: string]: Budget };
 }
 
 export interface TransactionState {

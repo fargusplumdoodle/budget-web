@@ -21,6 +21,7 @@ const initialApiStatusState: ApiStatusState = {
 const initialBudgetState: BudgetState = {
   list: [],
   byId: {},
+  byName: {},
 };
 
 const initialTransactionState: TransactionState = {

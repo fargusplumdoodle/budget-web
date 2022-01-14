@@ -17,6 +17,9 @@ interface OwnProps {
 type Props = OwnProps;
 
 const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
+  if (budgets.length == 0) {
+    return <></>;
+  }
   return (
     <>
       <h1>Dashboard</h1>

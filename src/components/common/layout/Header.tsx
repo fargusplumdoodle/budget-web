@@ -16,6 +16,7 @@ const Header: FunctionComponent<Props> = () => {
   const authenticated = useSelector(
     (state: RootState) => state.auth.authenticated
   );
+  console.log("authenticated:", authenticated);
   function getAuthButton(authenticated: boolean): ReactElement {
     if (authenticated) {
       return (

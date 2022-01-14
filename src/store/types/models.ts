@@ -3,6 +3,7 @@ interface Model {
 }
 export interface Tag extends Model {
   name: string;
+  rank: number;
 }
 
 export interface Budget extends Model {
@@ -24,5 +25,5 @@ export interface Transaction extends Model {
 
   income: boolean;
   transfer: boolean;
-  tags: string[];
+  tags: Tag[];
 }

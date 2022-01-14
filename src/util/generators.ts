@@ -43,6 +43,7 @@ export function generateTestTag(args: Object = {}): Tag {
   return {
     id: getRandomInt(100),
     name: faker.lorem.word(),
+    rank: getRandomInt(100),
     ...args,
   };
 }

@@ -17,7 +17,9 @@ export default function tagReducer(
         ),
       ];
       return {
-        list: tags,
+        list: tags.sort((a, b) => {
+          return a.rank + b.rank;
+        }),
         byName: Object.fromEntries(tags.map((tag) => [tag.name, tag])),
         byId: Object.fromEntries(tags.map((tag) => [tag.id, tag])),
       };
