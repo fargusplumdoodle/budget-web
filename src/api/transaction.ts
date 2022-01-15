@@ -1,7 +1,14 @@
 import { Transaction } from "../store/types/models";
-import { store } from "../store/configureStore";
 import { makeRequest } from "./util";
-import { PaginatedQueryParams, PaginatedResponse } from "./types";
+import {
+  PaginatedQueryParams,
+  PaginatedResponse,
+  SerializedTransaction,
+} from "./types";
+import {
+  deserializeTransaction,
+  serializeTransaction,
+} from "../util/serializers";
 
 export async function fetchTransactionPage(
   page: number,
@@ -17,16 +24,24 @@ export async function fetchTransactionPage(
     url: "/api/v2/transaction/",
     params: params,
   });
-  const state = store.getState();
 
   const transactions = r.data.results.map((trans: any) => {
-    return {
-      ...trans,
-      date: new Date(trans.date),
-      budget_id: trans.budget,
-      budget: state.budgets.byId[trans.budget],
-    };
+    // TODO: DESERIALIZE
+    return deserializeTransaction(trans);
   });
 
   return { ...r.data, results: transactions };
+}
+
+export async function createTransaction(
+  trans: Transaction
+): Promise<Transaction> {
+  // TOOO: UPDATE BUDGET WITH NEW VALUE SIDE EFFECT
+  const r = await makeRequest({
+    method: "post",
+    url: "/api/v2/transaction/",
+    data: serializeTransaction(trans),
+  });
+  console.log("made", deserializeTransaction(r.data as SerializedTransaction));
+  return deserializeTransaction(r.data as SerializedTransaction);
 }

@@ -17,11 +17,10 @@ export interface Budget extends Model {
 }
 
 export interface Transaction extends Model {
-  amount: number | null;
+  amount: number;
   description: string | null;
-  budget_id: number | null;
-  budget: Budget | null;
-  date: Date | null;
+  budget: Budget;
+  date: Date;
 
   income: boolean;
   transfer: boolean;

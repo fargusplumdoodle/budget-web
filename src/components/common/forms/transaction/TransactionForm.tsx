@@ -1,74 +1,69 @@
 import {
   Autocomplete,
-  Box,
-  FormControl,
   Input,
+  Stack,
   InputAdornment,
-  InputLabel,
   TextField,
-  ToggleButtonGroup,
-  ToggleButton,
   Button,
+  ToggleButton,
+  FormHelperText,
+  CircularProgress,
+  ToggleButtonGroup,
+  styled,
+  Box,
 } from "@mui/material";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import * as React from "react";
-import { Transaction, Budget } from "../../../../store/types/models";
-import {
-  bulkGenerator,
-  generateTestBudget,
-  generateTransaction,
-} from "../../../../util/generators";
-import { SyntheticEvent, useState } from "react";
-import { DatePicker, LocalizationProvider } from "@mui/lab";
-import { Add, Remove } from "@mui/icons-material";
-import { RootState, store } from "../../../../store/configureStore";
+import { Budget, Tag, Transaction } from "../../../../store/types/models";
+import { generateTransaction } from "../../../../util/generators";
+import { RootState } from "../../../../store/configureStore";
 import { useSelector } from "react-redux";
-import { getOption, Option } from "../../../../util/form";
+import { transactionSchema } from "../../../../util/form";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Add, Remove } from "@mui/icons-material";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import * as transactionAPI from "../../../../api/transaction";
 
-export interface Props {
+// TODO: UPDATE EXISTING TRANSACTION
+
+interface Props {
   transaction?: Transaction;
+  onSubmitCallback?: (trans: Transaction) => void;
 }
 
-interface BudgetOption {
-  label: String;
-  value: number; // budget id
-}
 type Sign = "+" | "-";
 
-export default function TransactionForm(props: Props) {
-  const [transactionSign, setTransactionSign]: [Sign, any] =
-    React.useState("-");
+const Item = styled(Box)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+}));
 
+export default function TransactionForm(props: Props) {
+  const isEdit = Boolean(props["transaction"]);
   const budgets = useSelector((state: RootState) => state.budgets);
   const tags = useSelector((state: RootState) => state.tags);
-  const budgetOptions = budgets.list.map((budget) => getOption(budget));
-  const tagOptions = tags.list.map((tag) => getOption(tag));
-
-  const [transaction, setTransaction] = React.useState(
-    props.transaction ||
-      generateTransaction({
+  const [loading, setLoading] = React.useState(false);
+  const [transactionSign, setTransactionSign]: [Sign, any] =
+    React.useState("-");
+  const defaultValues = isEdit
+    ? props.transaction
+    : generateTransaction({
         date: new Date(),
         description: "",
-        amount: 0,
+        amount: null,
         budget: budgets.byName["food"],
         tags: [],
-      })
-  );
+      });
 
-  const handleChange =
-    (prop: keyof Transaction) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setTransaction({ ...transaction, [prop]: event.target.value });
-    };
-
-  const budgetSelectOnChange = (event: SyntheticEvent, newBudget: Option) => {
-    const budget = budgets.byId[newBudget.value];
-    setTransaction({
-      ...transaction,
-      budget: budget,
-      budget_id: budget.id,
-    });
-  };
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(transactionSchema),
+    defaultValues: defaultValues,
+  });
 
   const handleSignChange = (
     event: React.MouseEvent<HTMLInputElement>,
@@ -78,56 +73,111 @@ export default function TransactionForm(props: Props) {
       return;
     }
     setTransactionSign(sign);
-    // TODO: SET SIGN BEFORE SAVING
   };
 
-  const tagSelectOnChange = (event: SyntheticEvent, newTag: Option[]) => {
-    setTransaction({
-      ...transaction,
-      tags: newTag.map((option: Option) => tags.byId[option.value]),
-    });
+  const onSubmit = (transaction: Transaction): void => {
+    setLoading(true);
+    transactionAPI
+      .createTransaction({
+        ...transaction,
+        amount:
+          transactionSign === "-"
+            ? 0 - Math.abs(transaction.amount)
+            : Math.abs(transaction.amount),
+      })
+      .then((trans: Transaction) => {
+        setLoading(false);
+        props.onSubmitCallback(trans);
+      });
   };
 
   return (
-    <div>
-      <br />
-      <Box
-        sx={{
-          justifyContent: "center",
-          maxWidth: "715px",
-        }}
-      >
-        <FormControl sx={{ m: 1, width: "51%" }}>
-          <Autocomplete
-            disablePortal
-            multiple
-            limitTags={2}
-            options={tagOptions}
-            value={transaction.tags.map((tag) => getOption(tag))}
-            onChange={tagSelectOnChange}
-            disableClearable
-            isOptionEqualToValue={(option, value) => {
-              return option.value == value.value;
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="standard"
-                label="Tags"
-                placeholder="Tags"
+    <Stack
+      spacing={2}
+      sx={{
+        maxWidth: "515px",
+      }}
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Item>
+          <Controller
+            name="tags"
+            control={control}
+            render={({ field: { onChange } }) => (
+              <Autocomplete
+                disablePortal
+                multiple
+                limitTags={2}
+                options={tags.list}
+                onChange={(_, data) => onChange(data as Tag[])}
+                disableClearable
+                isOptionEqualToValue={(option, value) => {
+                  return option.id === value.id;
+                }}
+                getOptionLabel={(option: Tag) => option.name}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label="Tags"
+                    error={Boolean(errors.tags)}
+                    helperText={(errors.tags as any)?.message}
+                    placeholder="Tags"
+                  />
+                )}
               />
             )}
           />
-        </FormControl>
-        <FormControl
-          sx={{ m: 1, display: "flex", flexDirection: "row", width: "51%" }}
+        </Item>
+
+        <Item>
+          <Controller
+            name="budget"
+            control={control}
+            render={({ field: { onChange } }) => (
+              <Autocomplete
+                disablePortal
+                options={budgets.list}
+                onChange={(_, data) => onChange(data as Budget)}
+                disableClearable
+                isOptionEqualToValue={(option, value) => {
+                  return option.id === value.id;
+                }}
+                getOptionLabel={(option: Budget) => option.name}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label="Budgets"
+                    error={Boolean(errors.budget)}
+                    helperText={(errors.budget as any)?.message}
+                    placeholder="Tags"
+                  />
+                )}
+              />
+            )}
+          />
+        </Item>
+
+        <Item
+          sx={{
+            display: "flex",
+          }}
         >
-          <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
-          <Input
-            id="standard-adornment-amount"
-            value={transaction.amount !== null ? transaction.amount : ""}
-            onChange={handleChange("amount")}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+          <Controller
+            name="amount"
+            control={control}
+            render={({ field }) => (
+              <Input
+                error={Boolean(errors.amount)}
+                aria-describedby="amount-helper-text"
+                startAdornment={
+                  <InputAdornment position="start">$</InputAdornment>
+                }
+                sx={{ width: "100%", marginRight: 1 }}
+                {...field}
+              />
+            )}
           />
           <ToggleButtonGroup
             exclusive
@@ -143,45 +193,58 @@ export default function TransactionForm(props: Props) {
               <Remove />
             </ToggleButton>
           </ToggleButtonGroup>
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "51%" }}>
-          <InputLabel htmlFor="description">Description</InputLabel>
-          <Input
-            id="description"
-            value={transaction.description}
-            onChange={handleChange("description")}
+          <FormHelperText error={Boolean(errors.amount)}>
+            {errors.amount ? errors.amount.message : ""}
+          </FormHelperText>
+        </Item>
+
+        <Item>
+          <Controller
+            name="description"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                variant="standard"
+                label="Description"
+                helperText={(errors.description as any)?.message}
+                placeholder="Description"
+                error={Boolean(errors.description)}
+                sx={{ width: "100%" }}
+                {...field}
+              />
+            )}
           />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "51%" }}>
-          <Autocomplete
-            disablePortal
-            options={budgetOptions}
-            value={getOption(transaction.budget)}
-            onChange={budgetSelectOnChange}
-            disableClearable
-            isOptionEqualToValue={(option, value) =>
-              option.value == value.value
-            }
-            renderInput={(params) => <TextField {...params} label="Budget" />}
+        </Item>
+
+        <Item>
+          <Controller
+            name="date"
+            control={control}
+            render={({ field }) => (
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="Date"
+                  openTo="day"
+                  views={["year", "month", "day"]}
+                  renderInput={(params) => (
+                    <TextField
+                      variant="standard"
+                      sx={{ width: "100%" }}
+                      {...params}
+                    />
+                  )}
+                  {...field}
+                />
+              </LocalizationProvider>
+            )}
           />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "51%" }}>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              disableFuture
-              label="Date"
-              openTo="year"
-              views={["year", "month", "day"]}
-              value={transaction.date}
-              onChange={handleChange("date")}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "51%" }}>
-          <Button>SUBMIT</Button>
-        </FormControl>
-      </Box>
-    </div>
+        </Item>
+        <Item>
+          <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
+            {loading ? <CircularProgress /> : "SUBMIT"}
+          </Button>
+        </Item>
+      </form>
+    </Stack>
   );
 }

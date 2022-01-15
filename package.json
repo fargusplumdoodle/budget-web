@@ -45,7 +45,23 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "plugins": [
+      "unused-imports"
+    ],
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          "vars": "all",
+          "varsIgnorePattern": "^_",
+          "args": "after-used",
+          "argsIgnorePattern": "^_"
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
@@ -66,6 +82,7 @@
     "eslint": "^8.4.1",
     "eslint-config-react-app": "^7.0.0",
     "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "faker": "^5.5.3",
     "jest": "^27.4.5",
     "prettier": "^2.5.1",
