@@ -21,21 +21,29 @@ export async function makeRequest(params: AxiosRequestConfig) {
   });
 }
 
-export async function makePaginatedRequest(
+export async function makePaginatedRequest<T>(
   uri: string,
-  page: number,
-  pageSize: number = 25,
-  overrideParams: AxiosRequestConfig = {}
-): Promise<PaginatedResponse<any>> {
-  const queryParams: PaginatedQueryParams = { page_size: pageSize };
-  if (page !== 0) {
-    queryParams.page = page;
-  }
+  page = 1,
+  pageSize = 25,
+  maxPages = 100,
+  results: T[] = []
+): Promise<T[]> {
+  const queryParams: PaginatedQueryParams = {
+    page_size: pageSize,
+    page: page,
+  };
+
   const r = await makeRequest({
     method: "get",
     url: uri,
     params: queryParams,
-    ...overrideParams,
   });
-  return r.data as PaginatedResponse<any>;
+
+  if (r.data.next) {
+    return await makePaginatedRequest(uri, page + 1, pageSize, maxPages, [
+      ...results,
+      ...(r.data as PaginatedResponse<T>).results,
+    ]);
+  }
+  return [...results, ...(r.data as PaginatedResponse<T>).results];
 }
