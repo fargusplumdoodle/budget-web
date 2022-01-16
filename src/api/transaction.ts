@@ -9,6 +9,9 @@ import {
   deserializeTransaction,
   serializeTransaction,
 } from "../util/serializers";
+import { beginApiCall } from "../store/actions/apiStatusActions";
+import { store } from "../store/configureStore";
+import { updateBudgetSuccess } from "../store/actions/budgetActions";
 
 export async function fetchTransactionPage(
   page: number,
@@ -35,11 +38,23 @@ export async function fetchTransactionPage(
 export async function createTransaction(
   trans: Transaction
 ): Promise<Transaction> {
-  // TOOO: UPDATE BUDGET WITH NEW VALUE SIDE EFFECT
+  store.dispatch(beginApiCall());
+
   const r = await makeRequest({
     method: "post",
     url: "/api/v2/transaction/",
     data: serializeTransaction(trans),
   });
-  return deserializeTransaction(r.data as SerializedTransaction);
+  const newTransaction = deserializeTransaction(
+    r.data as SerializedTransaction
+  );
+
+  store.dispatch(
+    updateBudgetSuccess({
+      ...newTransaction.budget,
+      balance: newTransaction.budget.balance + newTransaction.amount,
+    })
+  );
+
+  return newTransaction;
 }
