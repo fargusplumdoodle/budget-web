@@ -18,6 +18,16 @@ lint:
     - npm install eslint
     - ./scripts/lint.sh
 
+test:
+  image: node
+  stage: qa
+  cache:
+    paths:
+      - ./node_modules/
+  script:
+    - npm install 
+    - npm test
+
 build-prod:
   image: docker:latest
   stage: build
