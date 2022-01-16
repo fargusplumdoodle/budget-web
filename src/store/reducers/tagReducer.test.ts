@@ -1,52 +1,46 @@
-import { store } from "../configureStore";
 import { generateTestTag } from "../../util/generators";
 import { loadTagsSuccess } from "../actions/tagActions";
-import * as lodash from "lodash";
+import tagReducer from "./tagReducer";
+import initialState from "../initialState";
+import { range, orderBy } from "lodash";
+import { TagState } from "../types/stateTypes";
+import { Tag } from "../types/models";
+
+/*
+Asserts that the expected tags form the appropriate tag state data structure
+ */
+function ensureStateIsSetForListOfTags(state: TagState, expectedTags: Tag[]) {
+  expect(state.list).toStrictEqual(orderBy(expectedTags, ["rank"], ["desc"]));
+
+  expectedTags.forEach((tag) => {
+    expect(state.byName[tag.name]).toStrictEqual(tag);
+    expect(state.byId[tag.id]).toStrictEqual(tag);
+  });
+}
 
 describe("Test tag reducer", () => {
   test("that new tags are not added to the state", () => {
-    const tags = lodash.range(10).map(() => generateTestTag());
-    store.dispatch(loadTagsSuccess(tags));
+    // using rank to ensure they appear in the right order
+    const tags = range(10, 0).map((rank) => generateTestTag({ rank: rank }));
+    const tagsState = tagReducer(initialState.tags, loadTagsSuccess(tags));
 
-    expect(store.getState().tags.list).toStrictEqual(tags);
+    ensureStateIsSetForListOfTags(tagsState, tags);
 
-    [...Array(10)].forEach(() => {
-      store.dispatch(loadTagsSuccess(tags));
-    });
-    const newTags = [generateTestTag()];
-    store.dispatch(loadTagsSuccess(newTags));
+    // Adding the same tags to the state should result in the same state
+    const newState = tagReducer(tagsState, loadTagsSuccess(tags));
 
-    expect(store.getState().tags.list).toStrictEqual(tags.concat(newTags));
-  });
-  test("tags are fetchable by id", () => {
-    const tags = lodash.range(10).map(() => generateTestTag());
-
-    store.dispatch(loadTagsSuccess(tags));
-    const state = store.getState();
-
-    tags.forEach((tag) => {
-      expect(state.tags.byId[tag.id]).toStrictEqual(tag);
-    });
-  });
-  test("tags are fetchable by name", () => {
-    const tags = lodash.range(10).map(() => generateTestTag());
-
-    store.dispatch(loadTagsSuccess(tags));
-    const state = store.getState();
-
-    tags.forEach((tag) => {
-      expect(state.tags.byName[tag.name]).toStrictEqual(tag);
-    });
+    expect(newState).toStrictEqual(tagsState);
   });
 
   test("tags are sorted by rank, regardless of input order", () => {
     const first = generateTestTag({ name: "first", rank: 2 });
     const second = generateTestTag({ name: "second", rank: 1 });
 
-    store.dispatch(loadTagsSuccess([second]));
-    store.dispatch(loadTagsSuccess([first]));
-    const state = store.getState();
+    const state = tagReducer(
+      initialState.tags,
+      loadTagsSuccess([second, first])
+    );
 
-    expect(state.tags.list).toStrictEqual([first, second]);
+    expect(state.list).toStrictEqual([first, second]);
   });
 });
