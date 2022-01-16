@@ -38,4 +38,15 @@ describe("Test tag reducer", () => {
       expect(state.tags.byName[tag.name]).toStrictEqual(tag);
     });
   });
+
+  test("tags are sorted by rank, regardless of input order", () => {
+    const first = generateTestTag({ name: "first", rank: 2 });
+    const second = generateTestTag({ name: "second", rank: 1 });
+
+    store.dispatch(loadTagsSuccess([second]));
+    store.dispatch(loadTagsSuccess([first]));
+    const state = store.getState();
+
+    expect(state.tags.list).toStrictEqual([first, second]);
+  });
 });

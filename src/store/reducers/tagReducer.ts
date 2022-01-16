@@ -3,6 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { TagState } from "../types/stateTypes";
 import { authActionTypes, tagActionTypes } from "../actions/actionTypes";
 import { Tag } from "../types/models";
+import { orderBy } from "lodash";
 
 export default function tagReducer(
   state: TagState = initialState.tags,
@@ -13,13 +14,11 @@ export default function tagReducer(
       const tags = [
         ...state.list,
         ...action.payload.filter(
-          (tag: Tag) => !Object.keys(state.byName).includes(tag.name)
+          (tag: Tag) => !state.byName[tag.name] && !state.byId[tag.id]
         ),
       ];
       return {
-        list: tags.sort((a, b) => {
-          return a.rank + b.rank;
-        }),
+        list: orderBy(tags, ["rank"], ["desc"]),
         byName: Object.fromEntries(tags.map((tag) => [tag.name, tag])),
         byId: Object.fromEntries(tags.map((tag) => [tag.id, tag])),
       };
