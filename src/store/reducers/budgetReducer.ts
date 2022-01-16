@@ -1,15 +1,15 @@
 import initialState from "../initialState";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { BudgetState } from "../types/stateTypes";
-import { authActionTypes, budgetActionTypes } from "../actions/actionTypes";
 import { Budget } from "../types/models";
+import { CLEAR_AUTH_TOKEN, LOAD_BUDGETS_SUCCESS } from "../actions/actionTypes";
 
 export default function budgetReducer(
   state: BudgetState = initialState.budgets,
   action: PayloadAction<Budget[]>
 ): BudgetState {
   switch (action.type) {
-    case budgetActionTypes.LOAD_BUDGETS_SUCCESS:
+    case LOAD_BUDGETS_SUCCESS:
       const budgets = [...action.payload];
       return {
         list: budgets,
@@ -18,7 +18,7 @@ export default function budgetReducer(
           budgets.map((budget) => [budget.name, budget])
         ),
       };
-    case authActionTypes.CLEAR_AUTH_TOKEN:
+    case CLEAR_AUTH_TOKEN:
       return { ...initialState.budgets };
     default:
       return state;

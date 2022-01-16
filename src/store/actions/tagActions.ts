@@ -1,12 +1,12 @@
 import { Tag } from "../types/models";
-import { tagActionTypes } from "./actionTypes";
+import { LOAD_TAGS_SUCCESS } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
 import { apiCallError, beginApiCall } from "./apiStatusActions";
 import * as tagAPI from "../../api/tag";
 
 export function loadTagsSuccess(tags: Tag[]) {
   return {
-    type: tagActionTypes.LOAD_TAGS_SUCCESS,
+    type: LOAD_TAGS_SUCCESS,
     payload: tags,
   };
 }

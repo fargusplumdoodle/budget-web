@@ -1,4 +1,4 @@
-import { authActionTypes } from "./actionTypes";
+import { SET_AUTH_TOKEN_SUCCESS, CLEAR_AUTH_TOKEN } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
 import { apiCallError, beginApiCall } from "./apiStatusActions";
 import * as authAPI from "../../api/auth";
@@ -7,13 +7,13 @@ import axios from "axios";
 
 export function setAuthTokenSuccess(authToken: AuthState) {
   return {
-    type: authActionTypes.SET_AUTH_TOKEN_SUCCESS,
+    type: SET_AUTH_TOKEN_SUCCESS,
     payload: authToken,
   };
 }
 export function clearAuthToken() {
   return {
-    type: authActionTypes.CLEAR_AUTH_TOKEN,
+    type: CLEAR_AUTH_TOKEN,
   };
 }
 export function logOut() {

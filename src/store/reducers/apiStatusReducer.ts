@@ -1,7 +1,7 @@
 import initialState from "../initialState";
-import { apiStatusActionTypes } from "../actions/actionTypes";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { ApiStatusState } from "../types/stateTypes";
+import { API_CALL_ERROR, BEGIN_API_CALL } from "../actions/actionTypes";
 
 const actionTypeEndsInSuccess = (type: string): boolean => {
   const success = "_SUCCESS";
@@ -12,10 +12,10 @@ export default function apiStatusReducer(
   state = initialState.apiStatus,
   action: PayloadAction
 ): ApiStatusState {
-  if (action.type === apiStatusActionTypes.BEGIN_API_CALL) {
+  if (action.type === BEGIN_API_CALL) {
     return { count: state.count + 1 };
   } else if (
-    action.type === apiStatusActionTypes.API_CALL_ERROR ||
+    action.type === API_CALL_ERROR ||
     actionTypeEndsInSuccess(action.type)
   ) {
     const newCount = state.count <= 0 ? 0 : state.count - 1;
