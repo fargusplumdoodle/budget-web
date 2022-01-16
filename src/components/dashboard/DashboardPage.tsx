@@ -18,7 +18,7 @@ interface OwnProps extends ProviderContext {
 type Props = OwnProps;
 
 const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
-  if (budgets.length == 0) {
+  if (budgets.length === 0) {
     return <></>;
   }
   return (

@@ -9,7 +9,7 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-const BudgetHistoryGraph: FunctionComponent<Props> = (props) => {
+const BudgetHistoryGraph: FunctionComponent<Props> = () => {
   const data = {
     options: {
       chart: {

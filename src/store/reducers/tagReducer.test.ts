@@ -5,7 +5,7 @@ import * as lodash from "lodash";
 
 describe("Test tag reducer", () => {
   test("that new tags are not added to the state", () => {
-    const tags = lodash.range(10).map((id) => generateTestTag());
+    const tags = lodash.range(10).map(() => generateTestTag());
     store.dispatch(loadTagsSuccess(tags));
 
     expect(store.getState().tags.list).toStrictEqual(tags);

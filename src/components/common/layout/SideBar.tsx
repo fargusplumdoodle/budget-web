@@ -3,11 +3,7 @@ import { FunctionComponent } from "react";
 import { List, ListItem, ListItemButton, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-interface OwnProps {}
-
-type Props = OwnProps;
-
-const SideBar: FunctionComponent<Props> = (props) => {
+const SideBar: FunctionComponent<{}> = () => {
   const navigate = useNavigate();
   const sideBarLinks = [
     { text: "Add Transaction", route: "/transactions/add" },

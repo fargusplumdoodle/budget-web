@@ -25,7 +25,7 @@ const initialState: State = {
   loading: true,
 };
 
-const TransactionTableContainer: FunctionComponent<Props> = (props) => {
+const TransactionTableContainer: FunctionComponent<Props> = () => {
   const [state, setState] = useState(initialState);
 
   const getPage = (

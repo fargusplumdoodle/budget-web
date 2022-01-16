@@ -21,19 +21,23 @@ const InitializeData: FunctionComponent<Props> = (props) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-  const expectedData: ExpectedData[] = [
-    {
-      fetchRequired: props.fetchBudgetsRequired,
-      action: fetchBudgets,
-      name: "Budgets",
-    },
-    { fetchRequired: props.fetchTagsRequired, action: fetchTags, name: "Tags" },
-  ];
-
   useEffect(() => {
     if (!props.authenticated || loading) {
       return;
     }
+    const expectedData: ExpectedData[] = [
+      {
+        fetchRequired: props.fetchBudgetsRequired,
+        action: fetchBudgets,
+        name: "Budgets",
+      },
+      {
+        fetchRequired: props.fetchTagsRequired,
+        action: fetchTags,
+        name: "Tags",
+      },
+    ];
+
     setLoading(true);
     expectedData.forEach(async ({ fetchRequired, action, name }) => {
       if (fetchRequired) {
@@ -41,12 +45,12 @@ const InitializeData: FunctionComponent<Props> = (props) => {
         props.enqueueSnackbar(`Fetching ${name}`);
       }
     });
-  }, [props.authenticated, expectedData, loading]);
+  }, [loading, dispatch, props]);
 
   return <></>;
 };
 
-function mapStateToProps(state: RootState, ownProps: Object) {
+function mapStateToProps(state: RootState) {
   return {
     authenticated: state.auth.authenticated,
     fetchBudgetsRequired: state.budgets.list.length === 0,

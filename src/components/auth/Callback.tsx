@@ -29,10 +29,7 @@ const Callback: FunctionComponent<Props> = ({ requestAuthToken }) => {
   return <h1>Redirecting</h1>;
 };
 
-function mapStateToProps(state: RootState, ownProps: Object) {
-  return {};
-}
 const mapDispatchToProps = {
   requestAuthToken,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Callback);
+export default connect(() => {}, mapDispatchToProps)(Callback);
