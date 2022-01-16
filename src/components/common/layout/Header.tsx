@@ -1,9 +1,9 @@
 import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 import * as React from "react";
-import { FunctionComponent, ReactElement, useEffect } from "react";
+import { FunctionComponent, ReactElement } from "react";
 import settings from "../../../app/settings";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, store } from "../../../store/configureStore";
+import { RootState } from "../../../store/configureStore";
 import { logOut } from "../../../store/actions/authActions";
 import InitializeData from "../../../app/InitializeData";
 
@@ -16,7 +16,6 @@ const Header: FunctionComponent<Props> = () => {
   const authenticated = useSelector(
     (state: RootState) => state.auth.authenticated
   );
-  console.log("authenticated:", authenticated);
   function getAuthButton(authenticated: boolean): ReactElement {
     if (authenticated) {
       return (

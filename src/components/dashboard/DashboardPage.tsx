@@ -9,8 +9,9 @@ import TransactionForm from "../common/forms/transaction/TransactionForm";
 import { connect } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { Budget } from "../../store/types/models";
+import { ProviderContext, withSnackbar } from "notistack";
 
-interface OwnProps {
+interface OwnProps extends ProviderContext {
   budgets: Budget[];
 }
 
@@ -65,4 +66,4 @@ const mapStateToProps = (state: RootState) => ({
   budgets: state.budgets.list,
 });
 
-export default connect(mapStateToProps)(DashboardPage);
+export default connect(mapStateToProps)(withSnackbar(DashboardPage));

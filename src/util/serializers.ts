@@ -1,5 +1,9 @@
-import { Tag, Transaction } from "../store/types/models";
-import { SerializedTag, SerializedTransaction } from "../api/types";
+import { Budget, Tag, Transaction } from "../store/types/models";
+import {
+  SerializedBudget,
+  SerializedTag,
+  SerializedTransaction,
+} from "../api/types";
 import { store } from "../store/configureStore";
 
 export const serializeTag = (tag: Tag): SerializedTag => {
@@ -40,5 +44,11 @@ export function deserializeTransaction(
     date: new Date(trans.date),
     budget: state.budgets.byId[trans.budget],
     tags: trans.tags.map((tag) => deserializeTag(tag)),
+  };
+}
+
+export function serializeBudget(budget: Budget): SerializedBudget {
+  return {
+    ...budget,
   };
 }
