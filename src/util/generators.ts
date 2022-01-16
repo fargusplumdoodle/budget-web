@@ -39,10 +39,11 @@ export function generateTestTransaction(args: Object = {}): Transaction {
 }
 
 export function generateTestTag(args: Object = {}): Tag {
+  const i = getRandomInt(10000);
   return {
-    id: getRandomInt(100),
-    name: faker.lorem.word(),
-    rank: getRandomInt(100),
+    id: i,
+    name: faker.lorem.word() + i.toString(),
+    rank: i,
     ...args,
   };
 }

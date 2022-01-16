@@ -1,7 +1,7 @@
 import initialState from "../initialState";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { TagState } from "../types/stateTypes";
-import { tagActionTypes } from "../actions/actionTypes";
+import { authActionTypes, tagActionTypes } from "../actions/actionTypes";
 import { Tag } from "../types/models";
 
 export default function tagReducer(
@@ -23,6 +23,8 @@ export default function tagReducer(
         byName: Object.fromEntries(tags.map((tag) => [tag.name, tag])),
         byId: Object.fromEntries(tags.map((tag) => [tag.id, tag])),
       };
+    case authActionTypes.CLEAR_AUTH_TOKEN:
+      return { ...initialState.tags };
     default:
       return state;
   }

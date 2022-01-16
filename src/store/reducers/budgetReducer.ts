@@ -1,7 +1,7 @@
 import initialState from "../initialState";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { BudgetState } from "../types/stateTypes";
-import { budgetActionTypes } from "../actions/actionTypes";
+import { authActionTypes, budgetActionTypes } from "../actions/actionTypes";
 import { Budget } from "../types/models";
 
 export default function budgetReducer(
@@ -18,6 +18,8 @@ export default function budgetReducer(
           budgets.map((budget) => [budget.name, budget])
         ),
       };
+    case authActionTypes.CLEAR_AUTH_TOKEN:
+      return { ...initialState.budgets };
     default:
       return state;
   }

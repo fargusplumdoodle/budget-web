@@ -21,6 +21,8 @@ lint:
 test:
   image: node
   stage: qa
+  variables:
+    NODE_ENV: development
   cache:
     paths:
       - ./node_modules/
