@@ -1,15 +1,17 @@
 import * as React from "react";
-import { FunctionComponent, useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState, store } from "../store/configureStore";
+import { FunctionComponent, useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../store/configureStore";
 import { fetchBudgets } from "../store/actions/budgetActions";
 import { fetchTags } from "../store/actions/tagActions";
+import { ProviderContext, withSnackbar } from "notistack";
 
 interface ExpectedData {
   fetchRequired: boolean;
   action: () => (dispatch: AppDispatch) => void;
+  name: string;
 }
-interface Props {
+interface Props extends ProviderContext {
   fetchBudgetsRequired: boolean;
   fetchTagsRequired: boolean;
   authenticated: boolean;
@@ -17,22 +19,29 @@ interface Props {
 
 const InitializeData: FunctionComponent<Props> = (props) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const expectedData: ExpectedData[] = [
-    { fetchRequired: props.fetchBudgetsRequired, action: fetchBudgets },
-    { fetchRequired: props.fetchTagsRequired, action: fetchTags },
+    {
+      fetchRequired: props.fetchBudgetsRequired,
+      action: fetchBudgets,
+      name: "Budgets",
+    },
+    { fetchRequired: props.fetchTagsRequired, action: fetchTags, name: "Tags" },
   ];
 
   useEffect(() => {
-    if (!props.authenticated) {
+    if (!props.authenticated || loading) {
       return;
     }
-    expectedData.forEach(async ({ fetchRequired, action }) => {
+    setLoading(true);
+    expectedData.forEach(async ({ fetchRequired, action, name }) => {
       if (fetchRequired) {
         await dispatch(action());
+        props.enqueueSnackbar(`Fetching ${name}`);
       }
     });
-  }, [props.authenticated, expectedData]);
+  }, [props.authenticated, expectedData, loading]);
 
   return <></>;
 };
@@ -45,4 +54,4 @@ function mapStateToProps(state: RootState, ownProps: Object) {
   };
 }
 
-export default connect(mapStateToProps)(InitializeData);
+export default connect(mapStateToProps)(withSnackbar(InitializeData));
