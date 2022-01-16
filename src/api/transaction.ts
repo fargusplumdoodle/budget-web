@@ -26,7 +26,6 @@ export async function fetchTransactionPage(
   });
 
   const transactions = r.data.results.map((trans: any) => {
-    // TODO: DESERIALIZE
     return deserializeTransaction(trans);
   });
 
@@ -42,6 +41,5 @@ export async function createTransaction(
     url: "/api/v2/transaction/",
     data: serializeTransaction(trans),
   });
-  console.log("made", deserializeTransaction(r.data as SerializedTransaction));
   return deserializeTransaction(r.data as SerializedTransaction);
 }

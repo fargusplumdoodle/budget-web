@@ -28,3 +28,8 @@ export interface SerializedTag extends SerializedModel {
   rank?: number;
   name: string;
 }
+
+export interface SerializedBudget extends SerializedModel {
+  name: string;
+  percentage: number;
+}
