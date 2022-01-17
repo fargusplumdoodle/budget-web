@@ -61,3 +61,11 @@ export function generateTransaction(args: Object = {}): Transaction {
     ...args,
   };
 }
+export function generateTag(args: Object = {}): Tag {
+  return {
+    id: null,
+    name: "",
+    rank: null,
+    ...args,
+  };
+}

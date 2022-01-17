@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { Budget } from "../../store/types/models";
 import { ProviderContext, withSnackbar } from "notistack";
+import TagForm from "../common/forms/TagForm";
 
 interface OwnProps extends ProviderContext {
   budgets: Budget[];
@@ -53,7 +54,7 @@ const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
               <BudgetHistoryGraph budgets={budgets} />
             </DashboardTile>
             <DashboardTile small={true}>
-              <h2>Information! Wow</h2>
+              <TagForm />
             </DashboardTile>
           </Stack>
         </Grid>

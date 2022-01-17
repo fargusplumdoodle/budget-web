@@ -1,4 +1,6 @@
 import * as yup from "yup";
+import { Box, styled } from "@mui/material";
+import { store } from "../store/configureStore";
 
 export interface Option<T> {
   label: String;
@@ -12,8 +14,12 @@ export const getOption = <T extends hasName>(obj: T): Option<T> => {
   return { label: obj.name, value: obj };
 };
 
+export const FormItem = styled(Box)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+}));
+
 export const budgetSchema = yup.object({
-  id: yup.number().positive().integer(),
   name: yup.string().max(20).required(),
   percentage: yup.number().positive().integer(),
 });
@@ -27,3 +33,14 @@ export const transactionSchema = yup
     budget: yup.object().required(),
   })
   .required();
+
+export const tagSchema = yup.object({
+  name: yup
+    .string()
+    .max(30)
+    .test("name is unique", "Tag Name must be unique", (value) => {
+      const state = store.getState();
+      return !Boolean(state.tags.byName[value]);
+    })
+    .required(),
+});

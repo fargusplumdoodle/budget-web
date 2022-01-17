@@ -3,7 +3,7 @@ interface Model {
 }
 export interface Tag extends Model {
   name: string;
-  rank: number;
+  rank: number | null;
 }
 
 export interface Budget extends Model {

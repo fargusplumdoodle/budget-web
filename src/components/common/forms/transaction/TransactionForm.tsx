@@ -9,15 +9,13 @@ import {
   FormHelperText,
   CircularProgress,
   ToggleButtonGroup,
-  styled,
-  Box,
 } from "@mui/material";
 import * as React from "react";
 import { Budget, Tag, Transaction } from "../../../../store/types/models";
 import { generateTransaction } from "../../../../util/generators";
 import { RootState } from "../../../../store/configureStore";
 import { useSelector } from "react-redux";
-import { transactionSchema } from "../../../../util/form";
+import { FormItem, transactionSchema } from "../../../../util/form";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Add, Remove } from "@mui/icons-material";
@@ -37,11 +35,6 @@ interface Props extends ProviderContext {
 
 type Sign = "+" | "-";
 
-const Item = styled(Box)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-}));
-
 const TransactionForm = (props: Props) => {
   const isEdit = Boolean(props["transaction"]);
   const budgets = useSelector((state: RootState) => state.budgets);
@@ -53,6 +46,7 @@ const TransactionForm = (props: Props) => {
   const defaultValues = isEdit
     ? props.transaction
     : generateTransaction({
+        id: null,
         date: new Date(),
         description: "",
         amount: 0,
@@ -79,16 +73,19 @@ const TransactionForm = (props: Props) => {
     setTransactionSign(sign);
   };
 
-  const onSubmit = (transaction: Transaction): void => {
+  const onSubmit = (data: Transaction): void => {
     setLoading(true);
+
+    const transaction: Transaction = {
+      ...data,
+      amount:
+        transactionSign === "-"
+          ? 0 - Math.abs(data.amount)
+          : Math.abs(data.amount),
+    };
+
     transactionAPI
-      .createTransaction({
-        ...transaction,
-        amount:
-          transactionSign === "-"
-            ? 0 - Math.abs(transaction.amount)
-            : Math.abs(transaction.amount),
-      })
+      .createTransaction(transaction)
       .then((trans: Transaction) => {
         setLoading(false);
         props.enqueueSnackbar("Successfully added transaction", {
@@ -111,7 +108,7 @@ const TransactionForm = (props: Props) => {
         }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Item>
+          <FormItem>
             <Controller
               name="tags"
               control={control}
@@ -140,9 +137,9 @@ const TransactionForm = (props: Props) => {
                 />
               )}
             />
-          </Item>
+          </FormItem>
 
-          <Item>
+          <FormItem>
             <Controller
               name="budget"
               control={control}
@@ -169,9 +166,9 @@ const TransactionForm = (props: Props) => {
                 />
               )}
             />
-          </Item>
+          </FormItem>
 
-          <Item
+          <FormItem
             sx={{
               display: "flex",
             }}
@@ -205,14 +202,14 @@ const TransactionForm = (props: Props) => {
                 <Remove />
               </ToggleButton>
             </ToggleButtonGroup>
-          </Item>
-          <Item>
+          </FormItem>
+          <FormItem>
             <FormHelperText error={Boolean(errors.amount)}>
               {errors.amount ? errors.amount.message : ""}
             </FormHelperText>
-          </Item>
+          </FormItem>
 
-          <Item>
+          <FormItem>
             <Controller
               name="description"
               control={control}
@@ -228,9 +225,9 @@ const TransactionForm = (props: Props) => {
                 />
               )}
             />
-          </Item>
+          </FormItem>
 
-          <Item>
+          <FormItem>
             <Controller
               name="date"
               control={control}
@@ -252,12 +249,12 @@ const TransactionForm = (props: Props) => {
                 </LocalizationProvider>
               )}
             />
-          </Item>
-          <Item>
+          </FormItem>
+          <FormItem>
             <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
               {loading ? <CircularProgress /> : "SUBMIT"}
             </Button>
-          </Item>
+          </FormItem>
         </form>
       </Stack>
 
