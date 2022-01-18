@@ -2,13 +2,13 @@ import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormItem, tagSchema } from "../../../util/form";
-import { generateTag } from "../../../util/generators";
-import { Tag } from "../../../store/types/models";
+import { FormItem, tagSchema } from "../../../../util/form";
+import { generateTag } from "../../../../util/generators";
+import { Tag } from "../../../../store/types/models";
 import { Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { ProviderContext, withSnackbar } from "notistack";
-import { createTag } from "../../../api/tag";
-import ApiErrorDialog, { ApiError } from "../ApiErrorDialog";
+import { createTag } from "../../../../api/tag";
+import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 
 //TODO: UPDATE EXISTING TAG
 
@@ -18,7 +18,7 @@ interface Props extends ProviderContext {
 }
 
 const TagForm: FunctionComponent<Props> = (props) => {
-  const isEdit = Boolean(props["tag"]);
+  const isEdit = Boolean(props["tag"]) && props.tag.id;
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<ApiError>(null);
 

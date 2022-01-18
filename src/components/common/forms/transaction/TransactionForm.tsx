@@ -1,5 +1,4 @@
 import {
-  Autocomplete,
   Input,
   Stack,
   InputAdornment,
@@ -25,6 +24,8 @@ import * as transactionAPI from "../../../../api/transaction";
 import { ProviderContext, withSnackbar } from "notistack";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
+import TagFormDialog from "../tag/TagFormDialog";
+import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
 
 // TODO: UPDATE EXISTING TRANSACTION
 
@@ -36,12 +37,13 @@ interface Props extends ProviderContext {
 type Sign = "+" | "-";
 
 const TransactionForm = (props: Props) => {
-  const isEdit = Boolean(props["transaction"]);
+  const isEdit = Boolean(props["transaction"]) && props.transaction.id;
   const budgets = useSelector((state: RootState) => state.budgets);
   const tags = useSelector((state: RootState) => state.tags);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<ApiError>(null);
   const [transactionSign, setTransactionSign]: [Sign, any] = useState("-");
+  const [newTagDialogOpen, setNewTagDialogOpen] = useState(false);
 
   const defaultValues = isEdit
     ? props.transaction
@@ -57,6 +59,8 @@ const TransactionForm = (props: Props) => {
   const {
     control,
     handleSubmit,
+    getValues,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(transactionSchema),
@@ -108,61 +112,66 @@ const TransactionForm = (props: Props) => {
         }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormItem>
-            <Controller
+          <FormItem
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <ControlledAutocomplete<Tag, Transaction>
               name="tags"
               control={control}
-              render={({ field: { onChange } }) => (
-                <Autocomplete
-                  disablePortal
-                  multiple
-                  limitTags={2}
-                  options={tags.list}
-                  onChange={(_, data) => onChange(data as Tag[])}
-                  disableClearable
-                  isOptionEqualToValue={(option, value) => {
-                    return option.id === value.id;
-                  }}
-                  getOptionLabel={(option: Tag) => option.name}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="standard"
-                      label="Tags"
-                      error={Boolean(errors.tags)}
-                      helperText={(errors.tags as any)?.message}
-                      placeholder="Tags"
-                    />
-                  )}
+              getValues={getValues}
+              disablePortal
+              multiple
+              limitTags={2}
+              options={tags.list}
+              disableClearable
+              isOptionEqualToValue={(option, value) => {
+                return option.id === value.id;
+              }}
+              sx={{ width: "100%" }}
+              getOptionLabel={(option: Tag) => option.name}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  label="Tags"
+                  error={Boolean(errors.tags)}
+                  helperText={(errors.tags as any)?.message}
+                  placeholder="Tags"
                 />
               )}
             />
+            <Button
+              onClick={() => {
+                setNewTagDialogOpen(true);
+              }}
+            >
+              <Add />
+            </Button>
           </FormItem>
 
           <FormItem>
-            <Controller
+            <ControlledAutocomplete<Budget, Transaction>
               name="budget"
               control={control}
+              getValues={getValues}
               defaultValue={budgets.byName["food"]}
-              render={({ field: { onChange } }) => (
-                <Autocomplete
-                  disablePortal
-                  options={budgets.list}
-                  onChange={(_, data) => onChange(data as Budget)}
-                  disableClearable
-                  isOptionEqualToValue={(option, value) => {
-                    return option.id === value.id;
-                  }}
-                  getOptionLabel={(option: Budget) => option.name}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="standard"
-                      label="Budgets"
-                      error={Boolean(errors.budget)}
-                      helperText={(errors.budget as any)?.message}
-                    />
-                  )}
+              disablePortal
+              options={budgets.list}
+              disableClearable
+              isOptionEqualToValue={(option, value) => {
+                return option.id === value.id;
+              }}
+              getOptionLabel={(option: Budget) => option.name}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  label="Budget"
+                  error={Boolean(errors.budget)}
+                  helperText={(errors.budget as any)?.message}
                 />
               )}
             />
@@ -262,6 +271,16 @@ const TransactionForm = (props: Props) => {
         error={apiError}
         onClose={() => {
           setApiError(null);
+        }}
+      />
+
+      <TagFormDialog
+        open={newTagDialogOpen}
+        onClose={() => {
+          setNewTagDialogOpen(false);
+        }}
+        onSubmitCallback={(tag: Tag) => {
+          setValue("tags", [...getValues("tags"), tag]);
         }}
       />
     </>

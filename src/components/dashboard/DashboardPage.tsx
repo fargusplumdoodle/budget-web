@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { Budget } from "../../store/types/models";
 import { ProviderContext, withSnackbar } from "notistack";
-import TagForm from "../common/forms/TagForm";
+import TagForm from "../common/forms/tag/TagForm";
 
 interface OwnProps extends ProviderContext {
   budgets: Budget[];
