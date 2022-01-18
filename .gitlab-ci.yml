@@ -55,6 +55,19 @@ build-dev:
     - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:latest . 
     - docker image push --all-tags "$IMAGE"
 
+release:
+  stage: deploy
+  image: node
+  before_script:
+    - npm install @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/git @semantic-release/npm
+  cache:
+    paths:
+     - ./node_modules/
+  script:
+    - npx semantic-release
+  only:
+    - main
+
 deploy-staging:
   stage: deploy
   before_script: []
