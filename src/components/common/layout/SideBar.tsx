@@ -1,22 +1,9 @@
 import * as React from "react";
 import { FunctionComponent } from "react";
-import {
-  Box,
-  Stack,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { List, ListItem, ListItemButton, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { AddCircle } from "@mui/icons-material";
 
-interface OwnProps {}
-
-type Props = OwnProps;
-
-const SideBar: FunctionComponent<Props> = (props) => {
+const SideBar: FunctionComponent<{}> = () => {
   const navigate = useNavigate();
   const sideBarLinks = [
     { text: "Add Transaction", route: "/transactions/add" },

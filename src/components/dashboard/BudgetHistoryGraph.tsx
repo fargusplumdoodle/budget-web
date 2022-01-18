@@ -9,7 +9,7 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-const BudgetHistoryGraph: FunctionComponent<Props> = (props) => {
+const BudgetHistoryGraph: FunctionComponent<Props> = () => {
   const data = {
     options: {
       chart: {
@@ -30,9 +30,6 @@ const BudgetHistoryGraph: FunctionComponent<Props> = (props) => {
       },
     ],
   };
-  const [startDate, setStartDate] = React.useState<Date | null>(null);
-  const [endDate, setEndDate] = React.useState<Date | null>(null);
-
   return (
     <>
       <Chart

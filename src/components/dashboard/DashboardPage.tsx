@@ -1,31 +1,27 @@
 import * as React from "react";
-import { FunctionComponent, useEffect } from "react";
-import { generateTestBudget } from "../../util/generators";
+import { FunctionComponent } from "react";
 import BudgetTable from "./BudgetTable";
-import { Button, Grid, Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import DashboardTile from "./DashboardTile";
 import BudgetHistoryGraph from "./BudgetHistoryGraph";
 import StatusOverview from "./StatusOverview";
 import TransactionForm from "../common/forms/transaction/TransactionForm";
-import { connect, shallowEqual, useDispatch, useSelector } from "react-redux";
-import { fetchBudgets } from "../../store/actions/budgetActions";
+import { connect } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { Budget } from "../../store/types/models";
+import { ProviderContext, withSnackbar } from "notistack";
+import TagForm from "../common/forms/tag/TagForm";
 
-interface OwnProps {
+interface OwnProps extends ProviderContext {
   budgets: Budget[];
 }
 
 type Props = OwnProps;
 
 const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (budgets.length == 0) {
-      dispatch(fetchBudgets());
-    }
-  }, []);
-
+  if (budgets.length === 0) {
+    return <></>;
+  }
   return (
     <>
       <h1>Dashboard</h1>
@@ -43,7 +39,6 @@ const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
               description="Add a new Transaction"
             >
               <TransactionForm />
-              <p>ey p</p>
             </DashboardTile>
           </Stack>
         </Grid>
@@ -59,16 +54,7 @@ const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
               <BudgetHistoryGraph budgets={budgets} />
             </DashboardTile>
             <DashboardTile small={true}>
-              <h2>Information! Wow</h2>
-            </DashboardTile>
-            <DashboardTile small={true}>
-              <Button
-                onClick={() => {
-                  dispatch(fetchBudgets());
-                }}
-              >
-                Request a thing
-              </Button>
+              <TagForm />
             </DashboardTile>
           </Stack>
         </Grid>
@@ -81,4 +67,4 @@ const mapStateToProps = (state: RootState) => ({
   budgets: state.budgets.list,
 });
 
-export default connect(mapStateToProps)(DashboardPage);
+export default connect(mapStateToProps)(withSnackbar(DashboardPage));

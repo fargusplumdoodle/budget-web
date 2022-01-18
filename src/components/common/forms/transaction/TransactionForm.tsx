@@ -1,148 +1,290 @@
 import {
-  Autocomplete,
-  Box,
-  FormControl,
   Input,
+  Stack,
   InputAdornment,
-  InputLabel,
   TextField,
+  Button,
+  ToggleButton,
+  FormHelperText,
+  CircularProgress,
   ToggleButtonGroup,
 } from "@mui/material";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import * as React from "react";
-import { Transaction, Budget } from "../../../../store/types/models";
-import {
-  bulkGenerator,
-  generateTestBudget,
-  generateTestTransaction,
-  generateTransaction,
-} from "../../../../util/generators";
-import { SyntheticEvent } from "react";
-import { DatePicker, LocalizationProvider, ToggleButton } from "@mui/lab";
+import { Budget, Tag, Transaction } from "../../../../store/types/models";
+import { generateTransaction } from "../../../../util/generators";
+import { RootState } from "../../../../store/configureStore";
+import { useSelector } from "react-redux";
+import { FormItem, transactionSchema } from "../../../../util/form";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Add, Remove } from "@mui/icons-material";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import * as transactionAPI from "../../../../api/transaction";
+import { ProviderContext, withSnackbar } from "notistack";
+import { useState } from "react";
+import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
+import TagFormDialog from "../tag/TagFormDialog";
+import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
 
-export interface Props {
+// TODO: UPDATE EXISTING TRANSACTION
+
+interface Props extends ProviderContext {
   transaction?: Transaction;
+  onSubmitCallback?: (trans: Transaction) => void;
 }
 
-interface BudgetOption {
-  label: String;
-  value: Budget;
-}
+type Sign = "+" | "-";
 
-export default function TransactionForm(props: Props) {
-  const [transaction, setTransaction] = React.useState(
-    props.transaction || generateTransaction({ date: new Date() })
-  );
-  const budgets = bulkGenerator(generateTestBudget, 12).map((budget) => {
-    return { label: budget.name, value: budget };
+const TransactionForm = (props: Props) => {
+  const isEdit = Boolean(props["transaction"]) && props.transaction.id;
+  const budgets = useSelector((state: RootState) => state.budgets);
+  const tags = useSelector((state: RootState) => state.tags);
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<ApiError>(null);
+  const [transactionSign, setTransactionSign]: [Sign, any] = useState("-");
+  const [newTagDialogOpen, setNewTagDialogOpen] = useState(false);
+
+  const defaultValues = isEdit
+    ? props.transaction
+    : generateTransaction({
+        id: null,
+        date: new Date(),
+        description: "",
+        amount: 0,
+        budget: budgets.byName["food"],
+        tags: [],
+      });
+
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(transactionSchema),
+    defaultValues: defaultValues,
   });
-  const existingTransactions = bulkGenerator(generateTestTransaction, 100);
 
-  const handleChange =
-    (prop: keyof Transaction) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setTransaction({ ...transaction, [prop]: event.target.value });
+  const handleSignChange = (
+    event: React.MouseEvent<HTMLInputElement>,
+    sign: Sign | null
+  ) => {
+    if (!sign) {
+      return;
+    }
+    setTransactionSign(sign);
+  };
+
+  const onSubmit = (data: Transaction): void => {
+    setLoading(true);
+
+    const transaction: Transaction = {
+      ...data,
+      amount:
+        transactionSign === "-"
+          ? 0 - Math.abs(data.amount)
+          : Math.abs(data.amount),
     };
 
-  const budgetSelectOnChange = (
-    event: SyntheticEvent,
-    newValue: BudgetOption
-  ) => {
-    setTransaction({
-      ...transaction,
-      budget: newValue.value,
-      budget_id: newValue.value.id,
-    });
+    transactionAPI
+      .createTransaction(transaction)
+      .then((trans: Transaction) => {
+        setLoading(false);
+        props.enqueueSnackbar("Successfully added transaction", {
+          variant: "success",
+        });
+        props.onSubmitCallback(trans);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setApiError(err);
+      });
   };
 
-  const handlePositiveNegativeChange = (
-    event: React.MouseEvent<HTMLInputElement>
-  ) => {
-    console.log(event);
-    // if (event.target === "+") {
-    //   setTransaction({ ...transaction, amount: Math.abs(transaction.amount) });
-    // } else {
-    //   setTransaction({
-    //     ...transaction,
-    //     amount: 0 - Math.abs(transaction.amount),
-    //   });
-    // }
-  };
-
-  /// TMP
-  return <p>not implemented</p>;
   return (
-    <div>
-      <br />
-      <Box
+    <>
+      <Stack
+        spacing={2}
         sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          maxWidth: "715px",
+          maxWidth: "515px",
         }}
       >
-        <FormControl
-          sx={{ m: 1, display: "flex", flexDirection: "row", width: "47%" }}
-        >
-          <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
-          <Input
-            id="standard-adornment-amount"
-            value={transaction.amount}
-            onChange={handleChange("amount")}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-          />
-          <ToggleButtonGroup
-            exclusive
-            onChange={handlePositiveNegativeChange}
-            aria-label="text alignment"
-            sx={{ paddingLeft: 1 }}
-          >
-            <ToggleButton value="+" aria-label="left aligned">
-              <Add />
-            </ToggleButton>
-            <ToggleButton value="-" aria-label="left aligned">
-              <Remove />
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "47%" }}>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              disableFuture
-              label="Date"
-              openTo="year"
-              views={["year", "month", "day"]}
-              value={transaction.date}
-              onChange={handleChange("date")}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-        </FormControl>
-      </Box>
-      <FormControl sx={{ m: 1, width: "47%" }}>
-        <InputLabel htmlFor="description">Description</InputLabel>
-        <Input
-          id="description"
-          value={transaction.description}
-          onChange={handleChange("description")}
-        />
-      </FormControl>
-      <FormControl sx={{ m: 1, width: "47%" }}>
-        <FormControl sx={{ m: 1, width: "47%" }}>
-          <Autocomplete
-            disablePortal
-            options={budgets}
-            value={{
-              label: transaction.budget.name,
-              value: transaction.budget,
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormItem
+            sx={{
+              display: "flex",
+              flexDirection: "row",
             }}
-            onChange={budgetSelectOnChange}
-            renderInput={(params) => <TextField {...params} label="Budget" />}
-          />
-        </FormControl>
-      </FormControl>
-    </div>
+          >
+            <ControlledAutocomplete<Tag, Transaction>
+              name="tags"
+              control={control}
+              getValues={getValues}
+              disablePortal
+              multiple
+              limitTags={2}
+              options={tags.list}
+              disableClearable
+              isOptionEqualToValue={(option, value) => {
+                return option.id === value.id;
+              }}
+              sx={{ width: "100%" }}
+              getOptionLabel={(option: Tag) => option.name}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  label="Tags"
+                  error={Boolean(errors.tags)}
+                  helperText={(errors.tags as any)?.message}
+                  placeholder="Tags"
+                />
+              )}
+            />
+            <Button
+              onClick={() => {
+                setNewTagDialogOpen(true);
+              }}
+            >
+              <Add />
+            </Button>
+          </FormItem>
+
+          <FormItem>
+            <ControlledAutocomplete<Budget, Transaction>
+              name="budget"
+              control={control}
+              getValues={getValues}
+              defaultValue={budgets.byName["food"]}
+              disablePortal
+              options={budgets.list}
+              disableClearable
+              isOptionEqualToValue={(option, value) => {
+                return option.id === value.id;
+              }}
+              getOptionLabel={(option: Budget) => option.name}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  label="Budget"
+                  error={Boolean(errors.budget)}
+                  helperText={(errors.budget as any)?.message}
+                />
+              )}
+            />
+          </FormItem>
+
+          <FormItem
+            sx={{
+              display: "flex",
+            }}
+          >
+            <Controller
+              name="amount"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  error={Boolean(errors.amount)}
+                  aria-describedby="amount-helper-text"
+                  startAdornment={
+                    <InputAdornment position="start">$</InputAdornment>
+                  }
+                  sx={{ width: "100%", marginRight: 1 }}
+                  {...field}
+                />
+              )}
+            />
+            <ToggleButtonGroup
+              exclusive
+              onChange={handleSignChange}
+              aria-label="text alignment"
+              value={transactionSign}
+              sx={{ marginLeft: "auto" }}
+            >
+              <ToggleButton value="+" aria-label="left aligned">
+                <Add />
+              </ToggleButton>
+              <ToggleButton value="-" aria-label="left aligned">
+                <Remove />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </FormItem>
+          <FormItem>
+            <FormHelperText error={Boolean(errors.amount)}>
+              {errors.amount ? errors.amount.message : ""}
+            </FormHelperText>
+          </FormItem>
+
+          <FormItem>
+            <Controller
+              name="description"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  variant="standard"
+                  label="Description"
+                  helperText={(errors.description as any)?.message}
+                  placeholder="Description"
+                  error={Boolean(errors.description)}
+                  sx={{ width: "100%" }}
+                  {...field}
+                />
+              )}
+            />
+          </FormItem>
+
+          <FormItem>
+            <Controller
+              name="date"
+              control={control}
+              render={({ field }) => (
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="Date"
+                    openTo="day"
+                    views={["year", "month", "day"]}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="standard"
+                        sx={{ width: "100%" }}
+                        {...params}
+                      />
+                    )}
+                    {...field}
+                  />
+                </LocalizationProvider>
+              )}
+            />
+          </FormItem>
+          <FormItem>
+            <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
+              {loading ? <CircularProgress /> : "SUBMIT"}
+            </Button>
+          </FormItem>
+        </form>
+      </Stack>
+
+      <ApiErrorDialog
+        error={apiError}
+        onClose={() => {
+          setApiError(null);
+        }}
+      />
+
+      <TagFormDialog
+        open={newTagDialogOpen}
+        onClose={() => {
+          setNewTagDialogOpen(false);
+        }}
+        onSubmitCallback={(tag: Tag) => {
+          setValue("tags", [...getValues("tags"), tag]);
+        }}
+      />
+    </>
   );
-}
+};
+
+export default withSnackbar(TransactionForm);

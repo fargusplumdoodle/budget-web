@@ -2,6 +2,7 @@ import {
   ApiStatusState,
   AuthState,
   BudgetState,
+  TagState,
   TransactionState,
 } from "./types/stateTypes";
 
@@ -20,6 +21,7 @@ const initialApiStatusState: ApiStatusState = {
 const initialBudgetState: BudgetState = {
   list: [],
   byId: {},
+  byName: {},
 };
 
 const initialTransactionState: TransactionState = {
@@ -27,9 +29,17 @@ const initialTransactionState: TransactionState = {
   byId: {},
 };
 
-export default {
+const initialTagState: TagState = {
+  list: [],
+  byName: {},
+  byId: {},
+};
+
+const initalState = {
   auth: initialAuthState,
   apiStatus: initialApiStatusState,
   budgets: initialBudgetState,
   transactions: initialTransactionState,
+  tags: initialTagState,
 };
+export default initalState;

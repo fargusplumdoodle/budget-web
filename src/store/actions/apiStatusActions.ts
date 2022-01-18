@@ -1,9 +1,9 @@
-import { apiStatusActionTypes } from "./actionTypes";
+import { API_CALL_ERROR, BEGIN_API_CALL } from "./actionTypes";
 
 export function beginApiCall() {
-  return { type: apiStatusActionTypes.BEGIN_API_CALL };
+  return { type: BEGIN_API_CALL };
 }
 
 export function apiCallError() {
-  return { type: apiStatusActionTypes.API_CALL_ERROR };
+  return { type: API_CALL_ERROR };
 }

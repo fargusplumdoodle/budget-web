@@ -3,7 +3,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import TransactionTable from "./TransactionsTable";
 import { Transaction } from "../../../store/types/models";
 import { PaginatedResponse } from "../../../api/types";
-import { fetchTransactions } from "../../../api/transaction";
+import { fetchTransactionPage } from "../../../api/transaction";
 import { CircularProgress } from "@mui/material";
 
 interface OwnProps {}
@@ -25,7 +25,7 @@ const initialState: State = {
   loading: true,
 };
 
-const TransactionTableContainer: FunctionComponent<Props> = (props) => {
+const TransactionTableContainer: FunctionComponent<Props> = () => {
   const [state, setState] = useState(initialState);
 
   const getPage = (
@@ -34,7 +34,7 @@ const TransactionTableContainer: FunctionComponent<Props> = (props) => {
   ) => {
     setState({ ...state, loading: true });
     console.log("fetching page: ", page, "size", state.pageSize);
-    fetchTransactions(page, state.pageSize).then(
+    fetchTransactionPage(page, state.pageSize).then(
       (response: PaginatedResponse<Transaction>) => {
         setState({
           ...state,
@@ -56,10 +56,10 @@ const TransactionTableContainer: FunctionComponent<Props> = (props) => {
   };
 
   useEffect(() => {
-    if (state.transactions.length == 0) {
+    if (state.transactions.length === 0) {
       getPage(null, 0);
     }
-  }, []);
+  }, [state.transactions.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (state.loading) {
     return <CircularProgress />;

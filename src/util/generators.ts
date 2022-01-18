@@ -29,7 +29,6 @@ export function generateTestTransaction(args: Object = {}): Transaction {
     id: getRandomInt(100000),
     amount: getRandomInt(),
     budget: budget,
-    budget_id: budget.id,
     date: new Date(),
     income: false,
     tags: [],
@@ -40,9 +39,11 @@ export function generateTestTransaction(args: Object = {}): Transaction {
 }
 
 export function generateTestTag(args: Object = {}): Tag {
+  const i = getRandomInt(10000);
   return {
-    id: getRandomInt(100),
-    name: faker.lorem.word(),
+    id: i,
+    name: faker.lorem.word() + i.toString(),
+    rank: i,
     ...args,
   };
 }
@@ -52,12 +53,19 @@ export function generateTransaction(args: Object = {}): Transaction {
     id: null,
     amount: null,
     budget: null,
-    budget_id: null,
     description: null,
     date: null,
     income: false,
     tags: [],
     transfer: false,
+    ...args,
+  };
+}
+export function generateTag(args: Object = {}): Tag {
+  return {
+    id: null,
+    name: "",
+    rank: null,
     ...args,
   };
 }

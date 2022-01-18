@@ -5,10 +5,7 @@ import Callback from "../components/auth/Callback";
 import DashboardPage from "../components/dashboard/DashboardPage";
 import TransactionsPage from "../components/transactions/TransactionsPage";
 
-interface OwnProps {}
-type Props = OwnProps;
-
-const AppRoutes: FunctionComponent<Props> = (props) => {
+const AppRoutes: FunctionComponent<{}> = () => {
   return (
     <Routes>
       <Route path="/" element={<DashboardPage />} />

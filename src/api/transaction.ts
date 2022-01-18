@@ -1,9 +1,19 @@
 import { Transaction } from "../store/types/models";
-import { store } from "../store/configureStore";
 import { makeRequest } from "./util";
-import { PaginatedQueryParams, PaginatedResponse } from "./types";
+import {
+  PaginatedQueryParams,
+  PaginatedResponse,
+  SerializedTransaction,
+} from "./types";
+import {
+  deserializeTransaction,
+  serializeTransaction,
+} from "../util/serializers";
+import { beginApiCall } from "../store/actions/apiStatusActions";
+import { store } from "../store/configureStore";
+import { updateBudgetSuccess } from "../store/actions/budgetActions";
 
-export async function fetchTransactions(
+export async function fetchTransactionPage(
   page: number,
   pageSize: number = 25
 ): Promise<PaginatedResponse<Transaction>> {
@@ -17,16 +27,34 @@ export async function fetchTransactions(
     url: "/api/v2/transaction/",
     params: params,
   });
-  const state = store.getState();
 
   const transactions = r.data.results.map((trans: any) => {
-    return {
-      ...trans,
-      date: new Date(trans.date),
-      budget_id: trans.budget,
-      budget: state.budgets.byId[trans.budget],
-    };
+    return deserializeTransaction(trans);
   });
 
   return { ...r.data, results: transactions };
+}
+
+export async function createTransaction(
+  trans: Transaction
+): Promise<Transaction> {
+  store.dispatch(beginApiCall());
+
+  const r = await makeRequest({
+    method: "post",
+    url: "/api/v2/transaction/",
+    data: serializeTransaction(trans),
+  });
+  const newTransaction = deserializeTransaction(
+    r.data as SerializedTransaction
+  );
+
+  store.dispatch(
+    updateBudgetSuccess({
+      ...newTransaction.budget,
+      balance: newTransaction.budget.balance + newTransaction.amount,
+    })
+  );
+
+  return newTransaction;
 }

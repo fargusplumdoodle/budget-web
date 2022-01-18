@@ -1,9 +1,9 @@
 import { Transaction } from "../types/models";
-import { transactionActionTypes } from "./actionTypes";
+import { LOAD_TRANSACTIONS_SUCCESS } from "./actionTypes";
 
 export function loadTransactionsSuccess(transactions: Transaction[]) {
   return {
-    type: transactionActionTypes.LOAD_TRANSACTIONS_SUCCESS,
+    type: LOAD_TRANSACTIONS_SUCCESS,
     payload: transactions,
   };
 }

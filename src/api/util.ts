@@ -1,5 +1,6 @@
-import axios, { AxiosPromise, AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { store } from "../store/configureStore";
+import { PaginatedQueryParams, PaginatedResponse } from "./types";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   const state = store.getState();
@@ -18,4 +19,31 @@ export async function makeRequest(params: AxiosRequestConfig) {
       ...params.headers,
     },
   });
+}
+
+export async function makePaginatedRequest<T>(
+  uri: string,
+  page = 1,
+  pageSize = 25,
+  maxPages = 100,
+  results: T[] = []
+): Promise<T[]> {
+  const queryParams: PaginatedQueryParams = {
+    page_size: pageSize,
+    page: page,
+  };
+
+  const r = await makeRequest({
+    method: "get",
+    url: uri,
+    params: queryParams,
+  });
+
+  if (r.data.next) {
+    return await makePaginatedRequest(uri, page + 1, pageSize, maxPages, [
+      ...results,
+      ...(r.data as PaginatedResponse<T>).results,
+    ]);
+  }
+  return [...results, ...(r.data as PaginatedResponse<T>).results];
 }

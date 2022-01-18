@@ -1,18 +1,10 @@
 import * as React from "react";
-import TransactionsTable from "./_components/TransactionsTable";
-import { FunctionComponent, useEffect } from "react";
-import { Transaction } from "../../store/types/models";
-import { connect, useDispatch } from "react-redux";
-import { RootState } from "../../store/configureStore";
+import { FunctionComponent } from "react";
 import TransactionTableContainer from "./_components/TransactionTableContainer";
 
-interface OwnProps {
-  transactions: Transaction[];
-}
+interface Props {}
 
-type Props = OwnProps;
-
-const TransactionsPage: FunctionComponent<Props> = ({ transactions }) => {
+const TransactionsPage: FunctionComponent<Props> = () => {
   return (
     <>
       <h1>Transactions</h1>
@@ -21,8 +13,4 @@ const TransactionsPage: FunctionComponent<Props> = ({ transactions }) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  transactions: state.transactions.list,
-});
-
-export default connect(mapStateToProps)(TransactionsPage);
+export default TransactionsPage;
