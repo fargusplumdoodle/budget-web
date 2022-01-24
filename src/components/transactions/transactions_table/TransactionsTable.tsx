@@ -6,42 +6,26 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { TablePagination, Typography } from "@mui/material";
-import "../TransactionsTable.css";
+import { Typography } from "@mui/material";
+import "../../../pages/transactions_list/TransactionsTable.css";
 import { Transaction } from "../../../store/types/models";
+import { commaSeparatedTagNames } from "../../../util/formatters";
 
 interface TransactionTableProps {
   transactions: Transaction[];
   showBudget: boolean;
-  rowsPerPage: number;
-  count: number;
-  page: number;
-  onPageChange: (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    page: number
-  ) => void;
-  handlePageSizeChange: (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => void;
+  maxHeight?: number;
 }
 
 const TransactionTable: FunctionComponent<TransactionTableProps> = (
   props: TransactionTableProps
 ) => {
-  const headers = ["Budget", "Description", "Date", "Amount"];
+  const headers = ["Budget", "Tags", "Description", "Date", "Amount"];
+  const maxHeight = props["maxHeight"] ? props.maxHeight : 500;
   return (
-    <TableContainer sx={{ overflow: "scroll", alignContent: "center" }}>
+    <TableContainer sx={{ overflow: "scroll", maxHeight: maxHeight }}>
       <Table aria-label="transaction list">
         <TableHead>
-          <TableRow>
-            <TablePagination
-              count={props.count}
-              page={props.page}
-              onPageChange={props.onPageChange}
-              rowsPerPage={props.rowsPerPage}
-              onRowsPerPageChange={props.handlePageSizeChange}
-            />
-          </TableRow>
           <TableRow>
             {headers.map((headerName) => {
               return (
@@ -57,6 +41,7 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
             return (
               <TableRow key={trans.id}>
                 <TableCell>{trans.budget.name}</TableCell>
+                <TableCell>{commaSeparatedTagNames(trans)}</TableCell>
                 <TableCell>{trans.description}</TableCell>
                 <TableCell>{trans.date.toLocaleDateString("en-CA")}</TableCell>
                 <TableCell>{trans.amount}</TableCell>

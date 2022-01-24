@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FunctionComponent, useEffect, useState } from "react";
-import TransactionTable from "./TransactionsTable";
+import PaginatedTransactionTable from "./PaginatedTransactionsTable";
 import { Transaction } from "../../../store/types/models";
 import { PaginatedResponse } from "../../../api/types";
 import { fetchTransactionPage } from "../../../api/transaction";
@@ -25,7 +25,7 @@ const initialState: State = {
   loading: true,
 };
 
-const TransactionTableContainer: FunctionComponent<Props> = () => {
+const PaginatedTransactionTableContainer: FunctionComponent<Props> = () => {
   const [state, setState] = useState(initialState);
 
   const getPage = (
@@ -65,7 +65,7 @@ const TransactionTableContainer: FunctionComponent<Props> = () => {
     return <CircularProgress />;
   }
   return (
-    <TransactionTable
+    <PaginatedTransactionTable
       transactions={state.transactions}
       showBudget
       rowsPerPage={state.pageSize}
@@ -77,4 +77,4 @@ const TransactionTableContainer: FunctionComponent<Props> = () => {
   );
 };
 
-export default TransactionTableContainer;
+export default PaginatedTransactionTableContainer;

@@ -1,3 +1,5 @@
+import { Transaction } from "../store/types/models";
+
 export function formatCurrency(
   amount: number,
   showCents: boolean = true
@@ -7,4 +9,8 @@ export function formatCurrency(
     style: "currency",
     maximumFractionDigits: showCents ? 2 : 0,
   }).format(amount);
+}
+
+export function commaSeparatedTagNames(trans: Transaction) {
+  return trans.tags.map((tag) => tag.name).join(", ");
 }

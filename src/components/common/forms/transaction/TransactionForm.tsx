@@ -105,13 +105,15 @@ const TransactionForm = (props: Props) => {
 
   return (
     <>
-      <Stack
-        spacing={2}
-        sx={{
-          maxWidth: "515px",
-        }}
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack
+          spacing={2}
+          justifyContent="flex-start"
+          alignItems="stretch"
+          sx={{
+            maxWidth: "615px",
+          }}
+        >
           <FormItem
             sx={{
               display: "flex",
@@ -177,46 +179,48 @@ const TransactionForm = (props: Props) => {
             />
           </FormItem>
 
-          <FormItem
-            sx={{
-              display: "flex",
-            }}
-          >
-            <Controller
-              name="amount"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  error={Boolean(errors.amount)}
-                  aria-describedby="amount-helper-text"
-                  startAdornment={
-                    <InputAdornment position="start">$</InputAdornment>
-                  }
-                  sx={{ width: "100%", marginRight: 1 }}
-                  {...field}
-                />
-              )}
-            />
-            <ToggleButtonGroup
-              exclusive
-              onChange={handleSignChange}
-              aria-label="text alignment"
-              value={transactionSign}
-              sx={{ marginLeft: "auto" }}
+          <div>
+            <FormItem
+              sx={{
+                display: "flex",
+              }}
             >
-              <ToggleButton value="+" aria-label="left aligned">
-                <Add />
-              </ToggleButton>
-              <ToggleButton value="-" aria-label="left aligned">
-                <Remove />
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </FormItem>
-          <FormItem>
-            <FormHelperText error={Boolean(errors.amount)}>
-              {errors.amount ? errors.amount.message : ""}
-            </FormHelperText>
-          </FormItem>
+              <Controller
+                name="amount"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    error={Boolean(errors.amount)}
+                    aria-describedby="amount-helper-text"
+                    startAdornment={
+                      <InputAdornment position="start">$</InputAdornment>
+                    }
+                    sx={{ width: "100%", marginRight: 1 }}
+                    {...field}
+                  />
+                )}
+              />
+              <ToggleButtonGroup
+                exclusive
+                onChange={handleSignChange}
+                aria-label="text alignment"
+                value={transactionSign}
+                sx={{ marginLeft: "auto" }}
+              >
+                <ToggleButton value="+" aria-label="left aligned">
+                  <Add />
+                </ToggleButton>
+                <ToggleButton value="-" aria-label="left aligned">
+                  <Remove />
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </FormItem>
+            <FormItem>
+              <FormHelperText error={Boolean(errors.amount)}>
+                {errors.amount ? errors.amount.message : ""}
+              </FormHelperText>
+            </FormItem>
+          </div>
 
           <FormItem>
             <Controller
@@ -264,8 +268,8 @@ const TransactionForm = (props: Props) => {
               {loading ? <CircularProgress /> : "SUBMIT"}
             </Button>
           </FormItem>
-        </form>
-      </Stack>
+        </Stack>
+      </form>
 
       <ApiErrorDialog
         error={apiError}
