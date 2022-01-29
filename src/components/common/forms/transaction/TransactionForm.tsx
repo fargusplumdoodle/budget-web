@@ -27,6 +27,7 @@ import TagFormDialog from "../tag/TagFormDialog";
 import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
 import {
   createTransaction,
+  deleteTransaction,
   updateTransaction,
 } from "../../../../api/transaction";
 
@@ -80,6 +81,20 @@ const TransactionForm = (props: Props) => {
       return;
     }
     setTransactionSign(sign);
+  };
+
+  const onClickDelete = () => {
+    if (!window.confirm("Are you sure you want to delete this transaction?")) {
+      return;
+    }
+    setLoading(true);
+    deleteTransaction(props.transaction).then(() => {
+      setLoading(false);
+      props.enqueueSnackbar(`Successfully deleted transaction`, {
+        variant: "success",
+      });
+    });
+    props.onDeleteCallback(props.transaction);
   };
 
   const onSubmit = (data: Transaction): void => {
@@ -275,10 +290,21 @@ const TransactionForm = (props: Props) => {
               )}
             />
           </FormItem>
-          <FormItem>
+          <FormItem sx={{ display: "flex", flexDirection: "row" }}>
             <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
               {loading ? <CircularProgress /> : "SUBMIT"}
             </Button>
+            {isEdit ? (
+              <Button
+                sx={{ width: "100%" }}
+                color="error"
+                onClick={onClickDelete}
+                type="submit"
+                disabled={loading}
+              >
+                DELETE
+              </Button>
+            ) : null}
           </FormItem>
         </Stack>
       </form>

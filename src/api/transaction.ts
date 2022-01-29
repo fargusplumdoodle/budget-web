@@ -81,3 +81,24 @@ export async function updateTransaction(
 
   return trans;
 }
+
+export async function deleteTransaction(
+  trans: Transaction
+): Promise<Transaction> {
+  store.dispatch(beginApiCall());
+
+  await makeRequest({
+    method: "delete",
+    url: `/api/v2/transaction/${trans.id}/`,
+    data: serializeTransaction(trans),
+  });
+
+  store.dispatch(
+    updateBudgetSuccess({
+      ...trans.budget,
+      balance: trans.budget.balance - trans.amount,
+    })
+  );
+
+  return trans;
+}
