@@ -20,12 +20,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Add, Remove } from "@mui/icons-material";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import * as transactionAPI from "../../../../api/transaction";
 import { ProviderContext, withSnackbar } from "notistack";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import TagFormDialog from "../tag/TagFormDialog";
 import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
+import { createTransaction } from "../../../../api/transaction";
 
 // TODO: UPDATE EXISTING TRANSACTION
 
@@ -88,8 +88,7 @@ const TransactionForm = (props: Props) => {
           : Math.abs(data.amount),
     };
 
-    transactionAPI
-      .createTransaction(transaction)
+    createTransaction(transaction)
       .then((trans: Transaction) => {
         setLoading(false);
         props.enqueueSnackbar("Successfully added transaction", {

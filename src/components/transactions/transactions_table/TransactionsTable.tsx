@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,47 +10,74 @@ import { Typography } from "@mui/material";
 import "../../../pages/transactions_list/TransactionsTable.css";
 import { Transaction } from "../../../store/types/models";
 import { commaSeparatedTagNames } from "../../../util/formatters";
+import TransactionFormDialog from "../transaction_form/TransactionFormDialog";
 
 interface TransactionTableProps {
   transactions: Transaction[];
   showBudget: boolean;
-  maxHeight?: number;
+  editTransactionCallback?: (
+    oldTrans: Transaction,
+    newTrans: Transaction
+  ) => void;
+  deleteTransactionCallback?: (trans: Transaction) => void;
 }
 
 const TransactionTable: FunctionComponent<TransactionTableProps> = (
   props: TransactionTableProps
 ) => {
   const headers = ["Budget", "Tags", "Description", "Date", "Amount"];
-  const maxHeight = props["maxHeight"] ? props.maxHeight : 500;
+  const [editTransaction, setEditTransaction] = useState<Transaction | null>(
+    null
+  );
+
   return (
-    <TableContainer sx={{ overflow: "scroll", maxHeight: maxHeight }}>
-      <Table aria-label="transaction list">
-        <TableHead>
-          <TableRow>
-            {headers.map((headerName) => {
+    <>
+      <TableContainer sx={{ overflow: "scroll", height: "100%" }}>
+        <Table aria-label="transaction list">
+          <TableHead>
+            <TableRow>
+              {headers.map((headerName) => {
+                return (
+                  <TableCell key={headerName}>
+                    <Typography>{headerName}</Typography>
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.transactions.map((trans) => {
               return (
-                <TableCell key={headerName}>
-                  <Typography>{headerName}</Typography>
-                </TableCell>
+                <TableRow
+                  key={trans.id}
+                  onClick={() => {
+                    setEditTransaction(trans);
+                  }}
+                >
+                  <TableCell>{trans.budget.name}</TableCell>
+                  <TableCell>{commaSeparatedTagNames(trans)}</TableCell>
+                  <TableCell>{trans.description}</TableCell>
+                  <TableCell>
+                    {trans.date.toLocaleDateString("en-CA")}
+                  </TableCell>
+                  <TableCell>{trans.amount}</TableCell>
+                </TableRow>
               );
             })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.transactions.map((trans) => {
-            return (
-              <TableRow key={trans.id}>
-                <TableCell>{trans.budget.name}</TableCell>
-                <TableCell>{commaSeparatedTagNames(trans)}</TableCell>
-                <TableCell>{trans.description}</TableCell>
-                <TableCell>{trans.date.toLocaleDateString("en-CA")}</TableCell>
-                <TableCell>{trans.amount}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TransactionFormDialog
+        open={editTransaction !== null}
+        transaction={editTransaction}
+        onClose={() => {
+          setEditTransaction(null);
+        }}
+        onSubmitCallback={(newTrans: Transaction) => {
+          props.editTransactionCallback(editTransaction, newTrans);
+        }}
+      />
+    </>
   );
 };
 export default TransactionTable;
