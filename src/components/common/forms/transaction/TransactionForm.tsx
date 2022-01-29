@@ -45,11 +45,13 @@ const TransactionForm = (props: Props) => {
   const tags = useSelector((state: RootState) => state.tags);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<ApiError>(null);
-  const [transactionSign, setTransactionSign]: [Sign, any] = useState("-");
+  const [transactionSign, setTransactionSign]: [Sign, any] = useState(
+    isEdit ? (props.transaction.amount > 0 ? "+" : "-") : "-"
+  );
   const [newTagDialogOpen, setNewTagDialogOpen] = useState(false);
 
   const defaultValues = isEdit
-    ? props.transaction
+    ? { ...props.transaction, amount: Math.abs(props.transaction.amount) }
     : generateTransaction({
         id: null,
         date: new Date(),

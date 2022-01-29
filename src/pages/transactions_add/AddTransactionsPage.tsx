@@ -6,9 +6,7 @@ import TransactionForm from "../../components/common/forms/transaction/Transacti
 import TransactionTable from "../../components/transactions/transactions_table/TransactionsTable";
 import { Transaction } from "../../store/types/models";
 
-interface Props {}
-
-const AddTransactionsPage: FunctionComponent<Props> = ({}) => {
+const AddTransactionsPage: FunctionComponent = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   return (
     <>
