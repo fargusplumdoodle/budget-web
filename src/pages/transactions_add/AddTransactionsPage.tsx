@@ -22,14 +22,36 @@ const AddTransactionsPage: FunctionComponent<Props> = ({}) => {
         <Card sx={{ width: "38%", m: 1, p: 1, maxHeight: 540 }}>
           <p className="transactionFormHeader">Transaction</p>
           <TransactionForm
-            onSubmitCallback={(trans) => {
+            onCreateCallback={(trans) => {
               setTransactions([trans, ...transactions]);
             }}
           />
         </Card>
 
         <Card sx={{ width: "62%", m: 1 }}>
-          <TransactionTable transactions={transactions} showBudget />
+          <TransactionTable
+            onUpdateCallback={(trans: Transaction) => {
+              const index = transactions.findIndex(
+                (t: Transaction) => t.id === trans.id
+              );
+              setTransactions([
+                ...transactions.slice(0, index),
+                trans,
+                ...transactions.slice(index + 1),
+              ]);
+            }}
+            onDeleteCallback={(trans: Transaction) => {
+              const index = transactions.findIndex(
+                (t: Transaction) => t.id === trans.id
+              );
+              setTransactions([
+                ...transactions.slice(0, index),
+                ...transactions.slice(index + 1),
+              ]);
+            }}
+            transactions={transactions}
+            showBudget
+          />
         </Card>
       </Box>
     </>

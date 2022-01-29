@@ -15,11 +15,9 @@ import TransactionFormDialog from "../transaction_form/TransactionFormDialog";
 interface TransactionTableProps {
   transactions: Transaction[];
   showBudget: boolean;
-  editTransactionCallback?: (
-    oldTrans: Transaction,
-    newTrans: Transaction
-  ) => void;
-  deleteTransactionCallback?: (trans: Transaction) => void;
+  onCreateCallback?: (trans: Transaction) => void;
+  onUpdateCallback?: (trans: Transaction) => void;
+  onDeleteCallback?: (trans: Transaction) => void;
 }
 
 const TransactionTable: FunctionComponent<TransactionTableProps> = (
@@ -73,8 +71,14 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
         onClose={() => {
           setEditTransaction(null);
         }}
-        onSubmitCallback={(newTrans: Transaction) => {
-          props.editTransactionCallback(editTransaction, newTrans);
+        onCreateCallback={(trans: Transaction) => {
+          props.onCreateCallback(trans);
+        }}
+        onUpdateCallback={(trans: Transaction) => {
+          props.onUpdateCallback(trans);
+        }}
+        onDeleteCallback={(trans: Transaction) => {
+          props.onDeleteCallback(trans);
         }}
       />
     </>

@@ -8,7 +8,9 @@ import { Transaction } from "../../../store/types/models";
 interface Props {
   open: boolean;
   onClose: () => void;
-  onSubmitCallback?: (transaction: Transaction) => void;
+  onCreateCallback?: (trans: Transaction) => void;
+  onUpdateCallback?: (trans: Transaction) => void;
+  onDeleteCallback?: (trans: Transaction) => void;
   transaction?: Transaction;
 }
 
@@ -20,8 +22,16 @@ const TransactionFormDialog: FunctionComponent<Props> = (props) => {
       <DialogContent>
         <TransactionForm
           transaction={props.transaction}
-          onSubmitCallback={(trans: Transaction) => {
-            props.onSubmitCallback(trans);
+          onCreateCallback={(trans: Transaction) => {
+            props.onCreateCallback(trans);
+            props.onClose();
+          }}
+          onUpdateCallback={(trans: Transaction) => {
+            props.onUpdateCallback(trans);
+            props.onClose();
+          }}
+          onDeleteCallback={(trans: Transaction) => {
+            props.onDeleteCallback(trans);
             props.onClose();
           }}
         />

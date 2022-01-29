@@ -59,7 +59,7 @@ export async function createTransaction(
   return newTransaction;
 }
 
-export async function editTransaction(
+export async function updateTransaction(
   oldTrans: Transaction,
   newTrans: Transaction
 ): Promise<Transaction> {
@@ -67,7 +67,7 @@ export async function editTransaction(
 
   const r = await makeRequest({
     method: "put",
-    url: `/api/v2/transaction/${newTrans.id}`,
+    url: `/api/v2/transaction/${newTrans.id}/`,
     data: serializeTransaction(newTrans),
   });
   const trans = deserializeTransaction(r.data as SerializedTransaction);

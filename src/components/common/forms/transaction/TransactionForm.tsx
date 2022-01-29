@@ -25,19 +25,22 @@ import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import TagFormDialog from "../tag/TagFormDialog";
 import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
-import { createTransaction } from "../../../../api/transaction";
-
-// TODO: UPDATE EXISTING TRANSACTION
+import {
+  createTransaction,
+  updateTransaction,
+} from "../../../../api/transaction";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
-  onSubmitCallback?: (trans: Transaction) => void;
+  onCreateCallback?: (trans: Transaction) => void;
+  onUpdateCallback?: (trans: Transaction) => void;
+  onDeleteCallback?: (trans: Transaction) => void;
 }
 
 type Sign = "+" | "-";
 
 const TransactionForm = (props: Props) => {
-  const isEdit = Boolean(props["transaction"]) && props.transaction.id;
+  const isEdit = Boolean(Boolean(props["transaction"]) && props.transaction.id);
   const budgets = useSelector((state: RootState) => state.budgets);
   const tags = useSelector((state: RootState) => state.tags);
   const [loading, setLoading] = useState(false);
@@ -87,14 +90,22 @@ const TransactionForm = (props: Props) => {
           ? 0 - Math.abs(data.amount)
           : Math.abs(data.amount),
     };
+    const submitFn = isEdit
+      ? (t: Transaction) => updateTransaction(props.transaction, t)
+      : (t: Transaction) => createTransaction(t);
 
-    createTransaction(transaction)
+    const callback = isEdit ? props.onUpdateCallback : props.onCreateCallback;
+
+    submitFn(transaction)
       .then((trans: Transaction) => {
         setLoading(false);
-        props.enqueueSnackbar("Successfully added transaction", {
-          variant: "success",
-        });
-        props.onSubmitCallback(trans);
+        props.enqueueSnackbar(
+          `Successfully ${isEdit ? "updated" : "added"} transaction`,
+          {
+            variant: "success",
+          }
+        );
+        callback(trans);
       })
       .catch((err) => {
         setLoading(false);
