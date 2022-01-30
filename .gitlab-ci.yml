@@ -1,5 +1,5 @@
 stages:
-  #  - qa
+  - qa
   - build
   - deploy
 
@@ -8,15 +8,15 @@ variables:
   IMAGE: hub.sekhnet.ra/budget-web
   NAMESPACE: budget
 
-#lint:
-  #image: node
-  #stage: qa
-  #cache:
-    #paths:
-      #- ./node_modules/
-  #script:
-    #- npm install
-    #- ./scripts/lint.sh
+lint:
+  image: node
+  stage: qa
+  cache:
+    paths:
+      - ./node_modules/
+  script:
+    - npm install
+    - ./scripts/lint.sh
 
 build-prod:
   image: docker:latest
