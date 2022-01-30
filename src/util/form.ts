@@ -44,3 +44,9 @@ export const tagSchema = yup.object({
     })
     .required(),
 });
+
+export const incomeSchema = yup.object({
+  amount: yup.number().min(0.01).required(),
+  description: yup.string().max(300),
+  date: yup.date().required(),
+});

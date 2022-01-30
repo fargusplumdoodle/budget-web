@@ -5,6 +5,7 @@ import {
   SerializedTransaction,
 } from "../api/types";
 import { store } from "../store/configureStore";
+import {fromCents, toCents} from "../api/util";
 
 export const serializeTag = (tag: Tag): SerializedTag => {
   return {
@@ -23,7 +24,7 @@ export function serializeTransaction(
   trans: Transaction
 ): SerializedTransaction {
   return {
-    amount: trans.amount * 100,
+    amount: toCents(trans.amount) ,
     description: trans.description,
     budget: trans.budget.id,
     date: trans.date.toLocaleDateString(),
@@ -39,7 +40,7 @@ export function deserializeTransaction(
   const state = store.getState();
   return {
     ...trans,
-    amount: trans.amount / 100,
+    amount: fromCents(trans.amount),
     id: trans.id,
     date: new Date(trans.date),
     budget: state.budgets.byId[trans.budget],
@@ -50,5 +51,17 @@ export function deserializeTransaction(
 export function serializeBudget(budget: Budget): SerializedBudget {
   return {
     ...budget,
+    balance: toCents(budget.balance),
+    income_per_month: toCents(budget.income_per_month),
+    outcome_per_month: toCents(budget.outcome_per_month),
+  };
+}
+
+export function deserializeBudget(budget: SerializedBudget): SerializedBudget {
+  return {
+    ...budget,
+    balance: fromCents(budget.balance),
+    income_per_month: fromCents(budget.income_per_month),
+    outcome_per_month: fromCents(budget.outcome_per_month),
   };
 }
