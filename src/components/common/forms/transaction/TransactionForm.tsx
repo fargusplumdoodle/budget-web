@@ -20,33 +20,39 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Add, Remove } from "@mui/icons-material";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import * as transactionAPI from "../../../../api/transaction";
 import { ProviderContext, withSnackbar } from "notistack";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import TagFormDialog from "../tag/TagFormDialog";
 import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
-
-// TODO: UPDATE EXISTING TRANSACTION
+import {
+  createTransaction,
+  deleteTransaction,
+  updateTransaction,
+} from "../../../../api/transaction";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
-  onSubmitCallback?: (trans: Transaction) => void;
+  onCreateCallback?: (trans: Transaction) => void;
+  onUpdateCallback?: (trans: Transaction) => void;
+  onDeleteCallback?: (trans: Transaction) => void;
 }
 
 type Sign = "+" | "-";
 
 const TransactionForm = (props: Props) => {
-  const isEdit = Boolean(props["transaction"]) && props.transaction.id;
+  const isEdit = Boolean(Boolean(props["transaction"]) && props.transaction.id);
   const budgets = useSelector((state: RootState) => state.budgets);
   const tags = useSelector((state: RootState) => state.tags);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<ApiError>(null);
-  const [transactionSign, setTransactionSign]: [Sign, any] = useState("-");
+  const [transactionSign, setTransactionSign]: [Sign, any] = useState(
+    isEdit ? (props.transaction.amount > 0 ? "+" : "-") : "-"
+  );
   const [newTagDialogOpen, setNewTagDialogOpen] = useState(false);
 
   const defaultValues = isEdit
-    ? props.transaction
+    ? { ...props.transaction, amount: Math.abs(props.transaction.amount) }
     : generateTransaction({
         id: null,
         date: new Date(),
@@ -77,6 +83,20 @@ const TransactionForm = (props: Props) => {
     setTransactionSign(sign);
   };
 
+  const onClickDelete = () => {
+    if (!window.confirm("Are you sure you want to delete this transaction?")) {
+      return;
+    }
+    setLoading(true);
+    deleteTransaction(props.transaction).then(() => {
+      setLoading(false);
+      props.enqueueSnackbar(`Successfully deleted transaction`, {
+        variant: "success",
+      });
+    });
+    props.onDeleteCallback(props.transaction);
+  };
+
   const onSubmit = (data: Transaction): void => {
     setLoading(true);
 
@@ -87,15 +107,22 @@ const TransactionForm = (props: Props) => {
           ? 0 - Math.abs(data.amount)
           : Math.abs(data.amount),
     };
+    const submitFn = isEdit
+      ? (t: Transaction) => updateTransaction(props.transaction, t)
+      : (t: Transaction) => createTransaction(t);
 
-    transactionAPI
-      .createTransaction(transaction)
+    const callback = isEdit ? props.onUpdateCallback : props.onCreateCallback;
+
+    submitFn(transaction)
       .then((trans: Transaction) => {
         setLoading(false);
-        props.enqueueSnackbar("Successfully added transaction", {
-          variant: "success",
-        });
-        props.onSubmitCallback(trans);
+        props.enqueueSnackbar(
+          `Successfully ${isEdit ? "updated" : "added"} transaction`,
+          {
+            variant: "success",
+          }
+        );
+        callback(trans);
       })
       .catch((err) => {
         setLoading(false);
@@ -105,13 +132,15 @@ const TransactionForm = (props: Props) => {
 
   return (
     <>
-      <Stack
-        spacing={2}
-        sx={{
-          maxWidth: "515px",
-        }}
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack
+          spacing={2}
+          justifyContent="flex-start"
+          alignItems="stretch"
+          sx={{
+            maxWidth: "615px",
+          }}
+        >
           <FormItem
             sx={{
               display: "flex",
@@ -177,46 +206,48 @@ const TransactionForm = (props: Props) => {
             />
           </FormItem>
 
-          <FormItem
-            sx={{
-              display: "flex",
-            }}
-          >
-            <Controller
-              name="amount"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  error={Boolean(errors.amount)}
-                  aria-describedby="amount-helper-text"
-                  startAdornment={
-                    <InputAdornment position="start">$</InputAdornment>
-                  }
-                  sx={{ width: "100%", marginRight: 1 }}
-                  {...field}
-                />
-              )}
-            />
-            <ToggleButtonGroup
-              exclusive
-              onChange={handleSignChange}
-              aria-label="text alignment"
-              value={transactionSign}
-              sx={{ marginLeft: "auto" }}
+          <div>
+            <FormItem
+              sx={{
+                display: "flex",
+              }}
             >
-              <ToggleButton value="+" aria-label="left aligned">
-                <Add />
-              </ToggleButton>
-              <ToggleButton value="-" aria-label="left aligned">
-                <Remove />
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </FormItem>
-          <FormItem>
-            <FormHelperText error={Boolean(errors.amount)}>
-              {errors.amount ? errors.amount.message : ""}
-            </FormHelperText>
-          </FormItem>
+              <Controller
+                name="amount"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    error={Boolean(errors.amount)}
+                    aria-describedby="amount-helper-text"
+                    startAdornment={
+                      <InputAdornment position="start">$</InputAdornment>
+                    }
+                    sx={{ width: "100%", marginRight: 1 }}
+                    {...field}
+                  />
+                )}
+              />
+              <ToggleButtonGroup
+                exclusive
+                onChange={handleSignChange}
+                aria-label="text alignment"
+                value={transactionSign}
+                sx={{ marginLeft: "auto" }}
+              >
+                <ToggleButton value="+" aria-label="left aligned">
+                  <Add />
+                </ToggleButton>
+                <ToggleButton value="-" aria-label="left aligned">
+                  <Remove />
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </FormItem>
+            <FormItem>
+              <FormHelperText error={Boolean(errors.amount)}>
+                {errors.amount ? errors.amount.message : ""}
+              </FormHelperText>
+            </FormItem>
+          </div>
 
           <FormItem>
             <Controller
@@ -259,13 +290,24 @@ const TransactionForm = (props: Props) => {
               )}
             />
           </FormItem>
-          <FormItem>
+          <FormItem sx={{ display: "flex", flexDirection: "row" }}>
             <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
               {loading ? <CircularProgress /> : "SUBMIT"}
             </Button>
+            {isEdit ? (
+              <Button
+                sx={{ width: "100%" }}
+                color="error"
+                onClick={onClickDelete}
+                type="submit"
+                disabled={loading}
+              >
+                DELETE
+              </Button>
+            ) : null}
           </FormItem>
-        </form>
-      </Stack>
+        </Stack>
+      </form>
 
       <ApiErrorDialog
         error={apiError}

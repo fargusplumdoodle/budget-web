@@ -5,7 +5,7 @@ stages:
 
 variables:
   NODE_ENV: production
-  IMAGE: hub.sekhnet.ra/budget-web-v2
+  IMAGE: hub.sekhnet.ra/budget-web
   NAMESPACE: budget
 
 lint:
@@ -15,20 +15,8 @@ lint:
     paths:
       - ./node_modules/
   script:
-    - npm install eslint
+    - npm install
     - ./scripts/lint.sh
-
-test:
-  image: node
-  stage: qa
-  variables:
-    NODE_ENV: development
-  cache:
-    paths:
-      - ./node_modules/
-  script:
-    - npm install 
-    - npm test
 
 build-prod:
   image: docker:latest
@@ -39,7 +27,7 @@ build-prod:
     - main
   script:
     - docker pull $IMAGE:latest || true
-    - docker build -t "$IMAGE:latest" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:latest . 
+    - docker build -t "$IMAGE:latest" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:latest .
     - docker image push --all-tags "$IMAGE"
 
 
@@ -51,18 +39,13 @@ build-dev:
   only:
     - dev
   script:
-    - docker pull $IMAGE:latest || true
-    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:latest . 
+    - docker pull $IMAGE:dev || true
+    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:dev .
     - docker image push --all-tags "$IMAGE"
 
 release:
   stage: deploy
-  image: node
-  before_script:
-    - npm install @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/git @semantic-release/npm
-  cache:
-    paths:
-     - ./node_modules/
+  image: hub.sekhnet.ra/semantic_release:latest
   script:
     - npx semantic-release
   only:
@@ -72,25 +55,34 @@ deploy-staging:
   stage: deploy
   before_script: []
   services: []
-  image: dtzar/helm-kubectl
+  image: hub.sekhnet.ra/helm:latest
   only:
-    #- dev
-    - this-step-is-currently-disabled
+    - dev
   script:
     - git clone --branch dev http://gitlab-ci-token:${CI_JOB_TOKEN}@git.sekhnet.ra/sekhnet/applications/budget/budget-helm.git
-    - ./budget-helm/scripts/setup-ci-service-account.sh $STAGING_TOKEN $CA
-    - helm upgrade -n $NAMESPACE-staging $NAMESPACE-staging ./budget-helm --set=web.image.tag="$CI_COMMIT_SHA" --reuse-values --atomic
+    - ./budget-helm/ci/setup-ci-service-account.sh $STAGING_TOKEN $CA
+    - |
+      helm upgrade \
+          -n $NAMESPACE-staging $NAMESPACE-staging \
+          ./budget-helm/budget \
+          --reuse-values --atomic \
+          --set=web.image.tag="$CI_COMMIT_SHA" \
+          --set=web.image.repository="$IMAGE"
 
 deploy-prod:
   stage: deploy
   before_script: []
   services: []
-  image: dtzar/helm-kubectl
+  image: hub.sekhnet.ra/helm:latest
   only:
-    #- main
-    #- dev
-    - this-step-is-currently-disabled
+    - main
   script:
     - git clone --branch main http://gitlab-ci-token:${CI_JOB_TOKEN}@git.sekhnet.ra/sekhnet/applications/budget/budget-helm.git
-    - ./budget-helm/scripts/setup-ci-service-account.sh $PROD_TOKEN $CA
-    - helm upgrade -n $NAMESPACE $NAMESPACE ./budget-helm --set=web.image.tag="$CI_COMMIT_SHA" --reuse-values --atomic
+    - ./budget-helm/ci/setup-ci-service-account.sh $PROD_TOKEN $CA
+    - |
+      helm upgrade \
+          -n $NAMESPACE $NAMESPACE \
+          ./budget-helm/budget \
+          --reuse-values --atomic \
+          --set=web.image.tag="$CI_COMMIT_SHA" \
+          --set=web.image.repository="$IMAGE"

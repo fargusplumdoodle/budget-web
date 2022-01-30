@@ -58,3 +58,47 @@ export async function createTransaction(
 
   return newTransaction;
 }
+
+export async function updateTransaction(
+  oldTrans: Transaction,
+  newTrans: Transaction
+): Promise<Transaction> {
+  store.dispatch(beginApiCall());
+
+  const r = await makeRequest({
+    method: "put",
+    url: `/api/v2/transaction/${newTrans.id}/`,
+    data: serializeTransaction(newTrans),
+  });
+  const trans = deserializeTransaction(r.data as SerializedTransaction);
+
+  store.dispatch(
+    updateBudgetSuccess({
+      ...trans.budget,
+      balance: trans.budget.balance - oldTrans.amount + trans.amount,
+    })
+  );
+
+  return trans;
+}
+
+export async function deleteTransaction(
+  trans: Transaction
+): Promise<Transaction> {
+  store.dispatch(beginApiCall());
+
+  await makeRequest({
+    method: "delete",
+    url: `/api/v2/transaction/${trans.id}/`,
+    data: serializeTransaction(trans),
+  });
+
+  store.dispatch(
+    updateBudgetSuccess({
+      ...trans.budget,
+      balance: trans.budget.balance - trans.amount,
+    })
+  );
+
+  return trans;
+}

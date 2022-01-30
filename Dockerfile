@@ -2,9 +2,12 @@ FROM node:latest
 
 RUN mkdir /code/
 WORKDIR /code
-ADD . /code/
+ADD ./package.json .
+ADD ./package-lock.json .
 
-RUN npm install 
+RUN npm install
+
+ADD . /code/
 
 ENV NODE_ENV=production
 RUN npm run build

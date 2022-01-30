@@ -7,10 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { TablePagination, Typography } from "@mui/material";
-import "../TransactionsTable.css";
+import "../../../pages/transactions_list/TransactionsTable.css";
 import { Transaction } from "../../../store/types/models";
 
-interface TransactionTableProps {
+interface PaginatedTransactionTableProps {
   transactions: Transaction[];
   showBudget: boolean;
   rowsPerPage: number;
@@ -25,9 +25,9 @@ interface TransactionTableProps {
   ) => void;
 }
 
-const TransactionTable: FunctionComponent<TransactionTableProps> = (
-  props: TransactionTableProps
-) => {
+const PaginatedTransactionTable: FunctionComponent<
+  PaginatedTransactionTableProps
+> = (props: PaginatedTransactionTableProps) => {
   const headers = ["Budget", "Description", "Date", "Amount"];
   return (
     <TableContainer sx={{ overflow: "scroll", alignContent: "center" }}>
@@ -68,4 +68,4 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
     </TableContainer>
   );
 };
-export default TransactionTable;
+export default PaginatedTransactionTable;
