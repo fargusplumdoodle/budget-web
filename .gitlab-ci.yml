@@ -1,22 +1,22 @@
 stages:
-  - qa
+  #  - qa
   - build
   - deploy
 
 variables:
   NODE_ENV: production
-  IMAGE: hub.sekhnet.ra/budget-web-v2
+  IMAGE: hub.sekhnet.ra/budget-web
   NAMESPACE: budget
 
-lint:
-  image: node
-  stage: qa
-  cache:
-    paths:
-      - ./node_modules/
-  script:
-    - npm install eslint
-    - ./scripts/lint.sh
+#lint:
+  #image: node
+  #stage: qa
+  #cache:
+    #paths:
+      #- ./node_modules/
+  #script:
+    #- npm install
+    #- ./scripts/lint.sh
 
 build-prod:
   image: docker:latest
@@ -39,18 +39,13 @@ build-dev:
   only:
     - dev
   script:
-    - docker pull $IMAGE:latest || true
-    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:latest .
+    - docker pull $IMAGE:dev || true
+    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:dev .
     - docker image push --all-tags "$IMAGE"
 
 release:
   stage: deploy
-  image: node
-  before_script:
-    - npm install @semantic-release/gitlab @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/git @semantic-release/npm
-  cache:
-    paths:
-      - ./node_modules/
+  image: hub.sekhnet.ra/semantic_release:latest
   script:
     - npx semantic-release
   only:
@@ -66,7 +61,13 @@ deploy-staging:
   script:
     - git clone --branch dev http://gitlab-ci-token:${CI_JOB_TOKEN}@git.sekhnet.ra/sekhnet/applications/budget/budget-helm.git
     - ./budget-helm/ci/setup-ci-service-account.sh $STAGING_TOKEN $CA
-    - helm upgrade -n $NAMESPACE-staging $NAMESPACE-staging ./budget-helm/budget --set=web.image.tag="$CI_COMMIT_SHA" --reuse-values --atomic
+    - |
+      helm upgrade \
+          -n $NAMESPACE-staging $NAMESPACE-staging \
+          ./budget-helm/budget \
+          --reuse-values --atomic \
+          --set=web.image.tag="$CI_COMMIT_SHA" \
+          --set=web.image.repository="$IMAGE"
 
 deploy-prod:
   stage: deploy
@@ -78,4 +79,10 @@ deploy-prod:
   script:
     - git clone --branch main http://gitlab-ci-token:${CI_JOB_TOKEN}@git.sekhnet.ra/sekhnet/applications/budget/budget-helm.git
     - ./budget-helm/ci/setup-ci-service-account.sh $PROD_TOKEN $CA
-    - helm upgrade -n $NAMESPACE $NAMESPACE ./budget-helm/budget --set=web.image.tag="$CI_COMMIT_SHA" --reuse-values --atomic
+    - |
+      helm upgrade \
+          -n $NAMESPACE $NAMESPACE \
+          ./budget-helm/budget \
+          --reuse-values --atomic \
+          --set=web.image.tag="$CI_COMMIT_SHA" \
+          --set=web.image.repository="$IMAGE"
