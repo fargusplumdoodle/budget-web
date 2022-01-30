@@ -32,4 +32,7 @@ export interface SerializedTag extends SerializedModel {
 export interface SerializedBudget extends SerializedModel {
   name: string;
   percentage: number;
+  balance: number;
+  income_per_month: number;
+  outcome_per_month: number;
 }
