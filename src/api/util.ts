@@ -47,3 +47,10 @@ export async function makePaginatedRequest<T>(
   }
   return [...results, ...(r.data as PaginatedResponse<T>).results];
 }
+
+export function toCents(amount: number): number {
+  return amount * 100;
+}
+export function fromCents(amount: number): number {
+  return amount / 100;
+}

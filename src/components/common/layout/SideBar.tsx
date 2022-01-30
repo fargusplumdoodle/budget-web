@@ -8,6 +8,7 @@ const SideBar: FunctionComponent<{}> = () => {
   const sideBarLinks = [
     { text: "Add Transaction", route: "/transactions/add" },
     { text: "Transactions", route: "/transactions" },
+    { text: "Income", route: "/transactions/income" },
     { text: "Budgets", route: "/budgets" },
     { text: "Budget Percentages", route: "/budgets/percentages" },
     { text: "Transfer Funds", route: "/budgets/transfer_funds" },
