@@ -1,18 +1,17 @@
-import { Button, CircularProgress, Stack, TextField } from "@mui/material";
+import { Button, CircularProgress, Stack } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
 import { Transaction } from "../../../../store/types/models";
 import { FormItem, incomeSchema } from "../../../../util/form";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { DatePicker, LocalizationProvider } from "@mui/lab";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { ProviderContext, withSnackbar } from "notistack";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createIncomeTransactions } from "../../../../util/income";
 import { createTransaction } from "../../../../api/transaction";
 import AmountInput from "../inputs/AmountInput";
 import DescriptionInput from "../inputs/DescriptionInput";
+import DateInput from "../inputs/DateInput";
 
 interface Props extends ProviderContext {
   onCreateTransactions: (transactions: Transaction[]) => void;
@@ -107,27 +106,7 @@ const IncomeForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <Controller
-              name="date"
-              control={control}
-              render={({ field }) => (
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label="Date"
-                    openTo="day"
-                    views={["year", "month", "day"]}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="standard"
-                        sx={{ width: "100%" }}
-                        {...params}
-                      />
-                    )}
-                    {...field}
-                  />
-                </LocalizationProvider>
-              )}
-            />
+            <DateInput name="date" control={control} />
           </FormItem>
           <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
             {loading ? <CircularProgress /> : "SUBMIT"}

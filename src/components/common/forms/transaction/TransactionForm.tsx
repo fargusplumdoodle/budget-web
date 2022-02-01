@@ -1,6 +1,5 @@
 import {
   Stack,
-  TextField,
   Button,
   ToggleButton,
   FormHelperText,
@@ -13,11 +12,9 @@ import { generateTransaction } from "../../../../util/generators";
 import { RootState } from "../../../../store/configureStore";
 import { useSelector } from "react-redux";
 import { FormItem, transactionSchema } from "../../../../util/form";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Add, Remove } from "@mui/icons-material";
-import { DatePicker, LocalizationProvider } from "@mui/lab";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { ProviderContext, withSnackbar } from "notistack";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
@@ -32,6 +29,7 @@ import TagsInput from "../inputs/TagsInput";
 import { InputErrorMessage } from "../types";
 import BudgetsInput from "../inputs/BudgetInput";
 import DescriptionInput from "../inputs/DescriptionInput";
+import DateInput from "../inputs/DateInput";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
@@ -219,28 +217,9 @@ const TransactionForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <Controller
-              name="date"
-              control={control}
-              render={({ field }) => (
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label="Date"
-                    openTo="day"
-                    views={["year", "month", "day"]}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="standard"
-                        sx={{ width: "100%" }}
-                        {...params}
-                      />
-                    )}
-                    {...field}
-                  />
-                </LocalizationProvider>
-              )}
-            />
+            <DateInput name="date" control={control} />
           </FormItem>
+
           <FormItem sx={{ display: "flex", flexDirection: "row" }}>
             <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
               {loading ? <CircularProgress /> : "SUBMIT"}
