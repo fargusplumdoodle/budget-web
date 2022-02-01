@@ -29,6 +29,8 @@ import {
   updateTransaction,
 } from "../../../../api/transaction";
 import AmountInput from "../inputs/AmountInput";
+import TagsInput from "../inputs/TagsInput";
+import { InputErrorMessage } from "../types";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
@@ -146,30 +148,12 @@ const TransactionForm = (props: Props) => {
               flexDirection: "row",
             }}
           >
-            <ControlledAutocomplete<Tag, Transaction>
+            <TagsInput<Transaction>
               name="tags"
               control={control}
               getValues={getValues}
-              disablePortal
-              multiple
-              limitTags={2}
               options={tags.list}
-              disableClearable
-              isOptionEqualToValue={(option, value) => {
-                return option.id === value.id;
-              }}
-              sx={{ width: "100%" }}
-              getOptionLabel={(option: Tag) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Tags"
-                  error={Boolean(errors.tags)}
-                  helperText={(errors.tags as any)?.message}
-                  placeholder="Tags"
-                />
-              )}
+              errors={errors["tags"] as InputErrorMessage}
             />
             <Button
               onClick={() => {
