@@ -5,16 +5,26 @@ import Callback from "../components/auth/Callback";
 import DashboardPage from "../components/dashboard/DashboardPage";
 import TransactionsPage from "../pages/transactions_list/TransactionsPage";
 import AddTransactionsPage from "../pages/transactions_add/AddTransactionsPage";
-import AddIncomePage from "../pages/transactions_income/AddIncomePage";
+
+export const ROUTES = {
+  DASHBOARD: { path: "/", element: <DashboardPage /> },
+  AUTH_CALLBACK: { path: "/auth/callback", element: <Callback /> },
+  TRANSACTIONS_LIST: {
+    path: "/transactions/list",
+    element: <TransactionsPage />,
+  },
+  TRANSACTIONS_ADD: {
+    path: "/transactions/add",
+    element: <AddTransactionsPage />,
+  },
+};
 
 const AppRoutes: FunctionComponent<{}> = () => {
   return (
     <Routes>
-      <Route path="/" element={<DashboardPage />} />
-      <Route path="/auth/callback" element={<Callback />} />
-      <Route path="/transactions" element={<TransactionsPage />} />
-      <Route path="/transactions/add" element={<AddTransactionsPage />} />
-      <Route path="/transactions/income" element={<AddIncomePage />} />
+      {Object.values(ROUTES).map((route) => (
+        <Route key={Object.values(ROUTES).indexOf(route)} {...route} />
+      ))}
     </Routes>
   );
 };

@@ -7,7 +7,6 @@ interface Props {}
 const TransactionsPage: FunctionComponent<Props> = () => {
   return (
     <>
-      <h1>Transactions</h1>
       <PaginatedTransactionTableContainer />
     </>
   );

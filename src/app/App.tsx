@@ -5,7 +5,6 @@ import Header from "../components/common/layout/Header";
 import { ThemeProvider } from "@mui/material";
 import { darkTheme } from "./theme";
 import SideBar from "../components/common/layout/SideBar";
-import ActionButtons from "../components/common/layout/ActionButtons";
 import { SnackbarProvider } from "notistack";
 
 function App() {
@@ -14,8 +13,8 @@ function App() {
       <SnackbarProvider
         maxSnack={3}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: "bottom",
+          horizontal: "left",
         }}
       >
         <Header />
@@ -24,7 +23,6 @@ function App() {
           <div className="content">
             <AppRoutes />
           </div>
-          <ActionButtons />
         </div>
       </SnackbarProvider>
     </ThemeProvider>

@@ -1,28 +1,33 @@
 import {
-  Input,
-  Stack,
-  InputAdornment,
-  TextField,
   Button,
-  FormHelperText,
   CircularProgress,
+  FormHelperText,
+  Input,
+  InputAdornment,
+  Stack,
+  TextField,
 } from "@mui/material";
 import * as React from "react";
-import { Transaction } from "../../../../../store/types/models";
-import { FormItem, incomeSchema } from "../../../../../util/form";
+import { useState } from "react";
+import { Transaction } from "../../../../store/types/models";
+import { FormItem, incomeSchema } from "../../../../util/form";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { ProviderContext, withSnackbar } from "notistack";
-import { useState } from "react";
-import ApiErrorDialog, { ApiError } from "../../../ApiErrorDialog";
-import { IncomeFormData } from "./types";
-import { createIncomeTransactions } from "../../../../../util/income";
-import { createTransaction } from "../../../../../api/transaction";
+import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
+import { createIncomeTransactions } from "../../../../util/income";
+import { createTransaction } from "../../../../api/transaction";
 
 interface Props extends ProviderContext {
   onCreateTransactions: (transactions: Transaction[]) => void;
+}
+
+export interface IncomeFormData {
+  amount: number;
+  description: string;
+  date: Date;
 }
 
 const IncomeForm = (props: Props) => {
@@ -107,11 +112,9 @@ const IncomeForm = (props: Props) => {
                 )}
               />
             </FormItem>
-            <FormItem>
-              <FormHelperText error={Boolean(errors.amount)}>
-                {errors.amount ? errors.amount.message : ""}
-              </FormHelperText>
-            </FormItem>
+            <FormHelperText error={Boolean(errors.amount)}>
+              {errors.amount ? errors.amount.message : ""}
+            </FormHelperText>
           </div>
 
           <FormItem>

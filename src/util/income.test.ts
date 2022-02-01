@@ -6,9 +6,9 @@ import {
 import { loadBudgetsSuccess } from "../store/actions/budgetActions";
 import { generateTestBudget, generateTestTag } from "./generators";
 import { loadTagsSuccess } from "../store/actions/tagActions";
-import { IncomeFormData } from "../components/common/forms/transaction/IncomeForm/types";
 import { store } from "../store/configureStore";
 import { clearAuthToken } from "../store/actions/authActions";
+import { IncomeFormData } from "../components/common/forms/transaction/IncomeForm";
 
 describe("Test create income", () => {
   beforeEach(() => {
