@@ -10,15 +10,19 @@
 
 .content {
   padding: 20px;
-  width: 100%;
+  width: inherit;
   height: 100%;
   max-width: 2000px;
 }
 
 .sidebar {
-  min-height: 95vh;
+  height: 100vh;
   background-color: #1e1e1e;
-  width: 250px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
 }
 
 .actionButtons {

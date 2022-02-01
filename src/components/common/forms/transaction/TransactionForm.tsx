@@ -1,8 +1,5 @@
 import {
-  Input,
   Stack,
-  InputAdornment,
-  TextField,
   Button,
   ToggleButton,
   FormHelperText,
@@ -10,26 +7,29 @@ import {
   ToggleButtonGroup,
 } from "@mui/material";
 import * as React from "react";
-import { Budget, Tag, Transaction } from "../../../../store/types/models";
+import { Tag, Transaction } from "../../../../store/types/models";
 import { generateTransaction } from "../../../../util/generators";
 import { RootState } from "../../../../store/configureStore";
 import { useSelector } from "react-redux";
 import { FormItem, transactionSchema } from "../../../../util/form";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Add, Remove } from "@mui/icons-material";
-import { DatePicker, LocalizationProvider } from "@mui/lab";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { ProviderContext, withSnackbar } from "notistack";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import TagFormDialog from "../tag/TagFormDialog";
-import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
 import {
   createTransaction,
   deleteTransaction,
   updateTransaction,
 } from "../../../../api/transaction";
+import AmountInput from "../inputs/AmountInput";
+import TagsInput from "../inputs/TagsInput";
+import { InputErrorMessage } from "../types";
+import BudgetsInput from "../inputs/BudgetInput";
+import DescriptionInput from "../inputs/DescriptionInput";
+import DateInput from "../inputs/DateInput";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
@@ -147,30 +147,12 @@ const TransactionForm = (props: Props) => {
               flexDirection: "row",
             }}
           >
-            <ControlledAutocomplete<Tag, Transaction>
+            <TagsInput<Transaction>
               name="tags"
               control={control}
               getValues={getValues}
-              disablePortal
-              multiple
-              limitTags={2}
               options={tags.list}
-              disableClearable
-              isOptionEqualToValue={(option, value) => {
-                return option.id === value.id;
-              }}
-              sx={{ width: "100%" }}
-              getOptionLabel={(option: Tag) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Tags"
-                  error={Boolean(errors.tags)}
-                  helperText={(errors.tags as any)?.message}
-                  placeholder="Tags"
-                />
-              )}
+              errors={errors["tags"] as InputErrorMessage}
             />
             <Button
               onClick={() => {
@@ -182,27 +164,11 @@ const TransactionForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <ControlledAutocomplete<Budget, Transaction>
+            <BudgetsInput<Transaction>
               name="budget"
               control={control}
               getValues={getValues}
-              defaultValue={budgets.byName["food"]}
-              disablePortal
-              options={budgets.list}
-              disableClearable
-              isOptionEqualToValue={(option, value) => {
-                return option.id === value.id;
-              }}
-              getOptionLabel={(option: Budget) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Budget"
-                  error={Boolean(errors.budget)}
-                  helperText={(errors.budget as any)?.message}
-                />
-              )}
+              errors={errors["budget"] as InputErrorMessage}
             />
           </FormItem>
 
@@ -212,20 +178,12 @@ const TransactionForm = (props: Props) => {
                 display: "flex",
               }}
             >
-              <Controller
+              <AmountInput
                 name="amount"
                 control={control}
-                render={({ field }) => (
-                  <Input
-                    error={Boolean(errors.amount)}
-                    aria-describedby="amount-helper-text"
-                    startAdornment={
-                      <InputAdornment position="start">$</InputAdornment>
-                    }
-                    sx={{ width: "100%", marginRight: 1 }}
-                    {...field}
-                  />
-                )}
+                errors={errors.amount}
+                showError={false}
+                sx={{ width: "100%", marginRight: 1 }}
               />
               <ToggleButtonGroup
                 exclusive
@@ -242,52 +200,26 @@ const TransactionForm = (props: Props) => {
                 </ToggleButton>
               </ToggleButtonGroup>
             </FormItem>
-            <FormHelperText error={Boolean(errors.amount)}>
+            <FormHelperText
+              sx={{ marginLeft: 1 }}
+              error={Boolean(errors.amount)}
+            >
               {errors.amount ? errors.amount.message : ""}
             </FormHelperText>
           </div>
 
           <FormItem>
-            <Controller
+            <DescriptionInput
               name="description"
               control={control}
-              render={({ field }) => (
-                <TextField
-                  variant="standard"
-                  label="Description"
-                  helperText={(errors.description as any)?.message}
-                  placeholder="Description"
-                  error={Boolean(errors.description)}
-                  sx={{ width: "100%" }}
-                  {...field}
-                />
-              )}
+              errors={errors.description}
             />
           </FormItem>
 
           <FormItem>
-            <Controller
-              name="date"
-              control={control}
-              render={({ field }) => (
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label="Date"
-                    openTo="day"
-                    views={["year", "month", "day"]}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="standard"
-                        sx={{ width: "100%" }}
-                        {...params}
-                      />
-                    )}
-                    {...field}
-                  />
-                </LocalizationProvider>
-              )}
-            />
+            <DateInput name="date" control={control} />
           </FormItem>
+
           <FormItem sx={{ display: "flex", flexDirection: "row" }}>
             <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
               {loading ? <CircularProgress /> : "SUBMIT"}

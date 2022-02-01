@@ -1,24 +1,17 @@
-import {
-  Button,
-  CircularProgress,
-  FormHelperText,
-  Input,
-  InputAdornment,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Button, CircularProgress, Stack } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
 import { Transaction } from "../../../../store/types/models";
 import { FormItem, incomeSchema } from "../../../../util/form";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { DatePicker, LocalizationProvider } from "@mui/lab";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { ProviderContext, withSnackbar } from "notistack";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createIncomeTransactions } from "../../../../util/income";
 import { createTransaction } from "../../../../api/transaction";
+import AmountInput from "../inputs/AmountInput";
+import DescriptionInput from "../inputs/DescriptionInput";
+import DateInput from "../inputs/DateInput";
 
 interface Props extends ProviderContext {
   onCreateTransactions: (transactions: Transaction[]) => void;
@@ -90,73 +83,30 @@ const IncomeForm = (props: Props) => {
             maxWidth: "615px",
           }}
         >
-          <div>
-            <FormItem
-              sx={{
-                display: "flex",
-              }}
-            >
-              <Controller
-                name="amount"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    error={Boolean(errors.amount)}
-                    aria-describedby="amount-helper-text"
-                    startAdornment={
-                      <InputAdornment position="start">$</InputAdornment>
-                    }
-                    sx={{ width: "100%", marginRight: 1 }}
-                    {...field}
-                  />
-                )}
-              />
-            </FormItem>
-            <FormHelperText error={Boolean(errors.amount)}>
-              {errors.amount ? errors.amount.message : ""}
-            </FormHelperText>
-          </div>
-
-          <FormItem>
-            <Controller
-              name="description"
+          <FormItem
+            sx={{
+              display: "flex",
+            }}
+          >
+            <AmountInput
+              name="amount"
               control={control}
-              render={({ field }) => (
-                <TextField
-                  variant="standard"
-                  label="Description"
-                  helperText={(errors.description as any)?.message}
-                  placeholder="Description"
-                  error={Boolean(errors.description)}
-                  sx={{ width: "100%" }}
-                  {...field}
-                />
-              )}
+              errors={errors.amount}
+              showError={true}
+              sx={{ width: "100%", marginRight: 1 }}
             />
           </FormItem>
 
           <FormItem>
-            <Controller
-              name="date"
+            <DescriptionInput
+              name="description"
               control={control}
-              render={({ field }) => (
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label="Date"
-                    openTo="day"
-                    views={["year", "month", "day"]}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="standard"
-                        sx={{ width: "100%" }}
-                        {...params}
-                      />
-                    )}
-                    {...field}
-                  />
-                </LocalizationProvider>
-              )}
+              errors={errors.description}
             />
+          </FormItem>
+
+          <FormItem>
+            <DateInput name="date" control={control} />
           </FormItem>
           <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
             {loading ? <CircularProgress /> : "SUBMIT"}

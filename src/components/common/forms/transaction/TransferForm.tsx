@@ -1,25 +1,20 @@
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormItem, transferSchema } from "../../../../util/form";
 import { Budget, Transaction } from "../../../../store/types/models";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/configureStore";
-import {
-  Button,
-  CircularProgress,
-  FormHelperText,
-  Input,
-  InputAdornment,
-  Stack,
-  TextField,
-} from "@mui/material";
-import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
+import { Button, CircularProgress, Stack } from "@mui/material";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createTransaction } from "../../../../api/transaction";
 import { createTransferTransactions } from "../../../../util/transfer";
 import { ProviderContext, withSnackbar } from "notistack";
+import AmountInput from "../inputs/AmountInput";
+import BudgetsInput from "../inputs/BudgetInput";
+import { InputErrorMessage } from "../types";
+import DescriptionInput from "../inputs/DescriptionInput";
 
 interface Props extends ProviderContext {
   onCreateCallback: (transactions: Transaction[]) => void;
@@ -97,95 +92,46 @@ const TransferForm: FunctionComponent<Props> = (props) => {
           }}
         >
           <FormItem>
-            <Controller
+            <AmountInput
               name="amount"
               control={control}
-              render={({ field }) => (
-                <Input
-                  error={Boolean(errors.amount)}
-                  aria-describedby="amount-helper-text"
-                  startAdornment={
-                    <InputAdornment position="start">$</InputAdornment>
-                  }
-                  sx={{ width: "100%", marginRight: 1 }}
-                  {...field}
-                />
-              )}
+              errors={errors.amount}
+              showError={true}
+              sx={{ width: "100%", marginRight: 1 }}
             />
-            <FormHelperText error={Boolean(errors.amount)}>
-              {errors.amount ? errors.amount.message : ""}
-            </FormHelperText>
           </FormItem>
 
           <FormItem>
-            <Controller
+            <DescriptionInput
               name="description"
               control={control}
-              render={({ field }) => (
-                <TextField
-                  variant="standard"
-                  label="Description"
-                  helperText={(errors.description as any)?.message}
-                  placeholder="Description"
-                  error={Boolean(errors.description)}
-                  sx={{ width: "100%" }}
-                  {...field}
-                />
-              )}
+              errors={errors.description}
             />
           </FormItem>
 
           <FormItem>
-            <ControlledAutocomplete<Budget, TransferFormData>
+            <BudgetsInput<TransferFormData>
               name="fromBudget"
               control={control}
               getValues={getValues}
-              defaultValue={budgets.byName["food"]}
-              disablePortal
+              defaultValue={budgets.list[0]}
               options={budgets.list.filter(
                 (b) => b.id !== getValues("toBudget").id
               )}
-              disableClearable
-              isOptionEqualToValue={(option, value) => {
-                return option.id === value.id;
-              }}
-              getOptionLabel={(option: Budget) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Budget"
-                  error={Boolean(errors.fromBudget)}
-                  helperText={(errors.fromBudget as any)?.message}
-                />
-              )}
+              errors={errors["fromBudget"] as InputErrorMessage}
             />
           </FormItem>
 
           <FormItem>
-            <ControlledAutocomplete<Budget, TransferFormData>
+            <BudgetsInput<TransferFormData>
               name="toBudget"
               control={control}
               getValues={getValues}
-              defaultValue={budgets.byName["food"]}
-              disablePortal
+              defaultValue={budgets.list[1]}
               options={budgets.list.filter(
                 (b) => b.id !== getValues("fromBudget").id
               )}
-              disableClearable
-              isOptionEqualToValue={(option, value) => {
-                return option.id === value.id;
-              }}
-              getOptionLabel={(option: Budget) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Budget"
-                  error={Boolean(errors.toBudget)}
-                  helperText={(errors.toBudget as any)?.message}
-                />
-              )}
+              errors={errors["toBudget"] as InputErrorMessage}
             />
           </FormItem>
 
