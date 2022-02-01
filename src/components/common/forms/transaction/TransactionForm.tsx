@@ -31,6 +31,7 @@ import AmountInput from "../inputs/AmountInput";
 import TagsInput from "../inputs/TagsInput";
 import { InputErrorMessage } from "../types";
 import BudgetsInput from "../inputs/BudgetInput";
+import DescriptionInput from "../inputs/DescriptionInput";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
@@ -210,20 +211,10 @@ const TransactionForm = (props: Props) => {
           </div>
 
           <FormItem>
-            <Controller
+            <DescriptionInput
               name="description"
               control={control}
-              render={({ field }) => (
-                <TextField
-                  variant="standard"
-                  label="Description"
-                  helperText={(errors.description as any)?.message}
-                  placeholder="Description"
-                  error={Boolean(errors.description)}
-                  sx={{ width: "100%" }}
-                  {...field}
-                />
-              )}
+              errors={errors.description}
             />
           </FormItem>
 

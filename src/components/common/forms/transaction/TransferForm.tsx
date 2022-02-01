@@ -1,12 +1,12 @@
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormItem, transferSchema } from "../../../../util/form";
 import { Budget, Transaction } from "../../../../store/types/models";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/configureStore";
-import { Button, CircularProgress, Stack, TextField } from "@mui/material";
+import { Button, CircularProgress, Stack } from "@mui/material";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createTransaction } from "../../../../api/transaction";
 import { createTransferTransactions } from "../../../../util/transfer";
@@ -14,6 +14,7 @@ import { ProviderContext, withSnackbar } from "notistack";
 import AmountInput from "../inputs/AmountInput";
 import BudgetsInput from "../inputs/BudgetInput";
 import { InputErrorMessage } from "../types";
+import DescriptionInput from "../inputs/DescriptionInput";
 
 interface Props extends ProviderContext {
   onCreateCallback: (transactions: Transaction[]) => void;
@@ -101,20 +102,10 @@ const TransferForm: FunctionComponent<Props> = (props) => {
           </FormItem>
 
           <FormItem>
-            <Controller
+            <DescriptionInput
               name="description"
               control={control}
-              render={({ field }) => (
-                <TextField
-                  variant="standard"
-                  label="Description"
-                  helperText={(errors.description as any)?.message}
-                  placeholder="Description"
-                  error={Boolean(errors.description)}
-                  sx={{ width: "100%" }}
-                  {...field}
-                />
-              )}
+              errors={errors.description}
             />
           </FormItem>
 

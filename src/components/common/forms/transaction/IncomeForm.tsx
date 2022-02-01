@@ -12,6 +12,7 @@ import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createIncomeTransactions } from "../../../../util/income";
 import { createTransaction } from "../../../../api/transaction";
 import AmountInput from "../inputs/AmountInput";
+import DescriptionInput from "../inputs/DescriptionInput";
 
 interface Props extends ProviderContext {
   onCreateTransactions: (transactions: Transaction[]) => void;
@@ -98,20 +99,10 @@ const IncomeForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <Controller
+            <DescriptionInput
               name="description"
               control={control}
-              render={({ field }) => (
-                <TextField
-                  variant="standard"
-                  label="Description"
-                  helperText={(errors.description as any)?.message}
-                  placeholder="Description"
-                  error={Boolean(errors.description)}
-                  sx={{ width: "100%" }}
-                  {...field}
-                />
-              )}
+              errors={errors.description}
             />
           </FormItem>
 
