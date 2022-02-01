@@ -17,8 +17,11 @@ import {
 } from "@mui/material";
 import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
+import { createTransaction } from "../../../../api/transaction";
+import { createTransferTransactions } from "../../../../util/transfer";
+import { ProviderContext, withSnackbar } from "notistack";
 
-interface Props {
+interface Props extends ProviderContext {
   onCreateCallback: (transactions: Transaction[]) => void;
 }
 
@@ -53,10 +56,34 @@ const TransferForm: FunctionComponent<Props> = (props) => {
     defaultValues: defaultValues,
   });
 
-  const onSubmit = () => {
+  const onSubmit = (data: TransferFormData) => {
     setLoading(true);
-    // TODO: THIS
-    setLoading(false);
+    const transactions = createTransferTransactions({
+      ...data,
+      amount: 0 - Math.abs(data.amount),
+    });
+    const createTransactionPromises: Promise<Transaction>[] = transactions.map(
+      (transaction: Transaction) => {
+        return createTransaction(transaction);
+      }
+    );
+
+    Promise.allSettled(createTransactionPromises)
+      .then((promiseStates: PromiseFulfilledResult<Transaction>[]) => {
+        setLoading(false);
+        props.enqueueSnackbar(`Successfully created income transactions`, {
+          variant: "success",
+        });
+        props.onCreateCallback(
+          promiseStates
+            .filter((p) => p.status === "fulfilled")
+            .map((promise) => promise.value)
+        );
+      })
+      .catch((err) => {
+        setLoading(false);
+        setApiError(err);
+      });
   };
   return (
     <>
@@ -178,4 +205,4 @@ const TransferForm: FunctionComponent<Props> = (props) => {
   );
 };
 
-export default TransferForm;
+export default withSnackbar(TransferForm);
