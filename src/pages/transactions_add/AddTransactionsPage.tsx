@@ -7,6 +7,7 @@ import TransactionTable from "../../components/transactions/transactions_table/T
 import { Transaction } from "../../store/types/models";
 import IncomeForm from "../../components/common/forms/transaction/IncomeForm";
 import { TabPanel, tabProps } from "../../components/common/tabs";
+import TransferForm from "../../components/common/forms/transaction/TransferForm";
 
 const ADD = 0;
 const INCOME = 1;
@@ -60,7 +61,11 @@ const AddTransactionsPage: FunctionComponent = () => {
           </TabPanel>
 
           <TabPanel value={tab} index={TRANSFER}>
-            <h1>TODO: TRANSFER FORM</h1>
+            <TransferForm
+              onCreateCallback={(newTransactions: Transaction[]) => {
+                setTransactions([...newTransactions, ...transactions]);
+              }}
+            />
           </TabPanel>
         </Card>
 

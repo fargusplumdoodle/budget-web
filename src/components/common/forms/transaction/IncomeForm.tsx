@@ -112,11 +112,9 @@ const IncomeForm = (props: Props) => {
                 )}
               />
             </FormItem>
-            <FormItem>
-              <FormHelperText error={Boolean(errors.amount)}>
-                {errors.amount ? errors.amount.message : ""}
-              </FormHelperText>
-            </FormItem>
+            <FormHelperText error={Boolean(errors.amount)}>
+              {errors.amount ? errors.amount.message : ""}
+            </FormHelperText>
           </div>
 
           <FormItem>

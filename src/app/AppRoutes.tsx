@@ -23,7 +23,7 @@ const AppRoutes: FunctionComponent<{}> = () => {
   return (
     <Routes>
       {Object.values(ROUTES).map((route) => (
-        <Route {...route} />
+        <Route key={Object.values(ROUTES).indexOf(route)} {...route} />
       ))}
     </Routes>
   );
