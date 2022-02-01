@@ -43,6 +43,18 @@ export const transactionSchema = yup
   })
   .required();
 
+export const transactionSearchSchema = yup
+  .object({
+    tags: yup.array().required().nullable(),
+    amountMin: yup.number().nullable(),
+    amountMax: yup.number().nullable(),
+    description: yup.string().max(300).nullable(),
+    dateMin: yup.date().required().nullable(),
+    dateMax: yup.date().required().nullable(),
+    budgets: yup.array().required().nullable(),
+  })
+  .required();
+
 export const tagSchema = yup.object({
   name: yup
     .string()

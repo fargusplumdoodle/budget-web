@@ -1,7 +1,5 @@
 import {
-  Input,
   Stack,
-  InputAdornment,
   TextField,
   Button,
   ToggleButton,
@@ -30,6 +28,7 @@ import {
   deleteTransaction,
   updateTransaction,
 } from "../../../../api/transaction";
+import AmountInput from "../inputs/AmountInput";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
@@ -212,20 +211,12 @@ const TransactionForm = (props: Props) => {
                 display: "flex",
               }}
             >
-              <Controller
+              <AmountInput
                 name="amount"
                 control={control}
-                render={({ field }) => (
-                  <Input
-                    error={Boolean(errors.amount)}
-                    aria-describedby="amount-helper-text"
-                    startAdornment={
-                      <InputAdornment position="start">$</InputAdornment>
-                    }
-                    sx={{ width: "100%", marginRight: 1 }}
-                    {...field}
-                  />
-                )}
+                errors={errors.amount}
+                showError={false}
+                sx={{ width: "100%", marginRight: 1 }}
               />
               <ToggleButtonGroup
                 exclusive
@@ -242,7 +233,10 @@ const TransactionForm = (props: Props) => {
                 </ToggleButton>
               </ToggleButtonGroup>
             </FormItem>
-            <FormHelperText error={Boolean(errors.amount)}>
+            <FormHelperText
+              sx={{ marginLeft: 1 }}
+              error={Boolean(errors.amount)}
+            >
               {errors.amount ? errors.amount.message : ""}
             </FormHelperText>
           </div>

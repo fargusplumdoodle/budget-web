@@ -1,12 +1,4 @@
-import {
-  Button,
-  CircularProgress,
-  FormHelperText,
-  Input,
-  InputAdornment,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Button, CircularProgress, Stack, TextField } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
 import { Transaction } from "../../../../store/types/models";
@@ -19,6 +11,7 @@ import { ProviderContext, withSnackbar } from "notistack";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createIncomeTransactions } from "../../../../util/income";
 import { createTransaction } from "../../../../api/transaction";
+import AmountInput from "../inputs/AmountInput";
 
 interface Props extends ProviderContext {
   onCreateTransactions: (transactions: Transaction[]) => void;
@@ -90,32 +83,19 @@ const IncomeForm = (props: Props) => {
             maxWidth: "615px",
           }}
         >
-          <div>
-            <FormItem
-              sx={{
-                display: "flex",
-              }}
-            >
-              <Controller
-                name="amount"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    error={Boolean(errors.amount)}
-                    aria-describedby="amount-helper-text"
-                    startAdornment={
-                      <InputAdornment position="start">$</InputAdornment>
-                    }
-                    sx={{ width: "100%", marginRight: 1 }}
-                    {...field}
-                  />
-                )}
-              />
-            </FormItem>
-            <FormHelperText error={Boolean(errors.amount)}>
-              {errors.amount ? errors.amount.message : ""}
-            </FormHelperText>
-          </div>
+          <FormItem
+            sx={{
+              display: "flex",
+            }}
+          >
+            <AmountInput
+              name="amount"
+              control={control}
+              errors={errors.amount}
+              showError={true}
+              sx={{ width: "100%", marginRight: 1 }}
+            />
+          </FormItem>
 
           <FormItem>
             <Controller

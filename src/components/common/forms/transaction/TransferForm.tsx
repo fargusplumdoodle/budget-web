@@ -6,20 +6,13 @@ import { FormItem, transferSchema } from "../../../../util/form";
 import { Budget, Transaction } from "../../../../store/types/models";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/configureStore";
-import {
-  Button,
-  CircularProgress,
-  FormHelperText,
-  Input,
-  InputAdornment,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Button, CircularProgress, Stack, TextField } from "@mui/material";
 import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createTransaction } from "../../../../api/transaction";
 import { createTransferTransactions } from "../../../../util/transfer";
 import { ProviderContext, withSnackbar } from "notistack";
+import AmountInput from "../inputs/AmountInput";
 
 interface Props extends ProviderContext {
   onCreateCallback: (transactions: Transaction[]) => void;
@@ -97,24 +90,13 @@ const TransferForm: FunctionComponent<Props> = (props) => {
           }}
         >
           <FormItem>
-            <Controller
+            <AmountInput
               name="amount"
               control={control}
-              render={({ field }) => (
-                <Input
-                  error={Boolean(errors.amount)}
-                  aria-describedby="amount-helper-text"
-                  startAdornment={
-                    <InputAdornment position="start">$</InputAdornment>
-                  }
-                  sx={{ width: "100%", marginRight: 1 }}
-                  {...field}
-                />
-              )}
+              errors={errors.amount}
+              showError={true}
+              sx={{ width: "100%", marginRight: 1 }}
             />
-            <FormHelperText error={Boolean(errors.amount)}>
-              {errors.amount ? errors.amount.message : ""}
-            </FormHelperText>
           </FormItem>
 
           <FormItem>
