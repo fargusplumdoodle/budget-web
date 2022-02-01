@@ -8,7 +8,7 @@ import {
   ToggleButtonGroup,
 } from "@mui/material";
 import * as React from "react";
-import { Budget, Tag, Transaction } from "../../../../store/types/models";
+import { Tag, Transaction } from "../../../../store/types/models";
 import { generateTransaction } from "../../../../util/generators";
 import { RootState } from "../../../../store/configureStore";
 import { useSelector } from "react-redux";
@@ -22,7 +22,6 @@ import { ProviderContext, withSnackbar } from "notistack";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import TagFormDialog from "../tag/TagFormDialog";
-import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
 import {
   createTransaction,
   deleteTransaction,
@@ -31,6 +30,7 @@ import {
 import AmountInput from "../inputs/AmountInput";
 import TagsInput from "../inputs/TagsInput";
 import { InputErrorMessage } from "../types";
+import BudgetsInput from "../inputs/BudgetInput";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
@@ -165,27 +165,11 @@ const TransactionForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <ControlledAutocomplete<Budget, Transaction>
+            <BudgetsInput<Transaction>
               name="budget"
               control={control}
               getValues={getValues}
-              defaultValue={budgets.byName["food"]}
-              disablePortal
-              options={budgets.list}
-              disableClearable
-              isOptionEqualToValue={(option, value) => {
-                return option.id === value.id;
-              }}
-              getOptionLabel={(option: Budget) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Budget"
-                  error={Boolean(errors.budget)}
-                  helperText={(errors.budget as any)?.message}
-                />
-              )}
+              errors={errors["budget"] as InputErrorMessage}
             />
           </FormItem>
 

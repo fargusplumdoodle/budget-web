@@ -7,12 +7,13 @@ import { Budget, Transaction } from "../../../../store/types/models";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/configureStore";
 import { Button, CircularProgress, Stack, TextField } from "@mui/material";
-import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createTransaction } from "../../../../api/transaction";
 import { createTransferTransactions } from "../../../../util/transfer";
 import { ProviderContext, withSnackbar } from "notistack";
 import AmountInput from "../inputs/AmountInput";
+import BudgetsInput from "../inputs/BudgetInput";
+import { InputErrorMessage } from "../types";
 
 interface Props extends ProviderContext {
   onCreateCallback: (transactions: Transaction[]) => void;
@@ -118,56 +119,28 @@ const TransferForm: FunctionComponent<Props> = (props) => {
           </FormItem>
 
           <FormItem>
-            <ControlledAutocomplete<Budget, TransferFormData>
+            <BudgetsInput<TransferFormData>
               name="fromBudget"
               control={control}
               getValues={getValues}
-              defaultValue={budgets.byName["food"]}
-              disablePortal
+              defaultValue={budgets.list[0]}
               options={budgets.list.filter(
                 (b) => b.id !== getValues("toBudget").id
               )}
-              disableClearable
-              isOptionEqualToValue={(option, value) => {
-                return option.id === value.id;
-              }}
-              getOptionLabel={(option: Budget) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Budget"
-                  error={Boolean(errors.fromBudget)}
-                  helperText={(errors.fromBudget as any)?.message}
-                />
-              )}
+              errors={errors["fromBudget"] as InputErrorMessage}
             />
           </FormItem>
 
           <FormItem>
-            <ControlledAutocomplete<Budget, TransferFormData>
+            <BudgetsInput<TransferFormData>
               name="toBudget"
               control={control}
               getValues={getValues}
-              defaultValue={budgets.byName["food"]}
-              disablePortal
+              defaultValue={budgets.list[1]}
               options={budgets.list.filter(
                 (b) => b.id !== getValues("fromBudget").id
               )}
-              disableClearable
-              isOptionEqualToValue={(option, value) => {
-                return option.id === value.id;
-              }}
-              getOptionLabel={(option: Budget) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Budget"
-                  error={Boolean(errors.toBudget)}
-                  helperText={(errors.toBudget as any)?.message}
-                />
-              )}
+              errors={errors["toBudget"] as InputErrorMessage}
             />
           </FormItem>
 
