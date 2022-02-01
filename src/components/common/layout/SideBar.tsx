@@ -1,39 +1,49 @@
 import * as React from "react";
 import { FunctionComponent } from "react";
-import { List, ListItem, ListItemButton, Typography } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../app/AppRoutes";
+import { tabProps } from "../tabs";
+import { TrendingUp, Add, List } from "@mui/icons-material";
 
 const SideBar: FunctionComponent<{}> = () => {
   const navigate = useNavigate();
+
   const sideBarLinks = [
-    { text: "Add Transaction", route: "/transactions/add" },
-    { text: "Transactions", route: "/transactions" },
-    { text: "Budgets", route: "/budgets" },
-    { text: "Budget Percentages", route: "/budgets/percentages" },
-    { text: "Transfer Funds", route: "/budgets/transfer_funds" },
-    { text: "Dashboard", route: "/" },
-    { text: "Tags", route: "/tags" },
+    { text: "Dashboard", route: ROUTES.DASHBOARD, icon: <TrendingUp /> },
+    { text: "Add Transactions", route: ROUTES.TRANSACTIONS_ADD, icon: <Add /> },
+    { text: "Transactions", route: ROUTES.TRANSACTIONS_LIST, icon: <List /> },
   ];
+
+  const selected = sideBarLinks.find(
+    (link) => link.route.path === window.location.pathname
+  );
 
   return (
     <div className="sidebar">
-      <nav>
-        <List>
-          {sideBarLinks.map((ln) => {
-            return (
-              <ListItem key={ln.text} disablePadding>
-                <ListItemButton
-                  onClick={() => {
-                    navigate(ln.route);
-                  }}
-                >
-                  <Typography variant="h6">{ln.text}</Typography>
-                </ListItemButton>
-              </ListItem>
-            );
-          })}
-        </List>
-      </nav>
+      <Tabs
+        orientation="vertical"
+        variant="scrollable"
+        value={sideBarLinks.indexOf(selected)}
+        aria-label="Vertical tabs example"
+        sx={{ borderRight: 1, borderColor: "divider" }}
+      >
+        {sideBarLinks.map((ln) => {
+          return (
+            <Tab
+              key={sideBarLinks.indexOf(ln)}
+              icon={ln.icon}
+              sx={{ marginLeft: "auto" }}
+              iconPosition="end"
+              label={ln.text}
+              onClick={() => {
+                navigate(ln.route.path);
+              }}
+              {...tabProps(sideBarLinks.indexOf(ln))}
+            />
+          );
+        })}
+      </Tabs>
     </div>
   );
 };

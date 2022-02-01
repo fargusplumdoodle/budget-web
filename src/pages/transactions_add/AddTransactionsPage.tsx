@@ -22,7 +22,6 @@ const AddTransactionsPage: FunctionComponent = () => {
 
   return (
     <>
-      <h2>Add Transactions</h2>
       <Box
         sx={{
           display: "flex",
