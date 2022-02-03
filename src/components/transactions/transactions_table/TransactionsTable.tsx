@@ -30,8 +30,8 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
 
   return (
     <>
-      <TableContainer sx={{ overflow: "scroll", height: "100%" }}>
-        <Table aria-label="transaction list">
+      <TableContainer sx={{ maxHeight: 574 }}>
+        <Table aria-label="transaction list" stickyHeader>
           <TableHead>
             <TableRow>
               {headers.map((headerName) => {
