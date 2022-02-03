@@ -47,7 +47,7 @@ const PaginatedTransactionsTable: FunctionComponent<TransactionTableProps> = (
 
   return (
     <>
-      <TableContainer sx={{ overflow: "scroll", height: "100%" }}>
+      <TableContainer>
         <Table aria-label="transaction list">
           <TableHead>
             <TableRow>

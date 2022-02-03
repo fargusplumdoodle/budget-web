@@ -2,25 +2,18 @@ import * as React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import TransactionsTable from "./TransactionsTable";
-import { range } from "lodash";
-import { generateTestTransaction } from "../../../util/generators";
-import { Transaction } from "../../../store/types/models";
+import {
+  createCallback,
+  createSampleTransactions,
+} from "../../../util/storybook";
 
 export default {
   title: "Transactions Table",
   component: TransactionsTable,
 } as ComponentMeta<typeof TransactionsTable>;
 
-const exampleTransactions = range(100).map(() => generateTestTransaction());
-const createCallback = function (name: string) {
-  return (trans: Transaction) => {
-    alert(`Called ${name} callback!`);
-    console.log(`Callback: ${name}`, trans);
-  };
-};
-
 const defaultArgs = {
-  transactions: exampleTransactions,
+  transactions: createSampleTransactions(),
   showBudget: true,
   onCreateCallback: createCallback("create"),
   onUpdateCallback: createCallback("update"),

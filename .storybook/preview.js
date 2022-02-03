@@ -1,11 +1,12 @@
 import { SnackbarProvider } from "notistack";
-import { darkTheme } from "../src/app/theme";
-import { ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
 import { store } from "../src/store/configureStore";
 import { Provider } from "react-redux";
 import { loadBudgetsSuccess } from "../src/store/actions/budgetActions";
-import {sampleBudgets, sampleTags} from "./store";
+import { sampleBudgets, sampleTags } from "./store";
 import { loadTagsSuccess } from "../src/store/actions/tagActions";
+import { darkTheme } from "../src/app/theme";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -33,9 +34,11 @@ const withSnackBar = (Story) => {
 
 const withDarkTheme = (Story) => {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Story />
-    </ThemeProvider>
+    <CssBaseline>
+      <ThemeProvider theme={darkTheme}>
+        <Story />
+      </ThemeProvider>
+    </CssBaseline>
   );
 };
 
