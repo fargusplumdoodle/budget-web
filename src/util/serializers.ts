@@ -38,12 +38,16 @@ export function deserializeTransaction(
   trans: SerializedTransaction
 ): Transaction {
   const state = store.getState();
+  const budget = state.budgets.byId[trans.budget];
+  if (!budget) {
+    throw Error(`Unable to find budget in state: ${trans.budget}`);
+  }
   return {
     ...trans,
     amount: fromCents(trans.amount),
     id: trans.id,
     date: getAPIDate(trans.date),
-    budget: state.budgets.byId[trans.budget],
+    budget: budget,
     tags: trans.tags.map((tag) => deserializeTag(tag)),
   };
 }
