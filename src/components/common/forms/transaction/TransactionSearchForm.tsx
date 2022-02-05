@@ -28,8 +28,8 @@ interface TransactionSearchData {
   budgets: Budget[];
 }
 
-const TransactionSearchForm = (props: Props) => {
-  const budgets = useSelector((state: RootState) => state.budgets);
+const TransactionSearchForm = ({ onSubmit }: Props) => {
+  // const budgets = useSelector((state: RootState) => state.budgets);
   const tags = useSelector((state: RootState) => state.tags);
 
   const classes = {
@@ -66,8 +66,6 @@ const TransactionSearchForm = (props: Props) => {
     resolver: yupResolver(transactionSearchSchema),
     defaultValues: defaultValues,
   });
-
-  function onSubmit() {}
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
