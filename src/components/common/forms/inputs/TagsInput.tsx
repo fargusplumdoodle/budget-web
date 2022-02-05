@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Control, Path } from "react-hook-form";
-import { TextField } from "@mui/material";
+import { SxProps, TextField } from "@mui/material";
 import { InputErrorMessage } from "../types";
 import ControlledAutocomplete from "./ControlledAutoComplete";
 import { Tag } from "../../../../store/types/models";
@@ -11,6 +11,7 @@ interface Props<FormT> {
   errors: InputErrorMessage;
   options: Tag[];
   getValues: (path: string) => Tag;
+  sx?: SxProps;
 }
 
 function TagsInput<FormT>({
@@ -21,6 +22,9 @@ function TagsInput<FormT>({
   errors,
   ...autoCompleteOptions
 }: Props<FormT>) {
+  const sx = autoCompleteOptions["sx"]
+    ? autoCompleteOptions.sx
+    : { width: "100%" };
   return (
     <ControlledAutocomplete<Tag, FormT>
       name={name}
@@ -34,7 +38,7 @@ function TagsInput<FormT>({
       isOptionEqualToValue={(option, value) => {
         return option.id === value.id;
       }}
-      sx={{ width: "100%" }}
+      sx={sx}
       getOptionLabel={(option: Tag) => option.name}
       renderInput={(params) => (
         <TextField

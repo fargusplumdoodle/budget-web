@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { store } from "../store/configureStore";
 import { PaginatedQueryParams, PaginatedResponse } from "./types";
+import { DateTime } from "luxon";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   const state = store.getState();
@@ -53,4 +54,25 @@ export function toCents(amount: number): number {
 }
 export function fromCents(amount: number): number {
   return amount / 100;
+}
+
+/**
+ * Issue:
+ * Dates come from the API in the local timezone, yet Javascript interprets them
+ * as being UTC
+ *
+ * This is because dates do not have timezone information explicitly baked in.
+ *   E.g: "2022-02-05"
+ *
+ * So JS would interpret this as being "2022-02-05 UTC" and then conveniently
+ * convert it to "2022-02-04 Pacific Time"
+ *
+ * This takes the date from the API, and creates a date object in JS that
+ * is aware of the users local timezone
+ *
+ * @param apiDate: Date coming from the API
+ */
+export function getAPIDate(apiDate: string): Date {
+  const timezoneAwareDate = DateTime.fromISO(apiDate).setZone("system");
+  return new Date(timezoneAwareDate.toString());
 }

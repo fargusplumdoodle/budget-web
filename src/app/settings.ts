@@ -16,5 +16,7 @@ const settings = {
       `&client_id=${CLIENT_ID}` +
       `&redirect_uri=${CALLBACK_URL}`,
   },
+  expectedBudgets: ["savings"],
+  expectedTags: ["income", "transfer"],
 };
 export default settings;

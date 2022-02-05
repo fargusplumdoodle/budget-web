@@ -45,7 +45,7 @@ export const transactionSchema = yup
 
 export const transactionSearchSchema = yup
   .object({
-    tags: yup.array().required().nullable(),
+    tags: yup.array().nullable(),
     amountMin: yup.number().nullable(),
     amountMax: yup.number().nullable(),
     description: yup.string().max(300).nullable(),

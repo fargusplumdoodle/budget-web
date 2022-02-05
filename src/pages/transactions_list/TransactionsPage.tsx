@@ -1,13 +1,13 @@
 import * as React from "react";
 import { FunctionComponent } from "react";
-import PaginatedTransactionTableContainer from "../../components/transactions/transactions_table/PaginatedTransactionTableContainer";
+import TransactionTable from "../../components/transactions/transactions_table/TransactionsTable";
 
 interface Props {}
 
 const TransactionsPage: FunctionComponent<Props> = () => {
   return (
     <>
-      <PaginatedTransactionTableContainer />
+      <TransactionTable showBudget={false} transactions={[]} />
     </>
   );
 };

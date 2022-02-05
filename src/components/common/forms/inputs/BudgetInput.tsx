@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Control, Path } from "react-hook-form";
-import { TextField } from "@mui/material";
+import { SxProps, TextField } from "@mui/material";
 import { InputErrorMessage } from "../types";
 import ControlledAutocomplete from "./ControlledAutoComplete";
 import { Budget } from "../../../../store/types/models";
@@ -15,6 +15,7 @@ interface Props<FormT> {
   defaultValue?: Budget;
   options?: Budget[];
   multiple?: boolean;
+  sx?: SxProps;
 }
 function BudgetsInput<FormT>({
   name,

@@ -40,6 +40,7 @@ const SideBar: FunctionComponent<{}> = () => {
                 key={sideBarLinks.indexOf(ln)}
                 icon={ln.icon}
                 iconPosition="end"
+                sx={{ marginLeft: "auto" }}
                 label={ln.text}
                 onClick={() => {
                   navigate(ln.route.path);

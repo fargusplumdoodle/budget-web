@@ -5,7 +5,7 @@ import {
   SerializedTransaction,
 } from "../api/types";
 import { store } from "../store/configureStore";
-import {fromCents, toCents} from "../api/util";
+import { fromCents, getAPIDate, toCents } from "../api/util";
 
 export const serializeTag = (tag: Tag): SerializedTag => {
   return {
@@ -24,7 +24,7 @@ export function serializeTransaction(
   trans: Transaction
 ): SerializedTransaction {
   return {
-    amount: toCents(trans.amount) ,
+    amount: toCents(trans.amount),
     description: trans.description,
     budget: trans.budget.id,
     date: trans.date.toLocaleDateString(),
@@ -42,7 +42,7 @@ export function deserializeTransaction(
     ...trans,
     amount: fromCents(trans.amount),
     id: trans.id,
-    date: new Date(trans.date),
+    date: getAPIDate(trans.date),
     budget: state.budgets.byId[trans.budget],
     tags: trans.tags.map((tag) => deserializeTag(tag)),
   };
