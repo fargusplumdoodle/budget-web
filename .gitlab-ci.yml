@@ -26,8 +26,8 @@ build-prod:
   only:
     - main
   script:
-    - docker pull $IMAGE:latest || true
-    - docker build -t "$IMAGE:latest" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:latest .
+    - docker pull $IMAGE:dev || true
+    - docker build -t "$IMAGE:dev " -t "$IMAGE:$CI_COMMIT_SHA" .
     - docker image push --all-tags "$IMAGE"
 
 
@@ -40,7 +40,7 @@ build-dev:
     - dev
   script:
     - docker pull $IMAGE:dev || true
-    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:dev .
+    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" .
     - docker image push --all-tags "$IMAGE"
 
 release:
