@@ -1,8 +1,9 @@
 import * as faker from "faker";
 import { Budget, Tag, Transaction } from "../store/types/models";
 
-const sharedArrayBuffer = new SharedArrayBuffer(1024);
+const sharedArrayBuffer = [0];
 const atomicStore = new Uint8Array(sharedArrayBuffer);
+let dangerousMutableGlobalVariableThatCausesRaceConditions = 0;
 
 export function getUniqueNumber(): number {
   return Atomics.add(atomicStore, 0, 1);

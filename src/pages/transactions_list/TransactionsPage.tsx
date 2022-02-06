@@ -5,6 +5,7 @@ import { fetchTransactionPage } from "../../api/transaction";
 import PaginatedTransactionsTable from "../../components/transactions/transactions_table/PaginatedTransactionsTable";
 import { Transaction } from "../../store/types/models";
 import { PaginatedResponse } from "../../api/types";
+import { removeFromValuesList, updateValuesList } from "../../util/state";
 
 interface Props {}
 
@@ -34,24 +35,15 @@ const TransactionsPage: FunctionComponent<Props> = () => {
       <PaginatedTransactionsTable
         showBudget
         transactions={transactions}
-        onUpdateCallback={(trans: Transaction) => {
-          const index = transactions.findIndex(
-            (t: Transaction) => t.id === trans.id
-          );
-          setTransactions([
-            ...transactions.slice(0, index),
-            trans,
-            ...transactions.slice(index + 1),
-          ]);
-        }}
+        onUpdateCallback={(trans: Transaction) =>
+          updateValuesList<Transaction>(trans, transactions, setTransactions)
+        }
         onDeleteCallback={(trans: Transaction) => {
-          const index = transactions.findIndex(
-            (t: Transaction) => t.id === trans.id
+          removeFromValuesList<Transaction>(
+            trans,
+            transactions,
+            setTransactions
           );
-          setTransactions([
-            ...transactions.slice(0, index),
-            ...transactions.slice(index + 1),
-          ]);
         }}
       />
     </>
