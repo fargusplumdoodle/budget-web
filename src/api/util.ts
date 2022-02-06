@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import { store } from "../store/configureStore";
 import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { DateTime } from "luxon";
+import { round } from "lodash";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   const state = store.getState();
@@ -50,10 +51,10 @@ export async function makePaginatedRequest<T>(
 }
 
 export function toCents(amount: number): number {
-  return amount * 100;
+  return round(amount * 100, 2);
 }
 export function fromCents(amount: number): number {
-  return amount / 100;
+  return round(amount / 100, 2);
 }
 
 /**
