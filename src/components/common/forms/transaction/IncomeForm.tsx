@@ -46,7 +46,7 @@ const IncomeForm = (props: Props) => {
     setLoading(true);
     const transactions = createIncomeTransactions({
       ...data,
-      amount: 0 - Math.abs(data.amount),
+      amount: Math.abs(data.amount),
     });
     const createTransactionPromises: Promise<Transaction>[] = transactions.map(
       (transaction: Transaction) => {
