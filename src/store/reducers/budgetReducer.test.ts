@@ -27,7 +27,7 @@ describe("Test budget reducer", () => {
   test("that new budgets are not added to the state", () => {
     // using rank to ensure they appear in the right order
     const budgets = range(10, 0).map((rank) =>
-      generateTestBudget({ rank: rank })
+      generateTestBudget({ id: rank, name: `${rank}_budget`, rank: rank })
     );
     const budgetsState = budgetReducer(
       initialState.budgets,
@@ -49,8 +49,7 @@ describe("Test budget reducer", () => {
     const newBudget = {
       ...oldBudget,
       balance: oldBudget.balance + 1,
-    }
-
+    };
 
     const initialBudgets = [untouched, oldBudget];
 
@@ -59,8 +58,6 @@ describe("Test budget reducer", () => {
       updateBudgetSuccess(newBudget)
     );
 
-    ensureStateIsSetForListOfBudgets(budgetsState, [untouched, newBudget])
-
-
+    ensureStateIsSetForListOfBudgets(budgetsState, [untouched, newBudget]);
   });
 });

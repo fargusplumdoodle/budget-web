@@ -18,6 +18,18 @@ lint:
     - npm install
     - ./scripts/lint.sh
 
+test:
+  image: node
+  stage: qa
+  variables:
+    NODE_ENV: development
+  cache:
+    paths:
+      - ./node_modules/
+  script:
+    - npm install
+    - npm test
+
 build-prod:
   image: docker:latest
   stage: build

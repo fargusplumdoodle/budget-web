@@ -21,7 +21,9 @@ function ensureStateIsSetForListOfTags(state: TagState, expectedTags: Tag[]) {
 describe("Test tag reducer", () => {
   test("that new tags are not added to the state", () => {
     // using rank to ensure they appear in the right order
-    const tags = range(10, 0).map((rank) => generateTestTag({ rank: rank }));
+    const tags = range(10, 0).map((rank) =>
+      generateTestTag({ id: rank, name: `${rank}_budget`, rank: rank })
+    );
     const tagsState = tagReducer(initialState.tags, loadTagsSuccess(tags));
 
     ensureStateIsSetForListOfTags(tagsState, tags);

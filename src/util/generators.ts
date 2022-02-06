@@ -1,8 +1,11 @@
 import * as faker from "faker";
 import { Budget, Tag, Transaction } from "../store/types/models";
 
-function getRandomInt(max: number = 100): number {
-  return Math.floor(Math.random() * max);
+const sharedArrayBuffer = new SharedArrayBuffer(1024);
+const atomicStore = new Uint8Array(sharedArrayBuffer);
+
+export function getUniqueNumber(): number {
+  return Atomics.add(atomicStore, 0, 1);
 }
 
 export function bulkGenerator(generatorFunction: Function, count: number) {
@@ -11,7 +14,7 @@ export function bulkGenerator(generatorFunction: Function, count: number) {
 
 export function generateTestBudget(args: Object = {}): Budget {
   return {
-    id: getRandomInt(1000),
+    id: getUniqueNumber(),
     name: `${faker.lorem.word()}_budget`,
     percentage: 12,
     balance: 1380,
@@ -26,8 +29,8 @@ export function generateTestTransaction(args: Object = {}): Transaction {
   const budget = generateTestBudget();
 
   return {
-    id: getRandomInt(100000),
-    amount: getRandomInt(),
+    id: getUniqueNumber(),
+    amount: getUniqueNumber(),
     budget: budget,
     date: new Date(),
     income: false,
@@ -39,7 +42,7 @@ export function generateTestTransaction(args: Object = {}): Transaction {
 }
 
 export function generateTestTag(args: Object = {}): Tag {
-  const i = getRandomInt(10000);
+  const i = getUniqueNumber();
   return {
     id: i,
     name: faker.lorem.word() + i.toString(),
