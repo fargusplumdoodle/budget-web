@@ -10,11 +10,11 @@ import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../store/configureStore";
 
-type AppProvider = {
+type AppProviderProps = {
   children: ReactElement[] | ReactElement;
 };
 
-const AppProvider: React.FC<AppProvider> = function ({ children }) {
+const AppProvider: React.FC<AppProviderProps> = function ({ children }) {
   return (
     <React.StrictMode>
       <Provider store={store}>

@@ -5,7 +5,7 @@ import { Autocomplete } from "@mui/lab";
 import { OPERANDS } from "./constants";
 import { Minimize } from "@mui/icons-material";
 
-type ExpressionInput = {
+type ExpressionInputProps = {
   operand: Operand;
   inputArgs: object;
   onChangeOperand: (newOperand: Operand) => void;
@@ -13,7 +13,7 @@ type ExpressionInput = {
   onRemoveExpression: () => void;
 };
 
-const ExpressionInput: React.FC<ExpressionInput> = function ({
+const ExpressionInput: React.FC<ExpressionInputProps> = function ({
   inputArgs,
   operand,
   onChangeOperand,

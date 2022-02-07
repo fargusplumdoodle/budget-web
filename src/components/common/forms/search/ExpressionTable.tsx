@@ -6,9 +6,7 @@ import { Table, TableBody, TableContainer, Typography } from "@mui/material";
 import { Expression } from "./types";
 import ExpressionInput from "./ExpressionInput";
 
-const classes = {};
-
-type ExpressionTable = {
+type ExpressionTableProps = {
   register: (name: string) => object; // TODO: TYPE
   expressions: Expression[];
 
@@ -16,7 +14,7 @@ type ExpressionTable = {
   onRemoveExpression: (expression: Expression) => void;
 };
 
-const ExpressionTable: React.FC<ExpressionTable> = function ({
+const ExpressionTable: React.FC<ExpressionTableProps> = function ({
   register,
   expressions,
   onChangeExpression,

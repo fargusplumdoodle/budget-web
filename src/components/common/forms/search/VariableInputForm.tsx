@@ -19,11 +19,13 @@ const sx = {
   },
 };
 
-type VariableInputForm = {
+type VariableInputFormProps = {
   submit: (queryParams: QueryParameters) => void;
 };
 
-const VariableInputForm: React.FC<VariableInputForm> = function ({ submit }) {
+const VariableInputForm: React.FC<VariableInputFormProps> = function ({
+  submit,
+}) {
   const [expressionIdSequence, setExpressionIdSequence] = useState(0);
   const [expressions, setExpressions] = useState<Expression[]>([]);
   const { register, handleSubmit } = useForm<{ [id: string]: any }>();
