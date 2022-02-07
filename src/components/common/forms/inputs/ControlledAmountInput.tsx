@@ -18,7 +18,7 @@ interface Props<FormT> {
   sx?: SxProps;
 }
 
-function AmountInput<FormT>({
+function ControlledAmountInput<FormT>({
   name,
   control,
   errors,
@@ -53,4 +53,4 @@ function AmountInput<FormT>({
   );
 }
 
-export default AmountInput;
+export default ControlledAmountInput;

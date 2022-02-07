@@ -14,7 +14,7 @@ interface Props<FormT> {
   sx?: SxProps;
 }
 
-function TagsInput<FormT>({
+function ControlledTagsInput<FormT>({
   name,
   control,
   getValues,
@@ -55,4 +55,4 @@ function TagsInput<FormT>({
   );
 }
 
-export default TagsInput;
+export default ControlledTagsInput;
