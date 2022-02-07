@@ -70,13 +70,6 @@ export const OPERANDS: { [name: string]: Operand } = {
     input: INPUTS.currency,
     transformValue: (x) => toCents(x).toString(),
   },
-  budget__balance: {
-    name: "budget__balance",
-    label: "Budget Balance",
-    operators: numericalOperators,
-    input: INPUTS.currency,
-    transformValue: (x) => toCents(x).toString(),
-  },
   budget__name: {
     name: "budget__name",
     label: "Budget Name",

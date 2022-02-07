@@ -28,7 +28,8 @@ const VariableInputForm: React.FC<VariableInputFormProps> = function ({
 }) {
   const [expressionIdSequence, setExpressionIdSequence] = useState(0);
   const [expressions, setExpressions] = useState<Expression[]>([]);
-  const { register, handleSubmit } = useForm<{ [id: string]: any }>();
+  const { register, unregister, handleSubmit } =
+    useForm<{ [id: string]: Expression }>();
 
   function onSubmit(data: any) {
     const completedExpressions = Object.entries(data).map(([id, value]) => {
@@ -49,13 +50,14 @@ const VariableInputForm: React.FC<VariableInputFormProps> = function ({
         onChangeExpression={(expression) =>
           updateValuesList<Expression>(expression, expressions, setExpressions)
         }
-        onRemoveExpression={(expression) =>
+        onRemoveExpression={(expression) => {
           removeFromValuesList<Expression>(
             expression,
             expressions,
             setExpressions
-          )
-        }
+          );
+          unregister(expression.id.toString());
+        }}
       />
 
       <FormItem sx={sx.bottomBar}>

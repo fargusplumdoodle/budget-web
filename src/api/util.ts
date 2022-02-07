@@ -87,7 +87,6 @@ export function getQueryParametersFromExpressions(
   expressions: Expression[]
 ): QueryParameters {
   const queryParams: QueryParameters = {};
-
   expressions.forEach((expression) => {
     const key = `${expression.operand.name}${expression.operator.djangoExpression}`;
     const value = expression.operand.transformValue

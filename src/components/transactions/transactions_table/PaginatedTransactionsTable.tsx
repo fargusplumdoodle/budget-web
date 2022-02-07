@@ -25,7 +25,7 @@ interface TransactionTableProps {
 const PaginatedTransactionsTable: FunctionComponent<TransactionTableProps> = (
   props: TransactionTableProps
 ) => {
-  const minimumRowsPerPage = 5;
+  const minimumRowsPerPage = 10;
   const [rowsPerPage, setRowsPerPage] = useState(
     props["defaultRowsPerPage"] || minimumRowsPerPage
   );
