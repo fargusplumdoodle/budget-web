@@ -36,3 +36,7 @@ export interface SerializedBudget extends SerializedModel {
   income_per_month: number;
   outcome_per_month: number;
 }
+
+export interface QueryParameters {
+  [k: string]: string;
+}

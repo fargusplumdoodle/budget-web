@@ -8,43 +8,35 @@ import { useState } from "react";
 import { Expression } from "./types";
 import { OPERANDS, OPERATORS } from "./constants";
 import { removeFromValuesList, updateValuesList } from "../../../../util/state";
+import { QueryParameters } from "../../../../api/types";
+import { getQueryParametersFromExpressions } from "../../../../api/util";
 
 const sx = {
   bottomBar: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "space-between",
+    justifyContent: "space-between",
   },
 };
 
-type VariableInputForm = {};
+type VariableInputForm = {
+  submit: (queryParams: QueryParameters) => void;
+};
 
-const VariableInputForm: React.FC<VariableInputForm> = function ({}) {
+const VariableInputForm: React.FC<VariableInputForm> = function ({ submit }) {
   const [expressionIdSequence, setExpressionIdSequence] = useState(0);
-  const [expressions, setExpressions] = useState<Expression[]>([
-    { id: 100, operand: OPERANDS.amount, operator: OPERATORS.equal, value: 3 },
-    {
-      id: 200,
-      operand: OPERANDS.budget__balance,
-      operator: OPERATORS.equal,
-      value: 3,
-    },
-    {
-      id: 300,
-      operand: OPERANDS.description,
-      operator: OPERATORS.icontains,
-      value: "",
-    },
-  ]);
-  const { register, handleSubmit } = useForm();
-  function onSubmit(data) {
+  const [expressions, setExpressions] = useState<Expression[]>([]);
+  const { register, handleSubmit } = useForm<{ [id: string]: any }>();
+
+  function onSubmit(data: any) {
     const completedExpressions = Object.entries(data).map(([id, value]) => {
       return {
         ...expressions.find((e: Expression) => e.id === parseInt(id)),
         value,
       };
     });
-    console.log(completedExpressions);
+    const queryParams = getQueryParametersFromExpressions(completedExpressions);
+    submit(queryParams);
   }
 
   return (

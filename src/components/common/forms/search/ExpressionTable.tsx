@@ -45,7 +45,6 @@ const ExpressionTable: React.FC<ExpressionTable> = function ({
                 key={expression.id}
                 inputArgs={register(expression.id.toString())}
                 operand={expression.operand}
-                operator={expression.operator}
                 onChangeOperand={(operand) =>
                   onChangeExpression({ ...expression, operand })
                 }

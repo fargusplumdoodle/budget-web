@@ -1,8 +1,13 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { store } from "../store/configureStore";
-import { PaginatedQueryParams, PaginatedResponse } from "./types";
+import {
+  PaginatedQueryParams,
+  PaginatedResponse,
+  QueryParameters,
+} from "./types";
 import { DateTime } from "luxon";
 import { round } from "lodash";
+import { Expression } from "../components/common/forms/search/types";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   const state = store.getState();
@@ -76,4 +81,20 @@ export function fromCents(amount: number): number {
 export function getAPIDate(apiDate: string): Date {
   const timezoneAwareDate = DateTime.fromISO(apiDate).setZone("system");
   return new Date(timezoneAwareDate.toString());
+}
+
+export function getQueryParametersFromExpressions(
+  expressions: Expression[]
+): QueryParameters {
+  const queryParams: QueryParameters = {};
+
+  expressions.forEach((expression) => {
+    const key = `${expression.operand.name}${expression.operator.djangoExpression}`;
+    const value = expression.operand.transformValue
+      ? expression.operand.transformValue(expression.value)
+      : expression.value.toString();
+
+    queryParams[key] = value;
+  });
+  return queryParams;
 }

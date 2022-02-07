@@ -5,15 +5,9 @@ import { Autocomplete } from "@mui/lab";
 import { OPERANDS } from "./constants";
 import { Minimize } from "@mui/icons-material";
 
-const sx = {
-  root: {},
-};
-
 type ExpressionInput = {
   operand: Operand;
-  operator: Operator;
-  inputArgs: object; // todo: type?
-
+  inputArgs: object;
   onChangeOperand: (newOperand: Operand) => void;
   onChangeOperator: (newOperator: Operator) => void;
   onRemoveExpression: () => void;
@@ -22,12 +16,10 @@ type ExpressionInput = {
 const ExpressionInput: React.FC<ExpressionInput> = function ({
   inputArgs,
   operand,
-  operator,
   onChangeOperand,
   onChangeOperator,
   onRemoveExpression,
 }) {
-  // TODO: dropdown of operands
   return (
     <TableRow>
       <TableCell>
@@ -53,7 +45,7 @@ const ExpressionInput: React.FC<ExpressionInput> = function ({
         />
       </TableCell>
       <TableCell>
-        <operator.input {...inputArgs} />
+        <operand.input.element {...operand.input.props} {...inputArgs} />
         <Button onClick={onRemoveExpression}>
           <Minimize />
         </Button>

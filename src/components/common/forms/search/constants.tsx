@@ -1,47 +1,55 @@
-import { Input } from "@mui/material";
+import { Input, InputAdornment } from "@mui/material";
 import { Operand, Operator } from "./types";
+import DateInput from "../inputs/DateInput";
+import * as React from "react";
+import { toCents } from "../../../../api/util";
 
-// TODO: THIS
 export const INPUTS = {
-  numerical: Input,
-  text: Input,
+  currency: {
+    element: Input,
+    props: {
+      startAdornment: <InputAdornment position="start">$</InputAdornment>,
+    },
+  },
+  numeric: {
+    element: Input,
+    props: {},
+  },
+  text: {
+    element: Input,
+    props: {},
+  },
+  date: { element: DateInput, props: {} },
 };
 
 export const OPERATORS: { [name: string]: Operator } = {
   greaterThan: {
     name: ">",
     djangoExpression: "__gt",
-    input: INPUTS.numerical,
   },
   lessThan: {
     name: "<",
     djangoExpression: "__lt",
-    input: INPUTS.numerical,
   },
   lessThanEqual: {
     name: "<=",
     djangoExpression: "__lte",
-    input: INPUTS.numerical,
   },
   greaterThanEqual: {
     name: ">=",
     djangoExpression: "__gte",
-    input: INPUTS.numerical,
   },
   equal: {
     name: "==",
     djangoExpression: "",
-    input: INPUTS.numerical,
   },
   icontains: {
     name: "icontains",
     djangoExpression: "__icontains",
-    input: INPUTS.text,
   },
   iexact: {
     name: "iexact",
     djangoExpression: "__iexact",
-    input: INPUTS.text,
   },
 };
 
@@ -59,15 +67,33 @@ export const OPERANDS: { [name: string]: Operand } = {
     name: "amount",
     label: "Amount",
     operators: numericalOperators,
+    input: INPUTS.currency,
+    transformValue: (x) => toCents(x).toString(),
   },
   budget__balance: {
     name: "budget__balance",
     label: "Budget Balance",
     operators: numericalOperators,
+    input: INPUTS.currency,
+    transformValue: (x) => toCents(x).toString(),
+  },
+  budget__name: {
+    name: "budget__name",
+    label: "Budget Name",
+    operators: textOperators,
+    input: INPUTS.text,
   },
   description: {
     name: "description",
     label: "Description",
     operators: textOperators,
+    input: INPUTS.text,
+  },
+  date: {
+    // TODO: FIX TO USE DATE INPUT
+    name: "date",
+    label: "Date",
+    operators: numericalOperators,
+    input: INPUTS.text,
   },
 };
