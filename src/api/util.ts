@@ -1,10 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { store } from "../store/configureStore";
-import {
-  PaginatedQueryParams,
-  PaginatedResponse,
-  QueryParameters,
-} from "./types";
+import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { DateTime } from "luxon";
 import { round } from "lodash";
 import { Expression } from "../components/common/forms/search/types";
@@ -85,15 +81,18 @@ export function getAPIDate(apiDate: string): Date {
 
 export function getQueryParametersFromExpressions(
   expressions: Expression[]
-): QueryParameters {
-  const queryParams: QueryParameters = {};
+): URLSearchParams {
+  const queryParams = new URLSearchParams();
   expressions.forEach((expression) => {
     const key = `${expression.operand.name}${expression.operator.djangoExpression}`;
-    const value = expression.operand.transformValue
-      ? expression.operand.transformValue(expression.value)
-      : expression.value.toString();
 
-    queryParams[key] = value;
+    if (expression.operand.transformValue) {
+      expression.operand.transformValue(expression.value).forEach((value) => {
+        queryParams.append(key, value);
+      });
+    } else {
+      queryParams.append(key, expression.value.toString());
+    }
   });
   return queryParams;
 }

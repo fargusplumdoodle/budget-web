@@ -1,7 +1,6 @@
 import { Transaction } from "../store/types/models";
 import { makeRequest } from "./util";
 import {
-  PaginatedQueryParams,
   PaginatedResponse,
   QueryParameters,
   SerializedTransaction,
@@ -17,11 +16,13 @@ import { updateBudgetSuccess } from "../store/actions/budgetActions";
 export async function fetchTransactionPage(
   page: number,
   pageSize: number = 25,
-  query?: QueryParameters
+  query?: URLSearchParams | QueryParameters
 ): Promise<PaginatedResponse<Transaction>> {
-  const params: PaginatedQueryParams = { page_size: pageSize, ...query };
+  const params = new URLSearchParams(query);
+  params.set("page_size", pageSize.toString());
+
   if (page !== 0) {
-    params.page = page;
+    params.set("page", page.toString());
   }
 
   const r = await makeRequest({
