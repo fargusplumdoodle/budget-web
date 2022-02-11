@@ -2,7 +2,6 @@ import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import PaginatedTransactionsTable from "../../components/transactions/transactions_table/PaginatedTransactionsTable";
 import { Transaction } from "../../store/types/models";
-import { QueryParameters } from "../../api/types";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
 import VariableInputForm from "../../components/common/forms/search/VariableInputForm";
 import { fetchTransactionPage } from "../../api/transaction";
@@ -25,7 +24,6 @@ const TransactionsPage: FunctionComponent<Props> = () => {
     setLoading(true);
     fetchTransactionPage(0, 25, query)
       .then((page) => {
-        console.log("fetched page", page.results);
         setTransactions(page.results);
       })
       .catch((err) => {
@@ -34,9 +32,8 @@ const TransactionsPage: FunctionComponent<Props> = () => {
       });
   }, [query]);
 
-  function onSubmitQuery(queryParams: QueryParameters) {
-    console.log("submitted qp", queryParams);
-    setQuery({ ...queryParams });
+  function onSubmitQuery(queryParams: URLSearchParams) {
+    setQuery(new URLSearchParams(queryParams));
   }
 
   return (

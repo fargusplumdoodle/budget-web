@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Autocomplete, TextField } from "@mui/material";
-import { Budget } from "../../../../store/types/models";
-import { store } from "../../../../store/configureStore";
-import { Expression } from "../search/types";
+import { Budget } from "../../../../../store/types/models";
+import { store } from "../../../../../store/configureStore";
+import { Expression } from "../types";
 
 interface Props {
   expression: Expression;

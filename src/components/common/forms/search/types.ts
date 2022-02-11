@@ -1,5 +1,3 @@
-import { FC } from "react";
-
 export interface Expression {
   id: number;
   operand: Operand;
@@ -8,7 +6,7 @@ export interface Expression {
 }
 
 interface InputWithProps {
-  element: FC<any>;
+  element: any;
   props: object;
 }
 
@@ -17,7 +15,8 @@ export interface Operand {
   label: string;
   operators: Operator[];
   input: InputWithProps;
-  transformValue?: (x: any) => string;
+  transformValue?: (x: any) => string[];
+  requiresSetValueAndExpression: boolean;
 }
 
 export interface Operator {

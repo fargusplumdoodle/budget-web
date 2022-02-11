@@ -8,9 +8,7 @@ import { useState } from "react";
 import { Expression } from "./types";
 import { OPERANDS, OPERATORS } from "./constants";
 import { removeFromValuesList, updateValuesList } from "../../../../util/state";
-import { QueryParameters } from "../../../../api/types";
 import { getQueryParametersFromExpressions } from "../../../../api/util";
-
 const sx = {
   bottomBar: {
     display: "flex",
@@ -20,7 +18,7 @@ const sx = {
 };
 
 type VariableInputFormProps = {
-  submit: (queryParams: QueryParameters) => void;
+  submit: (queryParams: URLSearchParams) => void;
 };
 
 const VariableInputForm: React.FC<VariableInputFormProps> = function ({
@@ -28,7 +26,7 @@ const VariableInputForm: React.FC<VariableInputFormProps> = function ({
 }) {
   const [expressionIdSequence, setExpressionIdSequence] = useState(0);
   const [expressions, setExpressions] = useState<Expression[]>([]);
-  const { register, unregister, handleSubmit } =
+  const { register, unregister, setValue, handleSubmit } =
     useForm<{ [id: string]: Expression }>();
 
   function onSubmit(data: any) {
@@ -47,6 +45,7 @@ const VariableInputForm: React.FC<VariableInputFormProps> = function ({
       <ExpressionTable
         register={register}
         expressions={expressions}
+        setValue={setValue}
         onChangeExpression={(expression) =>
           updateValuesList<Expression>(expression, expressions, setExpressions)
         }
