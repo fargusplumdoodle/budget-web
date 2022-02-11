@@ -11,10 +11,10 @@ import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createTransaction } from "../../../../api/transaction";
 import { createTransferTransactions } from "../../../../util/transfer";
 import { ProviderContext, withSnackbar } from "notistack";
-import AmountInput from "../inputs/AmountInput";
-import BudgetsInput from "../inputs/BudgetInput";
+import ControlledAmountInput from "../inputs/ControlledAmountInput";
+import ControlledBudgetInput from "../inputs/ControlledBudgetInput";
 import { InputErrorMessage } from "../types";
-import DescriptionInput from "../inputs/DescriptionInput";
+import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
 
 interface Props extends ProviderContext {
   onCreateCallback: (transactions: Transaction[]) => void;
@@ -92,7 +92,7 @@ const TransferForm: FunctionComponent<Props> = (props) => {
           }}
         >
           <FormItem>
-            <AmountInput
+            <ControlledAmountInput
               name="amount"
               control={control}
               errors={errors.amount}
@@ -102,7 +102,7 @@ const TransferForm: FunctionComponent<Props> = (props) => {
           </FormItem>
 
           <FormItem>
-            <DescriptionInput
+            <ControlledDescriptionInput
               name="description"
               control={control}
               errors={errors.description}
@@ -110,7 +110,7 @@ const TransferForm: FunctionComponent<Props> = (props) => {
           </FormItem>
 
           <FormItem>
-            <BudgetsInput<TransferFormData>
+            <ControlledBudgetInput<TransferFormData>
               name="fromBudget"
               control={control}
               getValues={getValues}
@@ -123,7 +123,7 @@ const TransferForm: FunctionComponent<Props> = (props) => {
           </FormItem>
 
           <FormItem>
-            <BudgetsInput<TransferFormData>
+            <ControlledBudgetInput<TransferFormData>
               name="toBudget"
               control={control}
               getValues={getValues}

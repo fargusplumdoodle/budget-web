@@ -24,12 +24,12 @@ import {
   deleteTransaction,
   updateTransaction,
 } from "../../../../api/transaction";
-import AmountInput from "../inputs/AmountInput";
-import TagsInput from "../inputs/TagsInput";
+import ControlledAmountInput from "../inputs/ControlledAmountInput";
+import ControlledTagsInput from "../inputs/ControlledTagsInput";
 import { InputErrorMessage } from "../types";
-import BudgetsInput from "../inputs/BudgetInput";
-import DescriptionInput from "../inputs/DescriptionInput";
-import DateInput from "../inputs/DateInput";
+import BudgetsInput from "../inputs/ControlledBudgetInput";
+import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
+import ControlledDateInput from "../inputs/ControlledDateInput";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
@@ -147,7 +147,7 @@ const TransactionForm = (props: Props) => {
               flexDirection: "row",
             }}
           >
-            <TagsInput<Transaction>
+            <ControlledTagsInput<Transaction>
               name="tags"
               control={control}
               getValues={getValues}
@@ -178,7 +178,7 @@ const TransactionForm = (props: Props) => {
                 display: "flex",
               }}
             >
-              <AmountInput
+              <ControlledAmountInput
                 name="amount"
                 control={control}
                 errors={errors.amount}
@@ -209,7 +209,7 @@ const TransactionForm = (props: Props) => {
           </div>
 
           <FormItem>
-            <DescriptionInput
+            <ControlledDescriptionInput
               name="description"
               control={control}
               errors={errors.description}
@@ -217,7 +217,7 @@ const TransactionForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <DateInput name="date" control={control} />
+            <ControlledDateInput name="date" control={control} />
           </FormItem>
 
           <FormItem sx={{ display: "flex", flexDirection: "row" }}>

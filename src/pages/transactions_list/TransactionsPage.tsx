@@ -1,57 +1,78 @@
 import * as React from "react";
-import { FunctionComponent, useEffect, useState } from "react";
-import { range } from "lodash";
-import { fetchTransactionPage } from "../../api/transaction";
+import { FunctionComponent, useState } from "react";
 import PaginatedTransactionsTable from "../../components/transactions/transactions_table/PaginatedTransactionsTable";
 import { Transaction } from "../../store/types/models";
-import { PaginatedResponse } from "../../api/types";
+import { removeFromValuesList, updateValuesList } from "../../util/state";
+import VariableInputForm from "../../components/common/forms/search/VariableInputForm";
+import { fetchTransactionPage } from "../../api/transaction";
+import Card from "@mui/material/Card";
+import ApiErrorDialog, {
+  ApiError,
+} from "../../components/common/ApiErrorDialog";
+import { Box, LinearProgress } from "@mui/material";
 
 interface Props {}
 
 const TransactionsPage: FunctionComponent<Props> = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  useEffect(() => {
-    const promises = range(10).map((page) => {
-      return fetchTransactionPage(page);
-    });
-    Promise.allSettled(promises).then(
-      (
-        promiseStates: PromiseFulfilledResult<PaginatedResponse<Transaction>>[]
-      ) => {
-        const trans: Transaction[] = [];
-        promiseStates
-          .filter((p) => p.status === "fulfilled")
-          .map((promise) => trans.push(...promise.value.results));
-        setTransactions([...transactions, ...trans]);
-        console.log("transactions ", [...transactions, ...trans]);
-      }
-    );
-    // eslint-disable-next-line
-  }, []);
+  const [query, setQuery] = useState({});
+  const [apiError, setApiError] = useState<ApiError>(null);
+  const [loading, setLoading] = useState(false);
+
+  // TODO: FETCH MORE PAGES
+  React.useEffect(() => {
+    setLoading(true);
+    fetchTransactionPage(0, 25, query)
+      .then((page) => {
+        setTransactions(page.results);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setApiError(err);
+      });
+  }, [query]);
+
+  function onSubmitQuery(queryParams: URLSearchParams) {
+    setQuery(new URLSearchParams(queryParams));
+  }
 
   return (
     <>
-      <PaginatedTransactionsTable
-        showBudget
-        transactions={transactions}
-        onUpdateCallback={(trans: Transaction) => {
-          const index = transactions.findIndex(
-            (t: Transaction) => t.id === trans.id
-          );
-          setTransactions([
-            ...transactions.slice(0, index),
-            trans,
-            ...transactions.slice(index + 1),
-          ]);
-        }}
-        onDeleteCallback={(trans: Transaction) => {
-          const index = transactions.findIndex(
-            (t: Transaction) => t.id === trans.id
-          );
-          setTransactions([
-            ...transactions.slice(0, index),
-            ...transactions.slice(index + 1),
-          ]);
+      <Card sx={{ marginBottom: 1 }}>
+        <VariableInputForm submit={onSubmitQuery} />
+      </Card>
+      <Card>
+        {!loading ? (
+          <Box sx={{ width: "100%" }}>
+            <LinearProgress />
+          </Box>
+        ) : (
+          <PaginatedTransactionsTable
+            showBudget
+            transactions={transactions}
+            onUpdateCallback={(trans: Transaction) =>
+              updateValuesList<Transaction>(
+                trans,
+                transactions,
+                setTransactions
+              )
+            }
+            onDeleteCallback={(trans: Transaction) => {
+              removeFromValuesList<Transaction>(
+                trans,
+                transactions,
+                setTransactions
+              );
+            }}
+          />
+        )}
+      </Card>
+
+      <ApiErrorDialog
+        error={apiError}
+        onClose={() => {
+          setApiError(null);
+          setLoading(false);
         }}
       />
     </>

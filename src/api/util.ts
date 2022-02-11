@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig } from "axios";
 import { store } from "../store/configureStore";
 import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { DateTime } from "luxon";
+import { round } from "lodash";
+import { Expression } from "../components/common/forms/search/types";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   const state = store.getState();
@@ -50,10 +52,10 @@ export async function makePaginatedRequest<T>(
 }
 
 export function toCents(amount: number): number {
-  return amount * 100;
+  return round(amount * 100, 2);
 }
 export function fromCents(amount: number): number {
-  return amount / 100;
+  return round(amount / 100, 2);
 }
 
 /**
@@ -75,4 +77,22 @@ export function fromCents(amount: number): number {
 export function getAPIDate(apiDate: string): Date {
   const timezoneAwareDate = DateTime.fromISO(apiDate).setZone("system");
   return new Date(timezoneAwareDate.toString());
+}
+
+export function getQueryParametersFromExpressions(
+  expressions: Expression[]
+): URLSearchParams {
+  const queryParams = new URLSearchParams();
+  expressions.forEach((expression) => {
+    const key = `${expression.operand.name}${expression.operator.djangoExpression}`;
+
+    if (expression.operand.transformValue) {
+      expression.operand.transformValue(expression.value).forEach((value) => {
+        queryParams.append(key, value);
+      });
+    } else {
+      queryParams.append(key, expression.value.toString());
+    }
+  });
+  return queryParams;
 }

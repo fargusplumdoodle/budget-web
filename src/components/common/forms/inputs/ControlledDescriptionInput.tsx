@@ -9,7 +9,7 @@ interface Props<FormT> {
   errors: InputErrorMessage;
 }
 
-function DescriptionInput<FormT>({ name, control, errors }: Props<FormT>) {
+function ControlledDescriptionInput<FormT>({ name, control, errors }: Props<FormT>) {
   return (
     <Controller
       name={name}
@@ -29,4 +29,4 @@ function DescriptionInput<FormT>({ name, control, errors }: Props<FormT>) {
   );
 }
 
-export default DescriptionInput;
+export default ControlledDescriptionInput;

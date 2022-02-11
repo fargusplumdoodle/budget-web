@@ -9,9 +9,9 @@ import { ProviderContext, withSnackbar } from "notistack";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createIncomeTransactions } from "../../../../util/income";
 import { createTransaction } from "../../../../api/transaction";
-import AmountInput from "../inputs/AmountInput";
-import DescriptionInput from "../inputs/DescriptionInput";
-import DateInput from "../inputs/DateInput";
+import ControlledAmountInput from "../inputs/ControlledAmountInput";
+import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
+import ControlledDateInput from "../inputs/ControlledDateInput";
 
 interface Props extends ProviderContext {
   onCreateTransactions: (transactions: Transaction[]) => void;
@@ -46,7 +46,7 @@ const IncomeForm = (props: Props) => {
     setLoading(true);
     const transactions = createIncomeTransactions({
       ...data,
-      amount: 0 - Math.abs(data.amount),
+      amount: Math.abs(data.amount),
     });
     const createTransactionPromises: Promise<Transaction>[] = transactions.map(
       (transaction: Transaction) => {
@@ -88,7 +88,7 @@ const IncomeForm = (props: Props) => {
               display: "flex",
             }}
           >
-            <AmountInput
+            <ControlledAmountInput
               name="amount"
               control={control}
               errors={errors.amount}
@@ -98,7 +98,7 @@ const IncomeForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <DescriptionInput
+            <ControlledDescriptionInput
               name="description"
               control={control}
               errors={errors.description}
@@ -106,7 +106,7 @@ const IncomeForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <DateInput name="date" control={control} />
+            <ControlledDateInput name="date" control={control} />
           </FormItem>
           <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
             {loading ? <CircularProgress /> : "SUBMIT"}
