@@ -1,8 +1,9 @@
 import { Input, InputAdornment } from "@mui/material";
 import { Operand, Operator } from "./types";
-import DateInput from "../inputs/DateInput";
 import * as React from "react";
 import { toCents } from "../../../../api/util";
+import { Budget, Tag } from "../../../../store/types/models";
+import { TagsInput, BudgetsInput, DateInput } from "./inputs";
 
 export const INPUTS = {
   currency: {
@@ -17,6 +18,14 @@ export const INPUTS = {
   },
   text: {
     element: Input,
+    props: {},
+  },
+  tags: {
+    element: TagsInput,
+    props: {},
+  },
+  budgets: {
+    element: BudgetsInput,
     props: {},
   },
   date: { element: DateInput, props: {} },
@@ -51,6 +60,10 @@ export const OPERATORS: { [name: string]: Operator } = {
     name: "iexact",
     djangoExpression: "__iexact",
   },
+  includes: {
+    name: "includes",
+    djangoExpression: "__includes",
+  },
 };
 
 const numericalOperators = [
@@ -61,6 +74,7 @@ const numericalOperators = [
   OPERATORS.equal,
 ];
 const textOperators = [OPERATORS.icontains, OPERATORS.iexact];
+const listOperators = [OPERATORS.includes];
 
 export const OPERANDS: { [name: string]: Operand } = {
   amount: {
@@ -68,25 +82,42 @@ export const OPERANDS: { [name: string]: Operand } = {
     label: "Amount",
     operators: numericalOperators,
     input: INPUTS.currency,
-    transformValue: (x) => toCents(x).toString(),
-  },
-  budget__name: {
-    name: "budget__name",
-    label: "Budget Name",
-    operators: textOperators,
-    input: INPUTS.text,
+    transformValue: (amount) => [toCents(amount).toString()],
+    requiresSetValueAndExpression: false,
   },
   description: {
     name: "description",
     label: "Description",
     operators: textOperators,
     input: INPUTS.text,
+    requiresSetValueAndExpression: false,
   },
   date: {
-    // TODO: FIX TO USE DATE INPUT
     name: "date",
     label: "Date",
     operators: numericalOperators,
-    input: INPUTS.text,
+    input: INPUTS.date,
+    requiresSetValueAndExpression: true,
+    transformValue: (date: Date) => [date.toLocaleDateString()],
+  },
+  tags: {
+    name: "tags",
+    label: "Tags",
+    operators: listOperators,
+    input: INPUTS.tags,
+    requiresSetValueAndExpression: true,
+    transformValue: (tags: Tag[]) => {
+      return tags.map((t) => t.name);
+    },
+  },
+  budgets: {
+    name: "budget",
+    label: "Budgets",
+    operators: listOperators,
+    input: INPUTS.budgets,
+    requiresSetValueAndExpression: true,
+    transformValue: (budgets: Budget[]) => {
+      return budgets.map((b) => b.id.toString());
+    },
   },
 };

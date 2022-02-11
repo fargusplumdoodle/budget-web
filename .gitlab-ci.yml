@@ -39,7 +39,7 @@ build-prod:
     - main
   script:
     - docker pull $IMAGE:dev || true
-    - docker build -t "$IMAGE:dev " -t "$IMAGE:$CI_COMMIT_SHA" .
+    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" .
     - docker image push --all-tags "$IMAGE"
 
 

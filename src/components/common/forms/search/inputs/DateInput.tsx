@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TextField } from "@mui/material";
 import { DatePicker } from "@mui/lab";
-import { Expression } from "../search/types";
+import { Expression } from "../types";
 
 interface Props {
   expression: Expression;
