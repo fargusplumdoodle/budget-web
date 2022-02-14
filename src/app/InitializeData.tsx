@@ -7,6 +7,7 @@ import { fetchTags } from "../store/actions/tagActions";
 import { ProviderContext, withSnackbar } from "notistack";
 import initialState from "../store/initialState";
 import { fetchUserInfo } from "../store/actions/userInfoActions";
+import { isEqual } from "lodash";
 
 interface ExpectedData {
   fetchRequired: boolean;
@@ -63,7 +64,7 @@ function mapStateToProps(state: RootState) {
     authenticated: state.auth.authenticated,
     fetchBudgetsRequired: state.budgets.list.length === 0,
     fetchTagsRequired: state.tags.list.length === 0,
-    fetchUserInfoRequired: state.userInfo === initialState.userInfo,
+    fetchUserInfoRequired: isEqual(state.userInfo, initialState.userInfo),
   };
 }
 

@@ -4,7 +4,7 @@ import { Tab, Tabs, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../app/AppRoutes";
 import { tabProps } from "../tabs";
-import { TrendingUp, Add, List } from "@mui/icons-material";
+import { TrendingUp, Add, List, ManageAccounts } from "@mui/icons-material";
 import AuthButton from "../../auth/AuthButton";
 
 const SideBar: FunctionComponent<{}> = () => {
@@ -14,6 +14,7 @@ const SideBar: FunctionComponent<{}> = () => {
     { text: "Dashboard", route: ROUTES.DASHBOARD, icon: <TrendingUp /> },
     { text: "Add Transactions", route: ROUTES.TRANSACTIONS_ADD, icon: <Add /> },
     { text: "Transactions", route: ROUTES.TRANSACTIONS_LIST, icon: <List /> },
+    { text: "User Info", route: ROUTES.USER_INFO, icon: <ManageAccounts /> },
   ];
 
   const selected = sideBarLinks.find(
