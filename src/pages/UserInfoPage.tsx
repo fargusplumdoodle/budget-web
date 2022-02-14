@@ -1,0 +1,57 @@
+import * as React from "react";
+import { useState } from "react";
+import ApiErrorDialog, { ApiError } from "../components/common/ApiErrorDialog";
+import { Card } from "@mui/material";
+import { UserInfo } from "../store/types/models";
+import UserInfoForm from "../components/common/forms/user_info/UserInfoForm";
+import { ProviderContext, withSnackbar } from "notistack";
+import { useDispatch } from "react-redux";
+import { updateUserInfo } from "../api/user_info";
+import { loadUserInfoSuccess } from "../store/actions/userInfoActions";
+
+const classes = {
+  root: {
+    maxWidth: "500px",
+  },
+};
+
+interface UserInfoPageProps extends ProviderContext {}
+
+const UserInfoPage: React.FC<UserInfoPageProps> = function ({
+  enqueueSnackbar,
+}) {
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<ApiError>(null);
+  const dispatch = useDispatch();
+
+  const onSubmit = (userInfo: UserInfo) => {
+    updateUserInfo(userInfo)
+      .then(() => {
+        dispatch(loadUserInfoSuccess(userInfo));
+        setLoading(false);
+        enqueueSnackbar(`Successfully updated user info`, {
+          variant: "success",
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        setApiError(err);
+      });
+  };
+
+  return (
+    <>
+      <Card sx={classes.root}>
+        <UserInfoForm loading={loading} onSubmit={onSubmit} />
+      </Card>
+      <ApiErrorDialog
+        error={apiError}
+        onClose={() => {
+          setApiError(null);
+        }}
+      />
+    </>
+  );
+};
+
+export default withSnackbar(UserInfoPage);

@@ -83,3 +83,9 @@ export const transferSchema = yup
     toBudget: yup.object().required(),
   })
   .required();
+
+export const userInfoSchema = yup
+  .object({
+    expected_monthly_net_income: yup.number().min(0.01).required(),
+  })
+  .required();
