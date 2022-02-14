@@ -6,10 +6,6 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import BudgetPercentagesTableRow from "./BudgetPercentagesTableRow";
 
-const classes = {
-  root: {},
-};
-
 type BudgetPercentagesTableProps = {
   budgets: Budget[];
   updateBudget: (budget: Budget) => void;

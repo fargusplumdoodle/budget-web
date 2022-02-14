@@ -62,9 +62,10 @@ export function serializeBudget(budget: Budget): SerializedBudget {
   };
 }
 
-export function deserializeBudget(budget: SerializedBudget): SerializedBudget {
+export function deserializeBudget(budget: SerializedBudget): Budget {
   return {
     ...budget,
+    id: budget.id,
     balance: fromCents(budget.balance),
     income_per_month: fromCents(budget.income_per_month),
     outcome_per_month: fromCents(budget.outcome_per_month),

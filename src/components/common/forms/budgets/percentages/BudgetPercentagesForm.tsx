@@ -3,7 +3,7 @@ import { Budget } from "../../../../../store/types/models";
 import BudgetPercentagesTable from "./BudgetPercentagesTable";
 import { EXPECTED_BUDGETS } from "../../../../../app/settings";
 
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { updateValuesList } from "../../../../../util/state";
 import { sum } from "lodash";
@@ -21,11 +21,15 @@ const classes = {
 
 type BudgetPercentagesFormProps = {
   budgets: Budget[];
+  onSubmit: (budgets: Budget[]) => void;
+  loading: boolean;
 };
 
-const BudgetPercentagesForm: React.FC<BudgetPercentagesFormProps> = function (
-  props
-) {
+const BudgetPercentagesForm: React.FC<BudgetPercentagesFormProps> = function ({
+  onSubmit,
+  loading,
+  ...props
+}) {
   const [budgets, setBudgets] = useState([...props.budgets]);
   const savings = budgets.find((b) => b.name === EXPECTED_BUDGETS.SAVINGS);
   const notSavingsBudgets = budgets.filter(
@@ -39,7 +43,7 @@ const BudgetPercentagesForm: React.FC<BudgetPercentagesFormProps> = function (
       percentage: savingsPercentage,
     };
     updateValuesList(newSavings, budgets, setBudgets);
-  }, [savingsPercentage]);
+  }, [savingsPercentage, budgets, savings]);
 
   return (
     <form>
@@ -54,7 +58,9 @@ const BudgetPercentagesForm: React.FC<BudgetPercentagesFormProps> = function (
           budgets={budgets}
           sx={classes.percentageSummary}
         />
-        <Button>SUBMIT</Button>
+        <Button disabled={loading} onClick={() => onSubmit([...budgets])}>
+          {loading ? <CircularProgress /> : "SUBMIT"}
+        </Button>
       </Box>
     </form>
   );
