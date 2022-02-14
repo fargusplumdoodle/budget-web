@@ -6,6 +6,7 @@ import DashboardPage from "../components/dashboard/DashboardPage";
 import TransactionsPage from "../pages/transactions_list/TransactionsPage";
 import AddTransactionsPage from "../pages/transactions_add/AddTransactionsPage";
 import UserInfoPage from "../pages/UserInfoPage";
+import BudgetsPage from "../pages/budgets/BudgetsPage";
 
 export const ROUTES = {
   DASHBOARD: { path: "/", element: <DashboardPage /> },
@@ -21,6 +22,10 @@ export const ROUTES = {
   USER_INFO: {
     path: "/user/info",
     element: <UserInfoPage />,
+  },
+  BUDGETS: {
+    path: "/budgets",
+    element: <BudgetsPage />,
   },
 };
 

@@ -3,6 +3,14 @@ import { getServerURL } from "../util/window";
 const CLIENT_ID = "web-client";
 const CALLBACK_URL = `${getServerURL()}/auth/callback`;
 
+export const EXPECTED_BUDGETS = {
+  SAVINGS: "savings",
+};
+export const EXPECTED_TAGS = {
+  INCOME: "income",
+  TRANSFER: "transfer",
+};
+
 const settings = {
   auth: {
     clientId: CLIENT_ID,
@@ -16,7 +24,7 @@ const settings = {
       `&client_id=${CLIENT_ID}` +
       `&redirect_uri=${CALLBACK_URL}`,
   },
-  expectedBudgets: ["savings"],
-  expectedTags: ["income", "transfer"],
+  expectedBudgets: Object.values(EXPECTED_BUDGETS),
+  expectedTags: Object.values(EXPECTED_TAGS),
 };
 export default settings;
