@@ -5,6 +5,8 @@ import { AppDispatch, RootState } from "../store/configureStore";
 import { fetchBudgets } from "../store/actions/budgetActions";
 import { fetchTags } from "../store/actions/tagActions";
 import { ProviderContext, withSnackbar } from "notistack";
+import initialState from "../store/initialState";
+import { fetchUserInfo } from "../store/actions/userInfoActions";
 
 interface ExpectedData {
   fetchRequired: boolean;
@@ -14,6 +16,7 @@ interface ExpectedData {
 interface Props extends ProviderContext {
   fetchBudgetsRequired: boolean;
   fetchTagsRequired: boolean;
+  fetchUserInfoRequired: boolean;
   authenticated: boolean;
 }
 
@@ -36,6 +39,11 @@ const InitializeData: FunctionComponent<Props> = (props) => {
         action: fetchTags,
         name: "Tags",
       },
+      {
+        fetchRequired: props.fetchUserInfoRequired,
+        action: fetchUserInfo,
+        name: "User Info",
+      },
     ];
 
     setLoading(true);
@@ -55,6 +63,7 @@ function mapStateToProps(state: RootState) {
     authenticated: state.auth.authenticated,
     fetchBudgetsRequired: state.budgets.list.length === 0,
     fetchTagsRequired: state.tags.list.length === 0,
+    fetchUserInfoRequired: state.userInfo === initialState.userInfo,
   };
 }
 

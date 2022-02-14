@@ -1,3 +1,5 @@
+import { UserInfo } from "../store/types/models";
+
 export interface PaginatedResponse<T> {
   count: number;
   next: string | null;
@@ -39,4 +41,7 @@ export interface SerializedBudget extends SerializedModel {
 
 export interface QueryParameters {
   [k: string]: string;
+}
+export interface SerializedUserInfo extends UserInfo {
+  // currently identical
 }

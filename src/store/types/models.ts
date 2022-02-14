@@ -26,3 +26,7 @@ export interface Transaction extends Model {
   transfer: boolean;
   tags: Tag[];
 }
+
+export interface UserInfo {
+  expected_monthly_net_income: number;
+}

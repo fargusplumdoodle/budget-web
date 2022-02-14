@@ -6,6 +6,7 @@ import tags from "./tagReducer";
 import transactions from "./transactionReducer";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
+import userInfo from "./userInfoReducer";
 
 const persistConfig = {
   key: "root",
@@ -19,5 +20,6 @@ const rootReducer = combineReducers({
   tags,
   apiStatus,
   transactions,
+  userInfo
 });
 export default rootReducer;
