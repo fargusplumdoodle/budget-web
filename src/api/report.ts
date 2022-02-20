@@ -1,45 +1,11 @@
 import { makeRequest } from "./util";
-import { TimeBucketSize } from "./types/reports";
-import { store } from "../store/configureStore";
-
-interface SerializedBudgetBalanceReport {
-  dates: string[];
-  data: { [id: number]: number[] };
-}
-
-interface NumberBasedReport {
-  dates: string[];
-  data: number[];
-}
-
-interface BudgetBalanceReport {
-  dates: string[];
-  series: GraphSeries[];
-}
-
-export interface GraphSeries {
-  name: string;
-  data: number[];
-}
-
-export function deserializeBudgetBalanceReport(
-  report: SerializedBudgetBalanceReport
-): BudgetBalanceReport {
-  const budgets = store.getState().budgets;
-  const series: GraphSeries[] = [];
-
-  for (const budgetId in report.data) {
-    series.push({
-      name: budgets.byId[budgetId].name,
-      data: report.data[budgetId],
-    });
-  }
-
-  return {
-    dates: report.dates,
-    series,
-  };
-}
+import {
+  BudgetBalanceReport,
+  NumberBasedReport,
+  SerializedBudgetBalanceReport,
+  TimeBucketSize,
+} from "./types/reports";
+import { deserializeBudgetBalanceReport } from "./serializers";
 
 export async function budgetBalanceReport(
   timeBucketSize: TimeBucketSize,

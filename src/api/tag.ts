@@ -1,7 +1,7 @@
 import { Tag } from "../store/types/models";
 import { makePaginatedRequest, makeRequest } from "./util";
 import { SerializedTag } from "./types";
-import { deserializeTag, serializeTag } from "../util/serializers";
+import { deserializeTag, serializeTag } from "./serializers";
 import { store } from "../store/configureStore";
 import { beginApiCall } from "../store/actions/apiStatusActions";
 import { loadTagsSuccess } from "../store/actions/tagActions";

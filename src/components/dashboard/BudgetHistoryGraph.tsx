@@ -3,8 +3,9 @@ import { FunctionComponent, useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { Budget } from "../../store/types/models";
 import { Button, CircularProgress } from "@mui/material";
-import { budgetBalanceReport, GraphSeries } from "../../api/report";
+import { budgetBalanceReport } from "../../api/report";
 import { DateTime } from "luxon";
+import { GraphSeries } from "../../api/types/reports";
 
 interface OwnProps {
   budgets: Budget[];

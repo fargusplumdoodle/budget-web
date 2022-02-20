@@ -1,7 +1,7 @@
 import { Budget } from "../store/types/models";
 import { makeRequest } from "./util";
 import { SerializedBudget } from "./types";
-import { deserializeBudget, serializeBudget } from "../util/serializers";
+import { deserializeBudget, serializeBudget } from "./serializers";
 import { store } from "../store/configureStore";
 import { updateBudgetSuccess } from "../store/actions/budgetActions";
 
