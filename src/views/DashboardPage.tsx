@@ -1,16 +1,16 @@
 import * as React from "react";
 import { FunctionComponent } from "react";
-import BudgetTable from "./BudgetTable";
+import BudgetTable from "../components/dashboard/BudgetTable";
 import { Grid, Stack } from "@mui/material";
-import DashboardTile from "./DashboardTile";
-import BudgetHistoryGraph from "./BudgetHistoryGraph";
-import StatusOverview from "./StatusOverview";
-import TransactionForm from "../common/forms/transaction/TransactionForm";
+import DashboardTile from "../components/dashboard/DashboardTile";
+import BudgetHistoryGraph from "../components/dashboard/BudgetHistoryGraph";
+import StatusOverview from "../components/dashboard/StatusOverview";
+import TransactionForm from "../components/common/forms/transaction/TransactionForm";
 import { connect } from "react-redux";
-import { RootState } from "../../store/configureStore";
-import { Budget } from "../../store/types/models";
+import { RootState } from "../store/configureStore";
+import { Budget } from "../store/types/models";
 import { ProviderContext, withSnackbar } from "notistack";
-import TagForm from "../common/forms/tag/TagForm";
+import TagForm from "../components/common/forms/tag/TagForm";
 
 interface OwnProps extends ProviderContext {
   budgets: Budget[];
