@@ -1,16 +1,4 @@
-import { UserInfo } from "../store/types/models";
-
-export interface PaginatedResponse<T> {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: T[];
-}
-
-export interface PaginatedQueryParams {
-  page?: number;
-  page_size: number;
-}
+import { UserInfo } from "../../store/types/models";
 
 interface SerializedModel {
   id?: number;
@@ -39,9 +27,6 @@ export interface SerializedBudget extends SerializedModel {
   outcome_per_month: number;
 }
 
-export interface QueryParameters {
-  [k: string]: string;
-}
 export interface SerializedUserInfo extends UserInfo {
   // currently identical
 }
