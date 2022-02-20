@@ -1,7 +1,10 @@
 import * as React from "react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { Budget } from "../../store/types/models";
+import { Button, CircularProgress } from "@mui/material";
+import { budgetBalanceReport, GraphSeries } from "../../api/report";
+import { DateTime } from "luxon";
 
 interface OwnProps {
   budgets: Budget[];
@@ -10,28 +13,42 @@ interface OwnProps {
 type Props = OwnProps;
 
 const BudgetHistoryGraph: FunctionComponent<Props> = () => {
+  const [loading, setLoading] = useState(false);
+  const [series, setSeries] = useState<GraphSeries[]>([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {}, []);
+
+  const fetch = () => {
+    setLoading(true);
+    const q = new URLSearchParams();
+    q.set("date__gte", DateTime.now().minus({ months: 6 }).toISODate());
+    q.set("date__lte", DateTime.now().toISODate());
+
+    budgetBalanceReport("one_week", q).then((r: any) => {
+      setLoading(false);
+      setCategories([...r.dates]);
+      setSeries([...r.series]);
+    });
+  };
+
   const data = {
     options: {
       chart: {
         id: "apexchart-example",
       },
       xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+        categories: categories,
       },
     },
-    series: [
-      {
-        name: "series-1",
-        data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
-      },
-      {
-        name: "series-2",
-        data: [40, 27, 44, 57, 4, 57, 70, 88, 130],
-      },
-    ],
+    series: series,
   };
+  if (loading) {
+    return <CircularProgress />;
+  }
   return (
     <>
+      <Button onClick={fetch}> FETCH</Button>
       <Chart
         height={400}
         options={data.options}
