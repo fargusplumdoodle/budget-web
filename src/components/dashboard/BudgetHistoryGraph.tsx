@@ -3,7 +3,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { Budget } from "../../store/types/models";
 import { Button, CircularProgress } from "@mui/material";
-import { budgetBalanceReport } from "../../api/report";
+import api from "../../api";
 import { DateTime } from "luxon";
 import { GraphSeries } from "../../api/types/reports";
 
@@ -26,7 +26,7 @@ const BudgetHistoryGraph: FunctionComponent<Props> = () => {
     q.set("date__gte", DateTime.now().minus({ months: 6 }).toISODate());
     q.set("date__lte", DateTime.now().toISODate());
 
-    budgetBalanceReport("one_week", q).then((r: any) => {
+    api.report.budgetBalanceReport("one_week", q).then((r: any) => {
       setLoading(false);
       setCategories([...r.dates]);
       setSeries([...r.series]);

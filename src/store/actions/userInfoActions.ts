@@ -2,7 +2,7 @@ import { UserInfo } from "../types/models";
 import { LOAD_USER_INFO_SUCCESS } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
 import { apiCallError, beginApiCall } from "./apiStatusActions";
-import * as userInfoAPI from "../../api/user_info";
+import api from "../../api";
 
 export function loadUserInfoSuccess(userInfo: UserInfo) {
   return {
@@ -14,7 +14,7 @@ export function loadUserInfoSuccess(userInfo: UserInfo) {
 export function fetchUserInfo() {
   return async (dispatch: AppDispatch) => {
     dispatch(beginApiCall());
-    userInfoAPI
+    api.userInfo
       .receiveUserInfo()
       .then((userInfo: UserInfo) => {
         dispatch(loadUserInfoSuccess(userInfo));

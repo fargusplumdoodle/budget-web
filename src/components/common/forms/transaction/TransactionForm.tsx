@@ -19,11 +19,7 @@ import { ProviderContext, withSnackbar } from "notistack";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import TagFormDialog from "../tag/TagFormDialog";
-import {
-  createTransaction,
-  deleteTransaction,
-  updateTransaction,
-} from "../../../../api/transaction";
+import api from "../../../../api";
 import ControlledAmountInput from "../inputs/ControlledAmountInput";
 import ControlledTagsInput from "../inputs/ControlledTagsInput";
 import { InputErrorMessage } from "../types";
@@ -88,7 +84,7 @@ const TransactionForm = (props: Props) => {
       return;
     }
     setLoading(true);
-    deleteTransaction(props.transaction).then(() => {
+    api.transaction.deleteTransaction(props.transaction).then(() => {
       setLoading(false);
       props.enqueueSnackbar(`Successfully deleted transaction`, {
         variant: "success",
@@ -108,8 +104,8 @@ const TransactionForm = (props: Props) => {
           : Math.abs(data.amount),
     };
     const submitFn = isEdit
-      ? (t: Transaction) => updateTransaction(props.transaction, t)
-      : (t: Transaction) => createTransaction(t);
+      ? (t: Transaction) => api.transaction.updateTransaction(props.transaction, t)
+      : (t: Transaction) => api.transaction.createTransaction(t);
 
     const callback = isEdit ? props.onUpdateCallback : props.onCreateCallback;
 

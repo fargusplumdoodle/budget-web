@@ -1,11 +1,11 @@
-import { makeRequest } from "./util";
+import { makeRequest } from "../util";
 import {
   BudgetBalanceReport,
   NumberBasedReport,
   SerializedBudgetBalanceReport,
   TimeBucketSize,
-} from "./types/reports";
-import { deserializeBudgetBalanceReport } from "./serializers";
+} from "../types/reports";
+import { deserializeBudgetBalanceReport } from "../serializers";
 
 export async function budgetBalanceReport(
   timeBucketSize: TimeBucketSize,

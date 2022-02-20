@@ -1,10 +1,7 @@
-import { UserInfo } from "../store/types/models";
-import { makeRequest } from "./util";
-import { SerializedUserInfo } from "./types";
-import {
-  deserializeUserInfo,
-  serializeUserInfo,
-} from "./serializers";
+import { UserInfo } from "../../store/types/models";
+import { makeRequest } from "../util";
+import { SerializedUserInfo } from "../types";
+import { deserializeUserInfo, serializeUserInfo } from "../serializers";
 
 export async function receiveUserInfo(): Promise<UserInfo> {
   const r = await makeRequest({

@@ -8,10 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ProviderContext, withSnackbar } from "notistack";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createIncomeTransactions } from "../../../../util/income";
-import { createTransaction } from "../../../../api/transaction";
 import ControlledAmountInput from "../inputs/ControlledAmountInput";
 import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
 import ControlledDateInput from "../inputs/ControlledDateInput";
+import api from "../../../../api";
 
 interface Props extends ProviderContext {
   onCreateTransactions: (transactions: Transaction[]) => void;
@@ -50,7 +50,7 @@ const IncomeForm = (props: Props) => {
     });
     const createTransactionPromises: Promise<Transaction>[] = transactions.map(
       (transaction: Transaction) => {
-        return createTransaction(transaction);
+        return api.transaction.createTransaction(transaction);
       }
     );
 

@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/configureStore";
 import { Button, CircularProgress, Stack } from "@mui/material";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
-import { createTransaction } from "../../../../api/transaction";
+import { createTransaction } from "../../../../api/endpoints/transaction";
 import { createTransferTransactions } from "../../../../util/transfer";
 import { ProviderContext, withSnackbar } from "notistack";
 import ControlledAmountInput from "../inputs/ControlledAmountInput";

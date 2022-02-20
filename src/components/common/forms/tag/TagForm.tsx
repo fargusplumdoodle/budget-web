@@ -7,8 +7,8 @@ import { generateTag } from "../../../../util/generators";
 import { Tag } from "../../../../store/types/models";
 import { Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { ProviderContext, withSnackbar } from "notistack";
-import { createTag } from "../../../../api/tag";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
+import api from "../../../../api";
 
 //TODO: UPDATE EXISTING TAG
 
@@ -39,7 +39,8 @@ const TagForm: FunctionComponent<Props> = (props) => {
 
   const onSubmit = (tag: Tag): void => {
     setLoading(true);
-    createTag(tag)
+    api.tag
+      .createTag(tag)
       .then((tag: Tag) => {
         setLoading(false);
         props.enqueueSnackbar(`Successfully added tag: ${tag.name}`, {

@@ -6,8 +6,8 @@ import { UserInfo } from "../store/types/models";
 import UserInfoForm from "../components/common/forms/user_info/UserInfoForm";
 import { ProviderContext, withSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
-import { updateUserInfo } from "../api/user_info";
 import { loadUserInfoSuccess } from "../store/actions/userInfoActions";
+import api from "../api";
 
 const classes = {
   root: {
@@ -25,7 +25,8 @@ const UserInfoPage: React.FC<UserInfoPageProps> = function ({
   const dispatch = useDispatch();
 
   const onSubmit = (userInfo: UserInfo) => {
-    updateUserInfo(userInfo)
+    api.userInfo
+      .updateUserInfo(userInfo)
       .then(() => {
         dispatch(loadUserInfoSuccess(userInfo));
         setLoading(false);
