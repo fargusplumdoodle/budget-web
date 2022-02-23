@@ -1,6 +1,5 @@
-import { Card } from "@mui/material";
+import { Card, Typography } from "@mui/material";
 import * as React from "react";
-import "./DashboardTile.css";
 import { FunctionComponent, ReactElement } from "react";
 
 interface OwnProps {
@@ -14,7 +13,9 @@ type Props = OwnProps;
 
 const DashboardTile: FunctionComponent<Props> = (props) => {
   const title = props.title ? (
-    <h5 className="dashboardTileTitleItem">{props.title}</h5>
+    <Typography variant="h5" sx={{ padding: "2px 4px", m: 0 }}>
+      {props.title}
+    </Typography>
   ) : (
     <></>
   );

@@ -5,15 +5,13 @@ import { Budget } from "../../store/types/models";
 import { Button, CircularProgress } from "@mui/material";
 import api from "../../api";
 import { DateTime } from "luxon";
-import { GraphSeries } from "../../api/types/reports";
+import { GraphSeries, ReportTypes } from "../../api/types/reports";
 
-interface OwnProps {
+interface BudgetHistoryGraphProps {
   budgets: Budget[];
 }
 
-type Props = OwnProps;
-
-const BudgetHistoryGraph: FunctionComponent<Props> = () => {
+const BudgetHistoryGraph: FunctionComponent<BudgetHistoryGraphProps> = () => {
   const [loading, setLoading] = useState(false);
   const [series, setSeries] = useState<GraphSeries[]>([]);
   const [categories, setCategories] = useState([]);
@@ -26,7 +24,7 @@ const BudgetHistoryGraph: FunctionComponent<Props> = () => {
     q.set("date__gte", DateTime.now().minus({ months: 6 }).toISODate());
     q.set("date__lte", DateTime.now().toISODate());
 
-    api.report.budgetBalanceReport("one_week", q).then((r: any) => {
+    api.report(ReportTypes.BUDGET_DELTA, "one_week", q).then((r: any) => {
       setLoading(false);
       setCategories([...r.dates]);
       setSeries([...r.series]);
