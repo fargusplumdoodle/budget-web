@@ -1,44 +1,27 @@
 import { makeRequest } from "../util";
+import { GraphReport, ReportType, TimeBucketSize } from "../types/reports";
 import {
-  BudgetBalanceReport,
-  NumberBasedReport,
-  SerializedBudgetBalanceReport,
-  TimeBucketSize,
-} from "../types/reports";
-import { deserializeBudgetBalanceReport } from "../serializers";
+  deserializeMultipleValuesReport,
+  deserializeSingleValueReport,
+} from "../serializers";
 
-export async function budgetBalanceReport(
+export default async function report(
+  reportType: ReportType,
   timeBucketSize: TimeBucketSize,
   query?: URLSearchParams
-): Promise<BudgetBalanceReport> {
+): Promise<GraphReport> {
   const params = new URLSearchParams(query);
-
   params.set("time_bucket_size", timeBucketSize);
 
   const r = await makeRequest({
     method: "get",
-    url: "/api/v2/reports/budget_balance/",
+    url: `/api/v2/reports/${reportType.name}/`,
     params: params,
   });
 
-  return deserializeBudgetBalanceReport(
-    r.data as SerializedBudgetBalanceReport
-  );
-}
+  const serializer = reportType.multiple
+    ? deserializeMultipleValuesReport
+    : deserializeSingleValueReport;
 
-export async function transactionCountReport(
-  timeBucketSize: TimeBucketSize,
-  query?: URLSearchParams
-): Promise<NumberBasedReport> {
-  const params = new URLSearchParams(query);
-
-  params.set("time_bucket_size", timeBucketSize);
-
-  const r = await makeRequest({
-    method: "get",
-    url: "/api/v2/reports/transaction_count/",
-    params: params,
-  });
-
-  return r.data;
+  return serializer(reportType, r.data);
 }
