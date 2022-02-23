@@ -8,6 +8,7 @@ import {
   AddTransactionsPage,
   TransactionsPage,
   UserInfoPage,
+  BudgetDetailPage,
 } from "../views";
 
 export const ROUTES = {
@@ -25,9 +26,13 @@ export const ROUTES = {
     path: "/user/info",
     element: <UserInfoPage />,
   },
-  BUDGETS: {
-    path: "/budgets",
+  BUDGET_LIST: {
+    path: "/budget",
     element: <BudgetsPage />,
+  },
+  BUDGET_DETAIL: {
+    path: "/budget/:id",
+    element: <BudgetDetailPage />,
   },
 };
 

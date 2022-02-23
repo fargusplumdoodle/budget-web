@@ -20,7 +20,7 @@ const SideBar: FunctionComponent<{}> = () => {
     { text: "Dashboard", route: ROUTES.DASHBOARD, icon: <TrendingUp /> },
     { text: "Add Transactions", route: ROUTES.TRANSACTIONS_ADD, icon: <Add /> },
     { text: "Transactions", route: ROUTES.TRANSACTIONS_LIST, icon: <List /> },
-    { text: "Budgets", route: ROUTES.BUDGETS, icon: <AttachMoney /> },
+    { text: "Budgets", route: ROUTES.BUDGET_LIST, icon: <AttachMoney /> },
     { text: "User Info", route: ROUTES.USER_INFO, icon: <ManageAccounts /> },
   ];
 
@@ -38,7 +38,7 @@ const SideBar: FunctionComponent<{}> = () => {
         <Tabs
           orientation="vertical"
           variant="scrollable"
-          value={sideBarLinks.indexOf(selected)}
+          value={selected ? sideBarLinks.indexOf(selected) : 0}
           aria-label="Vertical tabs example"
           sx={{ borderRight: 1, borderColor: "divider" }}
         >

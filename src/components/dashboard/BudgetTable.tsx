@@ -8,6 +8,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Typography } from "@mui/material";
 import { Budget } from "../../store/types/models";
+import { ROUTES } from "../../app/AppRoutes";
+import { routeWithId } from "../../util/routing";
+import { useNavigate } from "react-router-dom";
 
 interface OwnProps {
   budgets: Budget[];
@@ -16,6 +19,7 @@ interface OwnProps {
 type Props = OwnProps;
 
 const BudgetTable: FunctionComponent<Props> = (props: Props) => {
+  const navigate = useNavigate();
   const headers = [
     "Name",
     "Percentage",
@@ -42,7 +46,12 @@ const BudgetTable: FunctionComponent<Props> = (props: Props) => {
         <TableBody>
           {props.budgets.map((budget) => {
             return (
-              <TableRow key={budget.id}>
+              <TableRow
+                key={budget.id}
+                onClick={() => {
+                  navigate(routeWithId(ROUTES.BUDGET_DETAIL.path, budget.id));
+                }}
+              >
                 <TableCell>{budget.name}</TableCell>
                 <TableCell>{budget.percentage}</TableCell>
                 <TableCell>{budget.income_per_month}</TableCell>
