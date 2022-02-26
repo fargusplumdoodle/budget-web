@@ -11,6 +11,7 @@ import { Budget } from "../../store/types/models";
 import { ROUTES } from "../../app/AppRoutes";
 import { routeWithId } from "../../util/routing";
 import { useNavigate } from "react-router-dom";
+import { formatCurrency } from "../../util/formatters";
 
 interface OwnProps {
   budgets: Budget[];
@@ -54,9 +55,13 @@ const BudgetTable: FunctionComponent<Props> = (props: Props) => {
               >
                 <TableCell>{budget.name}</TableCell>
                 <TableCell>{budget.percentage}</TableCell>
-                <TableCell>{budget.income_per_month}</TableCell>
-                <TableCell>{budget.outcome_per_month}</TableCell>
-                <TableCell>{budget.balance}</TableCell>
+                <TableCell>
+                  {formatCurrency(budget.income_per_month, false)}
+                </TableCell>
+                <TableCell>
+                  {formatCurrency(budget.outcome_per_month, false)}
+                </TableCell>
+                <TableCell>{formatCurrency(budget.balance, false)}</TableCell>
               </TableRow>
             );
           })}
