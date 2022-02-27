@@ -29,6 +29,7 @@ export const INPUTS = {
     props: {},
   },
   date: { element: DateInput, props: {} },
+  impliedTrue: { element: false, props: {} },
 };
 
 export const OPERATORS: { [name: string]: Operator } = {
@@ -64,6 +65,14 @@ export const OPERATORS: { [name: string]: Operator } = {
     name: "includes",
     djangoExpression: "__includes",
   },
+  excludes: {
+    name: "excludes",
+    djangoExpression: "__excludes",
+  },
+  none: {
+    name: "none",
+    djangoExpression: "__none",
+  },
 };
 
 const numericalOperators = [
@@ -74,7 +83,7 @@ const numericalOperators = [
   OPERATORS.equal,
 ];
 const textOperators = [OPERATORS.icontains, OPERATORS.iexact];
-const listOperators = [OPERATORS.includes];
+const listOperators = [OPERATORS.includes, OPERATORS.excludes];
 
 export const OPERANDS: { [name: string]: Operand } = {
   amount: {
@@ -108,6 +117,16 @@ export const OPERANDS: { [name: string]: Operand } = {
     requiresSetValueAndExpression: true,
     transformValue: (tags: Tag[]) => {
       return tags.map((t) => t.name);
+    },
+  },
+  tags__none: {
+    name: "tags",
+    label: "No Tags",
+    operators: [OPERATORS.none],
+    input: INPUTS.impliedTrue,
+    requiresSetValueAndExpression: false,
+    transformValue: () => {
+      return ['true'];
     },
   },
   budgets: {
