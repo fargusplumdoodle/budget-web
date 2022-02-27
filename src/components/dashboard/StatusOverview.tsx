@@ -25,6 +25,7 @@ const StatusOverview: FunctionComponent = () => {
   const budgets = useSelector((state: RootState) => state.budgets.list);
   const [monthlyOutcome, setMonthlyOutcome] = React.useState<number>(0.01);
   const totalBudgetBalance = sum(budgets.map((budget) => budget.balance));
+  const coastTime =Math.round(totalBudgetBalance / Math.abs(monthlyOutcome))
 
   React.useEffect(() => {
     getAverageOutcomePerMonth().then((r) => setMonthlyOutcome(r));
@@ -37,7 +38,7 @@ const StatusOverview: FunctionComponent = () => {
           Monthly Outcome: {formatCurrency(monthlyOutcome, false)}
         </Typography>
         <Typography variant="body1">
-          Coast Time: {Math.round(totalBudgetBalance / monthlyOutcome)}
+          Coast Time: {coastTime} Months
         </Typography>
       </Box>
 

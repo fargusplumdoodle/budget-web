@@ -61,7 +61,9 @@ const ExpressionInput: React.FC<ExpressionInputProps> = function ({
         />
       </TableCell>
       <TableCell>
-        <expression.operand.input.element {...elementProps} />
+        {expression.operand.input.element && (
+          <expression.operand.input.element {...elementProps} />
+        )}
       </TableCell>
       <TableCell>
         <Button onClick={onRemoveExpression}>
