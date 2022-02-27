@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Card, Grid, Stack, SxProps, Typography } from "@mui/material";
+import { Box, Card, Grid, Stack, SxProps, Typography } from "@mui/material";
 import { capitalize } from "lodash";
 import { RootState } from "../store/configureStore";
 import { formatCurrency } from "../util/formatters";
@@ -12,12 +12,21 @@ import SpendingSummary from "../components/budget/spending_summary/SpendingSumma
 
 const classes: { [id: string]: SxProps } = {
   header: {
+    p: 2,
+  },
+  title: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    p: 2,
-    paddingTop: 4,
+    paddingTop: 3,
+    paddingBottom: 1,
+  },
+  subheader: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "top",
   },
 };
 
@@ -35,10 +44,25 @@ const BudgetDetailPage: React.FC = function () {
       <Grid item xs={6} justifyContent="center" alignItems="center">
         <Stack spacing={1}>
           <Card sx={classes.header}>
-            <Typography variant="h3">{capitalize(budget.name)}</Typography>
-            <Typography variant="h3">
-              {formatCurrency(budget.balance, false)}
-            </Typography>
+            <Box sx={classes.title}>
+              <Typography variant="h3">{capitalize(budget.name)}</Typography>
+              <Typography variant="h3">
+                {formatCurrency(budget.balance, false)}
+              </Typography>
+            </Box>
+            <Box sx={classes.subheader}>
+              <Typography variant="h4">{budget.percentage}%</Typography>
+              <div>
+                <Typography variant="body2">
+                  Monthly Income:{" "}
+                  {formatCurrency(budget.income_per_month, false)}
+                </Typography>
+                <Typography variant="body2">
+                  Monthly Outcome:{" "}
+                  {formatCurrency(budget.outcome_per_month, false)}
+                </Typography>
+              </div>
+            </Box>
           </Card>
 
           <Card>
