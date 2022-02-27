@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Typography } from "@mui/material";
-import "../../../pages/transactions_list/TransactionsTable.css";
+import "../../../views/transactions_list/TransactionsTable.css";
 import { Transaction } from "../../../store/types/models";
 import { commaSeparatedTagNames } from "../../../util/formatters";
 import TransactionFormDialog from "../transaction_form/TransactionFormDialog";

@@ -1,6 +1,6 @@
 import axios from "axios";
-import settings from "../app/settings";
-import { AuthState } from "../store/types/stateTypes";
+import settings from "../../app/settings";
+import { AuthState } from "../../store/types/stateTypes";
 
 // eslint-disable-next-line no-unused-vars
 interface tokenResponse {

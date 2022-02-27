@@ -1,16 +1,16 @@
 import * as React from "react";
 import { FunctionComponent } from "react";
-import BudgetTable from "./BudgetTable";
+import BudgetTable from "../components/dashboard/BudgetTable";
 import { Grid, Stack } from "@mui/material";
-import DashboardTile from "./DashboardTile";
-import BudgetHistoryGraph from "./BudgetHistoryGraph";
-import StatusOverview from "./StatusOverview";
-import TransactionForm from "../common/forms/transaction/TransactionForm";
+import DashboardTile from "../components/dashboard/DashboardTile";
+import BudgetHistoryGraph from "../components/dashboard/BudgetBalanceGraph";
+import StatusOverview from "../components/dashboard/StatusOverview";
 import { connect } from "react-redux";
-import { RootState } from "../../store/configureStore";
-import { Budget } from "../../store/types/models";
+import { RootState } from "../store/configureStore";
+import { Budget } from "../store/types/models";
 import { ProviderContext, withSnackbar } from "notistack";
-import TagForm from "../common/forms/tag/TagForm";
+import IncomeOutcomeGraph from "../components/dashboard/IncomeOutcomeGraph";
+import BalanceGraph from "../components/dashboard/BalanceGraph";
 
 interface OwnProps extends ProviderContext {
   budgets: Budget[];
@@ -29,31 +29,26 @@ const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
           <Stack spacing={1}>
             <DashboardTile
               title="Budget Overview"
-              description="Describes current status of budgets"
             >
               <BudgetTable budgets={budgets} />
             </DashboardTile>
-            <DashboardTile
-              title="Add Transaction"
-              description="Add a new Transaction"
-            >
-              <TransactionForm />
+            <DashboardTile title="Income / Outcome">
+              <IncomeOutcomeGraph />
             </DashboardTile>
           </Stack>
         </Grid>
         <Grid item xs={6} alignItems="center">
           <Stack spacing={1}>
-            <DashboardTile small={true}>
+            <DashboardTile>
               <StatusOverview />
             </DashboardTile>
-            <DashboardTile
-              title="Balance History"
-              description="Describes historical balance of your budgets"
-            >
-              <BudgetHistoryGraph budgets={budgets} />
+
+            <DashboardTile title="Budget Balance History">
+              <BudgetHistoryGraph />
             </DashboardTile>
-            <DashboardTile small={true}>
-              <TagForm />
+
+            <DashboardTile title="Balance History">
+              <BalanceGraph />
             </DashboardTile>
           </Stack>
         </Grid>

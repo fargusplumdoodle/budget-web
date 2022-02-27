@@ -1,7 +1,7 @@
 import { SET_AUTH_TOKEN_SUCCESS, CLEAR_AUTH_TOKEN } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
 import { apiCallError, beginApiCall } from "./apiStatusActions";
-import * as authAPI from "../../api/auth";
+import api from "../../api";
 import { AuthState } from "../types/stateTypes";
 import axios from "axios";
 
@@ -26,7 +26,7 @@ export function logOut() {
 export function requestAuthToken(authCode: string) {
   return async (dispatch: AppDispatch) => {
     dispatch(beginApiCall());
-    return authAPI
+    return api.auth
       .retrieveToken(authCode)
       .then((authToken: AuthState) => {
         dispatch(setAuthTokenSuccess(authToken));

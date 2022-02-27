@@ -1,6 +1,5 @@
-import { Card } from "@mui/material";
+import { Card, SxProps, Typography } from "@mui/material";
 import * as React from "react";
-import "./DashboardTile.css";
 import { FunctionComponent, ReactElement } from "react";
 
 interface OwnProps {
@@ -8,20 +7,21 @@ interface OwnProps {
   description?: string;
   children: ReactElement[] | ReactElement;
   small?: boolean;
+  sx?: SxProps;
 }
 
 type Props = OwnProps;
 
 const DashboardTile: FunctionComponent<Props> = (props) => {
   const title = props.title ? (
-    <h5 className="dashboardTileTitleItem">{props.title}</h5>
+    <Typography variant="h5" sx={{ padding: "2px 4px", m: 0 }}>
+      {props.title}
+    </Typography>
   ) : (
     <></>
   );
-  const height = props.small ? 500 / 3 : 500;
-
   return (
-    <Card sx={{ p: 1, height: height }}>
+    <Card sx={{ p: 1, ...props.sx }}>
       {title}
       {props.children}
     </Card>

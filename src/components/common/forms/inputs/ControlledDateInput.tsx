@@ -16,7 +16,6 @@ function ControlledDateInput<FormT>({
   sx,
   ...props
 }: Props<FormT>) {
-  const styles = sx ? sx : { width: "100%" };
   return (
     <Controller
       name={name}
@@ -27,7 +26,7 @@ function ControlledDateInput<FormT>({
           openTo="day"
           views={["year", "month", "day"]}
           renderInput={(params) => (
-            <TextField variant="standard" sx={styles} {...params} />
+            <TextField variant="standard" sx={sx} {...params} />
           )}
           {...props}
           {...field}

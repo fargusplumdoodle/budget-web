@@ -4,7 +4,7 @@ import PaginatedTransactionsTable from "../../components/transactions/transactio
 import { Transaction } from "../../store/types/models";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
 import VariableInputForm from "../../components/common/forms/search/VariableInputForm";
-import { fetchTransactionPage } from "../../api/transaction";
+import api from "../../api";
 import Card from "@mui/material/Card";
 import ApiErrorDialog, {
   ApiError,
@@ -22,7 +22,8 @@ const TransactionsPage: FunctionComponent<Props> = () => {
   // TODO: FETCH MORE PAGES
   React.useEffect(() => {
     setLoading(true);
-    fetchTransactionPage(0, 25, query)
+    api.transaction
+      .fetchTransactionPage(0, 25, query)
       .then((page) => {
         setTransactions(page.results);
       })

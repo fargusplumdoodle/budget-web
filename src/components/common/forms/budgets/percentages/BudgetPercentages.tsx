@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../../store/configureStore";
 import BudgetPercentagesForm from "./BudgetPercentagesForm";
 import { Budget } from "../../../../../store/types/models";
-import { updateBudget } from "../../../../../api/budget";
 import ApiErrorDialog, { ApiError } from "../../../ApiErrorDialog";
 import { useState } from "react";
 import { ProviderContext, withSnackbar } from "notistack";
+import api from "../../../../../api";
 
 interface BudgetPercentagesProps extends ProviderContext {}
 
@@ -34,7 +34,8 @@ const BudgetPercentages: React.FC<BudgetPercentagesProps> = function ({
     setBudgetLoadingMap(Object.fromEntries(budgets.map((b) => [b.id, true])));
 
     budgets.forEach((budget) => {
-      updateBudget(budget)
+      api.budget
+        .updateBudget(budget)
         .then((budget: Budget) => {
           budgetLoadingMap[budget.id] = false;
           setBudgetLoadingMap({ ...budgetLoadingMap });

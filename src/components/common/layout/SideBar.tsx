@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FunctionComponent } from "react";
-import { Tab, Tabs, Typography } from "@mui/material";
+import { Box, SxProps, Tab, Tabs, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../app/AppRoutes";
 import { tabProps } from "../tabs";
@@ -13,6 +13,22 @@ import {
 } from "@mui/icons-material";
 import AuthButton from "../../auth/AuthButton";
 
+const classes: { [name: string]: SxProps } = {
+  root: {
+    height: "100vh",
+    backgroundColor: "#1e1e1e",
+    width: "300px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+  },
+  title: {
+    textAlign: "right",
+    m: 2,
+  }
+};
+
 const SideBar: FunctionComponent<{}> = () => {
   const navigate = useNavigate();
 
@@ -20,7 +36,7 @@ const SideBar: FunctionComponent<{}> = () => {
     { text: "Dashboard", route: ROUTES.DASHBOARD, icon: <TrendingUp /> },
     { text: "Add Transactions", route: ROUTES.TRANSACTIONS_ADD, icon: <Add /> },
     { text: "Transactions", route: ROUTES.TRANSACTIONS_LIST, icon: <List /> },
-    { text: "Budgets", route: ROUTES.BUDGETS, icon: <AttachMoney /> },
+    { text: "Budgets", route: ROUTES.BUDGET_LIST, icon: <AttachMoney /> },
     { text: "User Info", route: ROUTES.USER_INFO, icon: <ManageAccounts /> },
   ];
 
@@ -29,16 +45,16 @@ const SideBar: FunctionComponent<{}> = () => {
   );
 
   return (
-    <div className="sidebar">
+    <Box sx={classes.root}>
       <div>
-        <Typography variant="h4" component="div" sx={{ m: 2, p: 2 }}>
+        <Typography variant="h4" sx={classes.title}>
           Budget
         </Typography>
 
         <Tabs
           orientation="vertical"
           variant="scrollable"
-          value={sideBarLinks.indexOf(selected)}
+          value={selected ? sideBarLinks.indexOf(selected) : 0}
           aria-label="Vertical tabs example"
           sx={{ borderRight: 1, borderColor: "divider" }}
         >
@@ -61,7 +77,7 @@ const SideBar: FunctionComponent<{}> = () => {
       </div>
 
       <AuthButton sx={{ m: 4 }} />
-    </div>
+    </Box>
   );
 };
 
