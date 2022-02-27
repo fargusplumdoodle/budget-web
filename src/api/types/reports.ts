@@ -7,6 +7,16 @@ export type TimeBucketSize =
   | "six_months"
   | "one_year";
 
+export const timeBuckets = [
+  "one",
+  "one_day",
+  "one_week",
+  "one_month",
+  "three_months",
+  "six_months",
+  "one_year",
+];
+
 export interface ReportType {
   name: string;
   label: string;

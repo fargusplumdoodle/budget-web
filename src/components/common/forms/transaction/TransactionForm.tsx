@@ -213,7 +213,7 @@ const TransactionForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <ControlledDateInput name="date" control={control} />
+            <ControlledDateInput name="date" control={control} sx={{width: '100%'}} />
           </FormItem>
 
           <FormItem sx={{ display: "flex", flexDirection: "row" }}>

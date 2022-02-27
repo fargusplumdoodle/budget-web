@@ -106,7 +106,7 @@ const IncomeForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <ControlledDateInput name="date" control={control} />
+            <ControlledDateInput name="date" control={control} sx={{width: "100%"}}/>
           </FormItem>
           <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
             {loading ? <CircularProgress /> : "SUBMIT"}

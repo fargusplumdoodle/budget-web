@@ -26,7 +26,7 @@ const classes: { [name: string]: SxProps } = {
   title: {
     textAlign: "right",
     m: 2,
-  },
+  }
 };
 
 const SideBar: FunctionComponent<{}> = () => {
