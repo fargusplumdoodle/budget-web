@@ -1,14 +1,15 @@
-import { Box, Button, SxProps } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { DateTime } from "luxon";
 import * as React from "react";
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { ReportTypes, TimeBucketSize } from "../../api/types";
 import { Budget } from "../../store/types/models";
+import { Classes } from "../../util/types";
 import ControlledDateInput from "../common/forms/inputs/ControlledDateInput";
 import GraphContainer from "../graph/GraphContainer";
 
-const classes: { [name: string]: SxProps } = {
+const classes: Classes = {
   form: {
     display: "flex",
     flexDirection: "row",
@@ -74,7 +75,11 @@ const BudgetBalanceReport: FunctionComponent<BudgetBalanceReportProps> = ({
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box sx={classes.form}>
-          <ControlledDateInput label="From" control={control} name="date__gte" />
+          <ControlledDateInput
+            label="From"
+            control={control}
+            name="date__gte"
+          />
           <ControlledDateInput label="To" control={control} name="date__lte" />
           <Button type="submit">Search</Button>
         </Box>
