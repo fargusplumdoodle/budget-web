@@ -32,7 +32,6 @@ const GraphContainer: React.FC<GraphContainerProps> = function ({
       promises.push(api.report(reportType, timeBucketSize, queryParams));
     });
     Promise.all(promises).then((reports) => {
-      console.log(reports);
       setDates([...reports[0].dates]);
       setLoading(false);
       setReportSeries(

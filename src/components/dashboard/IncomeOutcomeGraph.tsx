@@ -4,7 +4,6 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { ReportTypes, TimeBucketSize } from "../../api/types";
-import { Budget } from "../../store/types/models";
 import ControlledDateInput from "../common/forms/inputs/ControlledDateInput";
 import GraphContainer from "../graph/GraphContainer";
 
@@ -20,15 +19,12 @@ const classes: { [name: string]: SxProps } = {
   },
 };
 
-interface BudgetBalanceReportProps {
-  budget: Budget;
-}
+interface IncomeOutcomeGraphProps {}
 
-interface BudgetBalanceReportState {
+interface IncomeOutcomeGraphState {
   date__gte: string;
   date__lte: string;
   timeBucketSize: TimeBucketSize;
-  budget__includes: string;
 }
 
 interface FormData {
@@ -37,23 +33,20 @@ interface FormData {
   timeBucketSize: TimeBucketSize;
 }
 
-const BudgetBalanceReport: FunctionComponent<BudgetBalanceReportProps> = ({
-  budget,
-}) => {
-  const initialState: BudgetBalanceReportState = {
+const IncomeOutcomeGraph: FunctionComponent<IncomeOutcomeGraphProps> = () => {
+  const initialState: IncomeOutcomeGraphState = {
     timeBucketSize: "one_day",
     date__gte: DateTime.now().minus({ months: 6 }).toISODate(),
     date__lte: DateTime.now().toISODate(),
-    budget__includes: budget.id.toString(),
   };
 
-  const [state, setState] = React.useState<BudgetBalanceReportState>({
+  const [state, setState] = React.useState<IncomeOutcomeGraphState>({
     ...initialState,
   });
   const { timeBucketSize, ...params } = state;
   const queryParams = new URLSearchParams({ ...params });
 
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit  } = useForm<FormData>({
     defaultValues: {
       ...initialState,
       date__gte: new Date(initialState.date__gte),
@@ -74,13 +67,17 @@ const BudgetBalanceReport: FunctionComponent<BudgetBalanceReportProps> = ({
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box sx={classes.form}>
-          <ControlledDateInput label="From" control={control} name="date__gte" />
+          <ControlledDateInput
+            label="From"
+            control={control}
+            name="date__gte"
+          />
           <ControlledDateInput label="To" control={control} name="date__lte" />
           <Button type="submit">Search</Button>
         </Box>
       </form>
       <GraphContainer
-        reportTypes={[ReportTypes.BUDGET_BALANCE, ReportTypes.BUDGET_DELTA]}
+        reportTypes={[ReportTypes.INCOME, ReportTypes.OUTCOME]}
         timeBucketSize={timeBucketSize}
         queryParams={queryParams}
       />
@@ -88,4 +85,4 @@ const BudgetBalanceReport: FunctionComponent<BudgetBalanceReportProps> = ({
   );
 };
 
-export default BudgetBalanceReport;
+export default IncomeOutcomeGraph;
