@@ -2,17 +2,19 @@ import {
   Stack,
   Button,
   ToggleButton,
+  Checkbox,
   FormHelperText,
   CircularProgress,
   ToggleButtonGroup,
 } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import * as React from "react";
 import { Tag, Transaction } from "../../../../store/types/models";
 import { generateTransaction } from "../../../../util/generators";
 import { RootState } from "../../../../store/configureStore";
 import { useSelector } from "react-redux";
 import { FormItem, transactionSchema } from "../../../../util/form";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Add, Remove } from "@mui/icons-material";
 import { ProviderContext, withSnackbar } from "notistack";
@@ -56,11 +58,14 @@ const TransactionForm = (props: Props) => {
         amount: 0,
         budget: budgets.byName["food"],
         tags: [],
+        income: false,
+        transfer: false,
       });
 
   const {
     control,
     handleSubmit,
+    register,
     getValues,
     setValue,
     formState: { errors },
@@ -104,7 +109,8 @@ const TransactionForm = (props: Props) => {
           : Math.abs(data.amount),
     };
     const submitFn = isEdit
-      ? (t: Transaction) => api.transaction.updateTransaction(props.transaction, t)
+      ? (t: Transaction) =>
+          api.transaction.updateTransaction(props.transaction, t)
       : (t: Transaction) => api.transaction.createTransaction(t);
 
     const callback = isEdit ? props.onUpdateCallback : props.onCreateCallback;
@@ -213,8 +219,37 @@ const TransactionForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <ControlledDateInput name="date" control={control} sx={{width: '100%'}} />
+            <ControlledDateInput
+              name="date"
+              control={control}
+              sx={{ width: "100%" }}
+            />
           </FormItem>
+
+          {isEdit && (
+            <FormItem>
+              <Controller
+                name="income"
+                control={control}
+                render={({ field }) => (
+                  <FormControlLabel
+                    control={<Checkbox {...field} checked={field.value} />}
+                    label="Income"
+                  />
+                )}
+              />
+              <Controller
+                name="transfer"
+                control={control}
+                render={({ field }) => (
+                  <FormControlLabel
+                    control={<Checkbox {...field} checked={field.value} />}
+                    label="Transfer"
+                  />
+                )}
+              />
+            </FormItem>
+          )}
 
           <FormItem sx={{ display: "flex", flexDirection: "row" }}>
             <Button sx={{ width: "100%" }} type="submit" disabled={loading}>

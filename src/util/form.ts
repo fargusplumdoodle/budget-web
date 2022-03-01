@@ -40,6 +40,8 @@ export const transactionSchema = yup
     description: yup.string().max(300),
     date: yup.date().required(),
     budget: yup.object().required(),
+    income: yup.boolean(),
+    transfer: yup.boolean(),
   })
   .required();
 
