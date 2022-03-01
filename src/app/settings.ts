@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { getServerURL } from "../util/window";
 
 const CLIENT_ID = "web-client";
@@ -26,5 +27,6 @@ const settings = {
   },
   expectedBudgets: Object.values(EXPECTED_BUDGETS),
   expectedTags: Object.values(EXPECTED_TAGS),
+  minDate: DateTime.local(2019, 11, 2).toJSDate()
 };
 export default settings;
