@@ -65,7 +65,6 @@ const TransactionForm = (props: Props) => {
   const {
     control,
     handleSubmit,
-    register,
     getValues,
     setValue,
     formState: { errors },

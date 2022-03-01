@@ -7,7 +7,7 @@ export type TimeBucketSize =
   | "six_months"
   | "one_year";
 
-export const timeBuckets = [
+export const timeBuckets: TimeBucketSize[] = [
   "one",
   "one_day",
   "one_week",
