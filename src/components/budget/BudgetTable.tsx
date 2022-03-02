@@ -30,7 +30,7 @@ const BudgetTable: FunctionComponent<Props> = (props: Props) => {
   ];
   return (
     <TableContainer
-      sx={{ height: 500, overflow: "scroll", alignContent: "center" }}
+      sx={{ overflow: "scroll", alignContent: "center" }}
     >
       <Table aria-label="budget overview">
         <TableHead>

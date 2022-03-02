@@ -3,8 +3,7 @@ import { DateTime } from "luxon";
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import api from "../../../api";
-import { GraphReport, ReportTypes } from "../../../api/types";
-import { Budget } from "../../../store/types/models";
+import { GraphReport, ReportTypes, TimeBucketSize } from "../../../api/types";
 import { Classes } from "../../../util/types";
 import ReportForm from "../../forms/reports/ReportForm";
 import SpendingSummaryTable from "./SpendingSummaryTable";
@@ -22,14 +21,16 @@ const classes: Classes = {
 };
 
 interface SpendingSummaryProps {
-  budget: Budget;
+  queryParams?: URLSearchParams;
+  defaultTimebucketSize?: TimeBucketSize;
 }
 
 const SpendingSummary: FunctionComponent<SpendingSummaryProps> = ({
-  budget,
+  queryParams,
+  defaultTimebucketSize,
 }) => {
   const initialState = {
-    time_bucket_size: "one_week",
+    time_bucket_size: defaultTimebucketSize,
     date__gte: DateTime.now().minus({ months: 6 }).toISODate(),
     date__lte: DateTime.now().toISODate(),
   };
@@ -38,10 +39,6 @@ const SpendingSummary: FunctionComponent<SpendingSummaryProps> = ({
   const [spendingSummaryData, setSpendingSummaryData] = useState<
     SpendingSummaryData[]
   >([]);
-
-  const queryParams = new URLSearchParams({
-    budget__includes: budget.id.toString(),
-  });
 
   const [params, setParams] = useState<URLSearchParams>(
     new URLSearchParams({ ...initialState })
@@ -81,7 +78,7 @@ const SpendingSummary: FunctionComponent<SpendingSummaryProps> = ({
   return (
     <Box sx={classes.root}>
       <ReportForm
-        defaultTimebucketSize="one_week"
+        defaultTimebucketSize={defaultTimebucketSize}
         defaultDateGte={DateTime.now().minus({ months: 2 })}
         queryParams={queryParams}
         onSubmit={onSubmit}

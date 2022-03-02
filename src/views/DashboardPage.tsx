@@ -10,6 +10,7 @@ import { Budget } from "../store/types/models";
 import { ProviderContext, withSnackbar } from "notistack";
 import LineGraph from "../components/report/LineGraph/LineGraph";
 import { ReportTypes } from "../api/types";
+import SpendingSummary from "../components/report/spending_summary/SpendingSummary";
 
 interface OwnProps extends ProviderContext {
   budgets: Budget[];
@@ -26,9 +27,14 @@ const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
       <Grid container spacing={1}>
         <Grid item xs={6} justifyContent="center" alignItems="center">
           <Stack spacing={1}>
+            <DashboardTile>
+              <StatusOverview />
+            </DashboardTile>
+
             <DashboardTile title="Budget Overview">
               <BudgetTable budgets={budgets} />
             </DashboardTile>
+
             <DashboardTile title="Income / Outcome">
               <LineGraph
                 defaultTimebucketSize="one_week"
@@ -39,15 +45,15 @@ const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
         </Grid>
         <Grid item xs={6} alignItems="center">
           <Stack spacing={1}>
-            <DashboardTile>
-              <StatusOverview />
-            </DashboardTile>
-
             <DashboardTile title="Budget Balance History">
               <LineGraph
                 defaultTimebucketSize="one_week"
                 reportTypes={[ReportTypes.BUDGET_BALANCE]}
               />
+            </DashboardTile>
+
+            <DashboardTile title="Spending Summary">
+              <SpendingSummary defaultTimebucketSize="one_month" />
             </DashboardTile>
 
             <DashboardTile title="Balance History">

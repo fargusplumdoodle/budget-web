@@ -9,7 +9,7 @@ import DashboardTile from "../components/dashboard/DashboardTile";
 import BudgetTransactionTable from "../components/budget/BudgetTransactionTable";
 import { ReportTypes } from "../api/types";
 import LineGraph from "../components/report/LineGraph";
-import SpendingSummary from "../components/budget/spending_summary/SpendingSummary";
+import SpendingSummary from "../components/report/spending_summary/SpendingSummary";
 
 const classes: { [id: string]: SxProps } = {
   header: {
@@ -36,7 +36,6 @@ const BudgetDetailPage: React.FC = function () {
   const budget = useSelector(
     (state: RootState) => state.budgets.byId[parseInt(id)]
   );
-
   const queryParams = new URLSearchParams({
     budget__includes: budget.id.toString(),
   });
@@ -90,7 +89,10 @@ const BudgetDetailPage: React.FC = function () {
           </DashboardTile>
 
           <DashboardTile>
-            <SpendingSummary budget={budget} />
+            <SpendingSummary
+              queryParams={queryParams}
+              defaultTimebucketSize="one_week"
+            />
           </DashboardTile>
         </Stack>
       </Grid>
