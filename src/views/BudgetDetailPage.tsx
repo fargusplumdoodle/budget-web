@@ -9,6 +9,7 @@ import DashboardTile from "../components/dashboard/DashboardTile";
 import BudgetTransactionTable from "../components/budget/BudgetTransactionTable";
 import { ReportTypes } from "../api/types";
 import LineGraph from "../components/report/LineGraph";
+import SpendingSummary from "../components/budget/spending_summary/SpendingSummary";
 
 const classes: { [id: string]: SxProps } = {
   header: {
@@ -89,7 +90,7 @@ const BudgetDetailPage: React.FC = function () {
           </DashboardTile>
 
           <DashboardTile>
-            {/* <SpendingSummary budget={budget} /> */}
+            <SpendingSummary budget={budget} />
           </DashboardTile>
         </Stack>
       </Grid>

@@ -1,19 +1,12 @@
-import { Box, Button, LinearProgress, TextField } from "@mui/material";
+import { Box, LinearProgress } from "@mui/material";
 import { DateTime } from "luxon";
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
-import { useForm } from "react-hook-form";
 import api from "../../../api";
-import {
-  GraphReport,
-  ReportTypes,
-  timeBuckets,
-  TimeBucketSize,
-} from "../../../api/types";
+import { GraphReport, ReportTypes } from "../../../api/types";
 import { Budget } from "../../../store/types/models";
 import { Classes } from "../../../util/types";
-import ControlledAutocomplete from "../../forms/inputs/ControlledAutoComplete";
-import ControlledDateInput from "../../forms/inputs/ControlledDateInput";
+import ReportForm from "../../forms/reports/ReportForm";
 import SpendingSummaryTable from "./SpendingSummaryTable";
 import { SpendingSummaryData } from "./types";
 
@@ -32,39 +25,27 @@ interface SpendingSummaryProps {
   budget: Budget;
 }
 
-interface BudgetBalanceReportState {
-  date__gte: Date;
-  timeBucketSize: TimeBucketSize;
-}
-
-interface FormData {
-  date__gte: Date;
-  timeBucketSize: TimeBucketSize;
-}
-
 const SpendingSummary: FunctionComponent<SpendingSummaryProps> = ({
   budget,
 }) => {
-  const initialState: BudgetBalanceReportState = {
-    timeBucketSize: "one_week",
-    date__gte: new Date(DateTime.now().minus({ months: 2 }).toISODate()),
+  const initialState = {
+    time_bucket_size: "one_week",
+    date__gte: DateTime.now().minus({ months: 6 }).toISODate(),
+    date__lte: DateTime.now().toISODate(),
   };
-  const [{ timeBucketSize, date__gte }, setFormData] =
-    React.useState<BudgetBalanceReportState>({
-      ...initialState,
-    });
+
+  const [loading, setLoading] = useState(false);
   const [spendingSummaryData, setSpendingSummaryData] = useState<
     SpendingSummaryData[]
   >([]);
 
-  const [loading, setLoading] = useState(false);
-
-  const { control, handleSubmit, getValues } = useForm<FormData>({
-    defaultValues: {
-      ...initialState,
-      date__gte: new Date(initialState.date__gte),
-    },
+  const queryParams = new URLSearchParams({
+    budget__includes: budget.id.toString(),
   });
+
+  const [params, setParams] = useState<URLSearchParams>(
+    new URLSearchParams({ ...initialState })
+  );
 
   function presentData(
     income: GraphReport,
@@ -82,20 +63,8 @@ const SpendingSummary: FunctionComponent<SpendingSummaryProps> = ({
   }
   React.useEffect(() => {
     const fetchData = async (): Promise<SpendingSummaryData[]> => {
-      const queryParams = new URLSearchParams({
-        date__gte: date__gte.toLocaleDateString(),
-        date__lte: DateTime.now().toISODate(),
-        budget__includes: budget.id.toString(),
-      });
-
-      const outcome = await api.report(
-        ReportTypes.OUTCOME,
-        queryParams,
-      );
-      const income = await api.report(
-        ReportTypes.INCOME,
-        queryParams,
-      );
+      const outcome = await api.report(ReportTypes.OUTCOME, params);
+      const income = await api.report(ReportTypes.INCOME, params);
       return presentData(income, outcome);
     };
     setLoading(true);
@@ -103,37 +72,20 @@ const SpendingSummary: FunctionComponent<SpendingSummaryProps> = ({
       setLoading(false);
       setSpendingSummaryData([...data]);
     });
-  }, [timeBucketSize, date__gte, budget.id]);
+  }, [params]);
 
-  function onSubmit(data: FormData) {
-    setFormData({
-      ...data,
-    });
+  function onSubmit(data: URLSearchParams) {
+    setParams(data);
   }
 
   return (
     <Box sx={classes.root}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box sx={classes.form}>
-          <ControlledDateInput
-            label="From"
-            control={control}
-            name="date__gte"
-          />
-          <ControlledAutocomplete<string, FormData>
-            control={control}
-            name="timeBucketSize"
-            options={timeBuckets}
-            getValues={getValues}
-            sx={{ width: 200 }}
-            disableClearable
-            renderInput={(params: any) => (
-              <TextField {...params} variant="standard" label="Time Bucket" />
-            )}
-          />
-          <Button type="submit">Search</Button>
-        </Box>
-      </form>
+      <ReportForm
+        defaultTimebucketSize="one_week"
+        defaultDateGte={DateTime.now().minus({ months: 2 })}
+        queryParams={queryParams}
+        onSubmit={onSubmit}
+      />
       {loading ? (
         <LinearProgress />
       ) : (
