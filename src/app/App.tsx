@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./App.css";
 import AppRoutes from "./AppRoutes";
-import SideBar from "../components/common/layout/SideBar";
+import SideBar from "../components/layout/SideBar";
 import InitializeData from "./InitializeData";
 
 function App() {

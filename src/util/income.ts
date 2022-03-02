@@ -1,7 +1,7 @@
 import { Budget, Transaction } from "../store/types/models";
 import { store } from "../store/configureStore";
 import { sum } from "lodash";
-import { IncomeFormData } from "../components/common/forms/transaction/IncomeForm";
+import { IncomeFormData } from "../components/forms/transaction/IncomeForm";
 
 export function getIncomeTransactionAmount(
   totalAmount: number,

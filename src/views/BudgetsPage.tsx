@@ -2,7 +2,7 @@ import * as React from "react";
 import { Card, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import { TabPanel, tabProps } from "../components/common/tabs";
-import BudgetPercentages from "../components/common/forms/budgets/percentages/BudgetPercentages";
+import BudgetPercentages from "../components/forms/budgets/percentages/BudgetPercentages";
 
 const tabs = {
   percentages: 0,

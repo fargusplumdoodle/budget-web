@@ -3,12 +3,12 @@ import { FunctionComponent, useState } from "react";
 import PaginatedTransactionsTable from "../../components/transactions/transactions_table/PaginatedTransactionsTable";
 import { Transaction } from "../../store/types/models";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
-import VariableInputForm from "../../components/common/forms/search/VariableInputForm";
+import VariableInputForm from "../../components/forms/search/VariableInputForm";
 import api from "../../api";
 import Card from "@mui/material/Card";
 import ApiErrorDialog, {
   ApiError,
-} from "../../components/common/ApiErrorDialog";
+} from "../../components/ApiErrorDialog";
 import { Box, LinearProgress } from "@mui/material";
 
 interface Props {}

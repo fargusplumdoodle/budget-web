@@ -4,7 +4,7 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { ReportTypes, TimeBucketSize } from "../../api/types";
-import ControlledDateInput from "../common/forms/inputs/ControlledDateInput";
+import ControlledDateInput from "../forms/inputs/ControlledDateInput";
 import GraphContainer from "../graph/GraphContainer";
 
 const classes: { [name: string]: SxProps } = {

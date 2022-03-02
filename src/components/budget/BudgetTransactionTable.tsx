@@ -6,7 +6,7 @@ import { removeFromValuesList, updateValuesList } from "../../util/state";
 import api from "../../api";
 import ApiErrorDialog, {
   ApiError,
-} from "../../components/common/ApiErrorDialog";
+} from "../ApiErrorDialog";
 import { Box, LinearProgress } from "@mui/material";
 
 interface Props {

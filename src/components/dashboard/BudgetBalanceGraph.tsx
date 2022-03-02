@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { ReportTypes, TimeBucketSize } from "../../api/types";
 import { RootState } from "../../store/configureStore";
-import ControlledDateInput from "../common/forms/inputs/ControlledDateInput";
+import ControlledDateInput from "../forms/inputs/ControlledDateInput";
 import GraphContainer from "../graph/GraphContainer";
 
 const classes: { [name: string]: SxProps } = {

@@ -12,8 +12,8 @@ import {
 } from "../../../api/types";
 import { Budget } from "../../../store/types/models";
 import { Classes } from "../../../util/types";
-import ControlledAutocomplete from "../../common/forms/inputs/ControlledAutoComplete";
-import ControlledDateInput from "../../common/forms/inputs/ControlledDateInput";
+import ControlledAutocomplete from "../../forms/inputs/ControlledAutoComplete";
+import ControlledDateInput from "../../forms/inputs/ControlledDateInput";
 import SpendingSummaryTable from "./SpendingSummaryTable";
 import { SpendingSummaryData } from "./types";
 

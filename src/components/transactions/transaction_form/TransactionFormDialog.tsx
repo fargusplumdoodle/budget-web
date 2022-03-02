@@ -2,7 +2,7 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import Dialog from "@mui/material/Dialog";
 import { DialogContent, DialogTitle } from "@mui/material";
-import TransactionForm from "../../common/forms/transaction/TransactionForm";
+import TransactionForm from "../../forms/transaction/TransactionForm";
 import { Transaction } from "../../../store/types/models";
 
 interface Props {

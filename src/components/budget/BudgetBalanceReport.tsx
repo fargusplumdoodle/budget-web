@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { ReportTypes, TimeBucketSize } from "../../api/types";
 import { Budget } from "../../store/types/models";
 import { Classes } from "../../util/types";
-import ControlledDateInput from "../common/forms/inputs/ControlledDateInput";
+import ControlledDateInput from "../forms/inputs/ControlledDateInput";
 import GraphContainer from "../graph/GraphContainer";
 
 const classes: Classes = {

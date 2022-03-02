@@ -3,7 +3,7 @@ import { store } from "../store/configureStore";
 import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { DateTime } from "luxon";
 import { round } from "lodash";
-import { Expression } from "../components/common/forms/search/types";
+import { Expression } from "../components/forms/search/types";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   const state = store.getState();
