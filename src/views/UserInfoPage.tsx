@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
-import ApiErrorDialog, { ApiError } from "../components/common/ApiErrorDialog";
+import ApiErrorDialog, { ApiError } from "../components/ApiErrorDialog";
 import { Card } from "@mui/material";
 import { UserInfo } from "../store/types/models";
-import UserInfoForm from "../components/common/forms/user_info/UserInfoForm";
+import UserInfoForm from "../components/forms/user_info/UserInfoForm";
 import { ProviderContext, withSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import { loadUserInfoSuccess } from "../store/actions/userInfoActions";

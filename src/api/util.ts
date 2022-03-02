@@ -3,7 +3,7 @@ import { store } from "../store/configureStore";
 import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { DateTime } from "luxon";
 import { round } from "lodash";
-import { Expression } from "../components/common/forms/search/types";
+import { Expression } from "../components/forms/search/types";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   const state = store.getState();
@@ -95,4 +95,20 @@ export function getQueryParametersFromExpressions(
     }
   });
   return queryParams;
+}
+
+export function mergeURLSearchParams(
+  paramList: (URLSearchParams | undefined)[]
+): URLSearchParams {
+  const params = new URLSearchParams();
+
+  paramList.forEach((qp) => {
+    if (!qp) return;
+
+    for (var [key, val] of qp.entries()) {
+      params.append(key, val);
+    }
+  });
+
+  return params;
 }
