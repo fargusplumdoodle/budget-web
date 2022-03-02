@@ -2,6 +2,7 @@ import { DateTime } from "luxon";
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import { ReportType, TimeBucketSize } from "../../../api/types";
+import { mergeURLSearchParams } from "../../../api/util";
 import ReportForm from "../../forms/reports/ReportForm";
 import Graph from "./Graph";
 
@@ -11,6 +12,7 @@ type LineGraphProps = {
 
   defaultTimebucketSize?: TimeBucketSize;
   defaultDateGte?: DateTime;
+  queryParams?: URLSearchParams;
 
   reportTypes: ReportType[];
 };
@@ -20,6 +22,7 @@ const LineGraph: FunctionComponent<LineGraphProps> = ({
   hideDateLte,
   defaultTimebucketSize,
   defaultDateGte,
+  queryParams,
   reportTypes,
 }) => {
   const initialState = {
@@ -31,9 +34,11 @@ const LineGraph: FunctionComponent<LineGraphProps> = ({
   };
 
   const [params, setParams] = useState<URLSearchParams>(
-    new URLSearchParams({ ...initialState })
+    mergeURLSearchParams([
+      new URLSearchParams({ ...initialState }),
+      queryParams,
+    ])
   );
-
   const onSubmit = (params: URLSearchParams) => setParams(params);
 
   return (
@@ -42,6 +47,7 @@ const LineGraph: FunctionComponent<LineGraphProps> = ({
         {...{
           hideTimebucketSelector,
           hideDateLte,
+          queryParams,
           defaultTimebucketSize: defaultTimebucketSize || "one_month",
           defaultDateGte: defaultDateGte || DateTime.now().minus({ months: 6 }),
         }}

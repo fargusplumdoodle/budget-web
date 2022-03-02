@@ -96,3 +96,19 @@ export function getQueryParametersFromExpressions(
   });
   return queryParams;
 }
+
+export function mergeURLSearchParams(
+  paramList: (URLSearchParams | undefined)[]
+): URLSearchParams {
+  const params = new URLSearchParams();
+
+  paramList.forEach((qp) => {
+    if (!qp) return;
+
+    for (var [key, val] of qp.entries()) {
+      params.append(key, val);
+    }
+  });
+
+  return params;
+}

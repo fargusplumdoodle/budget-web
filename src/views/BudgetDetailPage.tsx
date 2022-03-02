@@ -7,6 +7,8 @@ import { RootState } from "../store/configureStore";
 import { formatCurrency } from "../util/formatters";
 import DashboardTile from "../components/dashboard/DashboardTile";
 import BudgetTransactionTable from "../components/budget/BudgetTransactionTable";
+import { ReportTypes } from "../api/types";
+import LineGraph from "../components/report/LineGraph";
 
 const classes: { [id: string]: SxProps } = {
   header: {
@@ -33,6 +35,11 @@ const BudgetDetailPage: React.FC = function () {
   const budget = useSelector(
     (state: RootState) => state.budgets.byId[parseInt(id)]
   );
+
+  const queryParams = new URLSearchParams({
+    budget__includes: budget.id.toString(),
+  });
+
   if (!budget) {
     return <Typography variant="h1">ooof, can't find that one</Typography>;
   }
@@ -72,7 +79,13 @@ const BudgetDetailPage: React.FC = function () {
       <Grid item xs={6} justifyContent="center" alignItems="center">
         <Stack spacing={1}>
           <DashboardTile>
-            {/* <BudgetBalanceReport budget={budget} /> */}
+            <LineGraph
+              queryParams={queryParams}
+              reportTypes={[
+                ReportTypes.BUDGET_BALANCE,
+                ReportTypes.BUDGET_DELTA,
+              ]}
+            />
           </DashboardTile>
 
           <DashboardTile>

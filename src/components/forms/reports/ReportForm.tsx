@@ -6,6 +6,7 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { timeBuckets, TimeBucketSize } from "../../../api/types";
+import { mergeURLSearchParams } from "../../../api/util";
 import { Classes } from "../../../util/types";
 import ControlledAutocomplete from "../../forms/inputs/ControlledAutoComplete";
 import ControlledDateInput from "../../forms/inputs/ControlledDateInput";
@@ -35,6 +36,7 @@ interface ReportFormProps {
   defaultDateGte: DateTime;
 
   sx?: SxProps;
+  queryParams?: URLSearchParams;
   onSubmit: (queryParams: URLSearchParams) => void;
 }
 
@@ -44,6 +46,7 @@ const ReportForm: FunctionComponent<ReportFormProps> = ({
   defaultTimebucketSize,
   defaultDateGte,
   onSubmit,
+  queryParams,
   sx,
 }) => {
   const initialState: ReportFormData = {
@@ -58,20 +61,27 @@ const ReportForm: FunctionComponent<ReportFormProps> = ({
     },
   });
 
+  const submit = ({
+    date__gte,
+    date__lte,
+    time_bucket_size,
+  }: ReportFormData) => {
+    const formParams = new URLSearchParams({
+      time_bucket_size,
+      date__gte: date__gte.toLocaleDateString(),
+      date__lte: date__lte.toLocaleDateString(),
+    });
+
+    const params = queryParams
+      ? mergeURLSearchParams([formParams, queryParams])
+      : formParams;
+    console.log(params.toString())
+    onSubmit(params);
+  };
+
   return (
     <Box sx={sx}>
-      <form
-        onSubmit={handleSubmit(
-          ({ date__gte, date__lte, time_bucket_size }: ReportFormData) =>
-            onSubmit(
-              new URLSearchParams({
-                time_bucket_size,
-                date__gte: date__gte.toLocaleDateString(),
-                date__lte: date__lte.toLocaleDateString(),
-              })
-            )
-        )}
-      >
+      <form onSubmit={handleSubmit(submit)}>
         <Box sx={classes.form}>
           <ControlledDateInput
             label="From"
