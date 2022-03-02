@@ -3,7 +3,7 @@ import { FunctionComponent } from "react";
 import { Box, SxProps, Tab, Tabs, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../app/AppRoutes";
-import { tabProps } from "../common/tabs";
+import { tabProps } from "../tabs";
 import {
   TrendingUp,
   Add,

@@ -12,7 +12,8 @@ export async function getAverageOutcomePerMonth() {
     date__gte: DateTime.now().minus({ months: 6 }).toISODate(),
     date__lte: DateTime.now().toISODate(),
     budget__excludes: savings.id.toString(),
+    time_bucket_size: "one_month",
   });
-  const r = await api.report(ReportTypes.OUTCOME, "one_month", qp);
+  const r = await api.report(ReportTypes.OUTCOME, qp);
   return mean(r.series.map((s) => s.data)[0]);
 }

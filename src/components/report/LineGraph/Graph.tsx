@@ -1,24 +1,21 @@
+import Chart from "react-apexcharts";
 import * as React from "react";
 import {
   GraphSeries,
   GraphReport,
   ReportType,
-  TimeBucketSize,
-} from "../../api/types";
+} from "../../../api/types";
 import { useEffect, useState } from "react";
-import GraphPresentation from "./GraphPresentation";
-import { CircularProgress } from "@mui/material";
-import api from "../../api";
+import { Box, CircularProgress } from "@mui/material";
+import api from "../../../api";
 
-type GraphContainerProps = {
+type LineGraphProps = {
   reportTypes: ReportType[];
-  timeBucketSize: TimeBucketSize;
   queryParams?: URLSearchParams;
 };
 
-const GraphContainer: React.FC<GraphContainerProps> = function ({
+const LineGraph: React.FC<LineGraphProps> = function ({
   reportTypes,
-  timeBucketSize,
   queryParams,
 }) {
   const [reportSeries, setReportSeries] = useState<GraphSeries[]>([]);
@@ -29,7 +26,7 @@ const GraphContainer: React.FC<GraphContainerProps> = function ({
     setLoading(true);
 
     reportTypes.forEach(async (reportType) => {
-      promises.push(api.report(reportType, timeBucketSize, queryParams));
+      promises.push(api.report(reportType, queryParams));
     });
     Promise.all(promises).then((reports) => {
       setDates([...reports[0].dates]);
@@ -43,13 +40,25 @@ const GraphContainer: React.FC<GraphContainerProps> = function ({
           ])
       );
     });
-  }, [reportTypes, timeBucketSize, queryParams]);
+  }, [reportTypes, queryParams]);
 
   return loading ? (
     <CircularProgress sx={{ m: "auto" }} />
   ) : (
-    <GraphPresentation dates={dates} series={reportSeries} />
+    <Box color="red">
+      <Chart
+        className="graph"
+        height={400}
+        options={{
+          xaxis: {
+            categories: dates,
+          },
+        }}
+        series={reportSeries}
+        type="line"
+      />
+    </Box>
   );
 };
 
-export default GraphContainer;
+export default LineGraph;

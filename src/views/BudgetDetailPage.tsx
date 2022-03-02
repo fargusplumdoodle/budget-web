@@ -6,9 +6,7 @@ import { capitalize } from "lodash";
 import { RootState } from "../store/configureStore";
 import { formatCurrency } from "../util/formatters";
 import DashboardTile from "../components/dashboard/DashboardTile";
-import BudgetBalanceReport from "../components/budget/BudgetBalanceReport";
 import BudgetTransactionTable from "../components/budget/BudgetTransactionTable";
-import SpendingSummary from "../components/budget/spending_summary/SpendingSummary";
 
 const classes: { [id: string]: SxProps } = {
   header: {
@@ -74,11 +72,11 @@ const BudgetDetailPage: React.FC = function () {
       <Grid item xs={6} justifyContent="center" alignItems="center">
         <Stack spacing={1}>
           <DashboardTile>
-            <BudgetBalanceReport budget={budget} />
+            {/* <BudgetBalanceReport budget={budget} /> */}
           </DashboardTile>
 
           <DashboardTile>
-            <SpendingSummary budget={budget} />
+            {/* <SpendingSummary budget={budget} /> */}
           </DashboardTile>
         </Stack>
       </Grid>

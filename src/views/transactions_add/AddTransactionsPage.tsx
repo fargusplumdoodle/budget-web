@@ -6,7 +6,7 @@ import TransactionForm from "../../components/forms/transaction/TransactionForm"
 import TransactionTable from "../../components/transactions/transactions_table/TransactionsTable";
 import { Transaction } from "../../store/types/models";
 import IncomeForm from "../../components/forms/transaction/IncomeForm";
-import { TabPanel, tabProps } from "../../components/common/tabs";
+import { TabPanel, tabProps } from "../../components/tabs";
 import TransferForm from "../../components/forms/transaction/TransferForm";
 
 const ADD = 0;

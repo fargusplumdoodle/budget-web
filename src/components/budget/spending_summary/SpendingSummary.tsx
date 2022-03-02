@@ -90,13 +90,11 @@ const SpendingSummary: FunctionComponent<SpendingSummaryProps> = ({
 
       const outcome = await api.report(
         ReportTypes.OUTCOME,
-        timeBucketSize,
-        queryParams
+        queryParams,
       );
       const income = await api.report(
         ReportTypes.INCOME,
-        timeBucketSize,
-        queryParams
+        queryParams,
       );
       return presentData(income, outcome);
     };

@@ -7,8 +7,8 @@ import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { timeBuckets, TimeBucketSize } from "../../../api/types";
 import { Classes } from "../../../util/types";
-import ControlledAutocomplete from "../inputs/ControlledAutoComplete";
-import ControlledDateInput from "../inputs/ControlledDateInput";
+import ControlledAutocomplete from "../../forms/inputs/ControlledAutoComplete";
+import ControlledDateInput from "../../forms/inputs/ControlledDateInput";
 
 const classes: Classes = {
   root: {},
@@ -21,6 +21,12 @@ const classes: Classes = {
   },
 };
 
+export interface ReportFormData {
+  date__lte: Date;
+  date__gte: Date;
+  time_bucket_size: TimeBucketSize;
+}
+
 interface ReportFormProps {
   hideTimebucketSelector?: boolean;
   hideDateLte?: boolean;
@@ -29,17 +35,7 @@ interface ReportFormProps {
   defaultDateGte: DateTime;
 
   sx?: SxProps;
-  onSubmit: (
-    timeBucketSize: TimeBucketSize,
-    date__gte: Date,
-    date__lte: Date
-  ) => void;
-}
-
-interface FormData {
-  date__lte: Date;
-  date__gte: Date;
-  timeBucketSize: TimeBucketSize;
+  onSubmit: (queryParams: URLSearchParams) => void;
 }
 
 const ReportForm: FunctionComponent<ReportFormProps> = ({
@@ -50,13 +46,13 @@ const ReportForm: FunctionComponent<ReportFormProps> = ({
   onSubmit,
   sx,
 }) => {
-  const initialState: FormData = {
-    timeBucketSize: defaultTimebucketSize,
+  const initialState: ReportFormData = {
+    time_bucket_size: defaultTimebucketSize,
     date__lte: DateTime.now().toJSDate(),
     date__gte: defaultDateGte.toJSDate(),
   };
 
-  const { control, handleSubmit, getValues } = useForm<FormData>({
+  const { control, handleSubmit, getValues } = useForm<ReportFormData>({
     defaultValues: {
       ...initialState,
     },
@@ -66,8 +62,14 @@ const ReportForm: FunctionComponent<ReportFormProps> = ({
     <Box sx={sx}>
       <form
         onSubmit={handleSubmit(
-          ({ date__gte, date__lte, timeBucketSize }: FormData) =>
-            onSubmit(timeBucketSize, date__gte, date__lte)
+          ({ date__gte, date__lte, time_bucket_size }: ReportFormData) =>
+            onSubmit(
+              new URLSearchParams({
+                time_bucket_size,
+                date__gte: date__gte.toLocaleDateString(),
+                date__lte: date__lte.toLocaleDateString(),
+              })
+            )
         )}
       >
         <Box sx={classes.form}>
@@ -85,9 +87,9 @@ const ReportForm: FunctionComponent<ReportFormProps> = ({
           )}
 
           {!hideTimebucketSelector && (
-            <ControlledAutocomplete<TimeBucketSize, FormData>
+            <ControlledAutocomplete<TimeBucketSize, ReportFormData>
               control={control}
-              name="timeBucketSize"
+              name="time_bucket_size"
               options={timeBuckets}
               getValues={getValues}
               getOptionLabel={(option) => startCase(option)}
@@ -98,7 +100,9 @@ const ReportForm: FunctionComponent<ReportFormProps> = ({
               )}
             />
           )}
-          <IconButton type="submit"><Search/></IconButton>
+          <IconButton type="submit">
+            <Search />
+          </IconButton>
         </Box>
       </form>
     </Box>

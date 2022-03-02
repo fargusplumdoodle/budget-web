@@ -7,7 +7,7 @@ import { ReportTypes, TimeBucketSize } from "../../api/types";
 import { Budget } from "../../store/types/models";
 import { Classes } from "../../util/types";
 import ControlledDateInput from "../forms/inputs/ControlledDateInput";
-import GraphContainer from "../graph/GraphContainer";
+import GraphContainer from "../report/LineGraph/Graph";
 
 const classes: Classes = {
   form: {
@@ -86,7 +86,6 @@ const BudgetBalanceReport: FunctionComponent<BudgetBalanceReportProps> = ({
       </form>
       <GraphContainer
         reportTypes={[ReportTypes.BUDGET_BALANCE, ReportTypes.BUDGET_DELTA]}
-        timeBucketSize={timeBucketSize}
         queryParams={queryParams}
       />
     </div>

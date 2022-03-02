@@ -1,5 +1,5 @@
 import { makeRequest } from "../util";
-import { GraphReport, ReportType, TimeBucketSize } from "../types/reports";
+import { GraphReport, ReportType } from "../types/reports";
 import {
   deserializeMultipleValuesReport,
   deserializeSingleValueReport,
@@ -7,11 +7,9 @@ import {
 
 export default async function report(
   reportType: ReportType,
-  timeBucketSize: TimeBucketSize,
-  query?: URLSearchParams
+  query: URLSearchParams
 ): Promise<GraphReport> {
   const params = new URLSearchParams(query);
-  params.set("time_bucket_size", timeBucketSize);
 
   const r = await makeRequest({
     method: "get",
