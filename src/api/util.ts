@@ -76,7 +76,7 @@ export function fromCents(amount: number): number {
  */
 export function getAPIDate(apiDate: string): Date {
   const timezoneAwareDate = DateTime.fromISO(apiDate).setZone("system");
-  return new Date(timezoneAwareDate.toString());
+  return timezoneAwareDate.toJSDate()
 }
 
 export function getQueryParametersFromExpressions(
