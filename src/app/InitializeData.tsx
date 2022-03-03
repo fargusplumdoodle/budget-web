@@ -8,6 +8,13 @@ import { ProviderContext, withSnackbar } from "notistack";
 import initialState from "../store/initialState";
 import { fetchUserInfo } from "../store/actions/userInfoActions";
 import { isEqual } from "lodash";
+import { ROUTES } from "./AppRoutes";
+import {
+  Dialog,
+  DialogActions,
+  DialogTitle,
+} from "@mui/material";
+import AuthButton from "../components/auth/AuthButton";
 
 interface ExpectedData {
   fetchRequired: boolean;
@@ -24,6 +31,15 @@ interface Props extends ProviderContext {
 const InitializeData: FunctionComponent<Props> = (props) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [needsAuth, setNeedsAuth] = useState(false);
+
+  if (
+    !props.authenticated &&
+    window.location.pathname !== ROUTES.AUTH_CALLBACK.path &&
+    !needsAuth
+  ) {
+    setNeedsAuth(true);
+  }
 
   useEffect(() => {
     if (!props.authenticated || loading) {
@@ -56,7 +72,14 @@ const InitializeData: FunctionComponent<Props> = (props) => {
     });
   }, [loading, dispatch, props]);
 
-  return <></>;
+  return (
+    <Dialog open={needsAuth}>
+      <DialogTitle>You are not authenticated</DialogTitle>
+      <DialogActions>
+        <AuthButton sx={{m: 1}} />
+      </DialogActions>
+    </Dialog>
+  );
 };
 
 function mapStateToProps(state: RootState) {

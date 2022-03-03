@@ -75,7 +75,6 @@ const ReportForm: FunctionComponent<ReportFormProps> = ({
     const params = queryParams
       ? mergeURLSearchParams([formParams, queryParams])
       : formParams;
-    console.log(params.toString())
     onSubmit(params);
   };
 
