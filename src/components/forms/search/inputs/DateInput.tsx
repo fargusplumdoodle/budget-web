@@ -18,7 +18,6 @@ class DateInput extends React.Component<Props, {}> {
         label="Date"
         openTo="day"
         minDate={settings.minDate}
-        maxDate={new Date()}
         views={["year", "month", "day"]}
         renderInput={(params) => <TextField variant="standard" {...params} />}
         {...this.props}
