@@ -15,13 +15,13 @@ interface Props {
 
 const BudgetTransactionTable: FunctionComponent<Props> = ({ budget }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [apiError, setApiError] = useState<ApiError>(null);
+  const [apiError, setApiError] = useState<ApiError|null>(null);
   const [loading, setLoading] = useState(false);
 
   // TODO: FETCH MORE PAGES
   React.useEffect(() => {
     setLoading(true);
-    const query = new URLSearchParams({ budget: budget.id.toString() });
+    const query = new URLSearchParams({ budget: budget.id!.toString() });
     api.transaction
       .fetchTransactionPage(0, 25, query)
       .then((page) => {

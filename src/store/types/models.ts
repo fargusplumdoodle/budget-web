@@ -7,7 +7,6 @@ export interface Tag extends Model {
 }
 
 export interface Budget extends Model {
-  id: number;
   name: string;
   percentage: number;
   balance: number;

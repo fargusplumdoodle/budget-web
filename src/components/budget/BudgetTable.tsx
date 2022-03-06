@@ -50,7 +50,7 @@ const BudgetTable: FunctionComponent<Props> = (props: Props) => {
               <TableRow
                 key={budget.id}
                 onClick={() => {
-                  navigate(routeWithId(ROUTES.BUDGET_DETAIL.path, budget.id));
+                  navigate(routeWithId(ROUTES.BUDGET_DETAIL.path, budget.id!));
                 }}
               >
                 <TableCell>{budget.name}</TableCell>

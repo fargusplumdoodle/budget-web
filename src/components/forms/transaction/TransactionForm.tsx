@@ -75,11 +75,15 @@ const TransactionForm = (props: Props) => {
     defaultValues: defaultValues,
   });
 
-  const handleSignChange = (event: MouseEvent, sign: Sign | null) => {
-    if (!sign) {
+  const handleSignChange = (
+    // @ts-ignore
+    event: MouseEvent<HTMLElement, MouseEvent>,
+    value: any
+  ) => {
+    if (!value) {
       return;
     }
-    setTransactionSign(sign);
+    setTransactionSign(value as Sign);
   };
 
   const onClickDelete = () => {

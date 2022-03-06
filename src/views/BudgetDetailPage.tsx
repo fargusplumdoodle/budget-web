@@ -37,7 +37,7 @@ const BudgetDetailPage: React.FC = function () {
     (state: RootState) => state.budgets.byId[parseInt(params.id!)]
   );
   const queryParams = new URLSearchParams({
-    budget__includes: budget.id.toString(),
+    budget__includes: budget.id!.toString(),
   });
 
   if (!budget) {

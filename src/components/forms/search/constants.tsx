@@ -136,7 +136,7 @@ export const OPERANDS: { [name: string]: Operand } = {
     input: INPUTS.budgets,
     requiresSetValueAndExpression: true,
     transformValue: (budgets: Budget[]) => {
-      return budgets.map((b) => b.id.toString());
+      return budgets.map((b) => b.id!.toString());
     },
   },
 };
