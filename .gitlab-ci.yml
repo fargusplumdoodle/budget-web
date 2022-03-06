@@ -30,6 +30,18 @@ test:
     - npm install
     - npm test
 
+type-check:
+  image: node
+  stage: qa
+  variables:
+    NODE_ENV: development
+  cache:
+    paths:
+      - ./node_modules/
+  script:
+    - npm install
+    - npx tsc
+
 build-prod:
   image: docker:latest
   stage: build
