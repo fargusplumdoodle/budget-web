@@ -22,7 +22,7 @@ const defaultArgs = {
 
 const Template: ComponentStory<typeof ReportForm> = function (args) {
   return (
-    <Box sx={{ maxWidth: 470, p: 2, borderWidth: 'thin'}}>
+    <Box sx={{ maxWidth: 470, p: 2, borderWidth: "thin" }}>
       <ReportForm {...defaultArgs} {...args} />
       <ReportForm {...defaultArgs} hideTimebucketSelector {...args} />
       <ReportForm {...defaultArgs} hideDateLte {...args} />
@@ -32,5 +32,6 @@ const Template: ComponentStory<typeof ReportForm> = function (args) {
 
 export const Default = Template.bind({});
 Default.args = {
+  // @ts-ignore
   showBudget: true,
 };

@@ -11,7 +11,7 @@ import api from "../../../api";
 
 type LineGraphProps = {
   reportTypes: ReportType[];
-  queryParams?: URLSearchParams;
+  queryParams: URLSearchParams;
 };
 
 const LineGraph: React.FC<LineGraphProps> = function ({

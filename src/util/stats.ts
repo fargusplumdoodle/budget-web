@@ -11,7 +11,7 @@ export async function getAverageOutcomePerMonth() {
   const qp = new URLSearchParams({
     date__gte: DateTime.now().minus({ months: 6 }).toISODate(),
     date__lte: DateTime.now().toISODate(),
-    budget__excludes: savings.id.toString(),
+    budget__excludes: savings.id!.toString(),
     time_bucket_size: "one_month",
   });
   const r = await api.report(ReportTypes.OUTCOME, qp);

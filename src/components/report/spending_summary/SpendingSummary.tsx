@@ -22,14 +22,14 @@ const classes: Classes = {
 
 interface SpendingSummaryProps {
   queryParams?: URLSearchParams;
-  defaultTimebucketSize?: TimeBucketSize;
+  defaultTimebucketSize: TimeBucketSize;
 }
 
 const SpendingSummary: FunctionComponent<SpendingSummaryProps> = ({
   queryParams,
   defaultTimebucketSize,
 }) => {
-  const initialState = {
+  const initialState: Record<string, string> = {
     time_bucket_size: defaultTimebucketSize,
     date__gte: DateTime.now().minus({ months: 6 }).toISODate(),
     date__lte: DateTime.now().toISODate(),

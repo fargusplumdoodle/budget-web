@@ -14,26 +14,24 @@ interface Props<FieldValueT, FormT>
   getValues: (path: string) => FieldValueT;
 }
 
-export default function ControlledAutocomplete<FieldValueT, FormT>(
-  props: Props<FieldValueT, FormT>
-) {
-  const autoCompleteOptions = { ...props };
-  delete autoCompleteOptions.control;
-  delete autoCompleteOptions.name;
-  delete autoCompleteOptions.getValues;
-
+export default function ControlledAutocomplete<FieldValueT, FormT>({
+  control,
+  name,
+  getValues,
+  ...props
+}: Props<FieldValueT, FormT>) {
   return (
     <Controller
-      name={props.name}
+      name={name}
       render={({ field: { onChange } }) => (
         <Autocomplete
-          {...autoCompleteOptions}
+          {...props}
           options={props.options}
-          value={props.getValues(props.name)}
+          value={getValues(name)}
           onChange={(e, data) => onChange(data)}
         />
       )}
-      control={props.control}
+      control={control}
     />
   );
 }

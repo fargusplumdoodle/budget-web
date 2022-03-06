@@ -13,9 +13,8 @@ interface Props {
 class TagsInput extends React.Component<Props, {}> {
   render() {
     const state = store.getState();
-    const props = { ...this.props };
-    delete props["expression"];
-    delete props["setValue"];
+    const { _expression, _setValue, ...props } = this.props;
+
     return (
       <Autocomplete
         options={state.tags.list}

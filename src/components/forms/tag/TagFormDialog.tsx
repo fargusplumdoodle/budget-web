@@ -8,12 +8,12 @@ import TagForm from "./TagForm";
 interface Props {
   open: boolean;
   onClose: () => void;
-  onSubmitCallback?: (tag: Tag) => void;
+  onSubmitCallback: (tag: Tag) => void;
   tag?: Tag;
 }
 
 const TagFormDialog: FunctionComponent<Props> = (props) => {
-  const isEdit = Boolean(props["tag"]) && props.tag.id;
+  const isEdit = Boolean(props["tag"]) && props.tag!.id;
   return (
     <Dialog onClose={props.onClose} open={props.open}>
       <DialogTitle>{isEdit ? "Edit" : "Add"} Tag</DialogTitle>

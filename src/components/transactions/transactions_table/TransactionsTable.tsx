@@ -53,7 +53,7 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
                   }}
                 >
                   <TableCell>{trans.budget.name}</TableCell>
-                  <TableCell>{commaSeparatedTagNames(trans)}</TableCell>
+                  <TableCell>{commaSeparatedTagNames(trans)}</TableCell    >
                   <TableCell>{trans.description}</TableCell>
                   <TableCell>
                     {trans.date.toLocaleDateString("en-CA")}
@@ -67,18 +67,18 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
       </TableContainer>
       <TransactionFormDialog
         open={editTransaction !== null}
-        transaction={editTransaction}
+        transaction={editTransaction!}
         onClose={() => {
           setEditTransaction(null);
         }}
         onCreateCallback={(trans: Transaction) => {
-          props.onCreateCallback(trans);
+          props.onCreateCallback!(trans);
         }}
         onUpdateCallback={(trans: Transaction) => {
-          props.onUpdateCallback(trans);
+          props.onUpdateCallback!(trans);
         }}
         onDeleteCallback={(trans: Transaction) => {
-          props.onDeleteCallback(trans);
+          props.onDeleteCallback!(trans);
         }}
       />
     </>

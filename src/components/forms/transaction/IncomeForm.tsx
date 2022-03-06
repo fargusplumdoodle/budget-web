@@ -25,7 +25,7 @@ export interface IncomeFormData {
 
 const IncomeForm = (props: Props) => {
   const [loading, setLoading] = useState(false);
-  const [apiError, setApiError] = useState<ApiError>(null);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
 
   const defaultValues = {
     amount: 0,
@@ -55,7 +55,7 @@ const IncomeForm = (props: Props) => {
     );
 
     Promise.allSettled(createTransactionPromises)
-      .then((promiseStates: PromiseFulfilledResult<Transaction>[]) => {
+      .then((promiseStates: PromiseSettledResult<Transaction>[]) => {
         setLoading(false);
         props.enqueueSnackbar(`Successfully created income transactions`, {
           variant: "success",
@@ -63,6 +63,7 @@ const IncomeForm = (props: Props) => {
         props.onCreateTransactions(
           promiseStates
             .filter((p) => p.status === "fulfilled")
+            // @ts-ignore
             .map((promise) => promise.value)
         );
       })
@@ -106,7 +107,11 @@ const IncomeForm = (props: Props) => {
           </FormItem>
 
           <FormItem>
-            <ControlledDateInput name="date" control={control} sx={{width: "100%"}}/>
+            <ControlledDateInput
+              name="date"
+              control={control}
+              sx={{ width: "100%" }}
+            />
           </FormItem>
           <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
             {loading ? <CircularProgress /> : "SUBMIT"}

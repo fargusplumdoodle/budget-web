@@ -6,9 +6,7 @@ import { removeFromValuesList, updateValuesList } from "../../util/state";
 import VariableInputForm from "../../components/forms/search/VariableInputForm";
 import api from "../../api";
 import Card from "@mui/material/Card";
-import ApiErrorDialog, {
-  ApiError,
-} from "../../components/ApiErrorDialog";
+import ApiErrorDialog, { ApiError } from "../../components/ApiErrorDialog";
 import { Box, LinearProgress } from "@mui/material";
 
 interface Props {}
@@ -16,7 +14,7 @@ interface Props {}
 const TransactionsPage: FunctionComponent<Props> = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [query, setQuery] = useState({});
-  const [apiError, setApiError] = useState<ApiError>(null);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
   const [loading, setLoading] = useState(false);
 
   // TODO: FETCH MORE PAGES

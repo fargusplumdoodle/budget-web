@@ -15,9 +15,9 @@ export const serializeTag = (tag: Tag): SerializedTag => {
 };
 export const deserializeTag = (tag: SerializedTag): Tag => {
   return {
-    id: tag.id,
+    id: tag.id!,
     name: tag.name,
-    rank: tag.rank,
+    rank: tag.rank!,
   };
 };
 
@@ -26,8 +26,8 @@ export function serializeTransaction(
 ): SerializedTransaction {
   return {
     amount: toCents(trans.amount),
-    description: trans.description,
-    budget: trans.budget.id,
+    description: trans.description || '',
+    budget: trans.budget.id!,
     date: trans.date.toLocaleDateString(),
     income: trans.income,
     transfer: trans.transfer,
@@ -46,7 +46,7 @@ export function deserializeTransaction(
   return {
     ...trans,
     amount: fromCents(trans.amount),
-    id: trans.id,
+    id: trans.id!,
     date: getAPIDate(trans.date),
     budget: budget,
     tags: trans.tags.map((tag) => deserializeTag(tag)),
@@ -56,6 +56,7 @@ export function deserializeTransaction(
 export function serializeBudget(budget: Budget): SerializedBudget {
   return {
     ...budget,
+    id: budget.id!,
     balance: toCents(budget.balance),
     income_per_month: toCents(budget.income_per_month),
     outcome_per_month: toCents(budget.outcome_per_month),
@@ -65,7 +66,7 @@ export function serializeBudget(budget: Budget): SerializedBudget {
 export function deserializeBudget(budget: SerializedBudget): Budget {
   return {
     ...budget,
-    id: budget.id,
+    id: budget.id!,
     balance: fromCents(budget.balance),
     income_per_month: fromCents(budget.income_per_month),
     outcome_per_month: fromCents(budget.outcome_per_month),

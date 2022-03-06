@@ -27,7 +27,7 @@ const BudgetPercentages: React.FC<BudgetPercentagesProps> = function ({
     budgets.map((b) => [b.id, false])
   );
   const [budgetLoadingMap, setBudgetLoadingMap] = useState(defaultLoadingState);
-  const [apiError, setApiError] = useState<ApiError>(null);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
   const loading = everyItemInArrayIsFalse(Object.values(budgetLoadingMap));
 
   const onSubmit = function (budgets: Budget[]) {
@@ -37,7 +37,7 @@ const BudgetPercentages: React.FC<BudgetPercentagesProps> = function ({
       api.budget
         .updateBudget(budget)
         .then((budget: Budget) => {
-          budgetLoadingMap[budget.id] = false;
+          budgetLoadingMap[budget.id!] = false;
           setBudgetLoadingMap({ ...budgetLoadingMap });
           enqueueSnackbar(
             `Successfully updated ${budget.name} to ${budget.percentage}`,
@@ -47,7 +47,7 @@ const BudgetPercentages: React.FC<BudgetPercentagesProps> = function ({
           );
         })
         .catch((err) => {
-          budgetLoadingMap[budget.id] = false;
+          budgetLoadingMap[budget.id!] = false;
           setBudgetLoadingMap({ ...budgetLoadingMap });
           setApiError(err);
         });

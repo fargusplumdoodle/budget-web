@@ -39,7 +39,7 @@ const BudgetPercentagesForm: React.FC<BudgetPercentagesFormProps> = function ({
     100 - sum(notSavingsBudgets.map((b) => b.percentage));
   useEffect(() => {
     const newSavings = {
-      ...savings,
+      ...savings!,
       percentage: savingsPercentage,
     };
     updateValuesList(newSavings, budgets, setBudgets);
