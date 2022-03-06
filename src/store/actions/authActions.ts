@@ -18,7 +18,7 @@ export function clearAuthToken() {
 }
 export function logOut() {
   return (dispatch: AppDispatch) => {
-    axios.defaults.headers.common.Authorization = undefined;
+    axios.defaults.headers.common.Authorization = "";
     dispatch(clearAuthToken());
   };
 }

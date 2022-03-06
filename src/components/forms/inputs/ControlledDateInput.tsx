@@ -22,6 +22,7 @@ function ControlledDateInput<FormT>({
       name={name}
       control={control}
       render={({ field }) => (
+        // @ts-ignore
         <DatePicker
           label="Date"
           openTo="day"

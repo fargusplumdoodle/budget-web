@@ -53,10 +53,10 @@ export function generateTestTag(args: Object = {}): Tag {
 export function generateTransaction(args: Object = {}): Transaction {
   return {
     id: null,
-    amount: null,
-    budget: null,
+    amount: 0,
+    budget: generateTestBudget(),
     description: null,
-    date: null,
+    date: new Date(),
     income: false,
     tags: [],
     transfer: false,

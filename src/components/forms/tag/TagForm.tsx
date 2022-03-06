@@ -10,17 +10,15 @@ import { ProviderContext, withSnackbar } from "notistack";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import api from "../../../api";
 
-//TODO: UPDATE EXISTING TAG
-
 interface Props extends ProviderContext {
   tag?: Tag;
-  onSubmitCallback?: (tag: Tag) => void;
+  onSubmitCallback: (tag: Tag) => void;
 }
 
 const TagForm: FunctionComponent<Props> = (props) => {
-  const isEdit = Boolean(props["tag"]) && props.tag.id;
+  const isEdit = Boolean(props["tag"]) && props.tag!.id;
   const [loading, setLoading] = useState(false);
-  const [apiError, setApiError] = useState<ApiError>(null);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
 
   const defaultValues = isEdit
     ? props.tag

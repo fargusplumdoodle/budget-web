@@ -15,7 +15,7 @@ interface Props {
 }
 
 const TransactionFormDialog: FunctionComponent<Props> = (props) => {
-  const isEdit = Boolean(props["transaction"]) && props.transaction.id;
+  const isEdit = Boolean(props["transaction"]) && props.transaction!.id;
   return (
     <Dialog onClose={props.onClose} open={props.open}>
       <DialogTitle>{isEdit ? "Edit" : "Add"} Transaction</DialogTitle>
@@ -23,15 +23,15 @@ const TransactionFormDialog: FunctionComponent<Props> = (props) => {
         <TransactionForm
           transaction={props.transaction}
           onCreateCallback={(trans: Transaction) => {
-            props.onCreateCallback(trans);
+            props.onCreateCallback!(trans);
             props.onClose();
           }}
           onUpdateCallback={(trans: Transaction) => {
-            props.onUpdateCallback(trans);
+            props.onUpdateCallback!(trans);
             props.onClose();
           }}
           onDeleteCallback={(trans: Transaction) => {
-            props.onDeleteCallback(trans);
+            props.onDeleteCallback!(trans);
             props.onClose();
           }}
         />

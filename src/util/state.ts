@@ -1,5 +1,5 @@
 interface hasID {
-  id: number;
+  id: number | null;
 }
 
 export function updateValuesList<T extends hasID>(

@@ -30,7 +30,7 @@ export interface TransferFormData {
 
 const TransferForm: FunctionComponent<Props> = (props) => {
   const [loading, setLoading] = useState(false);
-  const [apiError, setApiError] = useState<ApiError>(null);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
   const budgets = useSelector((state: RootState) => state.budgets);
 
   const defaultValues = {
@@ -64,7 +64,7 @@ const TransferForm: FunctionComponent<Props> = (props) => {
     );
 
     Promise.allSettled(createTransactionPromises)
-      .then((promiseStates: PromiseFulfilledResult<Transaction>[]) => {
+      .then((promiseStates: PromiseSettledResult<Transaction>[]): void => {
         setLoading(false);
         props.enqueueSnackbar(`Successfully created income transactions`, {
           variant: "success",
@@ -72,6 +72,7 @@ const TransferForm: FunctionComponent<Props> = (props) => {
         props.onCreateCallback(
           promiseStates
             .filter((p) => p.status === "fulfilled")
+            // @ts-ignore
             .map((promise) => promise.value)
         );
       })

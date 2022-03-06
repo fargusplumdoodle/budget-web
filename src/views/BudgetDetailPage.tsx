@@ -32,9 +32,9 @@ const classes: { [id: string]: SxProps } = {
 };
 
 const BudgetDetailPage: React.FC = function () {
-  const { id } = useParams();
+  const params = useParams();
   const budget = useSelector(
-    (state: RootState) => state.budgets.byId[parseInt(id)]
+    (state: RootState) => state.budgets.byId[parseInt(params.id!)]
   );
   const queryParams = new URLSearchParams({
     budget__includes: budget.id.toString(),

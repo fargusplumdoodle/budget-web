@@ -70,8 +70,8 @@ describe("Test create income", () => {
       expect(t.tags[0].name).toEqual("income");
     });
 
-    expect(savingsTransaction.description).toBe("unallocatable income dollars");
-    expect(savingsTransaction.budget).toStrictEqual(savings);
+    expect(savingsTransaction!.description).toBe("unallocatable income dollars");
+    expect(savingsTransaction!.budget).toStrictEqual(savings);
 
     incomeTransactions.forEach((t) => {
       expect(t.description).toStrictEqual(incomeFormData.description);

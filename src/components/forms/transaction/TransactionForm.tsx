@@ -39,18 +39,20 @@ interface Props extends ProviderContext {
 type Sign = "+" | "-";
 
 const TransactionForm = (props: Props) => {
-  const isEdit = Boolean(Boolean(props["transaction"]) && props.transaction.id);
+  const isEdit = Boolean(
+    Boolean(props["transaction"]) && props.transaction!.id
+  );
   const budgets = useSelector((state: RootState) => state.budgets);
   const tags = useSelector((state: RootState) => state.tags);
   const [loading, setLoading] = useState(false);
-  const [apiError, setApiError] = useState<ApiError>(null);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
   const [transactionSign, setTransactionSign]: [Sign, any] = useState(
-    isEdit ? (props.transaction.amount > 0 ? "+" : "-") : "-"
+    isEdit ? (props.transaction!.amount > 0 ? "+" : "-") : "-"
   );
   const [newTagDialogOpen, setNewTagDialogOpen] = useState(false);
 
   const defaultValues = isEdit
-    ? { ...props.transaction, amount: Math.abs(props.transaction.amount) }
+    ? { ...props.transaction, amount: Math.abs(props.transaction!.amount) }
     : generateTransaction({
         id: null,
         date: new Date(),
@@ -68,15 +70,12 @@ const TransactionForm = (props: Props) => {
     getValues,
     setValue,
     formState: { errors },
-  } = useForm({
+  } = useForm<Transaction>({
     resolver: yupResolver(transactionSchema),
     defaultValues: defaultValues,
   });
 
-  const handleSignChange = (
-    event: React.MouseEvent<HTMLInputElement>,
-    sign: Sign | null
-  ) => {
+  const handleSignChange = (event: MouseEvent, sign: Sign | null) => {
     if (!sign) {
       return;
     }
@@ -88,13 +87,13 @@ const TransactionForm = (props: Props) => {
       return;
     }
     setLoading(true);
-    api.transaction.deleteTransaction(props.transaction).then(() => {
+    api.transaction.deleteTransaction(props.transaction!).then(() => {
       setLoading(false);
       props.enqueueSnackbar(`Successfully deleted transaction`, {
         variant: "success",
       });
     });
-    props.onDeleteCallback(props.transaction);
+    props.onDeleteCallback!(props.transaction!);
   };
 
   const onSubmit = (data: Transaction): void => {
@@ -109,7 +108,7 @@ const TransactionForm = (props: Props) => {
     };
     const submitFn = isEdit
       ? (t: Transaction) =>
-          api.transaction.updateTransaction(props.transaction, t)
+          api.transaction.updateTransaction(props.transaction!, t)
       : (t: Transaction) => api.transaction.createTransaction(t);
 
     const callback = isEdit ? props.onUpdateCallback : props.onCreateCallback;
@@ -123,7 +122,7 @@ const TransactionForm = (props: Props) => {
             variant: "success",
           }
         );
-        callback(trans);
+        callback!(trans);
       })
       .catch((err) => {
         setLoading(false);
@@ -133,7 +132,7 @@ const TransactionForm = (props: Props) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit((data) => onSubmit(data as Transaction))}>
         <Stack
           spacing={2}
           justifyContent="flex-start"
@@ -282,7 +281,7 @@ const TransactionForm = (props: Props) => {
           setNewTagDialogOpen(false);
         }}
         onSubmitCallback={(tag: Tag) => {
-          setValue("tags", [...getValues("tags"), tag]);
+          setValue("tags", [...(getValues("tags") as Tag[]), tag]);
         }}
       />
     </>

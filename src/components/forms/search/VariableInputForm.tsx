@@ -36,7 +36,7 @@ const VariableInputForm: React.FC<VariableInputFormProps> = function ({
         value,
       };
     });
-    const queryParams = getQueryParametersFromExpressions(completedExpressions);
+    const queryParams = getQueryParametersFromExpressions(completedExpressions as Expression[]);
     submit(queryParams);
   }
 

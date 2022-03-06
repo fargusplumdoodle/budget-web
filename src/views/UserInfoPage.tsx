@@ -21,7 +21,7 @@ const UserInfoPage: React.FC<UserInfoPageProps> = function ({
   enqueueSnackbar,
 }) {
   const [loading, setLoading] = useState(false);
-  const [apiError, setApiError] = useState<ApiError>(null);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
   const dispatch = useDispatch();
 
   const onSubmit = (userInfo: UserInfo) => {

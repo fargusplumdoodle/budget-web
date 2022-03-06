@@ -14,7 +14,7 @@ function ensureStateIsSetForListOfTags(state: TagState, expectedTags: Tag[]) {
 
   expectedTags.forEach((tag) => {
     expect(state.byName[tag.name]).toStrictEqual(tag);
-    expect(state.byId[tag.id]).toStrictEqual(tag);
+    expect(state.byId[tag.id!]).toStrictEqual(tag);
   });
 }
 
