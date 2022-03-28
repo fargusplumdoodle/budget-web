@@ -1,16 +1,21 @@
-.App {
+body {
   background-color: #424242;
-  width: 100%;
+  min-height: 100vh;
+  font-family: 'Ubuntu';
+}
+
+.App {
   font-size: calc(10px + 2vmin);
   color: white;
 
   display: flex;
   flex-direction: row;
+  min-height: 100vh;
 }
 
 .content {
   padding: 20px;
   width: inherit;
-  height: 100%;
+  height: inherit;
   max-width: 2000px;
 }

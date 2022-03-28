@@ -11,20 +11,17 @@ import {
   ManageAccounts,
   AttachMoney,
 } from "@mui/icons-material";
-import AuthButton from "../auth/AuthButton";
 
 const classes: { [name: string]: SxProps } = {
   root: {
-    height: "100vh",
     backgroundColor: "#1e1e1e",
-    width: "300px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "flex-end",
   },
   title: {
-    textAlign: "right",
+    textAlign: "center",
     m: 2,
   }
 };
@@ -48,7 +45,7 @@ const SideBar: FunctionComponent<{}> = () => {
     <Box sx={classes.root}>
       <div>
         <Typography variant="h4" sx={classes.title}>
-          Budget
+          b
         </Typography>
 
         <Tabs
@@ -65,7 +62,7 @@ const SideBar: FunctionComponent<{}> = () => {
                 icon={ln.icon}
                 iconPosition="end"
                 sx={{ marginLeft: "auto" }}
-                label={ln.text}
+                // label={ln.text}
                 onClick={() => {
                   navigate(ln.route.path);
                 }}
@@ -76,7 +73,6 @@ const SideBar: FunctionComponent<{}> = () => {
         </Tabs>
       </div>
 
-      <AuthButton sx={{ m: 4 }} />
     </Box>
   );
 };
