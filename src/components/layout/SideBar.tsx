@@ -15,15 +15,16 @@ import {
 const classes: { [name: string]: SxProps } = {
   root: {
     backgroundColor: "#1e1e1e",
+
     display: "flex",
-    flexDirection: "column",
+    flexDirection: 'row',
     justifyContent: "space-between",
     alignItems: "flex-end",
   },
   title: {
     textAlign: "center",
     m: 2,
-  }
+  },
 };
 
 const SideBar: FunctionComponent<{}> = () => {
@@ -43,36 +44,33 @@ const SideBar: FunctionComponent<{}> = () => {
 
   return (
     <Box sx={classes.root}>
-      <div>
-        <Typography variant="h4" sx={classes.title}>
-          b
-        </Typography>
+      <Typography variant="h4" sx={classes.title}>
+        b
+      </Typography>
 
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={selected ? sideBarLinks.indexOf(selected) : 0}
-          aria-label="Vertical tabs example"
-          sx={{ borderRight: 1, borderColor: "divider" }}
-        >
-          {sideBarLinks.map((ln) => {
-            return (
-              <Tab
-                key={sideBarLinks.indexOf(ln)}
-                icon={ln.icon}
-                iconPosition="end"
-                sx={{ marginLeft: "auto" }}
-                // label={ln.text}
-                onClick={() => {
-                  navigate(ln.route.path);
-                }}
-                {...tabProps(sideBarLinks.indexOf(ln))}
-              />
-            );
-          })}
-        </Tabs>
-      </div>
-
+      <Tabs
+        orientation="horizontal"
+        variant="scrollable"
+        value={selected ? sideBarLinks.indexOf(selected) : 0}
+        aria-label="Vertical tabs example"
+        sx={{ borderRight: 1, borderColor: "divider" }}
+      >
+        {sideBarLinks.map((ln) => {
+          return (
+            <Tab
+              key={sideBarLinks.indexOf(ln)}
+              icon={ln.icon}
+              iconPosition="end"
+              sx={{ marginLeft: "auto" }}
+              // label={ln.text}
+              onClick={() => {
+                navigate(ln.route.path);
+              }}
+              {...tabProps(sideBarLinks.indexOf(ln))}
+            />
+          );
+        })}
+      </Tabs>
     </Box>
   );
 };

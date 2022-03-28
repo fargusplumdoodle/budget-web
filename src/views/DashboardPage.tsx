@@ -23,49 +23,47 @@ const DashboardPage: FunctionComponent<Props> = ({ budgets }) => {
     return <></>;
   }
   return (
-    <>
-      <Grid container spacing={1}>
-        <Grid item xs={6} justifyContent="center" alignItems="center">
-          <Stack spacing={1}>
-            <DashboardTile>
-              <StatusOverview />
-            </DashboardTile>
+    <Grid container flexDirection={["column", "row"]} spacing={1}>
+      <Grid item xs={6} justifyContent="center" alignItems="center">
+        <Stack spacing={1}>
+          <DashboardTile>
+            <StatusOverview />
+          </DashboardTile>
 
-            <DashboardTile title="Budget Overview">
-              <BudgetTable budgets={budgets} />
-            </DashboardTile>
+          <DashboardTile title="Budget Overview">
+            <BudgetTable budgets={budgets} />
+          </DashboardTile>
 
-            <DashboardTile title="Income / Outcome">
-              <LineGraph
-                defaultTimebucketSize="one_week"
-                reportTypes={[ReportTypes.INCOME, ReportTypes.OUTCOME]}
-              />
-            </DashboardTile>
-          </Stack>
-        </Grid>
-        <Grid item xs={6} alignItems="center">
-          <Stack spacing={1}>
-            <DashboardTile title="Budget Balance History">
-              <LineGraph
-                defaultTimebucketSize="one_week"
-                reportTypes={[ReportTypes.BUDGET_BALANCE]}
-              />
-            </DashboardTile>
-
-            <DashboardTile title="Spending Summary">
-              <SpendingSummary defaultTimebucketSize="one_month" />
-            </DashboardTile>
-
-            <DashboardTile title="Balance History">
-              <LineGraph
-                defaultTimebucketSize="one_month"
-                reportTypes={[ReportTypes.BALANCE]}
-              />
-            </DashboardTile>
-          </Stack>
-        </Grid>
+          <DashboardTile title="Income / Outcome">
+            <LineGraph
+              defaultTimebucketSize="one_week"
+              reportTypes={[ReportTypes.INCOME, ReportTypes.OUTCOME]}
+            />
+          </DashboardTile>
+        </Stack>
       </Grid>
-    </>
+      <Grid item xs={6} alignItems="center">
+        <Stack spacing={1}>
+          <DashboardTile title="Budget Balance History">
+            <LineGraph
+              defaultTimebucketSize="one_week"
+              reportTypes={[ReportTypes.BUDGET_BALANCE]}
+            />
+          </DashboardTile>
+
+          <DashboardTile title="Spending Summary">
+            <SpendingSummary defaultTimebucketSize="one_month" />
+          </DashboardTile>
+
+          <DashboardTile title="Balance History">
+            <LineGraph
+              defaultTimebucketSize="one_month"
+              reportTypes={[ReportTypes.BALANCE]}
+            />
+          </DashboardTile>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 };
 
