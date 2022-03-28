@@ -27,9 +27,10 @@ const AddTransactionsPage: FunctionComponent = () => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
+          flexDirection: ["column", "row"],
         }}
       >
-        <Card sx={{ width: "38%", m: 1, p: 1 }}>
+        <Card sx={{ minWidth: 400, m: 1, p: 1 }}>
           <Tabs
             value={tab}
             onChange={handleTabChange}
@@ -69,7 +70,7 @@ const AddTransactionsPage: FunctionComponent = () => {
           </TabPanel>
         </Card>
 
-        <Card sx={{ width: "62%", m: 1 }}>
+        <Card sx={{ minWidth: 400, flexGrow: 1, m: 1 }}>
           <TransactionTable
             onUpdateCallback={(trans: Transaction) => {
               const index = transactions.findIndex(
