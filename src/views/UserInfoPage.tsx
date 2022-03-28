@@ -8,6 +8,7 @@ import { ProviderContext, withSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import { loadUserInfoSuccess } from "../store/actions/userInfoActions";
 import api from "../api";
+import AuthButton from "../components/auth/AuthButton";
 
 const classes = {
   root: {
@@ -45,6 +46,7 @@ const UserInfoPage: React.FC<UserInfoPageProps> = function ({
       <Card sx={classes.root}>
         <UserInfoForm loading={loading} onSubmit={onSubmit} />
       </Card>
+      <AuthButton sx={{ m: 4 }} />
       <ApiErrorDialog
         error={apiError}
         onClose={() => {
