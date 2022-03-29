@@ -14,7 +14,7 @@ export default function tagReducer(
       const tags = [
         ...state.list,
         ...action.payload.filter(
-          (tag: Tag) => !state.byName[tag.name] && !state.byId[tag.id]
+          (tag: Tag) => !state.byName[tag.name] && !state.byId[tag.id!]
         ),
       ];
       return {

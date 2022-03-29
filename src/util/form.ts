@@ -26,7 +26,7 @@ export const budgetSchema = yup
       .max(20)
       .test("name is unique", "Budget Name must be unique", (value) => {
         const state = store.getState();
-        return !Boolean(state.budgets.byName[value]);
+        return !Boolean(state.budgets.byName[value!]);
       })
       .required(),
     percentage: yup.number().positive().integer(),
@@ -40,6 +40,8 @@ export const transactionSchema = yup
     description: yup.string().max(300),
     date: yup.date().required(),
     budget: yup.object().required(),
+    income: yup.boolean(),
+    transfer: yup.boolean(),
   })
   .required();
 
@@ -61,7 +63,7 @@ export const tagSchema = yup.object({
     .max(30)
     .test("name is unique", "Tag Name must be unique", (value) => {
       const state = store.getState();
-      return !Boolean(state.tags.byName[value]);
+      return !Boolean(state.tags.byName[value!]);
     })
     .required(),
 });
@@ -81,5 +83,11 @@ export const transferSchema = yup
     date: yup.date().required(),
     fromBudget: yup.object().required(),
     toBudget: yup.object().required(),
+  })
+  .required();
+
+export const userInfoSchema = yup
+  .object({
+    expected_monthly_net_income: yup.number().min(0.01).required(),
   })
   .required();

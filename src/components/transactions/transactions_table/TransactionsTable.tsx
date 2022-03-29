@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Typography } from "@mui/material";
-import "../../../pages/transactions_list/TransactionsTable.css";
+import "../../../views/transactions_list/TransactionsTable.css";
 import { Transaction } from "../../../store/types/models";
 import { commaSeparatedTagNames } from "../../../util/formatters";
 import TransactionFormDialog from "../transaction_form/TransactionFormDialog";
@@ -53,7 +53,7 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
                   }}
                 >
                   <TableCell>{trans.budget.name}</TableCell>
-                  <TableCell>{commaSeparatedTagNames(trans)}</TableCell>
+                  <TableCell>{commaSeparatedTagNames(trans)}</TableCell    >
                   <TableCell>{trans.description}</TableCell>
                   <TableCell>
                     {trans.date.toLocaleDateString("en-CA")}
@@ -67,18 +67,18 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
       </TableContainer>
       <TransactionFormDialog
         open={editTransaction !== null}
-        transaction={editTransaction}
+        transaction={editTransaction!}
         onClose={() => {
           setEditTransaction(null);
         }}
         onCreateCallback={(trans: Transaction) => {
-          props.onCreateCallback(trans);
+          props.onCreateCallback!(trans);
         }}
         onUpdateCallback={(trans: Transaction) => {
-          props.onUpdateCallback(trans);
+          props.onUpdateCallback!(trans);
         }}
         onDeleteCallback={(trans: Transaction) => {
-          props.onDeleteCallback(trans);
+          props.onDeleteCallback!(trans);
         }}
       />
     </>

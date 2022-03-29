@@ -2,9 +2,14 @@ import { Route, Routes } from "react-router-dom";
 import * as React from "react";
 import { FunctionComponent } from "react";
 import Callback from "../components/auth/Callback";
-import DashboardPage from "../components/dashboard/DashboardPage";
-import TransactionsPage from "../pages/transactions_list/TransactionsPage";
-import AddTransactionsPage from "../pages/transactions_add/AddTransactionsPage";
+import {
+  DashboardPage,
+  BudgetsPage,
+  AddTransactionsPage,
+  TransactionsPage,
+  UserInfoPage,
+  BudgetDetailPage,
+} from "../views";
 
 export const ROUTES = {
   DASHBOARD: { path: "/", element: <DashboardPage /> },
@@ -16,6 +21,18 @@ export const ROUTES = {
   TRANSACTIONS_ADD: {
     path: "/transactions/add",
     element: <AddTransactionsPage />,
+  },
+  USER_INFO: {
+    path: "/user/info",
+    element: <UserInfoPage />,
+  },
+  BUDGET_LIST: {
+    path: "/budget",
+    element: <BudgetsPage />,
+  },
+  BUDGET_DETAIL: {
+    path: "/budget/:id",
+    element: <BudgetDetailPage />,
   },
 };
 

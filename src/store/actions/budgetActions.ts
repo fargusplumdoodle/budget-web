@@ -2,7 +2,7 @@ import { Budget } from "../types/models";
 import { LOAD_BUDGETS_SUCCESS, UPDATE_BUDGET_SUCCESS } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
 import { apiCallError, beginApiCall } from "./apiStatusActions";
-import * as budgetAPI from "../../api/budget";
+import api from "../../api";
 
 export function loadBudgetsSuccess(budgets: Budget[]) {
   return {
@@ -21,7 +21,7 @@ export function updateBudgetSuccess(budget: Budget) {
 export function fetchBudgets() {
   return async (dispatch: AppDispatch) => {
     dispatch(beginApiCall());
-    budgetAPI
+    api.budget
       .receiveBudgets()
       .then((budgets: Budget[]) => {
         dispatch(loadBudgetsSuccess(budgets));

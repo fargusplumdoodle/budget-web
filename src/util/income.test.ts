@@ -8,7 +8,7 @@ import { generateTestBudget, generateTestTag } from "./generators";
 import { loadTagsSuccess } from "../store/actions/tagActions";
 import { store } from "../store/configureStore";
 import { clearAuthToken } from "../store/actions/authActions";
-import { IncomeFormData } from "../components/common/forms/transaction/IncomeForm";
+import { IncomeFormData } from "../components/forms/transaction/IncomeForm";
 
 describe("Test create income", () => {
   beforeEach(() => {
@@ -70,8 +70,8 @@ describe("Test create income", () => {
       expect(t.tags[0].name).toEqual("income");
     });
 
-    expect(savingsTransaction.description).toBe("unallocatable income dollars");
-    expect(savingsTransaction.budget).toStrictEqual(savings);
+    expect(savingsTransaction!.description).toBe("unallocatable income dollars");
+    expect(savingsTransaction!.budget).toStrictEqual(savings);
 
     incomeTransactions.forEach((t) => {
       expect(t.description).toStrictEqual(incomeFormData.description);

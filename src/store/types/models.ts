@@ -7,7 +7,6 @@ export interface Tag extends Model {
 }
 
 export interface Budget extends Model {
-  id: number;
   name: string;
   percentage: number;
   balance: number;
@@ -25,4 +24,8 @@ export interface Transaction extends Model {
   income: boolean;
   transfer: boolean;
   tags: Tag[];
+}
+
+export interface UserInfo {
+  expected_monthly_net_income: number;
 }

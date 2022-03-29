@@ -11,12 +11,42 @@ variables:
 lint:
   image: node
   stage: qa
+  only:
+    - dev
   cache:
     paths:
       - ./node_modules/
   script:
     - npm install
     - ./scripts/lint.sh
+
+test:
+  image: node
+  stage: qa
+  only:
+    - dev
+  variables:
+    NODE_ENV: development
+  cache:
+    paths:
+      - ./node_modules/
+  script:
+    - npm install
+    - npm test
+
+type-check:
+  image: node
+  stage: qa
+  only:
+    - dev
+  variables:
+    NODE_ENV: development
+  cache:
+    paths:
+      - ./node_modules/
+  script:
+    - npm install
+    - npx tsc
 
 build-prod:
   image: docker:latest
@@ -26,8 +56,8 @@ build-prod:
   only:
     - main
   script:
-    - docker pull $IMAGE:latest || true
-    - docker build -t "$IMAGE:latest" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:latest .
+    - docker pull $IMAGE:dev || true
+    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" .
     - docker image push --all-tags "$IMAGE"
 
 
@@ -40,7 +70,7 @@ build-dev:
     - dev
   script:
     - docker pull $IMAGE:dev || true
-    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" --cache-from $IMAGE:dev .
+    - docker build -t "$IMAGE:dev" -t "$IMAGE:$CI_COMMIT_SHA" .
     - docker image push --all-tags "$IMAGE"
 
 release:

@@ -2,24 +2,34 @@ import axios, { AxiosRequestConfig } from "axios";
 import { store } from "../store/configureStore";
 import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { DateTime } from "luxon";
+import { round } from "lodash";
+import { Expression } from "../components/forms/search/types";
+import { clearAuthToken } from "../store/actions/authActions";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   const state = store.getState();
 
   if (!state.auth.authenticated) {
-    // TODO: SEND USER TO BE AUTHENTICATED
     console.log("Not authenticated");
     throw Error("ah not authenticated");
   }
-  // TODO: REFRESH TOKEN IF EXPIRED
 
-  return axios({
-    ...params,
-    headers: {
-      authorization: `${state.auth.tokenType} ${state.auth.accessToken}`,
-      ...params.headers,
-    },
-  });
+  try {
+    return await axios({
+      ...params,
+      headers: {
+        authorization: `${state.auth.tokenType} ${state.auth.accessToken}`,
+        ...params.headers,
+      },
+    });
+  } catch (e: any) {
+    if (e?.response.status === 401) {
+      console.log("Unauthorized");
+      store.dispatch(clearAuthToken());
+    } else {
+      throw e;
+    }
+  }
 }
 
 export async function makePaginatedRequest<T>(
@@ -50,10 +60,10 @@ export async function makePaginatedRequest<T>(
 }
 
 export function toCents(amount: number): number {
-  return amount * 100;
+  return round(amount * 100, 2);
 }
 export function fromCents(amount: number): number {
-  return amount / 100;
+  return round(amount / 100, 2);
 }
 
 /**
@@ -74,5 +84,39 @@ export function fromCents(amount: number): number {
  */
 export function getAPIDate(apiDate: string): Date {
   const timezoneAwareDate = DateTime.fromISO(apiDate).setZone("system");
-  return new Date(timezoneAwareDate.toString());
+  return timezoneAwareDate.toJSDate();
+}
+
+export function getQueryParametersFromExpressions(
+  expressions: Expression[]
+): URLSearchParams {
+  const queryParams = new URLSearchParams();
+  expressions.forEach((expression) => {
+    const key = `${expression.operand.name}${expression.operator.djangoExpression}`;
+
+    if (expression.operand.transformValue) {
+      expression.operand.transformValue(expression.value).forEach((value) => {
+        queryParams.append(key, value);
+      });
+    } else {
+      queryParams.append(key, expression.value.toString());
+    }
+  });
+  return queryParams;
+}
+
+export function mergeURLSearchParams(
+  paramList: (URLSearchParams | undefined)[]
+): URLSearchParams {
+  const params = new URLSearchParams();
+
+  paramList.forEach((qp) => {
+    if (!qp) return;
+
+    for (var [key, val] of qp.entries()) {
+      params.append(key, val);
+    }
+  });
+
+  return params;
 }

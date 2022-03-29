@@ -2,7 +2,7 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import Dialog from "@mui/material/Dialog";
 import { DialogContent, DialogTitle } from "@mui/material";
-import TransactionForm from "../../common/forms/transaction/TransactionForm";
+import TransactionForm from "../../forms/transaction/TransactionForm";
 import { Transaction } from "../../../store/types/models";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const TransactionFormDialog: FunctionComponent<Props> = (props) => {
-  const isEdit = Boolean(props["transaction"]) && props.transaction.id;
+  const isEdit = Boolean(props["transaction"]) && props.transaction!.id;
   return (
     <Dialog onClose={props.onClose} open={props.open}>
       <DialogTitle>{isEdit ? "Edit" : "Add"} Transaction</DialogTitle>
@@ -23,15 +23,15 @@ const TransactionFormDialog: FunctionComponent<Props> = (props) => {
         <TransactionForm
           transaction={props.transaction}
           onCreateCallback={(trans: Transaction) => {
-            props.onCreateCallback(trans);
+            props.onCreateCallback!(trans);
             props.onClose();
           }}
           onUpdateCallback={(trans: Transaction) => {
-            props.onUpdateCallback(trans);
+            props.onUpdateCallback!(trans);
             props.onClose();
           }}
           onDeleteCallback={(trans: Transaction) => {
-            props.onDeleteCallback(trans);
+            props.onDeleteCallback!(trans);
             props.onClose();
           }}
         />
