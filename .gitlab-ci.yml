@@ -11,6 +11,8 @@ variables:
 lint:
   image: node
   stage: qa
+  only:
+    - dev
   cache:
     paths:
       - ./node_modules/
@@ -21,6 +23,8 @@ lint:
 test:
   image: node
   stage: qa
+  only:
+    - dev
   variables:
     NODE_ENV: development
   cache:
@@ -33,6 +37,8 @@ test:
 type-check:
   image: node
   stage: qa
+  only:
+    - dev
   variables:
     NODE_ENV: development
   cache:
