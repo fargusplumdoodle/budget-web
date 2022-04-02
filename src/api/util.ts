@@ -50,13 +50,13 @@ export async function makePaginatedRequest<T>(
     params: queryParams,
   });
 
-  if (r.data.next) {
+  if (r!.data.next) {
     return await makePaginatedRequest(uri, page + 1, pageSize, maxPages, [
       ...results,
-      ...(r.data as PaginatedResponse<T>).results,
+      ...(r!.data as PaginatedResponse<T>).results,
     ]);
   }
-  return [...results, ...(r.data as PaginatedResponse<T>).results];
+  return [...results, ...(r!.data as PaginatedResponse<T>).results];
 }
 
 export function toCents(amount: number): number {

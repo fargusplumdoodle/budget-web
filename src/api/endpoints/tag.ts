@@ -20,7 +20,7 @@ export async function createTag(data: Tag): Promise<Tag> {
     url: "/api/v2/tag/",
     data: serializeTag(data),
   });
-  const tag = deserializeTag(r.data as SerializedTag);
+  const tag = deserializeTag(r!.data as SerializedTag);
 
   store.dispatch(loadTagsSuccess([tag]));
   return tag;

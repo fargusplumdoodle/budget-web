@@ -8,7 +8,7 @@ export async function receiveUserInfo(): Promise<UserInfo> {
     method: "get",
     url: "/api/v2/user/info",
   });
-  return deserializeUserInfo(r.data as SerializedUserInfo);
+  return deserializeUserInfo(r!.data as SerializedUserInfo);
 }
 
 export async function updateUserInfo(userInfo: UserInfo): Promise<UserInfo> {
@@ -17,5 +17,5 @@ export async function updateUserInfo(userInfo: UserInfo): Promise<UserInfo> {
     url: "/api/v2/user/info",
     data: serializeUserInfo(userInfo),
   });
-  return deserializeUserInfo(r.data as SerializedUserInfo);
+  return deserializeUserInfo(r!.data as SerializedUserInfo);
 }
