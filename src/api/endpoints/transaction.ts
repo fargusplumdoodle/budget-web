@@ -28,11 +28,11 @@ export async function fetchTransactionPage(
     params: params,
   });
 
-  const transactions = r.data.results.map((trans: any) => {
+  const transactions = r!.data.results.map((trans: any) => {
     return deserializeTransaction(trans);
   });
 
-  return { ...r.data, results: transactions };
+  return { ...r!.data, results: transactions };
 }
 
 export async function createTransaction(
@@ -46,7 +46,7 @@ export async function createTransaction(
     data: serializeTransaction(trans),
   });
   const newTransaction = deserializeTransaction(
-    r.data as SerializedTransaction
+    r!.data as SerializedTransaction
   );
 
   store.dispatch(
@@ -70,7 +70,7 @@ export async function updateTransaction(
     url: `/api/v2/transaction/${newTrans.id}/`,
     data: serializeTransaction(newTrans),
   });
-  const trans = deserializeTransaction(r.data as SerializedTransaction);
+  const trans = deserializeTransaction(r!.data as SerializedTransaction);
 
   store.dispatch(
     updateBudgetSuccess({

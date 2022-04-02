@@ -11,7 +11,7 @@ export async function receiveBudgets(): Promise<Budget[]> {
     url: "/api/v2/budget/",
   });
 
-  return r.data.map((budget: SerializedBudget) => deserializeBudget(budget));
+  return r!.data.map((budget: SerializedBudget) => deserializeBudget(budget));
 }
 
 export async function updateBudget(budget: Budget): Promise<Budget> {
@@ -20,7 +20,7 @@ export async function updateBudget(budget: Budget): Promise<Budget> {
     url: `/api/v2/budget/${budget.id}/`,
     data: serializeBudget(budget),
   });
-  const updatedBudget = deserializeBudget(r.data as SerializedBudget);
+  const updatedBudget = deserializeBudget(r!.data as SerializedBudget);
   store.dispatch(updateBudgetSuccess(updatedBudget));
 
   return updatedBudget;

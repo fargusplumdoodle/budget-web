@@ -21,5 +21,5 @@ export default async function report(
     ? deserializeMultipleValuesReport
     : deserializeSingleValueReport;
 
-  return serializer(reportType, r.data);
+  return serializer(reportType, r!.data);
 }
