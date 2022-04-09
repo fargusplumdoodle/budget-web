@@ -21,7 +21,15 @@ const DashboardTile: FunctionComponent<Props> = (props) => {
     <></>
   );
   return (
-    <Card sx={{ p: 1, minWidth: 400, ...props.sx }}>
+    <Card
+      sx={{
+        p: 1,
+        minWidth: 400,
+        opacity: '0.8',
+        backdropFilter: "blur(5px)",
+        ...props.sx,
+      }}
+    >
       {title}
       {props.children}
     </Card>
