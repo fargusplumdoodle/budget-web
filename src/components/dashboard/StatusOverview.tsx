@@ -8,6 +8,7 @@ import { formatCurrency } from "../../util/formatters";
 import { getAverageOutcomePerMonth } from "../../util/stats";
 import { Classes } from "../../util/types";
 import StackedWave from "../../assets/StackedWave.svg";
+import { EXPECTED_BUDGETS } from "../../app/settings";
 
 const classes: Classes = {
   root: {
@@ -43,14 +44,10 @@ const NetWorth = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4),
 }));
 
-const Value = styled(Typography)(({ theme }) => ({
-}));
-
 const StatusOverview: FunctionComponent = () => {
-  const budgets = useSelector((state: RootState) => state.budgets.list);
+  const budgets = useSelector((state: RootState) => state.budgets);
   const [monthlyOutcome, setMonthlyOutcome] = React.useState<number>(0.01);
-  const totalBudgetBalance = sum(budgets.map((budget) => budget.balance));
-  const coastTime = Math.round(totalBudgetBalance / Math.abs(monthlyOutcome));
+  const totalBudgetBalance = sum(budgets.list.map((budget) => budget.balance));
 
   React.useEffect(() => {
     getAverageOutcomePerMonth().then((r) => setMonthlyOutcome(r));
@@ -62,13 +59,26 @@ const StatusOverview: FunctionComponent = () => {
         <Typography variant="body1">
           Monthly Outcome: {formatCurrency(monthlyOutcome, false)}
         </Typography>
-        <Typography variant="body1">Coast Time: {coastTime} Months</Typography>
+        <Typography variant="body1">
+          Savings:{" "}
+          {formatCurrency(
+            budgets.byName[EXPECTED_BUDGETS.SAVINGS].balance,
+            false
+          )}
+        </Typography>
+        <Typography variant="body1">
+          Personal:{" "}
+          {formatCurrency(
+            budgets.byName[EXPECTED_BUDGETS.PERSONAL].balance,
+            false
+          )}
+        </Typography>
       </Box>
 
       <NetWorth>
-        <Value variant="h2">
+        <Typography variant="h2">
           {formatCurrency(totalBudgetBalance, false)}
-        </Value>
+        </Typography>
       </NetWorth>
     </Container>
   );

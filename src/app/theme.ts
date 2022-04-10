@@ -1,15 +1,21 @@
 import { createTheme, ThemeOptions } from "@mui/material";
 
-export const themeOptions: ThemeOptions = {
+export const colors = {
+  purple: "#AD14B1",
+  lightBlue: "#1877B1",
+  darkBlue: "#270A94",
+};
+
+export const theme: ThemeOptions = {
   palette: {
     mode: "dark",
     secondary: {
-      main: "#AD14B1",
+      main: colors.purple,
       contrastText: "#f7f7f7",
     },
     primary: {
-      main: "#1877B1",
-      dark: "#270A94",
+      main: colors.lightBlue,
+      dark: colors.darkBlue,
     },
     background: {
       default: "#1D1F20",
@@ -23,7 +29,7 @@ export const themeOptions: ThemeOptions = {
 };
 
 export const darkTheme = createTheme({
-  ...themeOptions,
+  ...theme,
   typography: {
     fontFamily: "Ubuntu",
   },

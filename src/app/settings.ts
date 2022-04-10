@@ -6,6 +6,7 @@ const CALLBACK_URL = `${getServerURL()}/auth/callback`;
 
 export const EXPECTED_BUDGETS = {
   SAVINGS: "savings",
+  PERSONAL: "personal",
 };
 export const EXPECTED_TAGS = {
   INCOME: "income",

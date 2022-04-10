@@ -1,16 +1,11 @@
 import * as React from "react";
 import { FunctionComponent } from "react";
-import BudgetTable from "../components/budget/BudgetTable";
-import { Box, Grid, Stack } from "@mui/material";
-import DashboardTile from "../components/dashboard/DashboardTile";
+import { Box, Grid } from "@mui/material";
 import StatusOverview from "../components/dashboard/StatusOverview";
 import { connect } from "react-redux";
 import { RootState } from "../store/configureStore";
 import { Budget } from "../store/types/models";
 import { ProviderContext, withSnackbar } from "notistack";
-import LineGraph from "../components/report/LineGraph/LineGraph";
-import { ReportTypes } from "../api/types";
-import SpendingSummary from "../components/report/spending_summary/SpendingSummary";
 
 interface OwnProps extends ProviderContext {
   budgets: Budget[];

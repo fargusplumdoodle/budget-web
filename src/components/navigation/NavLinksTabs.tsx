@@ -1,22 +1,13 @@
-import { ROUTES } from "../../app/AppRoutes";
 import { tabProps } from "../tabs";
 import { useNavigate } from "react-router-dom";
-import { Box, SxProps, Tab, Tabs, Typography } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 import { FunctionComponent } from "react";
+import { links } from "./constants";
 
 interface NavLinksProps {}
 
 const NavLinks: FunctionComponent<NavLinksProps> = () => {
   const navigate = useNavigate();
-
-  const links = [
-    ROUTES.DASHBOARD,
-    ROUTES.TRANSACTIONS_ADD,
-    ROUTES.TRANSACTIONS_LIST,
-    ROUTES.BUDGET_LIST,
-    ROUTES.SETTINGS,
-  ];
-
   const selected = links.find((link) => link.path === window.location.pathname);
 
   return (
@@ -25,7 +16,7 @@ const NavLinks: FunctionComponent<NavLinksProps> = () => {
       variant="scrollable"
       value={selected ? links.indexOf(selected) : 0}
       aria-label="Navigation Links"
-      sx={{  }}
+      sx={{}}
     >
       {links.map((ln) => {
         const index = links.indexOf(ln);
@@ -34,7 +25,6 @@ const NavLinks: FunctionComponent<NavLinksProps> = () => {
             key={index}
             icon={ln.icon}
             iconPosition="end"
-            sx={{ marginLeft: "auto" }}
             onClick={() => {
               navigate(ln.path);
             }}
