@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="1440" height="560" preserveAspectRatio="none" viewBox="0 0 1440 560">
+    <g mask="url(&quot;#SvgjsMask1003&quot;)" fill="none">
+        <rect width="1440" height="560" x="0" y="0" fill="#0e2a47" style="--darkreader-inline-fill: #0b2239;" data-darkreader-inline-fill=""></rect>
+        <path d="M448.89 589.14C611.5 564.56 673.19 191.88 961.21 176.48 1249.22 161.08 1342.11 59.63 1473.52 58.88" stroke="rgba(39, 10, 148, 1)" stroke-width="2" style="--darkreader-inline-stroke: #8568f5;" data-darkreader-inline-stroke=""></path>
+        <path d="M572.82 659.79C734.8 648.76 829.13 348.94 1137.01 338.2 1444.89 327.46 1553.64 166.55 1701.2 164.6" stroke="rgba(39, 10, 148, 1)" stroke-width="2" style="--darkreader-inline-stroke: #8568f5;" data-darkreader-inline-stroke=""></path>
+        <path d="M622.58 617.83C765.11 604.34 860.08 304.74 1101.88 304.45 1343.67 304.16 1452.79 486.09 1581.17 489.25" stroke="rgba(39, 10, 148, 1)" stroke-width="2" style="--darkreader-inline-stroke: #8568f5;" data-darkreader-inline-stroke=""></path>
+        <path d="M723.54 652.79C865.79 637.38 924.85 344.38 1193.94 326.78 1463.03 309.18 1536.46 129.37 1664.34 125.18" stroke="rgba(39, 10, 148, 1)" stroke-width="2" style="--darkreader-inline-stroke: #8568f5;" data-darkreader-inline-stroke=""></path>
+        <path d="M433.81 626.63C549.62 609.32 501.03 343.63 799.32 333.74 1097.62 323.85 1342.19 155.84 1530.35 154.54" stroke="rgba(39, 10, 148, 1)" stroke-width="2" style="--darkreader-inline-stroke: #8568f5;" data-darkreader-inline-stroke=""></path>
+    </g>
+    <defs>
+        <mask id="SvgjsMask1003">
+            <rect width="1440" height="560" fill="#ffffff" style="--darkreader-inline-fill: #e8e6e3;" data-darkreader-inline-fill=""></rect>
+        </mask>
+    </defs>
+</svg>
