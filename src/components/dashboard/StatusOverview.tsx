@@ -7,8 +7,9 @@ import { sum } from "lodash";
 import { formatCurrency } from "../../util/formatters";
 import { getAverageOutcomePerMonth } from "../../util/stats";
 import { Classes } from "../../util/types";
-import StackedWave from "../../assets/StackedWave.svg";
 import { EXPECTED_BUDGETS } from "../../app/settings";
+
+const StackedWave = require("../../assets/StackedWave.svg") as string;
 
 const classes: Classes = {
   root: {

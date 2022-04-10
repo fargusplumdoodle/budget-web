@@ -4,7 +4,6 @@ import { Box, Card, styled, Typography } from "@mui/material";
 import StatusOverview from "../components/dashboard/StatusOverview";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/configureStore";
-import { Budget } from "../store/types/models";
 import { ProviderContext, withSnackbar } from "notistack";
 import LineGraph from "../components/report/LineGraph";
 import BudgetTable from "../components/budget/BudgetTable";
@@ -13,9 +12,7 @@ import SpendingSummary from "../components/report/spending_summary/SpendingSumma
 import { DateTime } from "luxon";
 import { EXPECTED_BUDGETS } from "../app/settings";
 
-interface OwnProps extends ProviderContext {
-  budgets: Budget[];
-}
+interface OwnProps extends ProviderContext {}
 
 type Props = OwnProps;
 
