@@ -1,8 +1,8 @@
 import * as React from "react";
 import { FunctionComponent } from "react";
-import { Box, Card, Grid, styled, Typography } from "@mui/material";
+import { Box, Card, styled, Typography } from "@mui/material";
 import StatusOverview from "../components/dashboard/StatusOverview";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/configureStore";
 import { Budget } from "../store/types/models";
 import { ProviderContext, withSnackbar } from "notistack";
