@@ -32,7 +32,12 @@ export const ReportTypes: { [name: string]: ReportType } = {
     multiple: false,
   },
   INCOME: { name: "income", label: "Income", currency: true, multiple: false },
-  BALANCE: { name: "balance", label: "Balance", currency: true, multiple: false },
+  BALANCE: {
+    name: "balance",
+    label: "Balance",
+    currency: true,
+    multiple: false,
+  },
   TRANSFER: {
     name: "transfer",
     label: "Transfer",

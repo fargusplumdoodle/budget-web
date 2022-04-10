@@ -26,7 +26,7 @@ export function serializeTransaction(
 ): SerializedTransaction {
   return {
     amount: toCents(trans.amount),
-    description: trans.description || '',
+    description: trans.description || "",
     budget: trans.budget.id!,
     date: trans.date.toLocaleDateString(),
     income: trans.income,

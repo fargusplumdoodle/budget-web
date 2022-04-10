@@ -9,7 +9,11 @@ interface Props<FormT> {
   errors: InputErrorMessage;
 }
 
-function ControlledDescriptionInput<FormT>({ name, control, errors }: Props<FormT>) {
+function ControlledDescriptionInput<FormT>({
+  name,
+  control,
+  errors,
+}: Props<FormT>) {
   return (
     <Controller
       name={name}

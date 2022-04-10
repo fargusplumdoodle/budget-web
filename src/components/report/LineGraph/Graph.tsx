@@ -1,10 +1,6 @@
 import Chart from "react-apexcharts";
 import * as React from "react";
-import {
-  GraphSeries,
-  GraphReport,
-  ReportType,
-} from "../../../api/types";
+import { GraphSeries, GraphReport, ReportType } from "../../../api/types";
 import { useEffect, useState } from "react";
 import { Box, CircularProgress } from "@mui/material";
 import api from "../../../api";

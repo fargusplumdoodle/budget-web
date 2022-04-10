@@ -8,45 +8,43 @@ variables:
   IMAGE: hub.sekhnet.ra/budget-web
   NAMESPACE: budget
 
-lint:
-  image: node
-  stage: qa
-  only:
-    - dev
-  cache:
-    paths:
-      - ./node_modules/
-  script:
-    - npm install
-    - ./scripts/lint.sh
+# lint:
+#   image: node
+#   stage: qa
+#   only:
+#     - dev
+#   cache:
+#     paths:
+#       - ./node_modules/
+#   script:
+#     - npm install
+#     - ./scripts/lint.sh
 
-test:
-  image: node
-  stage: qa
-  only:
-    - dev
-  variables:
-    NODE_ENV: development
-  cache:
-    paths:
-      - ./node_modules/
-  script:
-    - npm install
-    - npm test
+# test: image: node stage: qa
+#   only:
+#     - dev
+#   variables:
+#     NODE_ENV: development
+#   cache:
+#     paths:
+#       - ./node_modules/
+#   script:
+#     - npm install
+#     - npm test
 
-type-check:
-  image: node
-  stage: qa
-  only:
-    - dev
-  variables:
-    NODE_ENV: development
-  cache:
-    paths:
-      - ./node_modules/
-  script:
-    - npm install
-    - npx tsc
+# type-check:
+#   image: node
+#   stage: qa
+#   only:
+#     - dev
+#   variables:
+#     NODE_ENV: development
+#   cache:
+#     paths:
+#       - ./node_modules/
+#   script:
+#     - npm install
+#     - npx tsc
 
 build-prod:
   image: docker:latest

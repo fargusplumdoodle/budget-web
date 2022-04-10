@@ -20,6 +20,6 @@ const rootReducer = combineReducers({
   tags,
   apiStatus,
   transactions,
-  userInfo
+  userInfo,
 });
 export default rootReducer;

@@ -44,8 +44,8 @@ const BudgetPercentagesForm: React.FC<BudgetPercentagesFormProps> = function ({
       percentage: savingsPercentage,
     };
     updateValuesList(newSavings, budgets, setBudgets);
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [savingsPercentage]);
 
   return (

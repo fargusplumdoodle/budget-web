@@ -9,11 +9,7 @@ import initialState from "../store/initialState";
 import { fetchUserInfo } from "../store/actions/userInfoActions";
 import { isEqual } from "lodash";
 import { ROUTES } from "./AppRoutes";
-import {
-  Dialog,
-  DialogActions,
-  DialogTitle,
-} from "@mui/material";
+import { Dialog, DialogActions, DialogTitle } from "@mui/material";
 import AuthButton from "../components/auth/AuthButton";
 
 interface ExpectedData {
@@ -76,7 +72,7 @@ const InitializeData: FunctionComponent<Props> = (props) => {
     <Dialog open={needsAuth}>
       <DialogTitle>You are not authenticated</DialogTitle>
       <DialogActions>
-        <AuthButton sx={{m: 1}} />
+        <AuthButton sx={{ m: 1 }} />
       </DialogActions>
     </Dialog>
   );

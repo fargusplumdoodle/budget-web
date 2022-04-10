@@ -53,7 +53,7 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
                   }}
                 >
                   <TableCell>{trans.budget.name}</TableCell>
-                  <TableCell>{commaSeparatedTagNames(trans)}</TableCell    >
+                  <TableCell>{commaSeparatedTagNames(trans)}</TableCell>
                   <TableCell>{trans.description}</TableCell>
                   <TableCell>
                     {trans.date.toLocaleDateString("en-CA")}

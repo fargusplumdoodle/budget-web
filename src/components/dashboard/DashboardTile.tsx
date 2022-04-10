@@ -25,7 +25,7 @@ const DashboardTile: FunctionComponent<Props> = (props) => {
       sx={{
         p: 1,
         minWidth: 400,
-        opacity: '0.8',
+        opacity: "0.8",
         backdropFilter: "blur(5px)",
         ...props.sx,
       }}

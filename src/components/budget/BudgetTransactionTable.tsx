@@ -4,9 +4,7 @@ import PaginatedTransactionsTable from "../../components/transactions/transactio
 import { Budget, Transaction } from "../../store/types/models";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
 import api from "../../api";
-import ApiErrorDialog, {
-  ApiError,
-} from "../ApiErrorDialog";
+import ApiErrorDialog, { ApiError } from "../ApiErrorDialog";
 import { Box, LinearProgress } from "@mui/material";
 
 interface Props {
@@ -15,7 +13,7 @@ interface Props {
 
 const BudgetTransactionTable: FunctionComponent<Props> = ({ budget }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [apiError, setApiError] = useState<ApiError|null>(null);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
   const [loading, setLoading] = useState(false);
 
   // TODO: FETCH MORE PAGES

@@ -126,7 +126,7 @@ export const OPERANDS: { [name: string]: Operand } = {
     input: INPUTS.impliedTrue,
     requiresSetValueAndExpression: false,
     transformValue: () => {
-      return ['true'];
+      return ["true"];
     },
   },
   budgets: {

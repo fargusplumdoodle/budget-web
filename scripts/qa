@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+commands=( 
+	'npx eslint --fix ./src'
+	'npx tsc -p ./tsconfig.json' 
+)
+pids=()
+
+# run processes and store pids in array
+for ((i = 0; i < ${#commands[@]}; i++))
+do
+    command="${commands[$i]}"
+
+    echo Running: ${command}
+    $command &
+    pids+="$! "
+done
+echo
+
+# wait for all processes to complete 
+for pid in ${pids[@]}; do
+    wait $pid 2> /dev/null
+done
+
