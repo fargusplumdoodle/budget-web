@@ -1,7 +1,7 @@
 import * as React from "react";
+import Header from "../components/navigation/Header";
 import "./App.css";
 import AppRoutes from "./AppRoutes";
-import SideBar from "../components/layout/SideBar";
 import InitializeData from "./InitializeData";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <>
       <InitializeData />
       <div className="App">
-        <SideBar />
+        <Header />
         <div className="content">
           <AppRoutes />
         </div>

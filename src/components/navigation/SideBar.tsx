@@ -14,10 +14,8 @@ import {
 
 const classes: { [name: string]: SxProps } = {
   root: {
-    backgroundColor: "#1e1e1e",
-
     display: "flex",
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
   },
@@ -62,7 +60,6 @@ const SideBar: FunctionComponent<{}> = () => {
               icon={ln.icon}
               iconPosition="end"
               sx={{ marginLeft: "auto" }}
-              // label={ln.text}
               onClick={() => {
                 navigate(ln.route.path);
               }}
