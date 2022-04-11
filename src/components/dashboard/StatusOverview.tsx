@@ -9,7 +9,7 @@ import { getAverageOutcomePerMonth } from "../../util/stats";
 import { Classes } from "../../util/types";
 import { EXPECTED_BUDGETS } from "../../app/settings";
 
-const StackedWave = require("../../assets/StackedWave.svg") as string;
+import StackedWave from "../../assets/StackedWave.svg";
 
 const classes: Classes = {
   root: {
