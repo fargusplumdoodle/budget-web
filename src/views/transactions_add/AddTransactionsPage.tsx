@@ -8,6 +8,7 @@ import { Transaction } from "../../store/types/models";
 import IncomeForm from "../../components/forms/transaction/IncomeForm";
 import { TabPanel, tabProps } from "../../components/tabs";
 import TransferForm from "../../components/forms/transaction/TransferForm";
+import settings from "../../app/settings";
 
 const ADD = 0;
 const INCOME = 1;
@@ -24,11 +25,11 @@ const Container = styled(Box)(({ theme }) => ({
 }));
 
 const FormContainer = styled(Box)(() => ({
-  minWidth: 435,
+  minWidth: settings.mobileWidth,
 }));
 
 const TransactionsContainer = styled(Card)(() => ({
-  minWidth: 400,
+  minWidth: settings.mobileWidth,
   flexGrow: 1,
 }));
 
