@@ -7,8 +7,9 @@ import { SnackbarProvider } from "notistack";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../store/configureStore";
+import AuthProvider from "./AuthProvider";
+import { PersistGate } from "redux-persist/integration/react";
 
 type AppProviderProps = {
   children: ReactElement[] | ReactElement;
@@ -29,7 +30,7 @@ const AppProvider: React.FC<AppProviderProps> = function ({ children }) {
                     horizontal: "right",
                   }}
                 >
-                  {children}
+                  <AuthProvider>{children}</AuthProvider>
                 </SnackbarProvider>
               </LocalizationProvider>
             </ThemeProvider>

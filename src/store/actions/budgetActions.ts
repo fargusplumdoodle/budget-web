@@ -1,7 +1,7 @@
 import { Budget } from "../types/models";
 import { LOAD_BUDGETS_SUCCESS, UPDATE_BUDGET_SUCCESS } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
-import { apiCallError, beginApiCall } from "./apiStatusActions";
+import { updateStatus } from "./apiStatusActions";
 import api from "../../api";
 
 export function loadBudgetsSuccess(budgets: Budget[]) {
@@ -19,15 +19,17 @@ export function updateBudgetSuccess(budget: Budget) {
 }
 
 export function fetchBudgets() {
+  console.log("fetching budgets");
   return async (dispatch: AppDispatch) => {
-    dispatch(beginApiCall());
+    console.log("fetching budgets inside thunk");
+    dispatch(updateStatus("BUDGET", "loading"));
     api.budget
       .receiveBudgets()
       .then((budgets: Budget[]) => {
         dispatch(loadBudgetsSuccess(budgets));
       })
       .catch((err) => {
-        dispatch(apiCallError());
+        dispatch(updateStatus("BUDGET", "error"));
         throw err;
       });
   };

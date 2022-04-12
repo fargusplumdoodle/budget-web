@@ -1,7 +1,7 @@
 import { Tag } from "../types/models";
 import { LOAD_TAGS_SUCCESS } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
-import { apiCallError, beginApiCall } from "./apiStatusActions";
+import { updateStatus } from "./apiStatusActions";
 import api from "../../api";
 
 export function loadTagsSuccess(tags: Tag[]) {
@@ -13,14 +13,14 @@ export function loadTagsSuccess(tags: Tag[]) {
 
 export function fetchTags() {
   return async (dispatch: AppDispatch) => {
-    dispatch(beginApiCall());
+    dispatch(updateStatus("TAGS", "loading"));
     api.tag
       .receiveTags()
       .then((tags: Tag[]) => {
         dispatch(loadTagsSuccess(tags));
       })
       .catch((err) => {
-        dispatch(apiCallError());
+        dispatch(updateStatus("TAGS", "error"));
         throw err;
       });
   };

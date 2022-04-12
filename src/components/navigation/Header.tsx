@@ -1,4 +1,4 @@
-import { Button, Box, styled, Typography, keyframes } from "@mui/material";
+import { Button, Box, styled, Typography } from "@mui/material";
 import React from "react";
 import { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
@@ -42,6 +42,11 @@ const MobileNavLinks = styled(Box)(({ theme }) => ({
 
 const Header: FunctionComponent<HeaderProps> = () => {
   const navigate = useNavigate();
+
+  if (window.location.pathname === ROUTES.AUTH_CALLBACK.path) {
+    return <></>;
+  }
+
   return (
     <>
       <GradientBox />
