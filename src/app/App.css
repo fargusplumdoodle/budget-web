@@ -24,7 +24,7 @@ body {
 }
 
 .content {
-  padding: 20px;
+  padding: 0 20px;
   height: inherit;
   max-width: 1500px;
   flex-grow: 1;

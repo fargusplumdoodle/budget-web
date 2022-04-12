@@ -2,7 +2,7 @@ import * as React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import VariableInputForm from "./VariableInputForm";
-import AppProvider from "../../../app/AppProvider";
+import AppProvider from "../../../app/providers/AppProvider";
 import { createCallback } from "../../../util/storybook";
 
 export default {

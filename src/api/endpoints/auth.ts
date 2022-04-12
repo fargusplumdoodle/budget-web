@@ -36,6 +36,7 @@ export async function retrieveToken(authCode: string): Promise<AuthState> {
   const expiresAt = new Date();
   expiresAt.setSeconds(expiresAt.getSeconds() + data.expires_in);
   return {
+    status: "loaded",
     accessToken: data.access_token,
     refreshToken: data.refresh_token,
     tokenType: data.token_type,

@@ -50,7 +50,7 @@ const DashboardPage: FunctionComponent<Props> = () => {
 
   const query = new URLSearchParams({
     date__gte: DateTime.now().minus({ months: 3 }).toISODate(),
-    budgets__exclude: savingsId.toString(),
+    budgets__excludes: savingsId.toString(),
   });
 
   return (

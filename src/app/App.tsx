@@ -2,20 +2,19 @@ import * as React from "react";
 import Header from "../components/navigation/Header";
 import "./App.css";
 import AppRoutes from "./AppRoutes";
-import InitializeData from "./InitializeData";
+import DataProvider from "./providers/DataProvider";
 
-function App() {
+const App: React.FunctionComponent = () => {
   return (
-    <>
-      <InitializeData />
+    <DataProvider>
       <div className="App">
         <Header />
         <div className="content">
           <AppRoutes />
         </div>
       </div>
-    </>
+    </DataProvider>
   );
-}
+};
 
 export default App;

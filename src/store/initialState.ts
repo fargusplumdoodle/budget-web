@@ -4,10 +4,11 @@ import {
   BudgetState,
   TagState,
   TransactionState,
+  UserInfoState,
 } from "./types/stateTypes";
-import { UserInfo } from "./types/models";
 
 const initialAuthState: AuthState = {
+  status: "init",
   authenticated: false,
   accessToken: "",
   refreshToken: "",
@@ -20,6 +21,7 @@ const initialApiStatusState: ApiStatusState = {
 };
 
 const initialBudgetState: BudgetState = {
+  status: "init",
   list: [],
   byId: {},
   byName: {},
@@ -31,12 +33,14 @@ const initialTransactionState: TransactionState = {
 };
 
 const initialTagState: TagState = {
+  status: "init",
   list: [],
   byName: {},
   byId: {},
 };
 
-const initialUserInfoState: UserInfo = {
+const initialUserInfoState: UserInfoState = {
+  status: "init",
   expected_monthly_net_income: -1,
 };
 

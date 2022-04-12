@@ -5,19 +5,31 @@ import budgets from "./budgetReducer";
 import tags from "./tagReducer";
 import transactions from "./transactionReducer";
 import storage from "redux-persist/lib/storage";
-import { persistReducer } from "redux-persist";
 import userInfo from "./userInfoReducer";
+import { persistReducer } from "redux-persist";
 
-const persistConfig = {
-  key: "root",
-  storage,
-};
 const rootReducer = combineReducers({
-  auth: persistReducer(persistConfig, auth),
-  // budgets: persistReducer(persistConfig, budgets),
-  // tags: persistReducer(persistConfig, tags),
-  budgets,
-  tags,
+  auth: persistReducer(
+    {
+      key: "auth",
+      storage,
+    },
+    auth
+  ),
+  budgets: persistReducer(
+    {
+      key: "budgets",
+      storage,
+    },
+    budgets
+  ),
+  tags: persistReducer(
+    {
+      key: "tags",
+      storage,
+    },
+    tags
+  ),
   apiStatus,
   transactions,
   userInfo,
