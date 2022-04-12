@@ -2,14 +2,14 @@ import * as React from "react";
 import { ReactElement } from "react";
 import { LocalizationProvider } from "@mui/lab";
 import { ThemeProvider } from "@mui/material";
-import { darkTheme } from "./theme";
+import { darkTheme } from "../theme";
 import { SnackbarProvider } from "notistack";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { persistor, store } from "../store/configureStore";
-import AuthProvider from "./AuthProvider";
+import { persistor, store } from "../../store/configureStore";
 import { PersistGate } from "redux-persist/integration/react";
+import AuthProvider from "./AuthProvider";
 
 type AppProviderProps = {
   children: ReactElement[] | ReactElement;

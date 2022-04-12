@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import * as React from "react";
 import { FunctionComponent } from "react";
 import Callback from "../components/auth/Callback";
+import InitLoading from "../components/InitLoading";
 import {
   DashboardPage,
   BudgetsPage,
@@ -16,6 +17,7 @@ import {
   Add,
   List,
   AttachMoney,
+  TrendingUp,
 } from "@mui/icons-material";
 
 export type RouteType = {
@@ -44,6 +46,12 @@ export const ROUTES: { [name: string]: RouteType } = {
     element: <AddTransactionsPage />,
     title: "Add Transactions",
     icon: <Add />,
+  },
+  TRANSACTION_REPORT: {
+    path: "/transactions/reports",
+    element: <InitLoading />,
+    title: "Reports",
+    icon: <TrendingUp />,
   },
   SETTINGS: {
     path: "/user/info",
