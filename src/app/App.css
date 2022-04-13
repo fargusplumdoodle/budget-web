@@ -28,4 +28,15 @@ body {
   height: inherit;
   max-width: 1500px;
   flex-grow: 1;
+  animation: content1 1s;
+}
+
+@keyframes content1 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+  
 }
