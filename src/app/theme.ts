@@ -1,9 +1,9 @@
 import { createTheme, ThemeOptions } from "@mui/material";
 
 export const colors = {
-  purple: "#AD14B1",
-  lightBlue: "#1877B1",
-  darkBlue: "#270A94",
+  purple: "rgba(173, 20, 177, 1)",
+  lightBlue: "rgba(24, 119, 177, 1)",
+  darkBlue: "rgba(39, 10, 148, 1)",
 };
 
 export const theme: ThemeOptions = {

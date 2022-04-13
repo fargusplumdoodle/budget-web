@@ -6,26 +6,11 @@ import { RootState } from "../../store/configureStore";
 import { sum } from "lodash";
 import { formatCurrency } from "../../util/formatters";
 import { getAverageOutcomePerMonth } from "../../util/stats";
-import { Classes } from "../../util/types";
 import { EXPECTED_BUDGETS } from "../../app/settings";
 
 import StackedWave from "../../assets/StackedWave.svg";
+import { fadeInAndUp } from "../../theme/animations";
 
-const classes: Classes = {
-  root: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundImage: `url(${StackedWave})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-  },
-  stats: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-  },
-};
 const Container = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
@@ -39,10 +24,20 @@ const Container = styled(Box)(({ theme }) => ({
     flexDirection: "column-reverse",
     justifyContent: "space-between",
   },
+  p: {
+    animation: `${fadeInAndUp} 1s linear 0s 1 normal forwards`,
+  },
+}));
+
+const Stats = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-evenly",
 }));
 
 const NetWorth = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4),
+    animation: `${fadeInAndUp} 1s linear 0s 1 normal forwards`,
 }));
 
 const StatusOverview: FunctionComponent = () => {
@@ -56,7 +51,7 @@ const StatusOverview: FunctionComponent = () => {
 
   return (
     <Container>
-      <Box sx={classes.stats}>
+      <Stats>
         <Typography variant="body1">
           Monthly Outcome: {formatCurrency(monthlyOutcome, false)}
         </Typography>
@@ -74,7 +69,7 @@ const StatusOverview: FunctionComponent = () => {
             false
           )}
         </Typography>
-      </Box>
+      </Stats>
 
       <NetWorth>
         <Typography variant="h2">

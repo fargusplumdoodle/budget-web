@@ -1,12 +1,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="1000" height="200" preserveAspectRatio="none" viewBox="0 0 1000 200">
     <g mask="url(&quot;#SvgjsMask1048&quot;)" fill="none">
-        <path d="M 0,108 C 50,89.8 150,10 250,17 C 350,24 400,146 500,143 C 600,140 650,-0.8 750,2 C 850,4.8 950,126 1000,157L1000 200L0 200z" fill="rgba(39, 10, 148, 1)" style="--darkreader-inline-fill: #1f0876;" data-darkreader-inline-fill=""></path>
-        <path d="M 0,91 C 40,104.8 120,176.8 200,160 C 280,143.2 320,3.4 400,7 C 480,10.6 520,167.6 600,178 C 680,188.4 720,66 800,59 C 880,52 960,126.2 1000,143L1000 200L0 200z" fill="rgba(173, 20, 177, 1)" style="--darkreader-inline-fill: #8a108e;" data-darkreader-inline-fill=""></path>
-        <path d="M 0,131 C 66.8,115.2 200.4,38.4 334,52 C 467.6,65.6 534.8,201.2 668,199 C 801.2,196.8 933.6,72.6 1000,41L1000 200L0 200z" fill="rgba(24, 119, 177, 1)" style="--darkreader-inline-fill: #135f8e;" data-darkreader-inline-fill=""></path>
+        <path class="blue-wave" d="M 0,108 C 50,89.8 150,10 250,17 C 350,24 400,146 500,143 C 600,140 650,-0.8 750,2 C 850,4.8 950,126 1000,157L1000 200L0 200z" fill="rgba(39, 10, 148, 1)" style="--darkreader-inline-fill: #1f0876;" data-darkreader-inline-fill=""></path>
+        <path class="purple-wave" d="M 0,91 C 40,104.8 120,176.8 200,160 C 280,143.2 320,3.4 400,7 C 480,10.6 520,167.6 600,178 C 680,188.4 720,66 800,59 C 880,52 960,126.2 1000,143L1000 200L0 200z" fill="rgba(173, 20, 177, 1)" style="--darkreader-inline-fill: #8a108e;" data-darkreader-inline-fill=""></path>
+        <path class="light-blue-wave" d="M 0,131 C 66.8,115.2 200.4,38.4 334,52 C 467.6,65.6 534.8,201.2 668,199 C 801.2,196.8 933.6,72.6 1000,41L1000 200L0 200z" fill="rgba(24, 119, 177, 1)" style="--darkreader-inline-fill: #135f8e;" data-darkreader-inline-fill=""></path>
     </g>
     <defs>
         <mask id="SvgjsMask1048">
             <rect width="1000" height="200" fill="#ffffff" style="--darkreader-inline-fill: #e8e6e3;" data-darkreader-inline-fill=""></rect>
         </mask>
+        <style>
+@keyframes purple1 {
+  0% {
+    transform: translate(-300px, 300px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes blue1 {
+  0% {
+    transform: translate(300px, 300px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes light-blue1 {
+  0% {
+    transform: translate(300px, 300px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.purple-wave {
+  animation: purple1 1s;
+}
+.blue-wave {
+  animation: blue1 1.5s;
+}
+.light-blue-wave {
+  animation: light-blue1 2s;
+}
+        </style>
+        <style class="darkreader darkreader--sync" media="screen"></style>
     </defs>
 </svg>
