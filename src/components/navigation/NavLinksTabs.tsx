@@ -16,7 +16,6 @@ const NavLinks: FunctionComponent<NavLinksProps> = () => {
       variant="scrollable"
       value={selected ? links.indexOf(selected) : 0}
       aria-label="Navigation Links"
-      sx={{}}
     >
       {links.map((ln) => {
         const index = links.indexOf(ln);

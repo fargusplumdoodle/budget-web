@@ -40,10 +40,10 @@
   animation: purple1 1s;
 }
 .blue-wave {
-  animation: blue1 1s;
+  animation: blue1 1.5s;
 }
 .light-blue-wave {
-  animation: light-blue1 1s;
+  animation: light-blue1 2s;
 }
         </style>
         <style class="darkreader darkreader--sync" media="screen"></style>

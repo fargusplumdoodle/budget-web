@@ -11,6 +11,7 @@ import { ReportTypes } from "../api/types";
 import SpendingSummary from "../components/report/spending_summary/SpendingSummary";
 import { DateTime } from "luxon";
 import { EXPECTED_BUDGETS } from "../app/settings";
+import { fadeIn } from "../theme/animations";
 
 interface OwnProps extends ProviderContext {}
 
@@ -39,6 +40,14 @@ const DashboardCard = styled(Card)(({ theme }) => ({
     width: "100%",
     maxWidth: "100%",
   },
+  ":nth-child(odd)": {
+    animation: `${fadeIn} 500ms linear 0.1s 1 normal forwards`,
+    opacity: 0,
+  },
+  ":nth-child(even)": {
+    animation: `${fadeIn} 500ms linear 0.3s 1 normal forwards`,
+    opacity: 0,
+  },
 }));
 
 const DashboardPage: FunctionComponent<Props> = () => {
@@ -63,7 +72,7 @@ const DashboardPage: FunctionComponent<Props> = () => {
         <StatusOverview />
       </Box>
 
-      <CardArea>
+      <CardArea >
         <DashboardCard>
           <BudgetTable budgets={budgets.list} />
         </DashboardCard>
