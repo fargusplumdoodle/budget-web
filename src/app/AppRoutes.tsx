@@ -18,7 +18,9 @@ import {
   List,
   AttachMoney,
   TrendingUp,
+  Search,
 } from "@mui/icons-material";
+import QueryView from "../views/QueryView";
 
 export type RouteType = {
   path: string;
@@ -35,6 +37,12 @@ export const ROUTES: { [name: string]: RouteType } = {
     icon: <Dashboard />,
   },
   AUTH_CALLBACK: { path: "/auth/callback", element: <Callback /> },
+  QUERY: {
+    path: "/transactions/query",
+    element: <QueryView/>,
+    title: "Query",
+    icon: <Search/>,
+  },
   TRANSACTIONS_LIST: {
     path: "/transactions/list",
     element: <TransactionsPage />,

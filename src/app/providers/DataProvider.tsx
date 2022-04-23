@@ -1,12 +1,19 @@
 import { fetchBudgets } from "../../store/actions/budgetActions";
 import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import { AppDispatch, RootState } from "../../store/configureStore";
 import { fetchTags } from "../../store/actions/tagActions";
 import { fetchUserInfo } from "../../store/actions/userInfoActions";
 import InitLoading from "../../components/InitLoading";
 import { StateStatus } from "../../store/types/stateTypes";
+import { logOut } from "../../store/actions/authActions";
 
 type DispatchFn = () => (dispatch: AppDispatch) => void;
 type ExpectedData = {
@@ -74,6 +81,15 @@ const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
             ))}
           </ul>
         </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              dispatch(logOut());
+            }}
+          >
+            Give up and log out
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );
