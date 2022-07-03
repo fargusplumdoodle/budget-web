@@ -3,8 +3,8 @@ import { store } from "../store/configureStore";
 import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { DateTime } from "luxon";
 import { round } from "lodash";
-import { Expression } from "../components/forms/search/types";
 import { clearAuthToken } from "../store/actions/authActions";
+import { Expression } from "../components/query/types";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   const state = store.getState();
@@ -88,7 +88,7 @@ export function getAPIDate(apiDate: string): Date {
 }
 
 export function getQueryParametersFromExpressions(
-  expressions: Expression[]
+  expressions: Expression<any>[]
 ): URLSearchParams {
   const queryParams = new URLSearchParams();
   expressions.forEach((expression) => {

@@ -14,6 +14,7 @@ export const colors = {
 
 export const transparentColors = {
   purple: (opacity: number) => `rgba(173, 20, 177, ${opacity})`,
+  white: (opacity: number) => `rgba(255, 255, 255, ${opacity})`,
   lightBlue: (opacity: number) => `rgba(24, 119, 177, ${opacity})`,
   lightBlue2: (opacity: number) => `rgba(8, 138, 161, ${opacity})`,
   darkBlue: (opacity: number) => `rgba(39, 10, 148, ${opacity})`,
