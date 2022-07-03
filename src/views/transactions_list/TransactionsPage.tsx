@@ -3,11 +3,13 @@ import { FunctionComponent, useState } from "react";
 import PaginatedTransactionsTable from "../../components/transactions/transactions_table/PaginatedTransactionsTable";
 import { Transaction } from "../../store/types/models";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
-import VariableInputForm from "../../components/forms/search/VariableInputForm";
 import api from "../../api";
 import Card from "@mui/material/Card";
 import ApiErrorDialog, { ApiError } from "../../components/ApiErrorDialog";
 import { Box, LinearProgress } from "@mui/material";
+import QueryForm from "../../components/query";
+import { Expression } from "../../components/query/types";
+import { getQueryParametersFromExpressions } from "../../api/util";
 
 interface Props {}
 
@@ -16,6 +18,7 @@ const TransactionsPage: FunctionComponent<Props> = () => {
   const [query, setQuery] = useState({});
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [loading, setLoading] = useState(false);
+  const [expressions, setExpressions] = useState<Expression<any>[]>([]);
 
   // TODO: FETCH MORE PAGES
   React.useEffect(() => {
@@ -35,11 +38,19 @@ const TransactionsPage: FunctionComponent<Props> = () => {
     setQuery(new URLSearchParams(queryParams));
   }
 
+  const onChangeExpressions = (newExpressions: Expression<any>[]) => {
+    setExpressions(newExpressions);
+    onSubmitQuery(getQueryParametersFromExpressions(newExpressions));
+  };
+
   return (
     <>
-      <Card sx={{ marginBottom: 1 }}>
-        <VariableInputForm submit={onSubmitQuery} />
-      </Card>
+      <Box sx={{ marginBottom: 2 }}>
+        <QueryForm
+          expressions={expressions}
+          onChangeExpressions={onChangeExpressions}
+        />
+      </Box>
       <Card>
         {!loading ? (
           <Box sx={{ width: "100%" }}>

@@ -1,13 +1,8 @@
 import { Cancel } from "@mui/icons-material";
-import {
-  Box,
-  keyframes,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Box, keyframes, styled, Typography } from "@mui/material";
 import * as React from "react";
 import { FunctionComponent } from "react";
-import { colors } from "../../app/theme";
+import { colors, transparentColors } from "../../app/theme";
 import { Expression } from "./types";
 
 export const shrinkRight = keyframes`
@@ -16,8 +11,10 @@ export const shrinkRight = keyframes`
   }
   100% {
     padding-right: -36px;
+    background-color: ${transparentColors.darkBlue(0.4)};
   }
 `;
+
 export const fadeRight = keyframes`
   0% {
     transform: translate(-5px, 0);
@@ -30,7 +27,6 @@ export const fadeRight = keyframes`
     transform: translate(0, 0);
     opacity: 1;
   }
-
 `;
 
 const Container = styled(Box)(() => ({
@@ -52,7 +48,7 @@ const Container = styled(Box)(() => ({
   },
 }));
 
-const Label = styled(Typography)(() => ({}));
+const Label = styled(Typography)(() => ({ whiteSpace: "nowrap" }));
 
 const DeleteButton = styled(Cancel)(() => ({
   padding: 0,
@@ -73,8 +69,8 @@ const ExpressionChip: FunctionComponent<ExpressionChipProps> = ({
   onDelete,
 }) => {
   return (
-    <Container onClick={() => onClick(expression)}>
-      <Label variant="caption">
+    <Container>
+      <Label variant="caption" onClick={() => onClick(expression)}>
         {`${expression.operand.label} ${
           expression.operator.name
         } ${expression.operand.inputLabel(expression.value)}`}

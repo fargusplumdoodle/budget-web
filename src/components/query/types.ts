@@ -1,4 +1,9 @@
-import { ReactNode } from "react";
+import { FunctionComponent } from "react";
+
+export type ExpressionInputProps<T> = {
+  value: T;
+  onChange: (value: T) => void;
+};
 
 export interface Expression<T> {
   id: number;
@@ -12,10 +17,11 @@ export interface Operand<T> {
   label: string;
   operators: Operator<T>[];
 
-  input: ReactNode;
+  input: FunctionComponent<ExpressionInputProps<T>>;
   requiresSetValueAndExpression: boolean;
   inputLabel: (x: T) => string;
   transformValue?: (x: T) => string[];
+  getDefaultValue: () => T;
 }
 
 // eslint-disable-next-line unused-imports/no-unused-vars

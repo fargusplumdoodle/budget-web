@@ -1,4 +1,4 @@
-import { Button, Box, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import React from "react";
 import { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,7 @@ const Container = styled(Box)(({ theme }) => ({
 const Title = styled(Typography)(() => ({
   textAlign: "center",
   textTransform: "lowercase",
+  color: colors.textBlue,
 }));
 
 const GradientBox = styled(Box)(() => ({
@@ -29,11 +30,13 @@ const GradientBox = styled(Box)(() => ({
 }));
 
 const DesktopNavLinks = styled(Box)(({ theme }) => ({
+  marginRight: -28,
   [theme.breakpoints.down("sm")]: {
     display: "none",
   },
 }));
 const MobileNavLinks = styled(Box)(({ theme }) => ({
+  marginRight: -14,
   display: "none",
   [theme.breakpoints.down("sm")]: {
     display: "block",
@@ -51,9 +54,9 @@ const Header: FunctionComponent<HeaderProps> = () => {
     <>
       <GradientBox />
       <Container>
-        <Button onClick={() => navigate(ROUTES.DASHBOARD.path)}>
+        <Box onClick={() => navigate(ROUTES.DASHBOARD.path)}>
           <Title variant="h4">b</Title>
-        </Button>
+        </Box>
         <DesktopNavLinks>
           <NavLinksTabs />
         </DesktopNavLinks>

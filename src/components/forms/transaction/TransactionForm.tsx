@@ -23,11 +23,11 @@ import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import TagFormDialog from "../tag/TagFormDialog";
 import api from "../../../api";
 import ControlledAmountInput from "../inputs/ControlledAmountInput";
-import ControlledTagsInput from "../inputs/ControlledTagsInput";
 import { InputErrorMessage } from "../types";
 import BudgetsInput from "../inputs/ControlledBudgetInput";
 import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
 import ControlledDateInput from "../inputs/ControlledDateInput";
+import TagsInput from "../../query/inputs/TagsInput";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
@@ -43,13 +43,14 @@ const TransactionForm = (props: Props) => {
     Boolean(props["transaction"]) && props.transaction!.id
   );
   const budgets = useSelector((state: RootState) => state.budgets);
-  const tags = useSelector((state: RootState) => state.tags);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [transactionSign, setTransactionSign]: [Sign, any] = useState(
     isEdit ? (props.transaction!.amount > 0 ? "+" : "-") : "-"
   );
   const [newTagDialogOpen, setNewTagDialogOpen] = useState(false);
+  // I hate this so much, but this whole component needs to be rewritten anyway
+  const [forceRerender, setForceRerender] = useState(false);
 
   const defaultValues = isEdit
     ? { ...props.transaction, amount: Math.abs(props.transaction!.amount) }
@@ -134,9 +135,24 @@ const TransactionForm = (props: Props) => {
       });
   };
 
+  const onTagChange = (tags: Tag[]) => {
+    setForceRerender(!forceRerender); // l333t hacks
+    setValue("tags", tags);
+    if (tags.length > 0) {
+      const lastTag = tags[tags.length - 1];
+
+      if (lastTag.common_budget) setValue("budget", lastTag.common_budget);
+
+      if (lastTag.common_transaction_amount)
+        setValue("amount", Math.abs(lastTag.common_transaction_amount));
+    }
+  };
   return (
     <>
-      <form onSubmit={handleSubmit((data) => onSubmit(data as Transaction))}>
+      <form
+        onSubmit={handleSubmit((data) => onSubmit(data as Transaction))}
+        onChange={(t) => console.log("changed form", t)}
+      >
         <Stack
           spacing={2}
           justifyContent="flex-start"
@@ -149,14 +165,16 @@ const TransactionForm = (props: Props) => {
             sx={{
               display: "flex",
               flexDirection: "row",
+              alignItems: "center",
             }}
           >
-            <ControlledTagsInput<Transaction>
-              name="tags"
-              control={control}
-              getValues={getValues}
-              options={tags.list}
-              errors={errors["tags"] as InputErrorMessage}
+            <TagsInput
+              value={getValues("tags") as Tag[]}
+              textFieldProps={{
+                helperText: (errors["tags"] as InputErrorMessage)?.message,
+                error: !!errors["tags"],
+              }}
+              onChange={onTagChange}
             />
             <Button
               onClick={() => {

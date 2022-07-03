@@ -46,6 +46,8 @@ export function generateTestTag(args: Object = {}): Tag {
     id: i,
     name: faker.lorem.word() + i.toString(),
     rank: i,
+    common_budget: generateTestBudget(),
+    common_transaction_amount: -30,
     ...args,
   };
 }
@@ -68,6 +70,8 @@ export function generateTag(args: Object = {}): Tag {
     id: null,
     name: "",
     rank: null,
+    common_budget: null,
+    common_transaction_amount: null,
     ...args,
   };
 }

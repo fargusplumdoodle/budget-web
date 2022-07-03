@@ -1,50 +1,57 @@
+import { Checkbox } from "@mui/material";
 import { toCents } from "../../../api/util";
 import { Budget, Tag } from "../../../store/types/models";
+import BudgetsInput from "../inputs/BudgetsInput";
+import CurrencyInput from "../inputs/DescriptionInput";
+import DateInput from "../inputs/DateInput";
+import TagsInput from "../inputs/TagsInput";
 import { Operand } from "../types";
-import { INPUTS } from "./inputs";
 import {
   numericalOperators,
   textOperators,
   listOperators,
   OPERATORS,
 } from "./operators";
+import DescriptionInput from "../inputs/DescriptionInput";
 
 export const OPERANDS: { [name: string]: Operand<any> } = {
   amount: {
     name: "amount",
     label: "Amount",
     operators: numericalOperators,
-
-    input: INPUTS.currency,
+    input: CurrencyInput,
     transformValue: (amount: number) => [toCents(amount).toString()],
     requiresSetValueAndExpression: false,
     inputLabel: (amount: number) => amount.toString(),
+    getDefaultValue: () => 0,
   },
   description: {
     name: "description",
     label: "Description",
     operators: textOperators,
 
-    input: INPUTS.text,
+    input: DescriptionInput,
     requiresSetValueAndExpression: false,
     inputLabel: (description: string) => description,
+    getDefaultValue: () => "",
   },
   date: {
     name: "date",
     label: "Date",
     operators: numericalOperators,
 
-    input: INPUTS.date,
+    input: DateInput,
     requiresSetValueAndExpression: true,
     transformValue: (date: Date) => [date.toLocaleDateString()],
     inputLabel: (date: Date) => date.toLocaleDateString(),
+    getDefaultValue: () => new Date(),
   },
   tags: {
     name: "tags",
     label: "Tags",
     operators: listOperators,
 
-    input: INPUTS.tags,
+    input: TagsInput,
     requiresSetValueAndExpression: true,
     transformValue: (tags: Tag[]) => {
       return tags.map((t) => t.name);
@@ -52,6 +59,7 @@ export const OPERANDS: { [name: string]: Operand<any> } = {
     inputLabel: (tags: Tag[]) => {
       return tags.map((t) => t.name).join(", ");
     },
+    getDefaultValue: () => [],
   },
 
   tags__none: {
@@ -59,19 +67,19 @@ export const OPERANDS: { [name: string]: Operand<any> } = {
     label: "No Tags",
 
     operators: [OPERATORS.none],
-    input: INPUTS.impliedTrue,
+    input: Checkbox,
     requiresSetValueAndExpression: false,
-    transformValue: () => {
-      return ["true"];
-    },
+    transformValue: () => ["true"],
     inputLabel: () => "",
+    getDefaultValue: () => true,
   },
+
   budgets: {
     name: "budget",
     label: "Budgets",
 
     operators: listOperators,
-    input: INPUTS.budgets,
+    input: BudgetsInput,
     requiresSetValueAndExpression: true,
     transformValue: (budgets: Budget[]) => {
       return budgets.map((b) => b.id!.toString());
@@ -79,5 +87,6 @@ export const OPERANDS: { [name: string]: Operand<any> } = {
     inputLabel: (budgets: Budget[]) => {
       return budgets.map((b) => b.name).join(", ");
     },
+    getDefaultValue: () => [],
   },
 };

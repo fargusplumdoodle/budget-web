@@ -3,7 +3,10 @@ interface Model {
 }
 export interface Tag extends Model {
   name: string;
-  rank: number | null;
+
+  rank?: number | null;
+  common_budget: Budget | null;
+  common_transaction_amount: number | null;
 }
 
 export interface Budget extends Model {
