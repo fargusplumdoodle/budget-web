@@ -17,6 +17,8 @@ export interface SerializedTransaction extends SerializedModel {
 export interface SerializedTag extends SerializedModel {
   rank?: number;
   name: string;
+  common_budget?: number | null;
+  common_transaction_amount?: number | null;
 }
 
 export interface SerializedBudget extends SerializedModel {

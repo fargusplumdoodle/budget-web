@@ -13,11 +13,19 @@ export const serializeTag = (tag: Tag): SerializedTag => {
     name: tag.name,
   };
 };
+
 export const deserializeTag = (tag: SerializedTag): Tag => {
+  const state = store.getState();
+  const budget = tag.common_budget
+    ? state.budgets.byId[tag.common_budget]
+    : null;
+
   return {
+    ...tag,
     id: tag.id!,
-    name: tag.name,
     rank: tag.rank!,
+    common_transaction_amount: tag.common_transaction_amount!,
+    common_budget: budget,
   };
 };
 
