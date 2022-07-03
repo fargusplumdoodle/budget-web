@@ -1,33 +1,49 @@
 import * as React from "react";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, styled, TextField } from "@mui/material";
 import { store } from "../../../store/configureStore";
 import { Tag } from "../../../store/types/models";
 import { ExpressionInputProps } from "../types";
 
 interface Props extends ExpressionInputProps<Tag[]> {
   [k: string]: any;
+  textFieldProps?: {
+    [k: string]: any;
+  };
 }
 
-const TagsInput: React.FunctionComponent<Props> = (props) => {
+const Input = styled(Autocomplete)(() => ({
+  width: "100%",
+}));
+
+const TagsInput: React.FunctionComponent<Props> = ({
+  textFieldProps,
+  onChange,
+  ...props
+}) => {
   const state = store.getState();
   return (
-    <Autocomplete
+    <Input
       options={state.tags.list}
       disablePortal
       multiple
       limitTags={2}
       disableClearable
-      isOptionEqualToValue={(option: Tag, value: Tag) => {
-        return option.id === value.id;
+      isOptionEqualToValue={(option, value) => {
+        return (option as Tag).id === (value as Tag).id;
       }}
-      getOptionLabel={(option: Tag) => option.name}
+      getOptionLabel={(option) => (option as Tag).name}
       renderInput={(params: any) => (
-        <TextField {...params} variant="standard" placeholder="Tags" />
+        <TextField
+          {...textFieldProps}
+          {...params}
+          variant="standard"
+          placeholder="Tags"
+        />
       )}
-      {...props}
       onChange={(e, tags) => {
-        props.onChange(tags);
+        onChange(tags as Tag[]);
       }}
+      {...props}
     />
   );
 };

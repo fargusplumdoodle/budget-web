@@ -20,11 +20,15 @@ export const deserializeTag = (tag: SerializedTag): Tag => {
     ? state.budgets.byId[tag.common_budget]
     : null;
 
+  const commonTransactionAmount = tag.common_transaction_amount
+    ? fromCents(tag.common_transaction_amount)
+    : null;
+
   return {
     ...tag,
     id: tag.id!,
     rank: tag.rank!,
-    common_transaction_amount: tag.common_transaction_amount!,
+    common_transaction_amount: commonTransactionAmount,
     common_budget: budget,
   };
 };
