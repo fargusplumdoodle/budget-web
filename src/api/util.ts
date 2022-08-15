@@ -3,17 +3,14 @@ import { store } from "../store/configureStore";
 import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { DateTime } from "luxon";
 import { round } from "lodash";
-import { clearAuthToken } from "../store/actions/authActions";
 import { Expression } from "../components/query/types";
+import { checkAuth } from "./endpoints/auth";
+import { clearAuthToken } from "../store/actions/authActions";
 
 export async function makeRequest(params: AxiosRequestConfig) {
+  await checkAuth();
+
   const state = store.getState();
-
-  if (!state.auth.authenticated) {
-    console.log("Not authenticated");
-    throw Error("ah not authenticated");
-  }
-
   try {
     return await axios({
       ...params,

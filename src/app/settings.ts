@@ -24,6 +24,7 @@ const settings = {
       `${getServerURL(true)}/o/authorize` +
       "?response_type=code" +
       `&client_id=${CLIENT_ID}` +
+      `&approval_prompt=auto` +
       `&redirect_uri=${CALLBACK_URL}`,
   },
   expectedBudgets: Object.values(EXPECTED_BUDGETS),
