@@ -37,3 +37,16 @@ export function requestAuthToken(authCode: string) {
       });
   };
 }
+export function refreshAuthToken(refreshToken: string) {
+  return async (dispatch: AppDispatch) => {
+    dispatch(updateStatus("AUTH", "loading"));
+    const authToken: AuthState = await api.auth.refreshToken(refreshToken);
+
+    try {
+      dispatch(setAuthTokenSuccess(authToken));
+    } catch (err) {
+      dispatch(updateStatus("AUTH", "error"));
+      throw err;
+    }
+  };
+}

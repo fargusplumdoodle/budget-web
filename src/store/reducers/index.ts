@@ -30,8 +30,14 @@ const rootReducer = combineReducers({
     },
     tags
   ),
+  userInfo: persistReducer(
+    {
+      key: "User Info",
+      storage,
+    },
+    userInfo
+  ),
   apiStatus,
   transactions,
-  userInfo,
 });
 export default rootReducer;
