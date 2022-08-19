@@ -10,7 +10,7 @@ import {
 import FormControlLabel from "@mui/material/FormControlLabel";
 import * as React from "react";
 import { Tag, Transaction } from "../../../store/types/models";
-import { generateTransaction } from "../../../util/generators";
+import { generateTransaction } from "../../../util/generators/generators";
 import { RootState } from "../../../store/configureStore";
 import { useSelector } from "react-redux";
 import { FormItem, transactionSchema } from "../../../util/form";

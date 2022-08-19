@@ -1,6 +1,6 @@
 import { range } from "lodash";
-import { generateTestTransaction } from "./generators";
 import { Transaction } from "../store/types/models";
+import { generateTestTransaction } from "./generators/test_generators";
 
 export const createSampleTransactions = function (amount: number = 100) {
   return range(amount).map(() => generateTestTransaction());

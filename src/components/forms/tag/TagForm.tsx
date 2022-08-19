@@ -3,7 +3,7 @@ import { FunctionComponent, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormItem, tagSchema } from "../../../util/form";
-import { generateTag } from "../../../util/generators";
+import { generateTag } from "../../../util/generators/generators";
 import { Tag } from "../../../store/types/models";
 import { Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { ProviderContext, withSnackbar } from "notistack";
