@@ -21,15 +21,9 @@ type Props = OwnProps;
 
 const BudgetTable: FunctionComponent<Props> = (props: Props) => {
   const navigate = useNavigate();
-  const headers = [
-    "Name",
-    "Percentage",
-    "Income Per Month",
-    "Outcome Per Month",
-    "balance",
-  ];
+  const headers = ["Name", "Percentage", "balance"];
   return (
-    <TableContainer sx={{ overflow: "scroll", alignContent: "center" }}>
+    <TableContainer sx={{ alignContent: "center" }}>
       <Table aria-label="budget overview">
         <TableHead>
           <TableRow>
@@ -53,12 +47,6 @@ const BudgetTable: FunctionComponent<Props> = (props: Props) => {
               >
                 <TableCell>{budget.name}</TableCell>
                 <TableCell>{budget.percentage}</TableCell>
-                <TableCell>
-                  {formatCurrency(budget.income_per_month, false)}
-                </TableCell>
-                <TableCell>
-                  {formatCurrency(budget.outcome_per_month, false)}
-                </TableCell>
                 <TableCell>{formatCurrency(budget.balance, false)}</TableCell>
               </TableRow>
             );
