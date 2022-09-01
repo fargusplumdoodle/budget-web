@@ -19,7 +19,7 @@ type Props = OwnProps;
 
 const CardArea = styled(Box)(({ theme }) => ({
   display: "flex",
-  flexDirection: "row",
+  flexDirection: "column",
   justifyContent: "center",
   gap: theme.spacing(3),
   height: "100%",
@@ -31,11 +31,8 @@ const CardArea = styled(Box)(({ theme }) => ({
 
 const DashboardCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(1),
-  maxWidth: `calc(50% - ${theme.spacing(4)})`,
   minWidth: 300,
   flexGrow: 1,
-  height: 520,
-  overflow: "scroll",
   [theme.breakpoints.down(977)]: {
     width: "100%",
     maxWidth: "100%",
@@ -72,7 +69,7 @@ const DashboardPage: FunctionComponent<Props> = () => {
         <StatusOverview />
       </Box>
 
-      <CardArea >
+      <CardArea>
         <DashboardCard>
           <BudgetTable budgets={budgets.list} />
         </DashboardCard>
