@@ -6,6 +6,8 @@ import tags from "./tagReducer";
 import transactions from "./transactionReducer";
 import storage from "redux-persist/lib/storage";
 import userInfo from "./userInfoReducer";
+import ui from "./uiReducer";
+import panes from "./panesReducer";
 import { persistReducer } from "redux-persist";
 
 const rootReducer = combineReducers({
@@ -39,5 +41,7 @@ const rootReducer = combineReducers({
   ),
   apiStatus,
   transactions,
+  ui,
+  panes,
 });
 export default rootReducer;

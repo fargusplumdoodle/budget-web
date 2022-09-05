@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from "@mui/material";
+import { ThemeOptions } from "@mui/material";
 
 export const colors = {
   purple: "rgba(173, 20, 177, 1)",
@@ -44,10 +44,3 @@ export const theme: ThemeOptions = {
     },
   },
 };
-
-export const darkTheme = createTheme({
-  ...theme,
-  typography: {
-    fontFamily: "Ubuntu",
-  },
-});

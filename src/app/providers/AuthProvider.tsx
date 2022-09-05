@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { ROUTES } from "../AppRoutes";
 import InitLoading from "../../components/InitLoading";
-import { clearAuthToken, requestAuthToken } from "../../store/actions/authActions";
+import {
+  clearAuthToken,
+  requestAuthToken,
+} from "../../store/actions/authActions";
 
 interface AuthProviderProps {
   children: ReactNode | ReactNode[];

@@ -25,6 +25,11 @@ const chunks = [
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      "react/jsx-runtime": "react/jsx-runtime.js"
+    }
+  },
   build: {
     rollupOptions: {
       output: {

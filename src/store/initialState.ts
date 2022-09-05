@@ -2,10 +2,13 @@ import {
   ApiStatusState,
   AuthState,
   BudgetState,
+  PanesState,
   TagState,
   TransactionState,
+  UIState,
   UserInfoState,
 } from "./types/stateTypes";
+import { DEFAULT_THEME } from "@fargusplumdoodle/themes";
 
 const initialAuthState: AuthState = {
   status: "init",
@@ -44,12 +47,25 @@ const initialUserInfoState: UserInfoState = {
   expected_monthly_net_income: -1,
 };
 
-const initalState = {
+const initialUIState: UIState = {
+  theme: {
+    themeName: DEFAULT_THEME,
+    darkMode: true,
+  },
+};
+
+const initialPanesState: PanesState = {
+  theme: false,
+};
+
+const initialState = {
   auth: initialAuthState,
   apiStatus: initialApiStatusState,
   budgets: initialBudgetState,
   transactions: initialTransactionState,
   tags: initialTagState,
   userInfo: initialUserInfoState,
+  ui: initialUIState,
+  panes: initialPanesState,
 };
-export default initalState;
+export default initialState;

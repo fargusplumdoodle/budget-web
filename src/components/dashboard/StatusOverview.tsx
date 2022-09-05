@@ -37,7 +37,7 @@ const Stats = styled(Box)(() => ({
 
 const NetWorth = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4),
-    animation: `${fadeInAndUp} 1s linear 0s 1 normal forwards`,
+  animation: `${fadeInAndUp} 1s linear 0s 1 normal forwards`,
 }));
 
 const StatusOverview: FunctionComponent = () => {

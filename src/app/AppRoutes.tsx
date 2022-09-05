@@ -39,9 +39,9 @@ export const ROUTES: { [name: string]: RouteType } = {
   AUTH_CALLBACK: { path: "/auth/callback", element: <Callback /> },
   QUERY: {
     path: "/transactions/query",
-    element: <QueryView/>,
+    element: <QueryView />,
     title: "Query",
-    icon: <Search/>,
+    icon: <Search />,
   },
   TRANSACTIONS_LIST: {
     path: "/transactions/list",

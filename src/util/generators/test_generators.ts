@@ -31,7 +31,6 @@ export function generateTestTransaction(args: Object = {}): Transaction {
   };
 }
 
-
 export function generateTestTag(args: Object = {}): Tag {
   const i = getUniqueNumber();
   return {
