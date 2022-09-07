@@ -9,7 +9,7 @@ export default function uiReducer(
 ) {
   switch (action.type) {
     case SET_SYSTEM_THEME:
-      return { ...state, palette: action.payload.palette };
+      return { ...state, theme: action.payload };
     default:
       return state;
   }

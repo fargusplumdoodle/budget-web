@@ -20,6 +20,8 @@ const BudgetThemeProvider: FunctionComponent<ThemeProviderProps> = ({
     return darkMode ? theme.dark : theme.light;
   }, [themeName, darkMode]);
 
+  console.log(darkMode, theme.palette.mode);
+
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 

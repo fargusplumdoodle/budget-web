@@ -55,7 +55,7 @@ const initialUIState: UIState = {
 };
 
 const initialPanesState: PanesState = {
-  theme: false,
+  current: null,
 };
 
 const initialState = {

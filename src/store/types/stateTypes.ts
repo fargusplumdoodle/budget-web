@@ -49,5 +49,5 @@ export interface UIState {
 }
 
 export interface PanesState {
-  theme: boolean;
+  current: null | "theme";
 }
