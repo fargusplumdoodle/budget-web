@@ -1,6 +1,9 @@
 import React, { FunctionComponent } from "react";
 import { Dialog, DialogContent, styled } from "@mui/material";
 import ThemeForm from "../../components/forms/ThemeForm";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/configureStore";
+import { closeAllPanes } from "../../store/actions/panesActions";
 
 const Pane = styled(Dialog)(() => ({
   left: "auto",
@@ -16,10 +19,11 @@ const PaneContent = styled(DialogContent)(() => ({
 }));
 
 const PaneProvider: FunctionComponent = () => {
-  // const pane = useSelector((state: RootState) => state.panes.current);
-    const pane = 'theme'
+  const dispatch = useDispatch();
+  const pane = useSelector((state: RootState) => state.panes.current);
+
   return (
-    <Pane open={true}>
+    <Pane open={!!pane} onClose={() => dispatch(closeAllPanes())}>
       <PaneContent>{pane === "theme" && <ThemeForm />}</PaneContent>
     </Pane>
   );

@@ -5,11 +5,12 @@ import { THEMES } from "@fargusplumdoodle/themes";
 import ThemeOption from "./ThemeOption";
 import { RootState } from "../../../store/configureStore";
 import { setSystemTheme } from "../../../store/actions/uiActions";
+import { UIState } from "../../../store/types/stateTypes";
 
 const ThemeForm: FunctionComponent = () => {
   const dispatch = useDispatch();
   const { themeName, darkMode } = useSelector(
-    (state: RootState) => state.ui.theme
+    (state: RootState) => (state.ui as UIState).theme
   );
   console.log(themeName, darkMode);
 

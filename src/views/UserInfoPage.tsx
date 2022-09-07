@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../components/ApiErrorDialog";
-import { Card } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import { UserInfo } from "../store/types/models";
 import UserInfoForm from "../components/forms/user_info/UserInfoForm";
 import { ProviderContext, withSnackbar } from "notistack";
@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { loadUserInfoSuccess } from "../store/actions/userInfoActions";
 import api from "../api";
 import AuthButton from "../components/auth/AuthButton";
+import { openThemePane } from "../store/actions/panesActions";
 
 const classes = {
   root: {
@@ -46,6 +47,7 @@ const UserInfoPage: React.FC<UserInfoPageProps> = function ({
       <Card sx={classes.root}>
         <UserInfoForm loading={loading} onSubmit={onSubmit} />
       </Card>
+      <Button onClick={() => dispatch(openThemePane())}>SET THEMES</Button>
       <AuthButton sx={{ m: 4 }} />
       <ApiErrorDialog
         error={apiError}

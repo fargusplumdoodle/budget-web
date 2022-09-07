@@ -1,10 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import initialState from "../initialState";
-import {
-  CLOSE_ALL_PANES,
-  CLOSE_THEME_PANE,
-  OPEN_THEME_PANE,
-} from "../actions/actionTypes";
+import { CLOSE_ALL_PANES, OPEN_THEME_PANE } from "../actions/actionTypes";
 import { PanesState } from "../types/stateTypes";
 
 export default function panesReducer(
@@ -13,9 +9,7 @@ export default function panesReducer(
 ) {
   switch (action.type) {
     case OPEN_THEME_PANE:
-      return { ...state, theme: true };
-    case CLOSE_THEME_PANE:
-      return { ...state, theme: false };
+      return { ...state, current: "theme" };
     case CLOSE_ALL_PANES:
       return { ...initialState.panes };
     default:
