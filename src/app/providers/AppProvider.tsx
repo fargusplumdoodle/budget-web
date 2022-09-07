@@ -23,25 +23,25 @@ const AppProvider: React.FC<AppProviderProps> = function ({ children }) {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <SnackbarProvider
-                maxSnack={3}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-              >
-                <AuthProvider>
-                  <DataProvider>
-                    <BudgetThemeProvider>
+            <SnackbarProvider
+              maxSnack={3}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+            >
+              <AuthProvider>
+                <DataProvider>
+                  <BudgetThemeProvider>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <CssBaseline />
                       <PaneProvider />
                       {children}
-                    </BudgetThemeProvider>
-                  </DataProvider>
-                </AuthProvider>
-              </SnackbarProvider>
-            </LocalizationProvider>
+                    </LocalizationProvider>
+                  </BudgetThemeProvider>
+                </DataProvider>
+              </AuthProvider>
+            </SnackbarProvider>
           </BrowserRouter>
         </PersistGate>
       </Provider>

@@ -1,5 +1,4 @@
 import { Budget, Tag, Transaction } from "./models";
-import { SystemThemeOption } from "@fargusplumdoodle/themes";
 import { ThemeSettings } from "./ui";
 
 export type StateStatus = "loading" | "loaded" | "error" | "init";

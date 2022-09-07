@@ -4,7 +4,7 @@ import "./App.css";
 import AppRoutes from "./AppRoutes";
 import { Box, Grid, styled } from "@mui/material";
 
-const Root = styled(Grid)(({ theme }) => ({
+const Root = styled(Grid)(() => ({
   maxWidth: 1500,
 }));
 const Content = styled(Box)(({ theme }) => ({

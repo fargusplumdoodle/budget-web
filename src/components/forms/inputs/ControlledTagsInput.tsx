@@ -39,7 +39,7 @@ function ControlledTagsInput<FormT>({
         return option.id === value.id;
       }}
       sx={sx}
-      getOptionLabel={(option: Tag) => option.name}
+      getOptionLabel={(option: Tag | string) => (option as Tag).name}
       renderInput={(params) => (
         <TextField
           {...params}

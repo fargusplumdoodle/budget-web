@@ -37,7 +37,7 @@ function BudgetsInput<FormT>({
       isOptionEqualToValue={(option, value) => {
         return option.id === value.id;
       }}
-      getOptionLabel={(option: Budget) => option.name}
+      getOptionLabel={(option: Budget | string) => (option as Budget).name}
       renderInput={(params) => (
         <TextField
           {...params}
