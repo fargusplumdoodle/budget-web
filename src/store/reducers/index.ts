@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import auth from "./authReducer";
-import apiStatus from "./apiStatusReducer";
 import budgets from "./budgetReducer";
 import tags from "./tagReducer";
 import transactions from "./transactionReducer";
@@ -39,9 +38,14 @@ const rootReducer = combineReducers({
     },
     userInfo
   ),
-  apiStatus,
+  ui: persistReducer(
+    {
+      key: "UI",
+      storage,
+    },
+    ui
+  ),
   transactions,
-  ui,
   panes,
 });
 export default rootReducer;

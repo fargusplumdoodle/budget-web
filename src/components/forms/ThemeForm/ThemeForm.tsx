@@ -12,7 +12,6 @@ const ThemeForm: FunctionComponent = () => {
   const { themeName, darkMode } = useSelector(
     (state: RootState) => (state.ui as UIState).theme
   );
-  console.log(themeName, darkMode);
 
   return (
     <>

@@ -3,7 +3,6 @@ import { makePaginatedRequest, makeRequest } from "../util";
 import { SerializedTag } from "../types";
 import { deserializeTag, serializeTag } from "../serializers";
 import { store } from "../../store/configureStore";
-import { beginApiCall } from "../../store/actions/apiStatusActions";
 import { loadTagsSuccess } from "../../store/actions/tagActions";
 
 export async function receiveTags(): Promise<Tag[]> {
@@ -13,8 +12,6 @@ export async function receiveTags(): Promise<Tag[]> {
   return serializedTags.map((tag) => deserializeTag(tag));
 }
 export async function createTag(data: Tag): Promise<Tag> {
-  store.dispatch(beginApiCall());
-
   const r = await makeRequest({
     method: "post",
     url: "/api/v2/tag/",

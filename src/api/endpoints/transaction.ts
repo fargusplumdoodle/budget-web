@@ -6,7 +6,6 @@ import {
   SerializedTransaction,
 } from "../types";
 import { deserializeTransaction, serializeTransaction } from "../serializers";
-import { beginApiCall } from "../../store/actions/apiStatusActions";
 import { store } from "../../store/configureStore";
 import { updateBudgetSuccess } from "../../store/actions/budgetActions";
 
@@ -38,8 +37,6 @@ export async function fetchTransactionPage(
 export async function createTransaction(
   trans: Transaction
 ): Promise<Transaction> {
-  store.dispatch(beginApiCall());
-
   const r = await makeRequest({
     method: "post",
     url: "/api/v2/transaction/",
@@ -63,8 +60,6 @@ export async function updateTransaction(
   oldTrans: Transaction,
   newTrans: Transaction
 ): Promise<Transaction> {
-  store.dispatch(beginApiCall());
-
   const r = await makeRequest({
     method: "put",
     url: `/api/v2/transaction/${newTrans.id}/`,
@@ -85,8 +80,6 @@ export async function updateTransaction(
 export async function deleteTransaction(
   trans: Transaction
 ): Promise<Transaction> {
-  store.dispatch(beginApiCall());
-
   await makeRequest({
     method: "delete",
     url: `/api/v2/transaction/${trans.id}/`,

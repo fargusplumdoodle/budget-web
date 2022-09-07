@@ -1,5 +1,4 @@
 import {
-  ApiStatusState,
   AuthState,
   BudgetState,
   PanesState,
@@ -17,10 +16,6 @@ const initialAuthState: AuthState = {
   refreshToken: "",
   expiresAt: "",
   tokenType: "",
-};
-
-const initialApiStatusState: ApiStatusState = {
-  count: 0,
 };
 
 const initialBudgetState: BudgetState = {
@@ -60,7 +55,6 @@ const initialPanesState: PanesState = {
 
 const initialState = {
   auth: initialAuthState,
-  apiStatus: initialApiStatusState,
   budgets: initialBudgetState,
   transactions: initialTransactionState,
   tags: initialTagState,

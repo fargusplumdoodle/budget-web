@@ -2,29 +2,26 @@ import * as React from "react";
 import Header from "../components/navigation/Header";
 import "./App.css";
 import AppRoutes from "./AppRoutes";
-import DataProvider from "./providers/DataProvider";
-import { Box, styled } from "@mui/material";
+import { Box, Grid, styled } from "@mui/material";
 
-const Container = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
-  width: "100%",
-  height: "100vh",
+const Root = styled(Grid)(({ theme }) => ({
+  maxWidth: 1500,
 }));
-
 const Content = styled(Box)(({ theme }) => ({
   padding: `0 ${theme.spacing(3)}`,
+  flexGrow: 1,
 }));
 
 const App: React.FunctionComponent = () => {
   return (
-    <DataProvider>
-      <Container>
-        <Header />
+    <Root container direction="column" justifyContent="center">
+      <Grid item component={Header} />
+      <Grid item container>
         <Content>
           <AppRoutes />
         </Content>
-      </Container>
-    </DataProvider>
+      </Grid>
+    </Root>
   );
 };
 

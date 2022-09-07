@@ -4,9 +4,9 @@ import { CLOSE_ALL_PANES, OPEN_THEME_PANE } from "../actions/actionTypes";
 import { PanesState } from "../types/stateTypes";
 
 export default function panesReducer(
-  state = initialState.panes,
+  state: PanesState = initialState.panes,
   action: PayloadAction<PanesState>
-) {
+): PanesState {
   switch (action.type) {
     case OPEN_THEME_PANE:
       return { ...state, current: "theme" };

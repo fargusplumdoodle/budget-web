@@ -4,12 +4,12 @@ import { SET_SYSTEM_THEME } from "../actions/actionTypes";
 import { UIState } from "../types/stateTypes";
 
 export default function uiReducer(
-  state = initialState.ui,
+  state: UIState = initialState.ui,
   action: PayloadAction<UIState>
-) {
+): UIState {
   switch (action.type) {
     case SET_SYSTEM_THEME:
-      return { ...state, theme: action.payload };
+      return { ...state, ...action.payload };
     default:
       return state;
   }

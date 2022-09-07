@@ -10,7 +10,8 @@ import BudgetThemeProvider from "./BudgetThemeProvider";
 import PaneProvider from "./PaneProvider";
 import { persistor, store } from "../../store/configureStore";
 import { PersistGate } from "redux-persist/integration/react";
-
+import { CssBaseline } from "@mui/material";
+import DataProvider from "./DataProvider";
 
 type AppProviderProps = {
   children: ReactElement[] | ReactElement;
@@ -21,8 +22,7 @@ const AppProvider: React.FC<AppProviderProps> = function ({ children }) {
     <React.StrictMode>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <BudgetThemeProvider>
+          <BrowserRouter>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <SnackbarProvider
                 maxSnack={3}
@@ -32,13 +32,17 @@ const AppProvider: React.FC<AppProviderProps> = function ({ children }) {
                 }}
               >
                 <AuthProvider>
-                  <PaneProvider />
-                  {children}
+                  <DataProvider>
+                    <BudgetThemeProvider>
+                      <CssBaseline />
+                      <PaneProvider />
+                      {children}
+                    </BudgetThemeProvider>
+                  </DataProvider>
                 </AuthProvider>
               </SnackbarProvider>
             </LocalizationProvider>
-          </BudgetThemeProvider>
-        </BrowserRouter>
+          </BrowserRouter>
         </PersistGate>
       </Provider>
     </React.StrictMode>

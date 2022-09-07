@@ -1,5 +1,6 @@
 import { Budget, Tag, Transaction } from "./models";
 import { SystemThemeOption } from "@fargusplumdoodle/themes";
+import { ThemeSettings } from "./ui";
 
 export type StateStatus = "loading" | "loaded" | "error" | "init";
 export type StateType = "BUDGET" | "TAGS" | "USER_INFO" | "AUTH";
@@ -14,10 +15,6 @@ export interface AuthState extends ExternalState {
   refreshToken: string;
   expiresAt: string;
   tokenType: string;
-}
-
-export interface ApiStatusState {
-  count: number;
 }
 
 export interface BudgetState extends ExternalState {
@@ -42,10 +39,7 @@ export interface UserInfoState extends ExternalState {
 }
 
 export interface UIState {
-  theme: {
-    themeName: SystemThemeOption;
-    darkMode: boolean;
-  };
+  theme: ThemeSettings;
 }
 
 export interface PanesState {

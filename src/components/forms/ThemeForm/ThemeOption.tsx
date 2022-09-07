@@ -35,12 +35,14 @@ const ThemeOption: FunctionComponent<Props> = ({
         width: "100%",
         paddingRight: 1,
         backgroundColor: selected ? "primary.main" : "opaque",
-        color: selected && theme.palette.primary.contrastText,
-        cursor: !selected && "pointer",
+        color: selected
+          ? theme.palette.primary.contrastText
+          : theme.palette.text.primary,
+        cursor: "pointer",
       })}
       {...other}
     >
-      <Grid item container>
+      <Grid item container wrap="nowrap">
         {colors.map((color) => (
           <Tooltip
             title={capitalise(color)}
