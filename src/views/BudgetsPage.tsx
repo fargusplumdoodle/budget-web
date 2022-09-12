@@ -1,12 +1,5 @@
 import * as React from "react";
-import { Card, Tab, Tabs } from "@mui/material";
-import { useState } from "react";
-import { TabPanel, tabProps } from "../components/tabs";
-import BudgetPercentages from "../components/forms/budgets/percentages/BudgetPercentages";
-
-const tabs = {
-  percentages: 0,
-};
+import { Card } from "@mui/material";
 
 const classes = {
   root: {
@@ -16,30 +9,9 @@ const classes = {
 };
 
 const BudgetsPage: React.FC = function () {
-  const [tab, setTab] = useState<number>(tabs.percentages);
-
-  const handleTabChange = (_: React.SyntheticEvent, newTab: number) => {
-    setTab(newTab);
-  };
   return (
     <>
-      <Card sx={classes.root}>
-        <Tabs
-          value={tab}
-          onChange={handleTabChange}
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Tab label="Percentages" {...tabProps(tabs.percentages)} />
-        </Tabs>
-
-        <TabPanel value={tab} index={tabs.percentages}>
-          <BudgetPercentages />
-        </TabPanel>
-      </Card>
+      <Card sx={classes.root}>"TODO: THIS"</Card>
     </>
   );
 };

@@ -19,9 +19,7 @@ export function updateBudgetSuccess(budget: Budget) {
 }
 
 export function fetchBudgets() {
-  console.log("fetching budgets");
   return async (dispatch: AppDispatch) => {
-    console.log("fetching budgets inside thunk");
     dispatch(updateStatus("BUDGET", "loading"));
     api.budget
       .receiveBudgets()

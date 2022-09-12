@@ -15,7 +15,6 @@ const BudgetThemeProvider: FunctionComponent<ThemeProviderProps> = ({
   const { themeName, darkMode } = useSelector(
     (state: RootState) => (state.ui as UIState).theme
   );
-  console.log("here", themeName, darkMode);
 
   const theme: Theme = useMemo(() => {
     const theme: ThemeOption = THEMES[themeName];

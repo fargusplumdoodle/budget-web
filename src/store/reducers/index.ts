@@ -17,27 +17,6 @@ const rootReducer = combineReducers({
     },
     auth
   ),
-  budgets: persistReducer(
-    {
-      key: "budgets",
-      storage,
-    },
-    budgets
-  ),
-  tags: persistReducer(
-    {
-      key: "tags",
-      storage,
-    },
-    tags
-  ),
-  userInfo: persistReducer(
-    {
-      key: "User Info",
-      storage,
-    },
-    userInfo
-  ),
   ui: persistReducer(
     {
       key: "UI",
@@ -45,6 +24,9 @@ const rootReducer = combineReducers({
     },
     ui
   ),
+  budgets,
+  tags,
+  userInfo,
   transactions,
   panes,
 });

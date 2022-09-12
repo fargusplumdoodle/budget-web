@@ -39,9 +39,12 @@ describe("Test create income", () => {
   });
 
   test("that income works", () => {
-    const savings = generateTestBudget({ percentage: 0, name: "savings" });
-    const budget1 = generateTestBudget({ percentage: 33 });
-    const budget2 = generateTestBudget({ percentage: 33 });
+    const savings = generateTestBudget({
+      monthlyAllocation: 0,
+      name: "savings",
+    });
+    const budget1 = generateTestBudget({ monthlyAllocation: 33 });
+    const budget2 = generateTestBudget({ monthlyAllocation: 33 });
 
     store.dispatch(loadBudgetsSuccess([budget1, budget2, savings]));
     store.dispatch(loadTagsSuccess([generateTestTag({ name: "income" })]));

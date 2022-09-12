@@ -56,7 +56,7 @@ const BudgetDetailPage: React.FC = function () {
               </Typography>
             </Box>
             <Box sx={classes.subheader}>
-              <Typography variant="h4">{budget.percentage}%</Typography>
+              <Typography variant="h4">{budget.monthlyAllocation}</Typography>
               <div>
                 <Typography variant="body2">
                   Monthly Income:{" "}

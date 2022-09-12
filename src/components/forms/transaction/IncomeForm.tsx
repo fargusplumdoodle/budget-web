@@ -7,11 +7,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ProviderContext, withSnackbar } from "notistack";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
-import { createIncomeTransactions } from "../../../util/income";
 import ControlledAmountInput from "../inputs/ControlledAmountInput";
 import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
 import ControlledDateInput from "../inputs/ControlledDateInput";
-import api from "../../../api";
 
 interface Props extends ProviderContext {
   onCreateTransactions: (transactions: Transaction[]) => void;
@@ -43,34 +41,35 @@ const IncomeForm = (props: Props) => {
   });
 
   const onSubmit = (data: IncomeFormData): void => {
-    setLoading(true);
-    const transactions = createIncomeTransactions({
-      ...data,
-      amount: Math.abs(data.amount),
-    });
-    const createTransactionPromises: Promise<Transaction>[] = transactions.map(
-      (transaction: Transaction) => {
-        return api.transaction.createTransaction(transaction);
-      }
-    );
-
-    Promise.allSettled(createTransactionPromises)
-      .then((promiseStates: PromiseSettledResult<Transaction>[]) => {
-        setLoading(false);
-        props.enqueueSnackbar(`Successfully created income transactions`, {
-          variant: "success",
-        });
-        props.onCreateTransactions(
-          promiseStates
-            .filter((p) => p.status === "fulfilled")
-            // @ts-ignore
-            .map((promise) => promise.value)
-        );
-      })
-      .catch((err) => {
-        setLoading(false);
-        setApiError(err);
-      });
+    // setLoading(true);
+    // const transactions = createIncomeTransactions({
+    //   ...data,
+    //   amount: Math.abs(data.amount),
+    // });
+    // const createTransactionPromises: Promise<Transaction>[] = transactions.map(
+    //   (transaction: Transaction) => {
+    //     return api.transaction.createTransaction(transaction);
+    //   }
+    // );
+    //
+    // Promise.allSettled(createTransactionPromises)
+    //   .then((promiseStates: PromiseSettledResult<Transaction>[]) => {
+    //     setLoading(false);
+    //     props.enqueueSnackbar(`Successfully created income transactions`, {
+    //       variant: "success",
+    //     });
+    //     props.onCreateTransactions(
+    //       promiseStates
+    //         .filter((p) => p.status === "fulfilled")
+    //         // @ts-ignore
+    //         .map((promise) => promise.value)
+    //     );
+    //   })
+    //   .catch((err) => {
+    //     setLoading(false);
+    //     setApiError(err);
+    //   });
+    alert("TODO");
   };
 
   return (

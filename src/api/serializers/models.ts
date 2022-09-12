@@ -103,10 +103,7 @@ export function deserializeBudgets(
   serializedBudgets: SerializedBudget[]
 ): Budget[] {
   const budgets = serializedBudgets.map((b) => deserializeBudget(b));
-  console.log("pretree", budgets);
-  const tree = createBudgetTree(budgets);
-  console.log("posttree", tree);
-  return tree;
+  return createBudgetTree(budgets);
 }
 
 export function serializeUserInfo(userInfo: UserInfo): SerializedUserInfo {

@@ -27,8 +27,8 @@ export interface Transaction extends Model {
   budget: Budget;
   date: Date;
 
-  created: Date;
-  modified: Date;
+  created?: Date;
+  modified?: Date;
 
   income: boolean;
   transfer: boolean;

@@ -29,7 +29,7 @@ export const budgetSchema = yup
         return !Boolean(state.budgets.byName[value!]);
       })
       .required(),
-    percentage: yup.number().positive().integer(),
+    monthlyAllocation: yup.number().positive().integer(),
   })
   .required();
 

@@ -5,10 +5,14 @@ export function generateBudget(args: Object = {}): Budget {
   return {
     id: getUniqueNumber(),
     name: `budget`,
-    percentage: 0,
+    monthlyAllocation: 0,
     balance: 0,
     income_per_month: 0,
     outcome_per_month: 0,
+    isNode: false,
+    parent: null,
+    parentId: null,
+    children: [],
     ...args,
   };
 }

@@ -6,7 +6,7 @@ export function generateTestBudget(args: Object = {}): Budget {
   return {
     id: getUniqueNumber(),
     name: `${faker.lorem.word()}_budget`,
-    percentage: 12,
+    monthlyAllocation: 120,
     balance: 1380,
 
     income_per_month: 100,
