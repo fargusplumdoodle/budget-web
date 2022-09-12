@@ -4,7 +4,7 @@ import tagReducer from "./tagReducer";
 import initialState from "../initialState";
 import { range, orderBy } from "lodash";
 import { TagState } from "../types/stateTypes";
-import { Tag } from "../types/models";
+import { Tag } from "../models/types";
 
 /*
 Asserts that the expected tags form the appropriate tag state data structure

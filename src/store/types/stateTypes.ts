@@ -1,4 +1,4 @@
-import { Budget, Tag, Transaction } from "./models";
+import { Budget, Tag, Transaction } from "../models/types";
 import { ThemeSettings } from "./ui";
 
 export type StateStatus = "loading" | "loaded" | "error" | "init";
@@ -20,6 +20,7 @@ export interface BudgetState extends ExternalState {
   list: Budget[];
   byId: { [k: number]: Budget };
   byName: { [k: string]: Budget };
+  root: Budget | null;
 }
 
 export interface TransactionState {

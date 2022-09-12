@@ -1,4 +1,4 @@
-interface Model {
+export interface Model {
   id: number | null;
 }
 export interface Tag extends Model {
@@ -11,9 +11,12 @@ export interface Tag extends Model {
 
 export interface Budget extends Model {
   name: string;
-  percentage: number;
+  monthlyAllocation: number;
   balance: number;
-
+  parent: Budget | null;
+  parentId: number | null;
+  children: Budget[];
+  isNode: boolean;
   income_per_month: number;
   outcome_per_month: number;
 }
@@ -23,6 +26,9 @@ export interface Transaction extends Model {
   description: string | null;
   budget: Budget;
   date: Date;
+
+  created: Date;
+  modified: Date;
 
   income: boolean;
   transfer: boolean;

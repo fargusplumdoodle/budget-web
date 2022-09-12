@@ -1,6 +1,6 @@
 import initialState from "../initialState";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { UserInfo } from "../types/models";
+import { UserInfo } from "../models/types";
 import {
   CLEAR_AUTH_TOKEN,
   LOAD_USER_INFO_SUCCESS,

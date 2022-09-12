@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { TableFooter, TablePagination, Typography } from "@mui/material";
 import "../../../views/transactions_list/TransactionsTable.css";
-import { Transaction } from "../../../store/types/models";
+import { Transaction } from "../../../store/models/types";
 import { commaSeparatedTagNames } from "../../../util/formatters";
 import TransactionFormDialog from "../transaction_form/TransactionFormDialog";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";

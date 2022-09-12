@@ -2,7 +2,7 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import Dialog from "@mui/material/Dialog";
 import { DialogContent, DialogTitle } from "@mui/material";
-import { Tag } from "../../../store/types/models";
+import { Tag } from "../../../store/models/types";
 import TagForm from "./TagForm";
 
 interface Props {

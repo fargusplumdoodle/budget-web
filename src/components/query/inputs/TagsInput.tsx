@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Autocomplete, styled, TextField } from "@mui/material";
 import { store } from "../../../store/configureStore";
-import { Tag } from "../../../store/types/models";
+import { Tag } from "../../../store/models/types";
 import { ExpressionInputProps } from "../types";
 
 interface Props extends ExpressionInputProps<Tag[]> {

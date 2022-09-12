@@ -3,7 +3,7 @@ import { FunctionComponent } from "react";
 import Dialog from "@mui/material/Dialog";
 import { DialogContent, DialogTitle } from "@mui/material";
 import TransactionForm from "../../forms/transaction/TransactionForm";
-import { Transaction } from "../../../store/types/models";
+import { Transaction } from "../../../store/models/types";
 
 interface Props {
   open: boolean;

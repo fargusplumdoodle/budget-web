@@ -1,4 +1,4 @@
-import { UserInfo } from "../../store/types/models";
+import { UserInfo } from "../../store/models/types";
 
 interface SerializedModel {
   id?: number;
@@ -12,6 +12,8 @@ export interface SerializedTransaction extends SerializedModel {
   income: boolean;
   transfer: boolean;
   tags: SerializedTag[];
+  created?: Date;
+  modified?: Date;
 }
 
 export interface SerializedTag extends SerializedModel {
@@ -23,8 +25,12 @@ export interface SerializedTag extends SerializedModel {
 
 export interface SerializedBudget extends SerializedModel {
   name: string;
-  percentage: number;
+  monthly_allocation: number;
   balance: number;
+  user?: number;
+  rank?: number;
+  parent: number | null;
+  is_node?: boolean;
   income_per_month: number;
   outcome_per_month: number;
 }

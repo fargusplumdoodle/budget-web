@@ -1,6 +1,6 @@
 import { Checkbox } from "@mui/material";
 import { toCents } from "../../../api/util";
-import { Budget, Tag } from "../../../store/types/models";
+import { Budget, Tag } from "../../../store/models/types";
 import BudgetsInput from "../inputs/BudgetsInput";
 import CurrencyInput from "../inputs/DescriptionInput";
 import DateInput from "../inputs/DateInput";

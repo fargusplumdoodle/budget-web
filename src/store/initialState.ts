@@ -23,6 +23,7 @@ const initialBudgetState: BudgetState = {
   list: [],
   byId: {},
   byName: {},
+  root: null,
 };
 
 const initialTransactionState: TransactionState = {

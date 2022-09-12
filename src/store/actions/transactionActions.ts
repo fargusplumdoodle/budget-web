@@ -1,4 +1,4 @@
-import { Transaction } from "../types/models";
+import { Transaction } from "../models/types";
 import { LOAD_TRANSACTIONS_SUCCESS } from "./actionTypes";
 
 export function loadTransactionsSuccess(transactions: Transaction[]) {

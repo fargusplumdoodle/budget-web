@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Budget } from "../../../../store/types/models";
+import { Budget } from "../../../../store/models/types";
 import { Table, TableBody, TableContainer, Typography } from "@mui/material";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";

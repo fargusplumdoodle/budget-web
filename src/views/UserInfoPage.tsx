@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../components/ApiErrorDialog";
 import { Button, Card } from "@mui/material";
-import { UserInfo } from "../store/types/models";
+import { UserInfo } from "../store/models/types";
 import UserInfoForm from "../components/forms/user_info/UserInfoForm";
 import { ProviderContext, withSnackbar } from "notistack";
 import { useDispatch } from "react-redux";

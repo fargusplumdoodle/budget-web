@@ -1,20 +1,23 @@
 import initialState from "../initialState";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { BudgetState, StateStatus } from "../types/stateTypes";
-import { Budget } from "../types/models";
+import { Budget } from "../models/types";
 import {
   CLEAR_AUTH_TOKEN,
   LOAD_BUDGETS_SUCCESS,
   UPDATE_BUDGET_STATUS,
   UPDATE_BUDGET_SUCCESS,
 } from "../actions/actionTypes";
+import { BUDGET_ROOT_NAME } from "../../api/constants";
+import { modelById, modelByName } from "../models/utils";
 
 export const getBudgetStateFromList = (budgets: Budget[]): BudgetState => {
   return {
     status: "loaded",
     list: budgets,
-    byId: Object.fromEntries(budgets.map((budget) => [budget.id, budget])),
-    byName: Object.fromEntries(budgets.map((budget) => [budget.name, budget])),
+    byId: modelById(budgets),
+    byName: modelByName(budgets),
+    root: budgets.find((budget) => (budget.name = BUDGET_ROOT_NAME))!,
   };
 };
 

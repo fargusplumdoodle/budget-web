@@ -4,8 +4,6 @@ import thunk from "redux-thunk";
 import initialState from "./initialState";
 import { persistStore } from "redux-persist";
 
-
-
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;

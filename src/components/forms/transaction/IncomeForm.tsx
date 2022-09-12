@@ -1,7 +1,7 @@
 import { Button, CircularProgress, Stack } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
-import { Transaction } from "../../../store/types/models";
+import { Transaction } from "../../../store/models/types";
 import { FormItem, incomeSchema } from "../../../util/form";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

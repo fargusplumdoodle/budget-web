@@ -2,7 +2,7 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/configureStore";
 import BudgetPercentagesForm from "./BudgetPercentagesForm";
-import { Budget } from "../../../../store/types/models";
+import { Budget } from "../../../../store/models/types";
 import ApiErrorDialog, { ApiError } from "../../../ApiErrorDialog";
 import { useState } from "react";
 import { ProviderContext, withSnackbar } from "notistack";

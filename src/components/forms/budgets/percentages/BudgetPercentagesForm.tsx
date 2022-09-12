@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Budget } from "../../../../store/types/models";
+import { Budget } from "../../../../store/models/types";
 import BudgetPercentagesTable from "./BudgetPercentagesTable";
 import { EXPECTED_BUDGETS } from "../../../../app/settings";
 

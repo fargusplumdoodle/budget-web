@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import PaginatedTransactionsTable from "../../components/transactions/transactions_table/PaginatedTransactionsTable";
-import { Transaction } from "../../store/types/models";
+import { Transaction } from "../../store/models/types";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
 import api from "../../api";
 import Card from "@mui/material/Card";

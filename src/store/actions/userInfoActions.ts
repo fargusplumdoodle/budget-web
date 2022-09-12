@@ -1,4 +1,4 @@
-import { UserInfo } from "../types/models";
+import { UserInfo } from "../models/types";
 import { LOAD_USER_INFO_SUCCESS } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
 import { updateStatus } from "./apiStatusActions";

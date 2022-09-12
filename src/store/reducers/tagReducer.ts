@@ -6,7 +6,7 @@ import {
   CLEAR_AUTH_TOKEN,
   UPDATE_TAGS_STATUS,
 } from "../actions/actionTypes";
-import { Tag } from "../types/models";
+import { Tag } from "../models/types";
 import { orderBy } from "lodash";
 
 export default function tagReducer(

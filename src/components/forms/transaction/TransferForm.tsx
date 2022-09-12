@@ -3,7 +3,7 @@ import { FunctionComponent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormItem, transferSchema } from "../../../util/form";
-import { Budget, Transaction } from "../../../store/types/models";
+import { Budget, Transaction } from "../../../store/models/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/configureStore";
 import { Button, CircularProgress, Stack } from "@mui/material";

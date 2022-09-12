@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Typography } from "@mui/material";
-import { Budget } from "../../store/types/models";
+import { Budget } from "../../store/models/types";
 import { ROUTES } from "../../app/AppRoutes";
 import { routeWithId } from "../../util/routing";
 import { useNavigate } from "react-router-dom";

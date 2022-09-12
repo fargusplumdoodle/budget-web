@@ -5,7 +5,7 @@ import { store } from "../store/configureStore";
 import { clearAuthToken } from "../store/actions/authActions";
 import { TransferFormData } from "../components/forms/transaction/TransferForm";
 import { createTransferTransactions } from "./transfer";
-import { Transaction } from "../store/types/models";
+import { Transaction } from "../store/models/types";
 
 describe("Test create transfer transactions", () => {
   const budget1 = generateTestBudget();

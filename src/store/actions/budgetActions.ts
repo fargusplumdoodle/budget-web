@@ -1,4 +1,4 @@
-import { Budget } from "../types/models";
+import { Budget } from "../models/types";
 import { LOAD_BUDGETS_SUCCESS, UPDATE_BUDGET_SUCCESS } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
 import { updateStatus } from "./apiStatusActions";

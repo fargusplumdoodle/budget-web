@@ -1,4 +1,4 @@
-import { Tag } from "../../store/types/models";
+import { Tag } from "../../store/models/types";
 import { makePaginatedRequest, makeRequest } from "../util";
 import { SerializedTag } from "../types";
 import { deserializeTag, serializeTag } from "../serializers";

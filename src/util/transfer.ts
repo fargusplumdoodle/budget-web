@@ -1,5 +1,5 @@
 import { TransferFormData } from "../components/forms/transaction/TransferForm";
-import { Transaction } from "../store/types/models";
+import { Transaction } from "../store/models/types";
 import { store } from "../store/configureStore";
 
 export function createTransferTransactions(

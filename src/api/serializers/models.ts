@@ -1,4 +1,4 @@
-import { Budget, Tag, Transaction, UserInfo } from "../../store/types/models";
+import { Budget, Tag, Transaction, UserInfo } from "../../store/models/types";
 import {
   SerializedBudget,
   SerializedTag,
@@ -7,10 +7,13 @@ import {
 } from "../types";
 import { store } from "../../store/configureStore";
 import { fromCents, getAPIDate, toCents } from "../util";
+import { createBudgetTree, getBudgetChildren } from "../../store/models/utils";
+import lowerCase from "lodash/lowerCase";
+import capitalize from "lodash/capitalize";
 
 export const serializeTag = (tag: Tag): SerializedTag => {
   return {
-    name: tag.name,
+    name: lowerCase(tag.name),
   };
 };
 
@@ -25,7 +28,7 @@ export const deserializeTag = (tag: SerializedTag): Tag => {
     : null;
 
   return {
-    ...tag,
+    name: capitalize(tag.name),
     id: tag.id!,
     rank: tag.rank!,
     common_transaction_amount: commonTransactionAmount,
@@ -56,34 +59,56 @@ export function deserializeTransaction(
     throw Error(`Unable to find budget in state: ${trans.budget}`);
   }
   return {
-    ...trans,
-    amount: fromCents(trans.amount),
     id: trans.id!,
+    amount: fromCents(trans.amount),
     date: getAPIDate(trans.date),
     budget: budget,
     tags: trans.tags.map((tag) => deserializeTag(tag)),
+    created: trans.created!,
+    modified: trans.modified!,
+    description: trans.description,
+    income: trans.income,
+    transfer: trans.transfer,
   };
 }
 
 export function serializeBudget(budget: Budget): SerializedBudget {
   return {
-    ...budget,
     id: budget.id!,
+    name: budget.name,
     balance: toCents(budget.balance),
+    monthly_allocation: toCents(budget.monthlyAllocation),
+    parent: budget.parentId!,
     income_per_month: toCents(budget.income_per_month),
     outcome_per_month: toCents(budget.outcome_per_month),
   };
 }
 
 export function deserializeBudget(budget: SerializedBudget): Budget {
+  const state = store.getState();
   return {
-    ...budget,
     id: budget.id!,
+    name: budget.name,
+    monthlyAllocation: fromCents(budget.monthly_allocation),
     balance: fromCents(budget.balance),
+    children: getBudgetChildren(budget.id!, state.budgets.list),
+    isNode: budget.is_node!,
+    parent: state.budgets.byId[budget.parent!] || null,
+    parentId: budget.parent,
     income_per_month: fromCents(budget.income_per_month),
     outcome_per_month: fromCents(budget.outcome_per_month),
   };
 }
+export function deserializeBudgets(
+  serializedBudgets: SerializedBudget[]
+): Budget[] {
+  const budgets = serializedBudgets.map((b) => deserializeBudget(b));
+  console.log("pretree", budgets);
+  const tree = createBudgetTree(budgets);
+  console.log("posttree", tree);
+  return tree;
+}
+
 export function serializeUserInfo(userInfo: UserInfo): SerializedUserInfo {
   return {
     expected_monthly_net_income: toCents(userInfo.expected_monthly_net_income),

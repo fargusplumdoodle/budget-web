@@ -1,4 +1,4 @@
-import { Tag } from "../types/models";
+import { Tag } from "../models/types";
 import { LOAD_TAGS_SUCCESS } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
 import { updateStatus } from "./apiStatusActions";

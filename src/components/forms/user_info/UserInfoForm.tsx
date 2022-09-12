@@ -1,5 +1,5 @@
 import * as React from "react";
-import { UserInfo } from "../../../store/types/models";
+import { UserInfo } from "../../../store/models/types";
 import { connect } from "react-redux";
 import { RootState } from "../../../store/configureStore";
 import { FormItem, userInfoSchema } from "../../../util/form";

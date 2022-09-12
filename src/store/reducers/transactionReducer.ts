@@ -2,7 +2,7 @@ import initialState from "../initialState";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { TransactionState } from "../types/stateTypes";
 import { LOAD_TRANSACTIONS_SUCCESS } from "../actions/actionTypes";
-import { Transaction } from "../types/models";
+import { Transaction } from "../models/types";
 
 // TODO: REMOVE THIS
 export default function transactionReducer(

@@ -1,7 +1,11 @@
-import { Budget } from "../../store/types/models";
+import { Budget } from "../../store/models/types";
 import { makeRequest } from "../util";
 import { SerializedBudget } from "../types";
-import { deserializeBudget, serializeBudget } from "../serializers";
+import {
+  deserializeBudget,
+  deserializeBudgets,
+  serializeBudget,
+} from "../serializers";
 import { store } from "../../store/configureStore";
 import { updateBudgetSuccess } from "../../store/actions/budgetActions";
 
@@ -11,7 +15,7 @@ export async function receiveBudgets(): Promise<Budget[]> {
     url: "/api/v2/budget/",
   });
 
-  return r!.data.map((budget: SerializedBudget) => deserializeBudget(budget));
+  return deserializeBudgets(r!.data as SerializedBudget[]);
 }
 
 export async function updateBudget(budget: Budget): Promise<Budget> {

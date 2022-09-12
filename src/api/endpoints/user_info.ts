@@ -1,4 +1,4 @@
-import { UserInfo } from "../../store/types/models";
+import { UserInfo } from "../../store/models/types";
 import { makeRequest } from "../util";
 import { SerializedUserInfo } from "../types";
 import { deserializeUserInfo, serializeUserInfo } from "../serializers";

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Button, TableCell, TableRow } from "@mui/material";
-import { Budget } from "../../../../store/types/models";
+import { Budget } from "../../../../store/models/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/configureStore";
 import { round } from "lodash";

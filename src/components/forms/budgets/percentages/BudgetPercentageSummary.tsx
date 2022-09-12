@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EXPECTED_BUDGETS } from "../../../../app/settings";
-import { Budget } from "../../../../store/types/models";
+import { Budget } from "../../../../store/models/types";
 import { SxProps, Typography } from "@mui/material";
 import { sum } from "lodash";
 import { useSelector } from "react-redux";

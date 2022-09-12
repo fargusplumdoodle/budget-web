@@ -1,4 +1,4 @@
-import { Budget, Transaction } from "../store/types/models";
+import { Budget, Transaction } from "../store/models/types";
 import { store } from "../store/configureStore";
 import { sum } from "lodash";
 import { IncomeFormData } from "../components/forms/transaction/IncomeForm";
