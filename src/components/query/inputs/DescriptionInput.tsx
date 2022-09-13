@@ -11,11 +11,7 @@ const CurrencyInput: FunctionComponent<ExpressionInputProps<string>> = ({
   onChange,
 }) => {
   return (
-    <Input
-      defaultValue={value}
-      variant="standard"
-      onChange={(e) => onChange(e.target.value)}
-    />
+    <Input defaultValue={value} onChange={(e) => onChange(e.target.value)} />
   );
 };
 

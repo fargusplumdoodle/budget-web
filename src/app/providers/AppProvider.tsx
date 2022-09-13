@@ -10,7 +10,6 @@ import BudgetThemeProvider from "./BudgetThemeProvider";
 import PaneProvider from "./PaneProvider";
 import { persistor, store } from "../../store/configureStore";
 import { PersistGate } from "redux-persist/integration/react";
-import { CssBaseline } from "@mui/material";
 import DataProvider from "./DataProvider";
 
 type AppProviderProps = {

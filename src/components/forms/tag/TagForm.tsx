@@ -67,7 +67,6 @@ const TagForm: FunctionComponent<Props> = (props) => {
               control={control}
               render={({ field }) => (
                 <TextField
-                  variant="standard"
                   label="Name"
                   helperText={(errors.name as any)?.message}
                   placeholder="Tag Name"

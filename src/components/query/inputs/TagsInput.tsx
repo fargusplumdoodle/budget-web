@@ -33,12 +33,7 @@ const TagsInput: React.FunctionComponent<Props> = ({
       }}
       getOptionLabel={(option) => (option as Tag).name}
       renderInput={(params: any) => (
-        <TextField
-          {...textFieldProps}
-          {...params}
-          variant="standard"
-          placeholder="Tags"
-        />
+        <TextField {...textFieldProps} {...params} placeholder="Tags" />
       )}
       onChange={(e, tags) => {
         onChange(tags as Tag[]);

@@ -27,7 +27,6 @@ const CurrencyInput: FunctionComponent<ExpressionInputProps<number>> = ({
   return (
     <Input
       defaultValue={value}
-      variant="standard"
       InputProps={{
         startAdornment: <InputAdornment position="start">$</InputAdornment>,
       }}

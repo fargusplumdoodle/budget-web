@@ -105,7 +105,7 @@ const ReportForm: FunctionComponent<ReportFormProps> = ({
               sx={{ width: 200 }}
               disableClearable
               renderInput={(params: any) => (
-                <TextField {...params} variant="standard" label="Time Bucket" />
+                <TextField {...params} label="Time Bucket" />
               )}
             />
           )}

@@ -43,7 +43,6 @@ function ControlledTagsInput<FormT>({
       renderInput={(params) => (
         <TextField
           {...params}
-          variant="standard"
           label="Tags"
           error={Boolean(errors)}
           helperText={errors ? errors.message : ""}

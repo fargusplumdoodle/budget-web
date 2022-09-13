@@ -22,7 +22,7 @@ const BudgetsInput: React.FunctionComponent<Props> = (props) => {
       }}
       getOptionLabel={(option: Budget) => option.name}
       renderInput={(params: any) => (
-        <TextField {...params} variant="standard" placeholder="Budgets" />
+        <TextField {...params} placeholder="Budgets" />
       )}
       {...props}
       onChange={(e, budgets) => {

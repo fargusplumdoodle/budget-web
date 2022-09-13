@@ -28,9 +28,7 @@ function ControlledDateInput<FormT>({
           openTo="day"
           minDate={settings.minDate}
           views={["year", "month", "day"]}
-          renderInput={(params) => (
-            <TextField variant="standard" sx={sx} {...params} />
-          )}
+          renderInput={(params) => <TextField sx={sx} {...params} />}
           {...props}
           {...field}
         />

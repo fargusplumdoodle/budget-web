@@ -76,7 +76,7 @@ const ExpressionForm: FunctionComponent<ExpressionFormProps> = ({
             xs
             component={Autocomplete}
             renderInput={(params: AutocompleteRenderInputParams) => (
-              <TextField {...params} variant="standard" />
+              <TextField {...params} />
             )}
             disableClearable
             options={Object.values(OPERANDS)}
@@ -104,7 +104,7 @@ const ExpressionForm: FunctionComponent<ExpressionFormProps> = ({
             component={Autocomplete}
             disableClearable
             renderInput={(params: AutocompleteRenderInputParams) => (
-              <TextField {...params} variant="standard" />
+              <TextField {...params} />
             )}
             options={state.operand.operators}
             value={state.operator}

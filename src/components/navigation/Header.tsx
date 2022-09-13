@@ -2,14 +2,12 @@ import {
   AppBar,
   Grid,
   IconButton,
-  styled,
   Toolbar,
   Typography,
 } from "@mui/material";
 import React from "react";
 import { FunctionComponent } from "react";
 import { ROUTES } from "../../app/AppRoutes";
-import { colors } from "../../app/theme";
 import { getCurrentRoute } from "../../util/routing";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch } from "react-redux";

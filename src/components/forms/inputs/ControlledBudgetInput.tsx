@@ -41,7 +41,6 @@ function BudgetsInput<FormT>({
       renderInput={(params) => (
         <TextField
           {...params}
-          variant="standard"
           label="Budget"
           error={Boolean(errors)}
           helperText={errors ? errors.message : ""}
