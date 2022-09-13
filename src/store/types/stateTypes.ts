@@ -40,6 +40,7 @@ export interface UserInfoState extends ExternalState {
 
 export interface UIState {
   theme: ThemeSettings;
+  mobileDrawerOpen: boolean;
 }
 
 export interface PanesState {

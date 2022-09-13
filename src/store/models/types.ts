@@ -15,7 +15,6 @@ export interface Budget extends Model {
   balance: number;
   parent: Budget | null;
   parentId: number | null;
-  children: Budget[];
   isNode: boolean;
   income_per_month: number;
   outcome_per_month: number;

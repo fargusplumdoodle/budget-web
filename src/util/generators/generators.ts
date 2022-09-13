@@ -12,7 +12,6 @@ export function generateBudget(args: Object = {}): Budget {
     isNode: false,
     parent: null,
     parentId: null,
-    children: [],
     ...args,
   };
 }

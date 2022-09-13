@@ -7,9 +7,10 @@ import {
 } from "../types";
 import { store } from "../../store/configureStore";
 import { fromCents, getAPIDate, toCents } from "../util";
-import { createBudgetTree, getBudgetChildren } from "../../store/models/utils";
+import { setBudgetParents } from "../../store/models/utils";
 import lowerCase from "lodash/lowerCase";
 import capitalize from "lodash/capitalize";
+import { format } from "date-fns";
 
 export const serializeTag = (tag: Tag): SerializedTag => {
   return {
@@ -43,7 +44,7 @@ export function serializeTransaction(
     amount: toCents(trans.amount),
     description: trans.description || "",
     budget: trans.budget.id!,
-    date: trans.date.toLocaleDateString(),
+    date: format(trans.date, "YYYY-MM-dd"),
     income: trans.income,
     transfer: trans.transfer,
     tags: trans.tags.map((tag) => serializeTag(tag)),
@@ -91,7 +92,6 @@ export function deserializeBudget(budget: SerializedBudget): Budget {
     name: budget.name,
     monthlyAllocation: fromCents(budget.monthly_allocation),
     balance: fromCents(budget.balance),
-    children: getBudgetChildren(budget.id!, state.budgets.list),
     isNode: budget.is_node!,
     parent: state.budgets.byId[budget.parent!] || null,
     parentId: budget.parent,
@@ -103,7 +103,7 @@ export function deserializeBudgets(
   serializedBudgets: SerializedBudget[]
 ): Budget[] {
   const budgets = serializedBudgets.map((b) => deserializeBudget(b));
-  return createBudgetTree(budgets);
+  return setBudgetParents(budgets);
 }
 
 export function serializeUserInfo(userInfo: UserInfo): SerializedUserInfo {

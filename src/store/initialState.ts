@@ -48,6 +48,7 @@ const initialUIState: UIState = {
     themeName: DEFAULT_THEME,
     darkMode: true,
   },
+  mobileDrawerOpen: false,
 };
 
 const initialPanesState: PanesState = {

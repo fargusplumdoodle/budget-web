@@ -2,26 +2,29 @@ import * as React from "react";
 import Header from "../components/navigation/Header";
 import "./App.css";
 import AppRoutes from "./AppRoutes";
-import { Box, Grid, styled } from "@mui/material";
+import { Grid, styled } from "@mui/material";
+import ResponsiveDrawer from "../components/navigation/ResponsiveDrawer";
 
-const Root = styled(Grid)(() => ({
-  maxWidth: 1500,
-}));
-const Content = styled(Box)(({ theme }) => ({
+const Content = styled(Grid)(({ theme }) => ({
   padding: `0 ${theme.spacing(3)}`,
   flexGrow: 1,
+  maxWidth: 1500,
+  marginLeft: "auto",
+  marginRight: "auto",
 }));
 
 const App: React.FunctionComponent = () => {
   return (
-    <Root container direction="column" justifyContent="center">
-      <Grid item component={Header} />
-      <Grid item container>
-        <Content>
+    <Grid container direction="row" wrap="nowrap">
+      <ResponsiveDrawer />
+
+      <Grid item container gap={1} xs>
+        <Grid item component={Header} />
+        <Content item>
           <AppRoutes />
         </Content>
       </Grid>
-    </Root>
+    </Grid>
   );
 };
 

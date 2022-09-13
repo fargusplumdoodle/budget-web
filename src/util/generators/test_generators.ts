@@ -8,7 +8,9 @@ export function generateTestBudget(args: Object = {}): Budget {
     name: `${faker.lorem.word()}_budget`,
     monthlyAllocation: 120,
     balance: 1380,
-
+    parent: null,
+    parentId: null,
+    isNode: false,
     income_per_month: 100,
     outcome_per_month: 50,
     ...args,
