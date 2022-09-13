@@ -3,7 +3,7 @@ import { generateTestBudget, generateTestTag } from "./generators";
 import { loadTagsSuccess } from "../store/actions/tagActions";
 import { store } from "../store/configureStore";
 import { clearAuthToken } from "../store/actions/authActions";
-import { TransferFormData } from "../components/forms/transaction/TransferForm";
+import { TransferFormData } from "../components/forms/transaction_legacy/TransferForm";
 import { createTransferTransactions } from "./transfer";
 import { Transaction } from "../store/models/types";
 

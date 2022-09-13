@@ -1,4 +1,4 @@
-import { TransferFormData } from "../components/forms/transaction/TransferForm";
+import { TransferFormData } from "../components/forms/transaction_legacy/TransferForm";
 import { Transaction } from "../store/models/types";
 import { store } from "../store/configureStore";
 
