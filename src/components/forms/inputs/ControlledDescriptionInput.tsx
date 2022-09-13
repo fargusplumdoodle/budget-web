@@ -20,7 +20,6 @@ function ControlledDescriptionInput<FormT>({
       control={control}
       render={({ field }) => (
         <TextField
-          variant="standard"
           label="Description"
           error={Boolean(errors)}
           helperText={errors ? errors.message : ""}

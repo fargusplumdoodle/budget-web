@@ -70,7 +70,7 @@ const Drawer: FunctionComponent = () => {
           b
         </Grid>
 
-        <Grid item container direction="column">
+        <Grid item container direction="column" gap={1}>
           <Grid
             item
             component={Typography}

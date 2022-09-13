@@ -34,7 +34,6 @@ const AppProvider: React.FC<AppProviderProps> = function ({ children }) {
                 <AuthProvider>
                   <DataProvider>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <CssBaseline />
                       <PaneProvider />
                       {children}
                     </LocalizationProvider>
