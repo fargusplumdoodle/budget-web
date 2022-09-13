@@ -9,4 +9,4 @@ export const links = [
   ROUTES.SETTINGS,
 ];
 
-export const DRAWER_WIDTH = 288;
+export const DRAWER_WIDTH = 248;

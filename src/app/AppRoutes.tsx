@@ -21,12 +21,14 @@ import {
   Search,
 } from "@mui/icons-material";
 import QueryView from "../views/QueryView";
+import { SvgIconTypeMap } from "@mui/material";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 export type RouteType = {
   path: string;
-  element: React.ReactElement;
+  element: React.ReactElement | React.FunctionComponent;
   title?: string;
-  icon?: React.ReactElement;
+  icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
 };
 
 export const ROUTES: { [name: string]: RouteType } = {
@@ -34,44 +36,44 @@ export const ROUTES: { [name: string]: RouteType } = {
     path: "/",
     element: <DashboardPage />,
     title: "Dashboard",
-    icon: <Dashboard />,
+    icon: Dashboard,
   },
   AUTH_CALLBACK: { path: "/auth/callback", element: <Callback /> },
   QUERY: {
     path: "/transactions/query",
     element: <QueryView />,
     title: "Query",
-    icon: <Search />,
+    icon: Search,
   },
   TRANSACTIONS_LIST: {
     path: "/transactions/list",
     element: <TransactionsPage />,
     title: "Transactions",
-    icon: <List />,
+    icon: List,
   },
   TRANSACTIONS_ADD: {
     path: "/transactions/add",
     element: <AddTransactionsPage />,
     title: "Add Transactions",
-    icon: <Add />,
+    icon: Add,
   },
   TRANSACTION_REPORT: {
     path: "/transactions/reports",
     element: <InitLoading />,
     title: "Reports",
-    icon: <TrendingUp />,
+    icon: TrendingUp,
   },
   SETTINGS: {
     path: "/user/info",
     element: <UserInfoPage />,
     title: "Settings",
-    icon: <Settings />,
+    icon: Settings,
   },
   BUDGET_LIST: {
     path: "/budget",
     element: <BudgetsPage />,
     title: "Budgets",
-    icon: <AttachMoney />,
+    icon: AttachMoney,
   },
   BUDGET_DETAIL: {
     path: "/budget/:id",

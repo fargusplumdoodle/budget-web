@@ -9,7 +9,9 @@ export const modelByName = <T extends { name: string }>(models: T[]) =>
 
 export const getBudgetChildren = (budget: Budget): Budget[] => {
   const state = store.getState();
-  return state.budgets.list.filter((b) => b.parentId! === budget.id);
+  return state.budgets.list.filter((b) => {
+    return b.parentId! === budget.id;
+  });
 };
 
 export const setBudgetParents = (budgets: Budget[]): Budget[] => {

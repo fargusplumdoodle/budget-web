@@ -1,7 +1,6 @@
 import {
   AppBar,
-  Box,
-  Drawer as MuiDrawer,
+  Grid,
   IconButton,
   styled,
   Toolbar,
@@ -9,38 +8,17 @@ import {
 } from "@mui/material";
 import React from "react";
 import { FunctionComponent } from "react";
-import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../app/AppRoutes";
 import { colors } from "../../app/theme";
 import { getCurrentRoute } from "../../util/routing";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch } from "react-redux";
 import { toggleMobileDrawer } from "../../store/actions/uiActions";
+import { AddCircle, Settings } from "@mui/icons-material";
 
 interface HeaderProps {}
 
-const Container = styled(AppBar)(({ theme }) => ({
-  // display: "flex",
-  // flexDirection: "row",
-  // justifyContent: "space-between",
-  // alignItems: "center",
-  // margin: theme.spacing(2),
-}));
-
-const Title = styled(Typography)(() => ({
-  textAlign: "center",
-  textTransform: "lowercase",
-  color: colors.textBlue,
-}));
-
-const GradientBox = styled(Box)(({ theme }) => ({
-  background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
-  width: "100%",
-  height: 3,
-}));
-
 const Header: FunctionComponent<HeaderProps> = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const currentRoute = getCurrentRoute();
@@ -50,34 +28,46 @@ const Header: FunctionComponent<HeaderProps> = () => {
   }
 
   return (
-    <>
-      <Container position="static">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={() => dispatch(toggleMobileDrawer())}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6">{currentRoute!.title}</Typography>
-        </Toolbar>
-      </Container>
-
-      {/*<Container>*/}
-      {/*  <Box onClick={() => navigate(ROUTES.DASHBOARD.path)}>*/}
-      {/*    <Title variant="h4">b</Title>*/}
-      {/*  </Box>*/}
-      {/*  <DesktopNavLinks>*/}
-      {/*    <NavLinksTabs />*/}
-      {/*  </DesktopNavLinks>*/}
-      {/*  <MobileNavLinks>*/}
-      {/*    <NavLinksMenu />*/}
-      {/*  </MobileNavLinks>*/}
-      {/*</Container>*/}
-    </>
+    <AppBar
+      position="static"
+      color="transparent"
+      sx={{ '&[class*="MuiAppBar-root"]': { boxShadow: "none" } }}
+    >
+      <Toolbar>
+        <Grid
+          container
+          alignItems="center"
+          justifyContent="space-between"
+          wrap="nowrap"
+        >
+          <Grid item container wrap="nowrap" alignItems="center">
+            <Grid
+              component={IconButton}
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={() => dispatch(toggleMobileDrawer())}
+              sx={{ display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </Grid>
+            <Grid component={Typography} variant="body1">
+              {currentRoute!.title}
+            </Grid>
+          </Grid>
+          <Grid item container wrap="nowrap" justifyContent="flex-end">
+            <IconButton>
+              <AddCircle
+                sx={(theme) => ({ color: theme.palette.secondary.main })}
+              />
+            </IconButton>
+            <IconButton>
+              <Settings />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
   );
 };
 

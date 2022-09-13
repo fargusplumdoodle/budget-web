@@ -1,21 +1,16 @@
 import React, { FunctionComponent } from "react";
-import { Drawer as MuiDrawer, Grid } from "@mui/material";
+import { Drawer as MuiDrawer, Paper, Grid } from "@mui/material";
 import Drawer from "./Drawer";
 import { useDispatch, useSelector } from "react-redux";
 import { DRAWER_WIDTH } from "./constants";
 import { RootState } from "../../store/configureStore";
 import { toggleMobileDrawer } from "../../store/actions/uiActions";
 
-interface OwnProps {}
-
-type Props = OwnProps;
-
-const ResponsiveDrawer: FunctionComponent<Props> = (props) => {
+const ResponsiveDrawer: FunctionComponent = () => {
   const dispatch = useDispatch();
   const mobileDrawerOpen = useSelector(
     (state: RootState) => state.ui.mobileDrawerOpen
   );
-
   return (
     <Grid
       item
@@ -44,13 +39,15 @@ const ResponsiveDrawer: FunctionComponent<Props> = (props) => {
         sx={{
           display: { xs: "none", sm: "block" },
           "& .MuiDrawer-paper": {
-            boxSizing: "border-box",
             width: DRAWER_WIDTH,
+            borderRight: "none",
           },
         }}
         open
       >
-        <Drawer />
+        <Paper elevation={2} sx={{ height: "100%" }}>
+          <Drawer />
+        </Paper>
       </MuiDrawer>
     </Grid>
   );

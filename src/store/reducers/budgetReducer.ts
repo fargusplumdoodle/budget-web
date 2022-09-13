@@ -17,7 +17,9 @@ export const getBudgetStateFromList = (budgets: Budget[]): BudgetState => {
     list: budgets,
     byId: modelById(budgets),
     byName: modelByName(budgets),
-    root: budgets.find((budget) => (budget.name = BUDGET_ROOT_NAME))!,
+    root: budgets.find(
+      (budget) => budget.name === BUDGET_ROOT_NAME && budget.parent === null
+    )!,
   };
 };
 
