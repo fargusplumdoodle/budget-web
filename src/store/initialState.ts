@@ -53,6 +53,7 @@ const initialUIState: UIState = {
 
 const initialPanesState: PanesState = {
   current: null,
+  transaction: null,
 };
 
 const initialState = {

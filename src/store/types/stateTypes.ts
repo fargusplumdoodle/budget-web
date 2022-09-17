@@ -44,5 +44,6 @@ export interface UIState {
 }
 
 export interface PanesState {
-  current: null | "theme";
+  current: null | "theme" | "transaction";
+  transaction: Transaction | null;
 }
