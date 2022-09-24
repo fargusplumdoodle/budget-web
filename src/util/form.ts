@@ -35,8 +35,8 @@ export const budgetSchema = yup
 
 export const transactionSchema = yup
   .object({
-    tags: yup.array().min(1).required(),
-    amount: yup.number().min(0.01).required(),
+    tags: yup.array().min(1, "Must have at least one tag").required(),
+    amount: yup.number().required(),
     description: yup.string().max(300),
     date: yup.date().required(),
     budget: yup.object().required(),
