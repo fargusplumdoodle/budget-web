@@ -9,15 +9,19 @@ import TagInput from "../inputs/TagInput";
 import { Button, Grid } from "@mui/material";
 import BudgetInput from "../inputs/BudgetInput";
 import AmountInput from "../inputs/AmountInput";
+import DescriptionInput from "../inputs/DescriptionInput";
+import DateInput from "../inputs/DateInput";
 
 interface Props {
   transaction: Transaction | null;
   onSubmit: (transaction: Transaction) => void;
+  onDelete: (transaction: Transaction) => void;
 }
 
 const TransactionForm: FunctionComponent<Props> = ({
   transaction,
   onSubmit,
+  onDelete,
 }) => {
   const formMethods = useForm({
     resolver: yupResolver(transactionSchema),
@@ -36,15 +40,9 @@ const TransactionForm: FunctionComponent<Props> = ({
     mode: "onSubmit",
   });
 
-  // TODO: HOOK UP
-  const submit = (data: Transaction) => {
-    console.log("submited", data.amount, data);
-  };
-
-  console.log(JSON.stringify(formMethods.formState.errors, null, 2));
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={formMethods.handleSubmit(submit)}>
+      <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Grid container direction="column" gap={1}>
           <Grid item>
             <TagInput />
@@ -55,12 +53,20 @@ const TransactionForm: FunctionComponent<Props> = ({
           <Grid item>
             <AmountInput />
           </Grid>
+          <Grid item>
+            <DescriptionInput />
+          </Grid>
+          <Grid item>
+            <DateInput />
+          </Grid>
           <Grid item container justifyContent="flex-end" gap={1}>
-            <Grid item>
-              <Button variant="text" color="error">
-                DELETE
-              </Button>
-            </Grid>
+            {transaction?.id && (
+              <Grid item>
+                <Button variant="text" color="error" onClick={onDelete}>
+                  DELETE
+                </Button>
+              </Grid>
+            )}
             <Grid item>
               <Button type="submit">Submit</Button>
             </Grid>

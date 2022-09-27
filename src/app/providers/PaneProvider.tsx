@@ -4,6 +4,7 @@ import ThemeForm from "../../components/forms/ThemeForm";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { closeAllPanes } from "../../store/actions/panesActions";
+import TransactionPane from "../../components/panes/TransactionPane";
 
 const Pane = styled(Dialog)(() => ({
   left: "auto",
@@ -13,8 +14,8 @@ const Pane = styled(Dialog)(() => ({
     borderRadius: 0,
   },
 }));
-const PaneContent = styled(DialogContent)(() => ({
-  width: 360 - 32,
+const PaneContent = styled(DialogContent)(({ theme }) => ({
+  width: 360 - 1,
   height: "100vh",
 }));
 
@@ -24,7 +25,10 @@ const PaneProvider: FunctionComponent = () => {
 
   return (
     <Pane open={!!pane} onClose={() => dispatch(closeAllPanes())}>
-      <PaneContent>{pane === "theme" && <ThemeForm />}</PaneContent>
+      <PaneContent>
+        {pane === "theme" && <ThemeForm />}
+        {pane === "transaction" && <TransactionPane />}
+      </PaneContent>
     </Pane>
   );
 };
