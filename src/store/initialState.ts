@@ -1,11 +1,12 @@
 import {
   BudgetState,
   PanesState,
-  TagState, TransactionState,
-  UIState, UserInfoState,
+  TagState,
+  TransactionState,
+  UIState,
+  UserInfoState,
 } from "./types/stateTypes";
 import { DEFAULT_THEME } from "@fargusplumdoodle/themes";
-
 
 const initialBudgetState: BudgetState = {
   status: "init",

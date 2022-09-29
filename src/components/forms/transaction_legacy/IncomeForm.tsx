@@ -1,19 +1,14 @@
 import { Button, CircularProgress, Stack } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
-import { Transaction } from "../../../store/models/types";
 import { FormItem, incomeSchema } from "../../../util/form";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ProviderContext, withSnackbar } from "notistack";
+import { withSnackbar } from "notistack";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import ControlledAmountInput from "../inputs/ControlledAmountInput";
 import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
 import ControlledDateInput from "../inputs/ControlledDateInput";
-
-interface Props extends ProviderContext {
-  onCreateTransactions: (transactions: Transaction[]) => void;
-}
 
 export interface IncomeFormData {
   amount: number;
@@ -21,7 +16,7 @@ export interface IncomeFormData {
   date: Date;
 }
 
-const IncomeForm = (props: Props) => {
+const IncomeForm = () => {
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<ApiError | null>(null);
 

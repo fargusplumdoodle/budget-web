@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
 import { Transaction } from "../../../store/models/types";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

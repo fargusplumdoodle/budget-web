@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import {authReducer}from "../auth";
+import { authReducer } from "../auth";
 import budgets from "./budgetReducer";
 import tags from "./tagReducer";
 import transactions from "./transactionReducer";

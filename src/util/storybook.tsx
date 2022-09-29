@@ -6,7 +6,7 @@ export const createSampleTransactions = function (amount: number = 100) {
   return range(amount).map(() => generateTestTransaction());
 };
 export const createCallback = function (name: string) {
-  return (trans: Transaction) => {
+  return (_: Transaction) => {
     alert(`Called ${name} callback!`);
   };
 };

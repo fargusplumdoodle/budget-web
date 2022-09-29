@@ -4,7 +4,6 @@ import tags from "./tags";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import merge from "lodash/merge";
-import { StoryContext } from "@storybook/react";
 import { StoryFnReactReturnType } from "@storybook/react/dist/ts3.9/client/preview/types";
 
 export const stateDecorator = (stateOverrides: Partial<RootState> = {}) => {
@@ -21,7 +20,7 @@ export const stateDecorator = (stateOverrides: Partial<RootState> = {}) => {
   };
   const state = merge({}, mockState, stateOverrides);
 
-  return (Story: any, {}: StoryContext): StoryFnReactReturnType => {
+  return (Story: any): StoryFnReactReturnType => {
     const store = createStore((data: any) => data, state);
     return (
       <Provider store={store}>

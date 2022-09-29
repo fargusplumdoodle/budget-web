@@ -13,7 +13,7 @@ import { fetchTags } from "../../store/actions/tagActions";
 import { fetchUserInfo } from "../../store/actions/userInfoActions";
 import InitLoading from "../../components/InitLoading";
 import { State } from "../../store/types/stateTypes";
-import {resetAuth} from "../../store/auth";
+import { resetAuth } from "../../store/auth";
 
 type DispatchFn = () => (dispatch: AppDispatch) => void;
 type ExpectedData = {

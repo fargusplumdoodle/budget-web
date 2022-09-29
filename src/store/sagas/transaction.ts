@@ -1,9 +1,5 @@
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
-import {
-  CREATE_TRANSACTION,
-  DELETE_TRANSACTION,
-  UPDATE_TRANSACTION,
-} from "../actions/actionTypes";
+import { call, put, takeEvery } from "redux-saga/effects";
+import { CREATE_TRANSACTION, DELETE_TRANSACTION } from "../actions/actionTypes";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Transaction } from "../models/types";
 import api from "../../api";

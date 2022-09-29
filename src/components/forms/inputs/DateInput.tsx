@@ -1,18 +1,12 @@
 import React, { FunctionComponent } from "react";
-import {
-  Grid,
-  TextField,
-} from "@mui/material";
-import { useController, useFormContext } from "react-hook-form";
+import { Grid, TextField } from "@mui/material";
+import { useController } from "react-hook-form";
 import { DatePicker } from "@mui/lab";
 import settings from "../../../app/settings";
 
 interface Props {}
 
-const DescriptionInput: FunctionComponent<Props> = () => {
-  const {
-    formState: { errors },
-  } = useFormContext();
+const DateInput: FunctionComponent<Props> = () => {
   const {
     field: { value, onChange },
   } = useController({ name: "date" });
@@ -32,4 +26,4 @@ const DescriptionInput: FunctionComponent<Props> = () => {
   );
 };
 
-export default DescriptionInput;
+export default DateInput;

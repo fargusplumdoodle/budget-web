@@ -10,7 +10,6 @@ export interface ExternalState {
   status: State;
 }
 
-
 export interface BudgetState extends ExternalState {
   list: Budget[];
   byId: { [k: number]: Budget };

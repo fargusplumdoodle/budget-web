@@ -1,4 +1,3 @@
-import createSagaMiddleware from "redux-saga";
 import { fork } from "redux-saga/effects";
 import transactionSaga from "./transaction";
 

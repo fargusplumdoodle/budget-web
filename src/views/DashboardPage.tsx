@@ -37,11 +37,11 @@ const DashboardCard = styled(Card)(({ theme }) => ({
     width: "100%",
     maxWidth: "100%",
   },
-  ":nth-child(odd)": {
+  ":nth-of-type(odd)": {
     animation: `${fadeIn} 500ms linear 0.1s 1 normal forwards`,
     opacity: 0,
   },
-  ":nth-child(even)": {
+  ":nth-of-type(even)": {
     animation: `${fadeIn} 500ms linear 0.3s 1 normal forwards`,
     opacity: 0,
   },

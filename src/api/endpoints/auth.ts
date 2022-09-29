@@ -2,8 +2,8 @@ import axios from "axios";
 import settings from "../../app/settings";
 import { store } from "../../store/configureStore";
 import parseISO from "date-fns/parseISO";
-import {refreshAuthToken} from "../../store/auth";
-import {AuthState} from "../../store/auth/types";
+import { refreshAuthToken } from "../../store/auth";
+import { AuthState } from "../../store/auth/types";
 
 // TODO: MOVE SOMEWHERE
 interface tokenResponse {
@@ -26,7 +26,7 @@ function getAuthStateFromTokenResponse(
   return {
     status: "loaded",
     accessToken: tokenResponse.access_token,
-    authCode: '',
+    authCode: "",
     refreshToken: tokenResponse.refresh_token,
     tokenType: tokenResponse.token_type,
     expiresAt: expiresAt.toISOString(),
@@ -85,6 +85,6 @@ export const checkAuth = async () => {
   }
 
   if (parseISO(state.auth.expiresAt) <= new Date()) {
-    await store.dispatch(refreshAuthToken())
+    await store.dispatch(refreshAuthToken());
   }
 };
