@@ -7,7 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch } from "react-redux";
 import { toggleMobileDrawer } from "../../store/actions/uiActions";
 import { AddCircle, Settings } from "@mui/icons-material";
-import { editTransaction } from "../../store/actions/transactionActions";
+import { openTransactionPane } from "../../store/actions/transactionActions";
 
 interface HeaderProps {}
 
@@ -49,7 +49,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
             </Grid>
           </Grid>
           <Grid item container wrap="nowrap" justifyContent="flex-end">
-            <IconButton onClick={() => dispatch(editTransaction(null))}>
+            <IconButton onClick={() => dispatch(openTransactionPane(null))}>
               <AddCircle
                 sx={(theme) => ({ color: theme.palette.secondary.main })}
               />

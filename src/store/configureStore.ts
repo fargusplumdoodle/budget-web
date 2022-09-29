@@ -3,6 +3,8 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import initialState from "./initialState";
 import { persistStore } from "redux-persist";
+import createSagaMiddleware from "redux-saga";
+import transactionSaga from "./sagas/transaction";
 
 declare global {
   interface Window {
@@ -10,16 +12,20 @@ declare global {
   }
 }
 
+const sagaMiddleware = createSagaMiddleware();
+
 export function configureStore(initialState: any) {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
   return createStore(
     rootReducer,
     initialState,
-    composeEnhancers(applyMiddleware(thunk))
+    composeEnhancers(applyMiddleware(thunk), applyMiddleware(sagaMiddleware))
   );
 }
 export const store = configureStore(initialState);
+sagaMiddleware.run(transactionSaga);
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

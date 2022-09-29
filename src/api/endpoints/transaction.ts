@@ -37,6 +37,12 @@ export async function fetchTransactionPage(
 export async function createTransaction(
   trans: Transaction
 ): Promise<Transaction> {
+  function sleeper(ms: number) {
+    return function (x: any) {
+      return new Promise((resolve) => setTimeout(() => resolve(x), ms));
+    };
+  }
+  await sleeper(1000)(() => null);
   const r = await makeRequest({
     method: "post",
     url: "/api/v2/transaction/",

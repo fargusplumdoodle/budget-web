@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Transaction } from "../../../store/models/types";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,12 +17,14 @@ interface Props {
   transaction: Transaction | null;
   onSubmit: (transaction: Transaction) => void;
   onDelete: (transaction: Transaction) => void;
+  loading: boolean;
 }
 
 const TransactionForm: FunctionComponent<Props> = ({
   transaction,
   onSubmit,
   onDelete,
+  loading,
 }) => {
   const formMethods = useForm({
     resolver: yupResolver(transactionSchema),
@@ -68,7 +71,9 @@ const TransactionForm: FunctionComponent<Props> = ({
               </Grid>
             )}
             <Grid item>
-              <Button type="submit">Submit</Button>
+              <Button disabled={loading} type="submit">
+                Submit
+              </Button>
             </Grid>
           </Grid>
         </Grid>

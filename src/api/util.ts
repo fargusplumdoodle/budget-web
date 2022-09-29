@@ -21,7 +21,6 @@ export async function makeRequest(params: AxiosRequestConfig) {
     });
   } catch (e: any) {
     if (e?.response.status === 401) {
-      console.log("Unauthorized");
       store.dispatch(clearAuthToken());
     } else {
       throw e;

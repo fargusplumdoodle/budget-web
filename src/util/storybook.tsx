@@ -8,6 +8,5 @@ export const createSampleTransactions = function (amount: number = 100) {
 export const createCallback = function (name: string) {
   return (trans: Transaction) => {
     alert(`Called ${name} callback!`);
-    console.log(`Callback: ${name}`, trans);
   };
 };

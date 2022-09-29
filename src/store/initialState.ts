@@ -29,6 +29,7 @@ const initialBudgetState: BudgetState = {
 const initialTransactionState: TransactionState = {
   list: [],
   byId: {},
+  stateStatus: {},
 };
 
 const initialTagState: TagState = {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,7 +10,8 @@ import { Typography } from "@mui/material";
 import "../../../views/transactions_list/TransactionsTable.css";
 import { Transaction } from "../../../store/models/types";
 import { commaSeparatedTagNames } from "../../../util/formatters";
-import TransactionFormDialog from "../transaction_form/TransactionFormDialog";
+import { useDispatch } from "react-redux";
+import { openTransactionPane } from "../../../store/actions/transactionActions";
 
 interface TransactionTableProps {
   transactions: Transaction[];
@@ -24,9 +25,7 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
   props: TransactionTableProps
 ) => {
   const headers = ["Budget", "Tags", "Description", "Date", "Amount"];
-  const [editTransaction, setEditTransaction] = useState<Transaction | null>(
-    null
-  );
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -49,7 +48,7 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
                 <TableRow
                   key={trans.id}
                   onClick={() => {
-                    setEditTransaction(trans);
+                    dispatch(openTransactionPane(trans));
                   }}
                 >
                   <TableCell>{trans.budget.name}</TableCell>
@@ -65,22 +64,6 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
           </TableBody>
         </Table>
       </TableContainer>
-      <TransactionFormDialog
-        open={editTransaction !== null}
-        transaction={editTransaction!}
-        onClose={() => {
-          setEditTransaction(null);
-        }}
-        onCreateCallback={(trans: Transaction) => {
-          props.onCreateCallback!(trans);
-        }}
-        onUpdateCallback={(trans: Transaction) => {
-          props.onUpdateCallback!(trans);
-        }}
-        onDeleteCallback={(trans: Transaction) => {
-          props.onDeleteCallback!(trans);
-        }}
-      />
     </>
   );
 };

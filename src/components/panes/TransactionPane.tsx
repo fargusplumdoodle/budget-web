@@ -1,32 +1,69 @@
 import React, { FunctionComponent, useState } from "react";
 import { RootState } from "../../store/configureStore";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TransactionForm from "../forms/TransactionForm/TransactionForm";
 import { Transaction } from "../../store/models/types";
+import { getTransactionHash } from "../../store/models/utils";
+import {
+  createTransaction,
+  deleteTransaction,
+  updateTransaction,
+} from "../../store/actions/transactionActions";
+import { CircularProgress, Grid, Typography } from "@mui/material";
 
-interface Props {}
-
-const TransactionPane: FunctionComponent<Props> = (props) => {
-  const stateTransaction = useSelector(
+const TransactionPane: FunctionComponent<Props> = () => {
+  const dispatch = useDispatch();
+  const initialTransaction = useSelector(
     (state: RootState) => state.panes.transaction
   );
-  const [loading, setLoading] = useState(false);
+  const [savingTransaction, setSavingTransaction] =
+    useState(initialTransaction);
+  // TODO: Close pane on save
 
-  const updateTransaction = async (transaction: Transaction) => {};
-  const createTransaction = async (transaction: Transaction) => {};
-  const deleteTransaction = async (transaction: Transaction) => {};
+  const transactionHash = savingTransaction
+    ? getTransactionHash(savingTransaction)
+    : "";
 
-  const onSubmit = (transaction: Transaction) => {
-    const submitFn = transaction.id ? updateTransaction : createTransaction;
+  const stateStatus = useSelector(
+    (state: RootState) => state.transactions.stateStatus
+  );
+  const loading = stateStatus[transactionHash]
+    ? stateStatus[transactionHash]?.status !== "loaded"
+    : false;
+  console.log("stateStatus", stateStatus[transactionHash]);
+
+  const onSubmit = (newTransaction: Transaction) => {
+    setSavingTransaction(newTransaction);
+    console.log("new trans", newTransaction);
+    const submitFn = newTransaction.id ? updateTransaction : createTransaction;
+    dispatch(submitFn(newTransaction));
   };
 
   return (
-    <TransactionForm
-      transaction={stateTransaction}
-      onSubmit={onSubmit}
-      onDelete={deleteTransaction}
-      loading={loading}
-    />
+    <Grid container gap={2}>
+      <Grid item container wrap="nowrap" justifyContent="space-between">
+        <Grid item component={Typography} variant="body1">
+          {initialTransaction ? "Edit" : "Add"} Transaction
+        </Grid>
+        {loading ? (
+          <Grid item component={CircularProgress} size={24} />
+        ) : (
+          <Grid item component={Typography} variant="body1">
+            {initialTransaction?.id}
+          </Grid>
+        )}
+      </Grid>
+      <Grid item>
+        <TransactionForm
+          transaction={initialTransaction}
+          onSubmit={onSubmit}
+          onDelete={(transaction: Transaction) =>
+            dispatch(deleteTransaction(transaction))
+          }
+          loading={loading}
+        />
+      </Grid>
+    </Grid>
   );
 };
 

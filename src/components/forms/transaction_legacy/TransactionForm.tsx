@@ -149,10 +149,7 @@ const TransactionForm = (props: Props) => {
   };
   return (
     <>
-      <form
-        onSubmit={handleSubmit((data) => onSubmit(data as Transaction))}
-        onChange={(t) => console.log("changed form", t)}
-      >
+      <form onSubmit={handleSubmit((data) => onSubmit(data as Transaction))}>
         <Stack
           spacing={2}
           justifyContent="flex-start"

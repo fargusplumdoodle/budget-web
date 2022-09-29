@@ -44,7 +44,7 @@ export function serializeTransaction(
     amount: toCents(trans.amount),
     description: trans.description || "",
     budget: trans.budget.id!,
-    date: format(trans.date, "YYYY-MM-dd"),
+    date: format(trans.date, "yyyy-MM-dd"),
     income: trans.income,
     transfer: trans.transfer,
     tags: trans.tags.map((tag) => serializeTag(tag)),

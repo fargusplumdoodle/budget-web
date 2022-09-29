@@ -12,6 +12,8 @@ import { Transaction } from "../../../store/models/types";
 import { commaSeparatedTagNames } from "../../../util/formatters";
 import TransactionFormDialog from "../transaction_form/TransactionFormDialog";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+import { openTransactionPane } from "../../../store/actions/transactionActions";
+import { useDispatch } from "react-redux";
 
 interface TransactionTableProps {
   transactions: Transaction[];
@@ -30,9 +32,7 @@ const PaginatedTransactionsTable: FunctionComponent<TransactionTableProps> = (
     props["defaultRowsPerPage"] || minimumRowsPerPage
   );
   const [page, setPage] = useState(0);
-  const [editTransaction, setEditTransaction] = useState<Transaction | null>(
-    null
-  );
+  const dispatch = useDispatch();
 
   const headers = props.showBudget ? ["budget"] : [];
   headers.push("Tags", "Description", "Date", "Amount");
@@ -66,7 +66,7 @@ const PaginatedTransactionsTable: FunctionComponent<TransactionTableProps> = (
                 <TableRow
                   key={trans.id}
                   onClick={() => {
-                    setEditTransaction(trans);
+                    dispatch(openTransactionPane(trans));
                   }}
                 >
                   {props.showBudget ? (
@@ -108,22 +108,6 @@ const PaginatedTransactionsTable: FunctionComponent<TransactionTableProps> = (
           </TableFooter>
         </Table>
       </TableContainer>
-      <TransactionFormDialog
-        open={editTransaction !== null}
-        transaction={editTransaction!}
-        onClose={() => {
-          setEditTransaction(null);
-        }}
-        onCreateCallback={(trans: Transaction) => {
-          props.onCreateCallback!(trans);
-        }}
-        onUpdateCallback={(trans: Transaction) => {
-          props.onUpdateCallback!(trans);
-        }}
-        onDeleteCallback={(trans: Transaction) => {
-          props.onDeleteCallback!(trans);
-        }}
-      />
     </>
   );
 };

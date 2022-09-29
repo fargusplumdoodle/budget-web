@@ -34,7 +34,6 @@ const AmountInput: FunctionComponent<Props> = () => {
     if (!newSign) return;
     setSign(newSign);
     onChange(getValue(newSign));
-    console.log("changing", getValue(newSign));
   };
 
   return (
