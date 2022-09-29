@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { Button, SxProps } from "@mui/material";
 import settings from "../../app/settings";
-import {resetAuth} from "../../store/auth";
+import {resetAuth, selectAuthState} from "../../store/auth";
 
 interface Props {
   sx?: SxProps;
@@ -12,9 +12,7 @@ interface Props {
 
 const AuthButton: FunctionComponent<Props> = ({ sx }) => {
   const dispatch = useDispatch();
-  const authenticated = useSelector(
-    (state: RootState) => state.auth.authenticated
-  );
+  const authenticated = useSelector(selectAuthState);
 
   return (
     <Button

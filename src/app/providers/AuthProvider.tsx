@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/configureStore";
 import {ROUTES} from "../AppRoutes";
 import InitLoading from "../../components/InitLoading";
-import {requestAuthToken, resetAuth, setAuth} from "../../store/auth";
+import {requestAuthToken, resetAuth, selectAuthState, setAuth} from "../../store/auth";
 import {useLocation} from "react-router-dom";
 
 interface AuthProviderProps {
@@ -13,7 +13,7 @@ interface AuthProviderProps {
 }
 
 const AuthProvider: FunctionComponent<AuthProviderProps> = ({children}) => {
-    const auth = useSelector((state: RootState) => state.auth);
+    const auth = useSelector(selectAuthState);
     const dispatch = useDispatch();
     const location = useLocation()
 
@@ -33,7 +33,6 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({children}) => {
             dispatch(resetAuth());
         }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [auth.authenticated, location.pathname]);
 
     return (
