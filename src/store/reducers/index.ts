@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import auth from "./authReducer";
+import {authReducer}from "../auth";
 import budgets from "./budgetReducer";
 import tags from "./tagReducer";
 import transactions from "./transactionReducer";
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
       key: "auth",
       storage,
     },
-    auth
+    authReducer
   ),
   ui: persistReducer(
     {

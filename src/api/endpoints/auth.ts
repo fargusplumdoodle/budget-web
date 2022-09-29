@@ -1,11 +1,11 @@
 import axios from "axios";
 import settings from "../../app/settings";
-import { AuthState } from "../../store/types/stateTypes";
 import { store } from "../../store/configureStore";
 import parseISO from "date-fns/parseISO";
-import { refreshAuthToken } from "../../store/actions/authActions";
+import {refreshAuthToken} from "../../store/auth";
+import {AuthState} from "../../store/auth/types";
 
-// eslint-disable-next-line no-unused-vars
+// TODO: MOVE SOMEWHERE
 interface tokenResponse {
   // eslint-disable-next-line camelcase
   access_token: string;
@@ -17,6 +17,7 @@ interface tokenResponse {
   token_type: string;
 }
 
+// TODO: MOVE TO SERIALIZERS
 function getAuthStateFromTokenResponse(
   tokenResponse: tokenResponse
 ): AuthState {
@@ -25,6 +26,7 @@ function getAuthStateFromTokenResponse(
   return {
     status: "loaded",
     accessToken: tokenResponse.access_token,
+    authCode: '',
     refreshToken: tokenResponse.refresh_token,
     tokenType: tokenResponse.token_type,
     expiresAt: expiresAt.toISOString(),
@@ -32,11 +34,11 @@ function getAuthStateFromTokenResponse(
   };
 }
 
-export async function retrieveToken(authCode: string): Promise<AuthState> {
+export async function retrieveToken(code: string): Promise<AuthState> {
   const requestData = {
     client_id: settings.auth.clientId,
     client_secret: settings.auth.clientSecret,
-    code: authCode,
+    code,
     redirect_uri: settings.auth.callbackUrl,
     grant_type: "authorization_code",
   };
@@ -79,11 +81,10 @@ export const checkAuth = async () => {
   const state = store.getState();
 
   if (!state.auth.authenticated) {
-    console.log("Not authenticated");
     throw Error("ah not authenticated");
   }
 
   if (parseISO(state.auth.expiresAt) <= new Date()) {
-    await refreshAuthToken(state.auth.refreshToken)(store.dispatch);
+    await store.dispatch(refreshAuthToken())
   }
 };

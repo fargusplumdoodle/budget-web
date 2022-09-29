@@ -1,11 +1,11 @@
 import { loadBudgetsSuccess } from "../store/actions/budgetActions";
-import { generateTestBudget, generateTestTag } from "./generators";
 import { loadTagsSuccess } from "../store/actions/tagActions";
 import { store } from "../store/configureStore";
-import { clearAuthToken } from "../store/actions/authActions";
 import { TransferFormData } from "../components/forms/transaction_legacy/TransferForm";
 import { createTransferTransactions } from "./transfer";
 import { Transaction } from "../store/models/types";
+import {generateTestBudget, generateTestTag} from "./generators/test_generators";
+import {resetAuth} from "../store/auth";
 
 describe("Test create transfer transactions", () => {
   const budget1 = generateTestBudget();
@@ -14,14 +14,14 @@ describe("Test create transfer transactions", () => {
 
   beforeEach(() => {
     // Resets the store
-    store.dispatch(clearAuthToken());
+    store.dispatch(resetAuth());
     store.dispatch(loadBudgetsSuccess([budget1, budget2]));
     store.dispatch(loadTagsSuccess([transferTag]));
   });
 
   afterEach(() => {
     // Resets the store
-    store.dispatch(clearAuthToken());
+    store.dispatch(resetAuth());
   });
 
   test("that transaction amounts and budgets are created correctly", () => {

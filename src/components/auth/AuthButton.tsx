@@ -3,8 +3,8 @@ import { FunctionComponent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { Button, SxProps } from "@mui/material";
-import { logOut } from "../../store/actions/authActions";
 import settings from "../../app/settings";
+import {resetAuth} from "../../store/auth";
 
 interface Props {
   sx?: SxProps;
@@ -22,7 +22,7 @@ const AuthButton: FunctionComponent<Props> = ({ sx }) => {
       sx={{ ...sx }}
       onClick={() => {
         if (authenticated) {
-          dispatch(logOut());
+          dispatch(resetAuth());
         } else {
           window.location.assign(settings.auth.ApiLoginUrl);
         }

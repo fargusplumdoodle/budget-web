@@ -5,7 +5,7 @@ import { DateTime } from "luxon";
 import { round } from "lodash";
 import { Expression } from "../components/query/types";
 import { checkAuth } from "./endpoints/auth";
-import { clearAuthToken } from "../store/actions/authActions";
+import { resetAuth } from "../store/auth";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   await checkAuth();
@@ -21,7 +21,7 @@ export async function makeRequest(params: AxiosRequestConfig) {
     });
   } catch (e: any) {
     if (e?.response.status === 401) {
-      store.dispatch(clearAuthToken());
+      store.dispatch(resetAuth());
     } else {
       throw e;
     }

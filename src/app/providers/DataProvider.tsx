@@ -13,7 +13,7 @@ import { fetchTags } from "../../store/actions/tagActions";
 import { fetchUserInfo } from "../../store/actions/userInfoActions";
 import InitLoading from "../../components/InitLoading";
 import { State } from "../../store/types/stateTypes";
-import { logOut } from "../../store/actions/authActions";
+import {resetAuth} from "../../store/auth";
 
 type DispatchFn = () => (dispatch: AppDispatch) => void;
 type ExpectedData = {
@@ -84,7 +84,7 @@ const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
         <DialogActions>
           <Button
             onClick={() => {
-              dispatch(logOut());
+              dispatch(resetAuth());
             }}
           >
             Give up and log out

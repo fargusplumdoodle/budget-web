@@ -30,11 +30,9 @@ const TransactionPane: FunctionComponent<Props> = () => {
   const loading = stateStatus[transactionHash]
     ? stateStatus[transactionHash]?.status !== "loaded"
     : false;
-  console.log("stateStatus", stateStatus[transactionHash]);
 
   const onSubmit = (newTransaction: Transaction) => {
     setSavingTransaction(newTransaction);
-    console.log("new trans", newTransaction);
     const submitFn = newTransaction.id ? updateTransaction : createTransaction;
     dispatch(submitFn(newTransaction));
   };

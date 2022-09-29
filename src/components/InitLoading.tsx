@@ -19,11 +19,10 @@ const Container = styled(Box)(() => ({
   padding: 20,
 }));
 
-const InitLoading: FunctionComponent<InitLoadingProps> = ({ message }) => {
+const InitLoading: FunctionComponent<InitLoadingProps> = () => {
   return (
     <Container>
       <CircularProgress />
-      {message}
     </Container>
   );
 };

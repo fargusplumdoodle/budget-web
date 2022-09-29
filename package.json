@@ -9,7 +9,7 @@
     "@mui/icons-material": "^5.2.4",
     "@mui/lab": "^5.0.0-alpha.60",
     "@mui/material": "^5.10.2",
-    "@reduxjs/toolkit": "^1.7.0",
+    "@reduxjs/toolkit": "^1.8.5",
     "apexcharts": "^3.32.0",
     "axios": "^0.24.0",
     "date-fns": "^2.29.3",

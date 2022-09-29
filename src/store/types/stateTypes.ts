@@ -6,17 +6,10 @@ export type Operation = "create" | "retrieve" | "update" | "delete";
 export type StateType = "BUDGET" | "TAGS" | "USER_INFO" | "AUTH";
 export type StateStatus = { status: State; operation: Operation };
 
-interface ExternalState {
+export interface ExternalState {
   status: State;
 }
 
-export interface AuthState extends ExternalState {
-  authenticated: boolean;
-  accessToken: string;
-  refreshToken: string;
-  expiresAt: string;
-  tokenType: string;
-}
 
 export interface BudgetState extends ExternalState {
   list: Budget[];

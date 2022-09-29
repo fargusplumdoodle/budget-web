@@ -1,22 +1,11 @@
 import {
-  AuthState,
   BudgetState,
   PanesState,
-  TagState,
-  TransactionState,
-  UIState,
-  UserInfoState,
+  TagState, TransactionState,
+  UIState, UserInfoState,
 } from "./types/stateTypes";
 import { DEFAULT_THEME } from "@fargusplumdoodle/themes";
 
-const initialAuthState: AuthState = {
-  status: "init",
-  authenticated: false,
-  accessToken: "",
-  refreshToken: "",
-  expiresAt: "",
-  tokenType: "",
-};
 
 const initialBudgetState: BudgetState = {
   status: "init",
@@ -58,7 +47,6 @@ const initialPanesState: PanesState = {
 };
 
 const initialState = {
-  auth: initialAuthState,
   budgets: initialBudgetState,
   transactions: initialTransactionState,
   tags: initialTagState,
