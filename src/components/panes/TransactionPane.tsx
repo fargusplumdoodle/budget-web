@@ -2,14 +2,14 @@ import React, { FunctionComponent, useState } from "react";
 import { RootState } from "../../store/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import TransactionForm from "../forms/TransactionForm/TransactionForm";
-import { Transaction } from "../../store/models/types";
-import { getTransactionHash } from "../../store/models/utils";
 import {
   createTransaction,
   deleteTransaction,
   updateTransaction,
 } from "../../store/actions/transactionActions";
 import { CircularProgress, Grid, Typography } from "@mui/material";
+import {getTransactionHash} from "../../store/transactions/utils";
+import {Transaction} from "../../store/transactions/types";
 
 const TransactionPane: FunctionComponent<Props> = () => {
   const dispatch = useDispatch();

@@ -20,20 +20,6 @@ export interface Budget extends Model {
   outcome_per_month: number;
 }
 
-export interface Transaction extends Model {
-  amount: number;
-  description: string | null;
-  budget: Budget;
-  date: Date;
-
-  created?: Date;
-  modified?: Date;
-
-  income: boolean;
-  transfer: boolean;
-  tags: Tag[];
-}
-
 export interface UserInfo {
   expected_monthly_net_income: number;
 }

@@ -8,11 +8,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { TableFooter, TablePagination, Typography } from "@mui/material";
 import "../../../views/transactions_list/TransactionsTable.css";
-import { Transaction } from "../../../store/models/types";
 import { commaSeparatedTagNames } from "../../../util/formatters";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { openTransactionPane } from "../../../store/actions/transactionActions";
 import { useDispatch } from "react-redux";
+import {Transaction} from "../../../store/transactions/types";
 
 interface TransactionTableProps {
   transactions: Transaction[];

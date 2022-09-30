@@ -1,6 +1,6 @@
 import initialState from "../initialState";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { State, TagState } from "../types/stateTypes";
+import { StateStatus, TagState } from "../types/stateTypes";
 import {
   LOAD_TAGS_SUCCESS,
   CLEAR_AUTH_TOKEN,
@@ -11,7 +11,7 @@ import { orderBy } from "lodash";
 
 export default function tagReducer(
   state: TagState = initialState.tags,
-  action: PayloadAction<Tag[] | State>
+  action: PayloadAction<Tag[] | StateStatus>
 ): TagState {
   switch (action.type) {
     case LOAD_TAGS_SUCCESS:
@@ -28,7 +28,7 @@ export default function tagReducer(
         byId: Object.fromEntries(tags.map((tag) => [tag.id, tag])),
       };
     case UPDATE_TAGS_STATUS:
-      return { ...state, status: action.payload as State };
+      return { ...state, status: action.payload as StateStatus };
     case CLEAR_AUTH_TOKEN:
       return { ...initialState.tags };
     default:

@@ -12,7 +12,7 @@ import { AppDispatch, RootState } from "../../store/configureStore";
 import { fetchTags } from "../../store/actions/tagActions";
 import { fetchUserInfo } from "../../store/actions/userInfoActions";
 import InitLoading from "../../components/InitLoading";
-import { State } from "../../store/types/stateTypes";
+import { StateStatus } from "../../store/types/stateTypes";
 import { resetAuth } from "../../store/auth";
 
 type DispatchFn = () => (dispatch: AppDispatch) => void;
@@ -43,7 +43,7 @@ interface DataProviderProps {
 const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
   const rootState = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
-  const [initState, setInitState] = useState<State>("init");
+  const [initState, setInitState] = useState<StateStatus>("init");
 
   const requiredState = expectedData.filter(
     ({ stateType }) => rootState[stateType].status === "init"

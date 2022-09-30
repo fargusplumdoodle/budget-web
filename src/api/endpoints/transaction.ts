@@ -1,4 +1,3 @@
-import { Transaction } from "../../store/models/types";
 import { makeRequest } from "../util";
 import {
   PaginatedResponse,
@@ -8,6 +7,7 @@ import {
 import { deserializeTransaction, serializeTransaction } from "../serializers";
 import { store } from "../../store/configureStore";
 import { updateBudgetSuccess } from "../../store/actions/budgetActions";
+import {Transaction} from "../../store/transactions/types";
 
 export async function fetchTransactionPage(
   page: number,

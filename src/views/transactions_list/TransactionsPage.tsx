@@ -1,7 +1,6 @@
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import PaginatedTransactionsTable from "../../components/transactions/transactions_table/PaginatedTransactionsTable";
-import { Transaction } from "../../store/models/types";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
 import api from "../../api";
 import Card from "@mui/material/Card";
@@ -10,6 +9,7 @@ import { Box, LinearProgress } from "@mui/material";
 import QueryForm from "../../components/query";
 import { Expression } from "../../components/query/types";
 import { getQueryParametersFromExpressions } from "../../api/util";
+import {Transaction} from "../../store/transactions/types";
 
 interface Props {}
 

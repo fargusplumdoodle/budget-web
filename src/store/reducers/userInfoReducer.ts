@@ -6,17 +6,17 @@ import {
   LOAD_USER_INFO_SUCCESS,
   UPDATE_USER_INFO_STATUS,
 } from "../actions/actionTypes";
-import { State, UserInfoState } from "../types/stateTypes";
+import { StateStatus, UserInfoState } from "../types/stateTypes";
 
 export default function userInfoReducer(
   state: UserInfoState = initialState.userInfo,
-  action: PayloadAction<UserInfoState | State>
+  action: PayloadAction<UserInfoState | StateStatus>
 ): UserInfoState {
   switch (action.type) {
     case LOAD_USER_INFO_SUCCESS:
       return { ...(action.payload as UserInfo), status: "loaded" };
     case UPDATE_USER_INFO_STATUS:
-      return { ...state, status: action.payload as State };
+      return { ...state, status: action.payload as StateStatus };
     case CLEAR_AUTH_TOKEN:
       return { ...initialState.userInfo };
     default:

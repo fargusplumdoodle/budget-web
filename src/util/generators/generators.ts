@@ -1,5 +1,6 @@
-import { Tag, Budget, Transaction } from "../../store/models/types";
+import { Tag, Budget } from "../../store/models/types";
 import { getUniqueNumber } from "./utils";
+import {Transaction} from "../../store/transactions/types";
 
 export function generateBudget(args: Object = {}): Budget {
   return {

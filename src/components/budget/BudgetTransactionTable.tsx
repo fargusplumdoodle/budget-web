@@ -1,11 +1,12 @@
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import PaginatedTransactionsTable from "../../components/transactions/transactions_table/PaginatedTransactionsTable";
-import { Budget, Transaction } from "../../store/models/types";
+import { Budget } from "../../store/models/types";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
 import api from "../../api";
 import ApiErrorDialog, { ApiError } from "../ApiErrorDialog";
 import { Box, LinearProgress } from "@mui/material";
+import {Transaction} from "../../store/transactions/types";
 
 interface Props {
   budget: Budget;

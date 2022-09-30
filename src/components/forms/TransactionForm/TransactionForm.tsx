@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from "react";
-import { Transaction } from "../../../store/models/types";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { transactionSchema } from "../../../util/form";
@@ -11,6 +10,7 @@ import BudgetInput from "../inputs/BudgetInput";
 import AmountInput from "../inputs/AmountInput";
 import DescriptionInput from "../inputs/DescriptionInput";
 import DateInput from "../inputs/DateInput";
+import {Transaction} from "../../../store/transactions/types";
 
 interface Props {
   transaction: Transaction | null;
@@ -33,6 +33,7 @@ const TransactionForm: FunctionComponent<Props> = ({
           id: null,
           amount: 0,
           description: "",
+            status: 'init',
           budget: budgets.byName["food"],
           date: new Date(),
           income: false,

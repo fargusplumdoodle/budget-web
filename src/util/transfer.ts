@@ -1,6 +1,6 @@
 import { TransferFormData } from "../components/forms/transaction_legacy/TransferForm";
-import { Transaction } from "../store/models/types";
 import { store } from "../store/configureStore";
+import {Transaction} from "../store/transactions/types";
 
 export function createTransferTransactions(
   formData: TransferFormData

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import TransactionForm from "./TransactionForm";
 import budgets from "../../../__fixtures__/budgets";
-import { Transaction } from "../../../store/models/types";
 import { stateDecorator } from "../../../__fixtures__/decorators";
+import {Transaction} from "../../../store/transactions/types";
 
 export default {
   title: "TransactionForm",

@@ -1,6 +1,5 @@
-import { Budget, Model, Transaction } from "./types";
-import { store } from "../configureStore";
-import sha1 from "sha1";
+import {Budget, Model} from "./types";
+import {store} from "../configureStore";
 
 export const modelById = <T extends Model>(models: T[]) =>
   Object.fromEntries(models.map((model) => [model.id, model]));
@@ -23,14 +22,3 @@ export const setBudgetParents = (budgets: Budget[]): Budget[] => {
   });
 };
 
-export const getTransactionHash = (transaction: Transaction): string => {
-  const message = `
-  ${transaction.id || ""}
-  ${transaction.amount}
-  ${transaction.description}
-  ${transaction.date}
-  ${transaction.income}
-  ${transaction.transfer}
-  `;
-  return sha1(message);
-};

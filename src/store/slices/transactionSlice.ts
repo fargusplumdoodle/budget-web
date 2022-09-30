@@ -1,6 +1,6 @@
-import { Transaction } from "../models/types";
 import { StateStatus } from "../types/stateTypes";
 import { createSlice } from "@reduxjs/toolkit";
+import {Transaction} from "../transactions/types";
 
 export interface TransactionState {
   list: Transaction[];

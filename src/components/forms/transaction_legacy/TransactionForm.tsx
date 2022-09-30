@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import * as React from "react";
-import { Tag, Transaction } from "../../../store/models/types";
+import { Tag } from "../../../store/models/types";
 import { generateTransaction } from "../../../util/generators/generators";
 import { RootState } from "../../../store/configureStore";
 import { useSelector } from "react-redux";
@@ -28,6 +28,7 @@ import BudgetsInput from "../inputs/ControlledBudgetInput";
 import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
 import ControlledDateInput from "../inputs/ControlledDateInput";
 import TagsInput from "../../query/inputs/TagsInput";
+import {Transaction} from "../../../store/transactions/types";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;

@@ -1,4 +1,4 @@
-import { Budget, Tag, Transaction, UserInfo } from "../../store/models/types";
+import { Budget, Tag, UserInfo } from "../../store/models/types";
 import {
   SerializedBudget,
   SerializedTag,
@@ -11,6 +11,7 @@ import { setBudgetParents } from "../../store/models/utils";
 import lowerCase from "lodash/lowerCase";
 import capitalize from "lodash/capitalize";
 import { format } from "date-fns";
+import {Transaction} from "../../store/transactions/types";
 
 export const serializeTag = (tag: Tag): SerializedTag => {
   return {
@@ -62,6 +63,7 @@ export function deserializeTransaction(
   return {
     id: trans.id!,
     amount: fromCents(trans.amount),
+    status: 'loaded',
     date: getAPIDate(trans.date),
     budget: budget,
     tags: trans.tags.map((tag) => deserializeTag(tag)),

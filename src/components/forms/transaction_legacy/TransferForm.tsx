@@ -3,7 +3,7 @@ import { FunctionComponent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormItem, transferSchema } from "../../../util/form";
-import { Budget, Transaction } from "../../../store/models/types";
+import { Budget } from "../../../store/models/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/configureStore";
 import { Button, CircularProgress, Stack } from "@mui/material";
@@ -15,6 +15,7 @@ import ControlledAmountInput from "../inputs/ControlledAmountInput";
 import ControlledBudgetInput from "../inputs/ControlledBudgetInput";
 import { InputErrorMessage } from "../types";
 import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
+import {Transaction} from "../../../store/transactions/types";
 
 interface Props extends ProviderContext {
   onCreateCallback: (transactions: Transaction[]) => void;

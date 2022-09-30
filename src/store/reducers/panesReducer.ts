@@ -6,7 +6,7 @@ import {
   OPEN_THEME_PANE,
 } from "../actions/actionTypes";
 import { PanesState } from "../types/stateTypes";
-import { Transaction } from "../models/types";
+import {Transaction} from "../transactions/types";
 
 export default function panesReducer(
   state: PanesState = initialState.panes,

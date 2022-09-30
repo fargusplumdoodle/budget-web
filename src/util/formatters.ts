@@ -1,4 +1,4 @@
-import { Transaction } from "../store/models/types";
+import {Transaction} from "../store/transactions/types";
 
 export function formatCurrency(
   amount: number,

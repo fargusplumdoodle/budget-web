@@ -4,11 +4,11 @@ import { FunctionComponent, useState } from "react";
 import "./AddTransactionsPage.css";
 import TransactionForm from "../../components/forms/transaction_legacy/TransactionForm";
 import TransactionTable from "../../components/transactions/transactions_table/TransactionsTable";
-import { Transaction } from "../../store/models/types";
 import IncomeForm from "../../components/forms/transaction_legacy/IncomeForm";
 import { TabPanel, tabProps } from "../../components/tabs";
 import TransferForm from "../../components/forms/transaction_legacy/TransferForm";
 import settings from "../../app/settings";
+import {Transaction} from "../../store/transactions/types";
 
 const ADD = 0;
 const INCOME = 1;

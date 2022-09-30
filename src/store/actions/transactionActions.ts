@@ -1,4 +1,3 @@
-import { Transaction } from "../models/types";
 import {
   OPEN_TRANSACTION_PANE,
   LOAD_TRANSACTIONS_SUCCESS,
@@ -9,8 +8,9 @@ import {
   SET_TRANSACTION_STATE_STATUS,
 } from "./actionTypes";
 import { StateStatus } from "../types/stateTypes";
-import { getTransactionHash } from "../models/utils";
 import { PayloadAction } from "@reduxjs/toolkit";
+import {getTransactionHash} from "../transactions/utils";
+import {Transaction} from "../transactions/types";
 
 export function loadTransactionsSuccess(transactions: Transaction[]) {
   return {

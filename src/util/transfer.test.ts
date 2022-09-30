@@ -3,12 +3,12 @@ import { loadTagsSuccess } from "../store/actions/tagActions";
 import { store } from "../store/configureStore";
 import { TransferFormData } from "../components/forms/transaction_legacy/TransferForm";
 import { createTransferTransactions } from "./transfer";
-import { Transaction } from "../store/models/types";
 import {
   generateTestBudget,
   generateTestTag,
 } from "./generators/test_generators";
 import { resetAuth } from "../store/auth";
+import {Transaction} from "../store/transactions/types";
 
 describe("Test create transfer transactions", () => {
   const budget1 = generateTestBudget();

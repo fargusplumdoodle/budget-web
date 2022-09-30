@@ -16,11 +16,7 @@ const initialBudgetState: BudgetState = {
   root: null,
 };
 
-const initialTransactionState: TransactionState = {
-  list: [],
-  byId: {},
-  stateStatus: {},
-};
+
 
 const initialTagState: TagState = {
   status: "init",

@@ -1,13 +1,13 @@
-import { Budget, Tag, Transaction } from "../models/types";
+import { Budget, Tag } from "../models/types";
 import { ThemeSettings } from "./ui";
+import {Transaction} from "../transactions/types";
 
-export type State = "loading" | "loaded" | "error" | "init";
+export type StateStatus = "loading" | "loaded" | "error" | "init";
 export type Operation = "create" | "retrieve" | "update" | "delete";
 export type StateType = "BUDGET" | "TAGS" | "USER_INFO" | "AUTH";
-export type StateStatus = { status: State; operation: Operation };
 
 export interface ExternalState {
-  status: State;
+  status: StateStatus;
 }
 
 export interface BudgetState extends ExternalState {
@@ -17,13 +17,6 @@ export interface BudgetState extends ExternalState {
   root: Budget | null;
 }
 
-export interface TransactionState {
-  list: Transaction[];
-  byId: { [k: number]: Transaction };
-  stateStatus: {
-    [hash: string]: StateStatus;
-  };
-}
 
 export interface TagState extends ExternalState {
   list: Tag[];
