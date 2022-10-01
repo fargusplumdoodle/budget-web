@@ -1,6 +1,5 @@
-import {Budget, Model, Tag} from "../models/types";
-import {StateStatus} from "../types/stateTypes";
-
+import { Budget, Model, Tag } from "../../models/types";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 export interface Transaction extends Model {
   amount: number;
@@ -10,7 +9,6 @@ export interface Transaction extends Model {
 
   created?: Date;
   modified?: Date;
-  status: StateStatus
 
   income: boolean;
   transfer: boolean;
@@ -20,7 +18,9 @@ export interface Transaction extends Model {
 export interface TransactionState {
   list: Transaction[];
   byId: { [k: number]: Transaction };
-  newTransactions: {
-    [hash: string]: Transaction;
-  };
 }
+
+export type UpdateTransactionPayloadAction = PayloadAction<{
+  newTransaction: Transaction;
+  oldTransaction: Transaction;
+}>;
