@@ -1,6 +1,6 @@
 import { getUniqueNumber } from "./utils";
 import { Budget } from "../../store/data/budgets/types";
-import {Tag} from "../../store/data/tags";
+import { Tag } from "../../store/data/tags";
 
 export function generateBudget(args: Object = {}): Budget {
   return {

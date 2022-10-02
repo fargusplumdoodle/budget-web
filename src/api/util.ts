@@ -5,17 +5,17 @@ import { DateTime } from "luxon";
 import { round } from "lodash";
 import { Expression } from "../components/query/types";
 import { checkAuth } from "./endpoints/auth";
-import { resetAuth } from "../store/auth";
+import { resetAuth, selectAuthState } from "../store";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   await checkAuth();
 
-  const state = store.getState();
+  const auth = selectAuthState(store.getState());
   try {
     return await axios({
       ...params,
       headers: {
-        authorization: `${state.auth.tokenType} ${state.auth.accessToken}`,
+        authorization: `${auth.tokenType} ${auth.accessToken}`,
         ...params.headers,
       },
     });

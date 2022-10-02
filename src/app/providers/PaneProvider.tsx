@@ -2,10 +2,8 @@ import React, { FunctionComponent } from "react";
 import { Dialog, DialogContent, styled } from "@mui/material";
 import ThemeForm from "../../components/forms/ThemeForm";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/configureStore";
-import { closeAllPanes } from "../../store/actions/panesActions";
+import { closeAllPanes, selectOpenPane } from "../../store";
 import TransactionPane from "../../components/panes/TransactionPane";
-import { selectMobileDrawerOpen } from "../../store/location";
 
 const Pane = styled(Dialog)(() => ({
   left: "auto",
@@ -22,7 +20,7 @@ const PaneContent = styled(DialogContent)(() => ({
 
 const PaneProvider: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const pane = useSelector(selectMobileDrawerOpen);
+  const pane = useSelector(selectOpenPane);
 
   return (
     <Pane open={!!pane} onClose={() => dispatch(closeAllPanes())}>

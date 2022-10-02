@@ -5,7 +5,7 @@ import {
   allObjectsExcept,
   modelById,
   modelByName,
-} from "../../models/utils";
+} from "../..";
 import { Tag, TagState } from "./types";
 
 export const initialState: TagState = {

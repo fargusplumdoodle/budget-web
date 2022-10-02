@@ -12,6 +12,7 @@ import SpendingSummary from "../components/report/spending_summary/SpendingSumma
 import { DateTime } from "luxon";
 import { EXPECTED_BUDGETS } from "../app/settings";
 import { fadeIn } from "../theme/animations";
+import { selectBudgetByName, selectBudgetList } from "../store";
 
 interface OwnProps extends ProviderContext {}
 
@@ -48,15 +49,15 @@ const DashboardCard = styled(Card)(({ theme }) => ({
 }));
 
 const DashboardPage: FunctionComponent<Props> = () => {
-  const budgets = useSelector((state: RootState) => state.budgets);
-  if (budgets.list.length === 0) {
+  const budgets = useSelector(selectBudgetList);
+  const savings = useSelector(selectBudgetByName(EXPECTED_BUDGETS.SAVINGS));
+  if (budgets.length === 0) {
     return <></>;
   }
-  const savingsId = budgets.byName[EXPECTED_BUDGETS.SAVINGS]?.id || "";
 
   const query = new URLSearchParams({
     date__gte: DateTime.now().minus({ months: 3 }).toISODate(),
-    budgets__excludes: savingsId.toString(),
+    budgets__excludes: savings.id!.toString(),
   });
 
   return (
@@ -71,7 +72,7 @@ const DashboardPage: FunctionComponent<Props> = () => {
 
       <CardArea>
         <DashboardCard>
-          <BudgetTable budgets={budgets.list} />
+          <BudgetTable budgets={budgets} />
         </DashboardCard>
 
         <DashboardCard>

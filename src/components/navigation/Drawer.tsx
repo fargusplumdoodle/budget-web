@@ -15,6 +15,7 @@ import NavigationBudgetTreeItem from "./NavigationBudgetTreeItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { ROUTES } from "../../app/AppRoutes";
+import { selectBudgetRoot } from "../../store";
 
 const GradientBox = styled(Grid)(({ theme }) => ({
   background: `linear-gradient(0deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
@@ -53,7 +54,7 @@ const Link = styled(Grid, {
 const Drawer: FunctionComponent = () => {
   const currentRoute = getCurrentRoute();
   const navigate = useNavigate();
-  const rootBudget = useSelector((state: RootState) => state.budgets.root);
+  const rootBudget = useSelector(selectBudgetRoot)!;
   const currentRouteId =
     currentRoute!.path === ROUTES.BUDGET_DETAIL.path && getCurrentRouteId();
   return (
@@ -114,12 +115,12 @@ const Drawer: FunctionComponent = () => {
             defaultCollapseIcon={<ExpandMoreIcon />}
             defaultExpandIcon={<ChevronRightIcon />}
             selected={currentRouteId || ""}
-            defaultExpanded={[rootBudget!.id!.toString()]}
+            defaultExpanded={[rootBudget.id!.toString()]}
             onNodeSelect={(_: any, nodeId: string) =>
               navigate(routeWithId(ROUTES.BUDGET_DETAIL.path, nodeId))
             }
           >
-            <NavigationBudgetTreeItem budget={rootBudget!} />
+            <NavigationBudgetTreeItem budget={rootBudget} />
           </TreeView>
         </Grid>
       </Content>

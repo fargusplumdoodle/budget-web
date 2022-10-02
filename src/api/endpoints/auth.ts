@@ -2,8 +2,7 @@ import axios from "axios";
 import settings from "../../app/settings";
 import { store } from "../../store/configureStore";
 import parseISO from "date-fns/parseISO";
-import { refreshAuthToken } from "../../store/auth";
-import { AuthState } from "../../store/auth/types";
+import { AuthState, refreshAuthToken } from "../../store";
 
 // TODO: MOVE SOMEWHERE
 interface tokenResponse {

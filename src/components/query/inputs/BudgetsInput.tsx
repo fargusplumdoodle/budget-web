@@ -3,6 +3,8 @@ import { Autocomplete, TextField } from "@mui/material";
 import { store } from "../../../store/configureStore";
 import { ExpressionInputProps } from "../types";
 import { Budget } from "../../../store/data/budgets/types";
+import { useSelector } from "react-redux";
+import { selectBudgetList } from "../../../store";
 
 interface Props extends ExpressionInputProps<Budget[]> {
   [k: string]: any;
@@ -10,9 +12,10 @@ interface Props extends ExpressionInputProps<Budget[]> {
 
 const BudgetsInput: React.FunctionComponent<Props> = (props) => {
   const state = store.getState();
+  const budgets = useSelector(selectBudgetList);
   return (
     <Autocomplete
-      options={state.budgets.list}
+      options={budgets}
       disablePortal
       multiple
       limitTags={2}

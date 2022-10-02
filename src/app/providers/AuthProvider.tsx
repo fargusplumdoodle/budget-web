@@ -4,7 +4,7 @@ import { FunctionComponent, ReactNode, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ROUTES } from "../AppRoutes";
 import InitLoading from "../../components/InitLoading";
-import { requestAuthToken, resetAuth, selectAuthState } from "../../store/auth";
+import { requestAuthToken, resetAuth, selectAuthState } from "../../store";
 import { useLocation } from "react-router-dom";
 
 interface AuthProviderProps {

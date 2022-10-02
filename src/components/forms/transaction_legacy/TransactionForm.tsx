@@ -28,7 +28,7 @@ import ControlledDateInput from "../inputs/ControlledDateInput";
 import TagsInput from "../../query/inputs/TagsInput";
 import { Transaction } from "../../../store/data/transactions/types";
 import { generateTransaction } from "../../../store/data/transactions/__fixtures__/generateTransaction";
-import {Tag} from "../../../store/data/tags";
+import { Tag } from "../../../store/data/tags";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;

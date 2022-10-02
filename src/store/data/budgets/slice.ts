@@ -5,13 +5,12 @@ import {
   allObjectsExcept,
   modelById,
   modelByName,
-} from "../../models/utils";
+} from "../..";
 import { Budget, BudgetState } from "./types";
 import { BUDGET_ROOT_NAME } from "../../../api/constants";
 import { getRootBudget } from "./utils";
 
 export const initialState: BudgetState = {
-  status: "init",
   list: [],
   byId: {},
   byName: {},

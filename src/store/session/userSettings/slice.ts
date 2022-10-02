@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DEFAULT_THEME } from "@fargusplumdoodle/themes";
-import { UserSettingsState } from "./types";
+import { DEFAULT_THEME, SystemThemeOption } from "@fargusplumdoodle/themes";
+import { ThemeSettings, UserSettingsState } from "./types";
 
 export const initialState: UserSettingsState = {
   expected_monthly_net_income: -1,
@@ -21,7 +21,10 @@ const userSettingsSlice = createSlice({
     ) {
       return userSettings;
     },
-    updateUserSettings(state, _) {
+    setSystemTheme(state, { payload }: PayloadAction<ThemeSettings>) {
+      state.theme = { ...payload };
+    },
+    updateUserSettings(state, _action) {
       return state;
     },
     fetchUserSettings(state, _) {
@@ -29,6 +32,10 @@ const userSettingsSlice = createSlice({
     },
   },
 });
-export const { loadUserSettings, updateUserSettings, fetchUserSettings } =
-  userSettingsSlice.actions;
+export const {
+  loadUserSettings,
+  updateUserSettings,
+  setSystemTheme,
+  fetchUserSettings,
+} = userSettingsSlice.actions;
 export default userSettingsSlice.reducer;

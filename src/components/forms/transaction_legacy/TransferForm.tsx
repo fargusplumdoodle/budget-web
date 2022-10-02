@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormItem, transferSchema } from "../../../util/form";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/configureStore";
 import { Button, CircularProgress, Stack } from "@mui/material";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import { createTransaction } from "../../../api/endpoints/transaction";
@@ -14,8 +13,7 @@ import ControlledAmountInput from "../inputs/ControlledAmountInput";
 import ControlledBudgetInput from "../inputs/ControlledBudgetInput";
 import { InputErrorMessage } from "../types";
 import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
-import { Transaction } from "../../../store/data/transactions/types";
-import { Budget } from "../../../store/data/budgets/types";
+import { Transaction, Budget, selectBudgetList } from "../../../store";
 
 interface Props extends ProviderContext {
   onCreateCallback: (transactions: Transaction[]) => void;
@@ -32,14 +30,14 @@ export interface TransferFormData {
 const TransferForm: FunctionComponent<Props> = (props) => {
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<ApiError | null>(null);
-  const budgets = useSelector((state: RootState) => state.budgets);
+  const budgets = useSelector(selectBudgetList);
 
   const defaultValues = {
     amount: 0,
     description: "",
     date: new Date(),
-    fromBudget: budgets.list[0],
-    toBudget: budgets.list[1],
+    fromBudget: budgets[0],
+    toBudget: budgets[1],
   };
 
   const {
@@ -116,10 +114,8 @@ const TransferForm: FunctionComponent<Props> = (props) => {
               name="fromBudget"
               control={control}
               getValues={getValues}
-              defaultValue={budgets.list[0]}
-              options={budgets.list.filter(
-                (b) => b.id !== getValues("toBudget").id
-              )}
+              defaultValue={budgets[0]}
+              options={budgets.filter((b) => b.id !== getValues("toBudget").id)}
               errors={errors["fromBudget"] as InputErrorMessage}
             />
           </FormItem>
@@ -129,8 +125,8 @@ const TransferForm: FunctionComponent<Props> = (props) => {
               name="toBudget"
               control={control}
               getValues={getValues}
-              defaultValue={budgets.list[1]}
-              options={budgets.list.filter(
+              defaultValue={budgets[1]}
+              options={budgets.filter(
                 (b) => b.id !== getValues("fromBudget").id
               )}
               errors={errors["toBudget"] as InputErrorMessage}

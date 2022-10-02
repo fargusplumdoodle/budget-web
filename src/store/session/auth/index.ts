@@ -9,3 +9,4 @@ export {
 } from "./slice";
 export { selectAuthState } from "./selectors";
 export { authSaga } from "./saga";
+export * from "./types";

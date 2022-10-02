@@ -10,7 +10,7 @@ import BudgetInput from "../inputs/BudgetInput";
 import AmountInput from "../inputs/AmountInput";
 import DescriptionInput from "../inputs/DescriptionInput";
 import DateInput from "../inputs/DateInput";
-import { Transaction } from "../../../store/data/transactions/types";
+import { Transaction } from "../../../store";
 
 interface Props {
   transaction: Transaction | null;
@@ -33,7 +33,6 @@ const TransactionForm: FunctionComponent<Props> = ({
           id: null,
           amount: 0,
           description: "",
-          status: "init",
           budget: budgets.byName["food"],
           date: new Date(),
           income: false,

@@ -7,8 +7,7 @@ export const selectBudgetById = (id: number) => (state: RootState) =>
 export const selectBudgetByName = (name: string) => (state: RootState) =>
   state.data.budgets.byName[name];
 
-export const selectBudgetRoot = () => (state: RootState) =>
-  state.data.budgets.root;
+export const selectBudgetRoot = (state: RootState) => state.data.budgets.root;
 
 export const selectBudgetList = (state: RootState) => state.data.budgets.list;
 

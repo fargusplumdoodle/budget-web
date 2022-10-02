@@ -1,4 +1,3 @@
-import { UserInfo } from "../../store/models/types";
 import {
   SerializedBudget,
   SerializedTag,
@@ -15,6 +14,7 @@ import { Budget } from "../../store/data/budgets/types";
 import { setBudgetParents } from "../../store/data/budgets/utils";
 import { Tag } from "../../store/data/tags";
 import { UserSettingsState } from "../../store/session/userSettings";
+import { selectBudgetById } from "../../store";
 
 export const serializeTag = (tag: Tag): SerializedTag => {
   return {
@@ -25,7 +25,7 @@ export const serializeTag = (tag: Tag): SerializedTag => {
 export const deserializeTag = (tag: SerializedTag): Tag => {
   const state = store.getState();
   const budget = tag.common_budget
-    ? state.budgets.byId[tag.common_budget]
+    ? selectBudgetById(tag.common_budget)(state)
     : null;
 
   const commonTransactionAmount = tag.common_transaction_amount
@@ -59,7 +59,7 @@ export function deserializeTransaction(
   trans: SerializedTransaction
 ): Transaction {
   const state = store.getState();
-  const budget = state.budgets.byId[trans.budget];
+  const budget = selectBudgetById(trans.budget)(state);
   if (!budget) {
     throw Error(`Unable to find budget in state: ${trans.budget}`);
   }
@@ -97,7 +97,7 @@ export function deserializeBudget(budget: SerializedBudget): Budget {
     monthlyAllocation: fromCents(budget.monthly_allocation),
     balance: fromCents(budget.balance),
     isNode: budget.is_node!,
-    parent: state.budgets.byId[budget.parent!] || null,
+    parent: selectBudgetById(budget.parent!)(state) || null,
     parentId: budget.parent,
     income_per_month: fromCents(budget.income_per_month),
     outcome_per_month: fromCents(budget.outcome_per_month),

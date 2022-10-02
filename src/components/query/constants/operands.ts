@@ -13,7 +13,7 @@ import {
 } from "./operators";
 import DescriptionInput from "../inputs/DescriptionInput";
 import { Budget } from "../../../store/data/budgets/types";
-import {Tag} from "../../../store/data/tags";
+import { Tag } from "../../../store/data/tags";
 
 export const OPERANDS: { [name: string]: Operand<any> } = {
   amount: {

@@ -10,15 +10,14 @@ import {
 import { Add } from "@mui/icons-material";
 import TagFormDialog from "../tag/TagFormDialog";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/configureStore";
 import { getMuiFilledInputStyles } from "@fargusplumdoodle/themes";
 import capitalize from "lodash/capitalize";
-import {Tag} from "../../../store/data/tags";
+import { selectTagList, Tag } from "../../../store";
 
 interface Props {}
 
 const TagInput: FunctionComponent<Props> = () => {
-  const tags = useSelector((state: RootState) => state.tags.list);
+  const tags = useSelector(selectTagList);
   const [newTagDialogOpen, setNewTagDialogOpen] = useState(false);
   const {
     getValues,

@@ -10,9 +10,9 @@ import { TableFooter, TablePagination, Typography } from "@mui/material";
 import "../../../views/transactions_list/TransactionsTable.css";
 import { commaSeparatedTagNames } from "../../../util/formatters";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { openTransactionPane } from "../../../store/actions/transactionActions";
+import { openTransactionPane } from "../../../store";
 import { useDispatch } from "react-redux";
-import { Transaction } from "../../../store/data/transactions/types";
+import { Transaction } from "../../../store";
 
 interface TransactionTableProps {
   transactions: Transaction[];

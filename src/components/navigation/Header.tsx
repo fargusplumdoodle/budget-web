@@ -5,9 +5,8 @@ import { ROUTES } from "../../app/AppRoutes";
 import { getCurrentRoute } from "../../util/routing";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch } from "react-redux";
-import { toggleMobileDrawer } from "../../store/actions/uiActions";
 import { AddCircle, Settings } from "@mui/icons-material";
-import { openTransactionPane } from "../../store/actions/transactionActions";
+import { openTransactionPane, toggleMobileDrawer } from "../../store";
 
 interface HeaderProps {}
 

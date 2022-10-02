@@ -4,6 +4,7 @@ export {
   default as userSettingsReducer,
   fetchUserSettings,
   loadUserSettings,
+  setSystemTheme,
   updateUserSettings,
 } from "./slice";
 export { default as userSettingsSaga } from "./saga";

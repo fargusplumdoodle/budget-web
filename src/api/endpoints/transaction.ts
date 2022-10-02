@@ -5,9 +5,7 @@ import {
   SerializedTransaction,
 } from "../types";
 import { deserializeTransaction, serializeTransaction } from "../serializers";
-import { store } from "../../store/configureStore";
-import { updateBudgetSuccess } from "../../store/actions/budgetActions";
-import { Transaction } from "../../store/data/transactions/types";
+import { store, Transaction } from "../../store";
 
 export async function fetchTransactionPage(
   page: number,
@@ -48,18 +46,7 @@ export async function createTransaction(
     url: "/api/v2/transaction/",
     data: serializeTransaction(trans),
   });
-  const newTransaction = deserializeTransaction(
-    r!.data as SerializedTransaction
-  );
-
-  store.dispatch(
-    updateBudgetSuccess({
-      ...newTransaction.budget,
-      balance: newTransaction.budget.balance + newTransaction.amount,
-    })
-  );
-
-  return newTransaction;
+  return deserializeTransaction(r!.data as SerializedTransaction);
 }
 
 export async function updateTransaction(
@@ -73,21 +60,10 @@ export async function updateTransaction(
   return deserializeTransaction(r!.data as SerializedTransaction);
 }
 
-export async function deleteTransaction(
-  trans: Transaction
-): Promise<Transaction> {
+export async function deleteTransaction(trans: Transaction): Promise<void> {
   await makeRequest({
     method: "delete",
     url: `/api/v2/transaction/${trans.id}/`,
     data: serializeTransaction(trans),
   });
-
-  store.dispatch(
-    updateBudgetSuccess({
-      ...trans.budget,
-      balance: trans.budget.balance - trans.amount,
-    })
-  );
-
-  return trans;
 }

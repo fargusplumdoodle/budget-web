@@ -9,7 +9,7 @@ import {
   modelById,
   addModelsToList,
   addModelToList,
-} from "../../models/utils";
+} from "../..";
 
 export const initialState: TransactionState = {
   list: [],

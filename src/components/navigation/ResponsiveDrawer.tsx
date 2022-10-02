@@ -3,14 +3,11 @@ import { Drawer as MuiDrawer, Paper, Grid } from "@mui/material";
 import Drawer from "./Drawer";
 import { useDispatch, useSelector } from "react-redux";
 import { DRAWER_WIDTH } from "./constants";
-import { RootState } from "../../store/configureStore";
-import { toggleMobileDrawer } from "../../store/actions/uiActions";
+import { selectMobileDrawerOpen, toggleMobileDrawer } from "../../store";
 
 const ResponsiveDrawer: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const mobileDrawerOpen = useSelector(
-    (state: RootState) => state.ui.mobileDrawerOpen
-  );
+  const mobileDrawerOpen = useSelector(selectMobileDrawerOpen);
   return (
     <Grid
       item

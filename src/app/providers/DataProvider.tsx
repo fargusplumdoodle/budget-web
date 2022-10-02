@@ -14,13 +14,15 @@ import {
   DialogTitle,
 } from "@mui/material";
 import InitLoading from "../../components/InitLoading";
-import { resetAuth } from "../../store/auth";
-import { fetchAllBudgets } from "../../store/data/budgets/slice";
-import { selectBudgetFetchRequired } from "../../store/data/budgets/selectors";
-import { selectRequestById } from "../../store/communication";
 import capitalize from "lodash/capitalize";
-import { selectTagFetchRequired } from "../../store/data";
-import { fetchAllTags } from "../../store/data/tags/slice";
+import {
+  fetchAllBudgets,
+  fetchAllTags,
+  resetAuth,
+  selectBudgetFetchRequired,
+  selectRequestById,
+  selectTagFetchRequired,
+} from "../../store";
 
 interface DataProviderProps {
   children: ReactNode | ReactNode[];

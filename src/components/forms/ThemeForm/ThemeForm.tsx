@@ -3,15 +3,11 @@ import { Grid, Switch, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { THEMES } from "@fargusplumdoodle/themes";
 import ThemeOption from "./ThemeOption";
-import { RootState } from "../../../store/configureStore";
-import { setSystemTheme } from "../../../store/actions/uiActions";
-import { UIState } from "../../../store/types/stateTypes";
+import { selectThemeSettings, setSystemTheme } from "../../../store";
 
 const ThemeForm: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const { themeName, darkMode } = useSelector(
-    (state: RootState) => (state.ui as UIState).theme
-  );
+  const { themeName, darkMode } = useSelector(selectThemeSettings);
 
   return (
     <>
@@ -39,7 +35,9 @@ const ThemeForm: FunctionComponent = () => {
             <Grid
               item
               component={Switch}
-              onChange={() => dispatch(setSystemTheme(themeName, !darkMode))}
+              onChange={() =>
+                dispatch(setSystemTheme({ themeName, darkMode: !darkMode }))
+              }
               checked={darkMode}
             />
           </Grid>
@@ -49,7 +47,7 @@ const ThemeForm: FunctionComponent = () => {
           {Object.entries(THEMES).map(([theme, themeOption]) => (
             <ThemeOption
               key={theme}
-              onChange={() => dispatch(setSystemTheme(theme, darkMode))}
+              onChange={() => dispatch(setSystemTheme({ themeName, darkMode }))}
               darkMode={darkMode}
               selected={theme === themeName}
               themeOption={themeOption}

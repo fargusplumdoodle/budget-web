@@ -3,7 +3,7 @@ import { FunctionComponent } from "react";
 import Dialog from "@mui/material/Dialog";
 import { DialogContent, DialogTitle } from "@mui/material";
 import TagForm from "./TagForm";
-import {Tag} from "../../../store/data/tags";
+import { Tag } from "../../../store/data/tags";
 
 interface Props {
   open: boolean;

@@ -4,8 +4,7 @@ import { SxProps, TextField } from "@mui/material";
 import { InputErrorMessage } from "../types";
 import ControlledAutocomplete from "./ControlledAutoComplete";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/configureStore";
-import { Budget } from "../../../store/data/budgets/types";
+import { Budget, selectBudgetByName, selectBudgetList } from "../../../store";
 
 interface Props<FormT> {
   name: Path<FormT>;
@@ -24,15 +23,16 @@ function BudgetsInput<FormT>({
   errors,
   ...autoCompleteOptions
 }: Props<FormT>) {
-  const budgets = useSelector((state: RootState) => state.budgets);
+  const budgets = useSelector(selectBudgetList);
+  const foodBudget = useSelector(selectBudgetByName("food"));
   return (
     <ControlledAutocomplete<Budget, FormT>
       name={name}
       control={control}
       getValues={getValues}
-      defaultValue={budgets.byName["food"]}
+      defaultValue={foodBudget}
       disablePortal
-      options={budgets.list}
+      options={budgets}
       disableClearable
       isOptionEqualToValue={(option, value) => {
         return option.id === value.id;

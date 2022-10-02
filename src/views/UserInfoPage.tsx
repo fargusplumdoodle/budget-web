@@ -2,14 +2,12 @@ import * as React from "react";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../components/ApiErrorDialog";
 import { Button, Card } from "@mui/material";
-import { UserInfo } from "../store/models/types";
 import UserInfoForm from "../components/forms/user_info/UserInfoForm";
 import { ProviderContext, withSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
-import { loadUserInfoSuccess } from "../store/actions/userInfoActions";
 import api from "../api";
 import AuthButton from "../components/auth/AuthButton";
-import { openThemePane } from "../store/actions/panesActions";
+import { UserSettingsState, openThemePane, updateUserSettings } from "../store";
 
 const classes = {
   root: {
@@ -26,20 +24,8 @@ const UserInfoPage: React.FC<UserInfoPageProps> = function ({
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const dispatch = useDispatch();
 
-  const onSubmit = (userInfo: UserInfo) => {
-    api.userInfo
-      .updateUserInfo(userInfo)
-      .then(() => {
-        dispatch(loadUserInfoSuccess(userInfo));
-        setLoading(false);
-        enqueueSnackbar(`Successfully updated user info`, {
-          variant: "success",
-        });
-      })
-      .catch((err) => {
-        setLoading(false);
-        setApiError(err);
-      });
+  const onSubmit = (userInfo: UserSettingsState) => {
+    dispatch(updateUserSettings(userInfo));
   };
 
   return (

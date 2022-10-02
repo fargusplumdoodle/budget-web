@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Autocomplete, styled, TextField } from "@mui/material";
-import { store } from "../../../store/configureStore";
 import { ExpressionInputProps } from "../types";
-import {Tag} from "../../../store/data/tags";
+import { selectTagList, Tag } from "../../../store";
+import { useSelector } from "react-redux";
 
 interface Props extends ExpressionInputProps<Tag[]> {
   [k: string]: any;
@@ -20,10 +20,10 @@ const TagsInput: React.FunctionComponent<Props> = ({
   onChange,
   ...props
 }) => {
-  const state = store.getState();
+  const tags = useSelector(selectTagList);
   return (
     <Input
-      options={state.tags.list}
+      options={tags}
       disablePortal
       multiple
       limitTags={2}

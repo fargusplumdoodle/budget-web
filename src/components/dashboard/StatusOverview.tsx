@@ -2,7 +2,6 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import { Box, styled, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/configureStore";
 import { sum } from "lodash";
 import { formatCurrency } from "../../util/formatters";
 import { getAverageOutcomePerMonth } from "../../util/stats";
@@ -10,6 +9,7 @@ import { EXPECTED_BUDGETS } from "../../app/settings";
 
 import StackedWave from "../../assets/StackedWave.svg";
 import { fadeInAndUp } from "../../theme/animations";
+import { selectBudgetByName, selectBudgetList } from "../../store";
 
 const Container = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -41,9 +41,12 @@ const NetWorth = styled(Box)(({ theme }) => ({
 }));
 
 const StatusOverview: FunctionComponent = () => {
-  const budgets = useSelector((state: RootState) => state.budgets);
+  const budgets = useSelector(selectBudgetList);
+  const personal = useSelector(selectBudgetByName(EXPECTED_BUDGETS.PERSONAL));
+  const savings = useSelector(selectBudgetByName(EXPECTED_BUDGETS.SAVINGS));
+
   const [monthlyOutcome, setMonthlyOutcome] = React.useState<number>(0.01);
-  const totalBudgetBalance = sum(budgets.list.map((budget) => budget.balance));
+  const totalBudgetBalance = sum(budgets.map((budget) => budget.balance));
 
   React.useEffect(() => {
     getAverageOutcomePerMonth().then((r) => setMonthlyOutcome(r));
@@ -56,18 +59,10 @@ const StatusOverview: FunctionComponent = () => {
           Monthly Outcome: {formatCurrency(monthlyOutcome, false)}
         </Typography>
         <Typography variant="body1">
-          Savings:{" "}
-          {formatCurrency(
-            budgets.byName[EXPECTED_BUDGETS.SAVINGS].balance,
-            false
-          )}
+          Savings: {formatCurrency(savings.balance, false)}
         </Typography>
         <Typography variant="body1">
-          Personal:{" "}
-          {formatCurrency(
-            budgets.byName[EXPECTED_BUDGETS.PERSONAL].balance,
-            false
-          )}
+          Personal: {formatCurrency(personal.balance, false)}
         </Typography>
       </Stats>
 

@@ -10,8 +10,8 @@ import { Typography } from "@mui/material";
 import "../../../views/transactions_list/TransactionsTable.css";
 import { commaSeparatedTagNames } from "../../../util/formatters";
 import { useDispatch } from "react-redux";
-import { openTransactionPane } from "../../../store/actions/transactionActions";
-import { Transaction } from "../../../store/data/transactions/types";
+import { openTransactionPane } from "../../../store";
+import { Transaction } from "../../../store";
 
 interface TransactionTableProps {
   transactions: Transaction[];

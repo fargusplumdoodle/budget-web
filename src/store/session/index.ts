@@ -1,8 +1,9 @@
-import { authReducer } from "./auth";
+import { authReducer, authSaga } from "./auth";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { userSettingsReducer } from "./userSettings";
+import { userSettingsReducer, userSettingsSaga } from "./userSettings";
+import { all, fork } from "redux-saga/effects";
 
 export * from "./auth";
 export * from "./userSettings";
@@ -17,3 +18,7 @@ export const sessionReducer = combineReducers({
   ),
   userSettings: userSettingsReducer,
 });
+
+export function* sessionSaga() {
+  yield all([fork(authSaga), fork(userSettingsSaga)]);
+}

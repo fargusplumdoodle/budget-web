@@ -8,7 +8,7 @@ import { Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { ProviderContext, withSnackbar } from "notistack";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import api from "../../../api";
-import {Tag} from "../../../store/data/tags";
+import { Tag } from "../../../store/data/tags";
 
 interface Props extends ProviderContext {
   tag?: Tag;

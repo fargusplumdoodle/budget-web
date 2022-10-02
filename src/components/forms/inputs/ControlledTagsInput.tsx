@@ -3,7 +3,7 @@ import { Control, Path } from "react-hook-form";
 import { SxProps, TextField } from "@mui/material";
 import { InputErrorMessage } from "../types";
 import ControlledAutocomplete from "./ControlledAutoComplete";
-import {Tag} from "../../../store/data/tags";
+import { Tag } from "../../../store/data/tags";
 
 interface Props<FormT> {
   name: Path<FormT>;

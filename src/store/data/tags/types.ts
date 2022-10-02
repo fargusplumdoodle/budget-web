@@ -1,4 +1,4 @@
-import { Model } from "../../models/types";
+import { Model } from "../../";
 import { Budget } from "../budgets";
 
 export interface Tag extends Model {
