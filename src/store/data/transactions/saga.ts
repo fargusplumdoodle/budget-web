@@ -19,8 +19,8 @@ function* executeCreateTransaction({
       api.transaction.createTransaction,
       transaction
     );
-    yield put(getTransactionRequest(transaction, "create", "loaded"));
     yield put(loadTransaction(response));
+    yield put(getTransactionRequest(transaction, "create", "loaded"));
   } catch {
     yield put(getTransactionRequest(transaction, "create", "error"));
   }

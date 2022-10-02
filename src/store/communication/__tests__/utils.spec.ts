@@ -1,6 +1,6 @@
 import { getId } from "../utils";
-import { generateTransaction } from "../../../util/generators/generators";
-import { getTransactionHash } from "../../transactions/utils";
+import { getTransactionHash } from "../../data/transactions/utils";
+import { generateTransaction } from "../../data/transactions/__fixtures__/generateTransaction";
 
 describe("getId", () => {
   it("should use id if it exists", () => {

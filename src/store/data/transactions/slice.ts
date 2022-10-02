@@ -8,6 +8,8 @@ import {
   allObjectsExcept,
   allObjectsExceptInList,
   modelById,
+  addModelsToList,
+  addModelToList,
 } from "../../models/utils";
 
 const initialState: TransactionState = {
@@ -22,18 +24,12 @@ const transactionSlice = createSlice({
   reducers: {
     loadTransactions(state: TransactionState, action) {
       const transactions = [...(action.payload as Transaction[])];
-      state.list = [
-        ...state.list.filter(allObjectsExceptInList(transactions)),
-        ...transactions,
-      ];
+      state.list = addModelsToList(state.list, transactions);
       state.byId = modelById(state.list);
     },
     loadTransaction(state: TransactionState, { payload }) {
       const transaction: Transaction = payload;
-      state.list = [
-        ...state.list.filter(allObjectsExcept(transaction.id!)),
-        transaction,
-      ];
+      state.list = addModelToList(state.list, transaction);
       state.byId[transaction.id!] = transaction;
     },
     createTransaction(state, _) {
@@ -46,10 +42,7 @@ const transactionSlice = createSlice({
     },
     updateTransaction(state, { payload }: UpdateTransactionPayloadAction) {
       const transaction: Transaction = { ...payload.newTransaction };
-      state.list = [
-        ...state.list.filter(allObjectsExcept(transaction.id!)),
-        transaction,
-      ];
+      state.list = addModelToList(state.list, transaction)
       state.byId[transaction.id!] = transaction;
     },
   },
