@@ -88,7 +88,10 @@ describe("Transaction reducer", () => {
 
     const nextState = reducer(
       initialState,
-      updateTransaction({ newTransaction: modifiedTransaction })
+      updateTransaction({
+        newTransaction: modifiedTransaction,
+        oldTransaction: transaction,
+      })
     );
 
     expect(nextState).toEqual(getStateFromTransaction(modifiedTransaction));

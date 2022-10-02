@@ -1,5 +1,12 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { createBudget, deleteBudget, loadBudget, updateBudget } from "./slice";
+import {
+  createBudget,
+  deleteBudget,
+  fetchAllBudgets,
+  loadBudget,
+  loadBudgets,
+  updateBudget,
+} from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Budget } from "./types";
 import { getBudgetRequest } from "./utils";
@@ -39,8 +46,21 @@ function* executeDeleteBudget({ payload: budget }: PayloadAction<Budget>) {
   }
 }
 
+function* executeFetchAllBudgets() {
+  yield put(getBudgetRequest(null, "retrieve", "loading"));
+
+  try {
+    const response: Budget[] = yield call(api.budget.receiveBudgets);
+    yield put(loadBudgets(response));
+    yield put(getBudgetRequest(null, "retrieve", "loaded"));
+  } catch {
+    yield put(getBudgetRequest(null, "retrieve", "error"));
+  }
+}
+
 export default function* budgetSaga() {
   yield takeEvery(createBudget.type, executeCreateBudget);
   yield takeEvery(updateBudget.type, executeUpdateBudget);
   yield takeEvery(deleteBudget.type, executeDeleteBudget);
+  yield takeEvery(fetchAllBudgets.type, executeFetchAllBudgets);
 }

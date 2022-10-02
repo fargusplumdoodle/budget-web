@@ -11,21 +11,21 @@ interface Props {
 
 const AuthButton: FunctionComponent<Props> = ({ sx }) => {
   const dispatch = useDispatch();
-  const authenticated = useSelector(selectAuthState);
+  const auth = useSelector(selectAuthState);
 
   return (
     <Button
       variant="contained"
       sx={{ ...sx }}
       onClick={() => {
-        if (authenticated) {
+        if (auth.authenticated) {
           dispatch(resetAuth());
         } else {
           window.location.assign(settings.auth.ApiLoginUrl);
         }
       }}
     >
-      {authenticated ? "LOG OUT" : "LOG IN"}
+      {auth ? "LOG OUT" : "LOG IN"}
     </Button>
   );
 };

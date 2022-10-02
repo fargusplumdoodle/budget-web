@@ -1,5 +1,10 @@
-import { fetchBudgets } from "../../store/actions/budgetActions";
-import { FunctionComponent, ReactNode, useEffect, useState } from "react";
+import {
+  FunctionComponent,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -12,19 +17,24 @@ import { AppDispatch, RootState } from "../../store/configureStore";
 import { fetchTags } from "../../store/actions/tagActions";
 import { fetchUserInfo } from "../../store/actions/userInfoActions";
 import InitLoading from "../../components/InitLoading";
-import { StateStatus } from "../../store/types/stateTypes";
 import { resetAuth } from "../../store/auth";
+import { fetchAllBudgets } from "../../store/data/budgets/slice";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { selectBudgetFetchRequired } from "../../store/data/budgets/selectors";
+import { selectRequestById } from "../../store/communication";
+import capitalize from "lodash/capitalize";
+import budgetSaga from "../../store/data/budgets/saga";
 
 type DispatchFn = () => (dispatch: AppDispatch) => void;
 type ExpectedData = {
   stateType: "budgets" | "tags" | "userInfo";
-  action: DispatchFn;
+  action: DispatchFn | ActionCreatorWithPayload<any>;
 };
 
 const expectedData: ExpectedData[] = [
   {
     stateType: "budgets",
-    action: fetchBudgets,
+    action: fetchAllBudgets,
   },
   {
     stateType: "tags",
@@ -41,56 +51,76 @@ interface DataProviderProps {
 }
 
 const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
-  const rootState = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
-  const [initState, setInitState] = useState<StateStatus>("init");
+  const [awaitingFetches, setAwaitingFetches] = useState(false);
 
-  const requiredState = expectedData.filter(
-    ({ stateType }) => rootState[stateType].status === "init"
+  const budgetFetchRequired = useSelector(selectBudgetFetchRequired);
+  const budgetRequestState = useSelector(
+    selectRequestById("budget", "retrieve")
   );
-  const loaded = expectedData.filter(
-    ({ stateType }) => rootState[stateType].status === "loaded"
+
+  const dataRequired = useMemo(
+    () => [
+      {
+        fetchRequired: budgetFetchRequired,
+        requestState: budgetRequestState,
+        action: fetchAllBudgets({}),
+      },
+    ],
+    [budgetRequestState, budgetFetchRequired]
   );
-  const error = expectedData.filter(
-    ({ stateType }) => rootState[stateType].status === "error"
+
+  const loading = dataRequired.some(
+    ({ requestState }) => requestState?.status === "loading"
+  );
+  const error = dataRequired.some(
+    ({ requestState }) => requestState?.status === "error"
+  );
+  const loaded = !dataRequired.some(
+    ({ requestState }) => requestState?.status !== "loaded"
+  );
+  const fetchingRequired = dataRequired.some(
+    ({ fetchRequired }) => fetchRequired
   );
 
   useEffect(() => {
-    if (requiredState.length > 0) {
-      requiredState.forEach(({ action }) => dispatch(action()));
-      setInitState("loading");
-    }
-    if (loaded.length === expectedData.length) {
-      setInitState("loaded");
-    }
-    if (error.length !== 0) {
-      setInitState("error");
-    }
-  }, [requiredState, loaded, error, dispatch]);
+    if (!fetchingRequired || awaitingFetches) return;
+    setAwaitingFetches(true);
+
+    dataRequired.forEach(({ fetchRequired, action }) => {
+      if (fetchRequired) dispatch(action);
+    });
+  }, [awaitingFetches, dataRequired, dispatch, fetchingRequired]);
 
   return (
     <>
-      {initState === "loaded" ? children : <InitLoading />}
-
-      <Dialog open={initState === "error"}>
-        <DialogTitle>Failed to Load</DialogTitle>
-        <DialogContent>
-          <ul>
-            {error.map((data: ExpectedData) => (
-              <li key={error.indexOf(data)}>{data.stateType}</li>
-            ))}
-          </ul>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              dispatch(resetAuth());
-            }}
-          >
-            Give up and log out
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {loading && <InitLoading />}
+      {(loaded || !fetchingRequired) && children}
+      {error && (
+        <Dialog open={true}>
+          <DialogTitle>Failed to Load</DialogTitle>
+          <DialogContent>
+            <ul>
+              {dataRequired
+                .filter(({ requestState }) => requestState.status === "error")
+                .map((data) => (
+                  <li key={dataRequired.indexOf(data)}>
+                    {capitalize(data.requestState.key)}
+                  </li>
+                ))}
+            </ul>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                dispatch(resetAuth());
+              }}
+            >
+              Give up and log out
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </>
   );
 };

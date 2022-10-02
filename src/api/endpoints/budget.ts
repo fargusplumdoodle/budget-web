@@ -39,6 +39,8 @@ export async function deleteBudget(budget: Budget): Promise<void> {
   if (budget.name === BUDGET_ROOT_NAME)
     throw Error("Cannot delete root budget");
 
+  if (budget.isNode) throw Error("Cannot delete node budget");
+
   await makeRequest({
     method: "delete",
     url: `/api/v2/budget/${budget.id}/`,

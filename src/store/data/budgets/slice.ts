@@ -16,6 +16,7 @@ export const initialState: BudgetState = {
   byId: {},
   byName: {},
   root: null,
+  lastFetch: null,
 };
 
 export const sliceKey = "budget";
@@ -52,6 +53,9 @@ const budgetSlice = createSlice({
     updateBudget(state, _) {
       return state;
     },
+    fetchAllBudgets(state, _) {
+      state.lastFetch = new Date().toISOString();
+    },
   },
 });
 export const {
@@ -60,5 +64,6 @@ export const {
   deleteBudget,
   createBudget,
   updateBudget,
+  fetchAllBudgets,
 } = budgetSlice.actions;
 export default budgetSlice.reducer;

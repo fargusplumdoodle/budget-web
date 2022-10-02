@@ -7,8 +7,10 @@ import {
   RequestStatus,
 } from "../../communication";
 import { BUDGET_ROOT_NAME } from "../../../api/constants";
-import { store } from "../../configureStore";
+import { RootState, store } from "../../configureStore";
 import { modelById } from "../../models/utils";
+import { selectBudgetList, selectBudgetsLastFetched } from "./selectors";
+import { differenceInHours, parseISO } from "date-fns";
 
 export const getBudgetHash = (budget: Budget): string => {
   const message = `
@@ -21,12 +23,12 @@ export const getBudgetHash = (budget: Budget): string => {
 };
 
 export const getBudgetRequest = (
-  budget: Budget,
+  budget: Budget | null,
   action: CRUDAction,
   status: RequestStatus
 ) =>
   makeRequest({
-    id: getId("budget", budget),
+    id: budget ? getId("budget", budget) : action,
     key: "budget",
     action,
     status,
@@ -49,3 +51,4 @@ export const setBudgetParents = (budgets: Budget[]): Budget[] => {
     return budget;
   });
 };
+

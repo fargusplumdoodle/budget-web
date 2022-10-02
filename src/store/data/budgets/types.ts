@@ -17,4 +17,5 @@ export interface BudgetState extends ExternalState {
   byId: { [k: number]: Budget };
   byName: { [k: string]: Budget };
   root: Budget | null;
+  lastFetch: string | null; // ISO Format
 }
