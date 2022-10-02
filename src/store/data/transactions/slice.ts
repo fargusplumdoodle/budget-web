@@ -6,7 +6,6 @@ import {
 } from "./types";
 import {
   allObjectsExcept,
-  allObjectsExceptInList,
   modelById,
   addModelsToList,
   addModelToList,

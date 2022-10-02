@@ -1,7 +1,8 @@
 import * as faker from "faker";
 import { getUniqueNumber } from "./utils";
-import { Budget, Tag } from "../../store/models/types";
-import {Transaction} from "../../store/transactions/types";
+import { Tag } from "../../store/models/types";
+import { Transaction } from "../../store/data/transactions/types";
+import { Budget } from "../../store/data/budgets/types";
 
 export function generateTestBudget(args: Object = {}): Budget {
   return {

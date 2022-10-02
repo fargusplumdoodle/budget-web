@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { Autocomplete, Grid, TextField } from "@mui/material";
-import { Budget } from "../../../store/models/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/configureStore";
 import capitalize from "lodash/capitalize";
+import { Budget } from "../../../store/data/budgets/types";
 
 interface Props {}
 

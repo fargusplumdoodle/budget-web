@@ -1,8 +1,8 @@
-import { Budget } from "../models/types";
 import { LOAD_BUDGETS_SUCCESS, UPDATE_BUDGET_SUCCESS } from "./actionTypes";
 import { AppDispatch } from "../configureStore";
 import { updateStatus } from "./apiStatusActions";
 import api from "../../api";
+import { Budget } from "../data/budgets/types";
 
 export function loadBudgetsSuccess(budgets: Budget[]) {
   return {

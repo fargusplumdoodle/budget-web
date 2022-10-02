@@ -1,7 +1,6 @@
 import initialState from "../initialState";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { BudgetState, StateStatus } from "../types/stateTypes";
-import { Budget } from "../models/types";
 import {
   CLEAR_AUTH_TOKEN,
   LOAD_BUDGETS_SUCCESS,
@@ -10,6 +9,7 @@ import {
 } from "../actions/actionTypes";
 import { BUDGET_ROOT_NAME } from "../../api/constants";
 import { modelById, modelByName } from "../models/utils";
+import { Budget } from "../data/budgets/types";
 
 export const getBudgetStateFromList = (budgets: Budget[]): BudgetState => {
   return {

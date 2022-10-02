@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import TransactionForm from "./TransactionForm";
 import budgets from "../../../__fixtures__/budgets";
 import { stateDecorator } from "../../../__fixtures__/decorators";
-import {Transaction} from "../../../store/transactions/types";
+import { Transaction } from "../../../store/data/transactions/types";
 
 export default {
   title: "TransactionForm",

@@ -9,7 +9,7 @@ import { Box, LinearProgress } from "@mui/material";
 import QueryForm from "../../components/query";
 import { Expression } from "../../components/query/types";
 import { getQueryParametersFromExpressions } from "../../api/util";
-import {Transaction} from "../../store/transactions/types";
+import { Transaction } from "../../store/data/transactions/types";
 
 interface Props {}
 

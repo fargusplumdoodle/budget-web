@@ -7,7 +7,7 @@ import {
   SET_TRANSACTION_STATE_STATUS,
 } from "../actions/actionTypes";
 import merge from "lodash/merge";
-import {Transaction} from "../transactions/types";
+import { Transaction } from "../data/transactions/types";
 
 export default function transactionReducer(
   state: TransactionState = initialState.transactions,

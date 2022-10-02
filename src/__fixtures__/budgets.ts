@@ -1,6 +1,6 @@
 import { BUDGET_ROOT_NAME } from "../api/constants";
 import { modelById } from "../store/models/utils";
-import { Budget } from "../store/models/types";
+import { Budget } from "../store/data/budgets/types";
 
 const root = {
   id: 0,

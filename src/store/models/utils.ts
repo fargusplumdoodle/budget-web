@@ -1,5 +1,4 @@
-import {Budget, Model} from "./types";
-import {store} from "../configureStore";
+import { Model } from "./types";
 
 export const modelById = <T extends Model>(models: T[]) =>
   Object.fromEntries(models.map((model) => [model.id, model]));
@@ -7,18 +6,18 @@ export const modelById = <T extends Model>(models: T[]) =>
 export const modelByName = <T extends { name: string }>(models: T[]) =>
   Object.fromEntries(models.map((model) => [model.name, model]));
 
-export const getBudgetChildren = (budget: Budget): Budget[] => {
-  const state = store.getState();
-  return state.budgets.list.filter((b) => {
-    return b.parentId! === budget.id;
-  });
-};
+export const addModelsToList = <T extends Model>(
+  stateList: T[],
+  models: T[]
+) => [...stateList.filter(allObjectsExceptInList(models)), ...models];
 
-export const setBudgetParents = (budgets: Budget[]): Budget[] => {
-  const byId = modelById(budgets);
-  return budgets.map((budget) => {
-    budget.parent = budget.parentId ? byId[budget.parentId] : null;
-    return budget;
-  });
-};
+export const addModelToList = <T extends Model>(stateList: T[], model: T) => [
+  ...stateList.filter(allObjectsExcept(model.id!)),
+  model,
+];
 
+export const allObjectsExcept = (id: number) => (t: Model) => t.id !== id;
+export const allObjectsExceptInList = (models: Model[]) => {
+  const ids: number[] = models.map((m) => m.id!);
+  return (t: Model) => !ids.includes(t.id!);
+};

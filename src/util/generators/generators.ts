@@ -1,6 +1,6 @@
-import { Tag, Budget } from "../../store/models/types";
+import { Tag } from "../../store/models/types";
 import { getUniqueNumber } from "./utils";
-import {Transaction} from "../../store/transactions/types";
+import { Budget } from "../../store/data/budgets/types";
 
 export function generateBudget(args: Object = {}): Budget {
   return {
@@ -17,19 +17,6 @@ export function generateBudget(args: Object = {}): Budget {
   };
 }
 
-export function generateTransaction(args: Object = {}): Transaction {
-  return {
-    id: null,
-    amount: 0,
-    budget: generateBudget(),
-    description: null,
-    date: new Date(),
-    income: false,
-    tags: [],
-    transfer: false,
-    ...args,
-  };
-}
 export function generateTag(args: Object = {}): Tag {
   return {
     id: null,

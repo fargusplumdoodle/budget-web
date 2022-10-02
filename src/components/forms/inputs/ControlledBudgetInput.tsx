@@ -3,9 +3,9 @@ import { Control, Path } from "react-hook-form";
 import { SxProps, TextField } from "@mui/material";
 import { InputErrorMessage } from "../types";
 import ControlledAutocomplete from "./ControlledAutoComplete";
-import { Budget } from "../../../store/models/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/configureStore";
+import { Budget } from "../../../store/data/budgets/types";
 
 interface Props<FormT> {
   name: Path<FormT>;

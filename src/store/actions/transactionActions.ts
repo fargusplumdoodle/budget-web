@@ -9,8 +9,8 @@ import {
 } from "./actionTypes";
 import { StateStatus } from "../types/stateTypes";
 import { PayloadAction } from "@reduxjs/toolkit";
-import {getTransactionHash} from "../transactions/utils";
-import {Transaction} from "../transactions/types";
+import { getTransactionHash } from "../data/transactions/utils";
+import { Transaction } from "../data/transactions/types";
 
 export function loadTransactionsSuccess(transactions: Transaction[]) {
   return {

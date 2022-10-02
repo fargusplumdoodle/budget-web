@@ -7,7 +7,7 @@ import {
 import { deserializeTransaction, serializeTransaction } from "../serializers";
 import { store } from "../../store/configureStore";
 import { updateBudgetSuccess } from "../../store/actions/budgetActions";
-import {Transaction} from "../../store/transactions/types";
+import { Transaction } from "../../store/data/transactions/types";
 
 export async function fetchTransactionPage(
   page: number,
@@ -63,24 +63,14 @@ export async function createTransaction(
 }
 
 export async function updateTransaction(
-  oldTrans: Transaction,
-  newTrans: Transaction
+  transaction: Transaction
 ): Promise<Transaction> {
   const r = await makeRequest({
     method: "put",
-    url: `/api/v2/transaction/${newTrans.id}/`,
-    data: serializeTransaction(newTrans),
+    url: `/api/v2/transaction/${transaction.id}/`,
+    data: serializeTransaction(transaction),
   });
-  const trans = deserializeTransaction(r!.data as SerializedTransaction);
-
-  store.dispatch(
-    updateBudgetSuccess({
-      ...trans.budget,
-      balance: trans.budget.balance - oldTrans.amount + trans.amount,
-    })
-  );
-
-  return trans;
+  return deserializeTransaction(r!.data as SerializedTransaction);
 }
 
 export async function deleteTransaction(

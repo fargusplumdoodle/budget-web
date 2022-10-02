@@ -1,10 +1,11 @@
 import { combineReducers } from "redux";
 import { authReducer } from "../auth";
-import budgets from "./budgetReducer";
+import { budgetReducer as budgets } from "../data/budgets";
 import tags from "./tagReducer";
-import transactions from "./transactionReducer";
+import { transactionReducer as transactions } from "../data/transactions";
 import storage from "redux-persist/lib/storage";
 import userInfo from "./userInfoReducer";
+import { reducer as communication } from "../communication";
 import ui from "./uiReducer";
 import panes from "./panesReducer";
 import { persistReducer } from "redux-persist";
@@ -29,5 +30,6 @@ const rootReducer = combineReducers({
   userInfo,
   transactions,
   panes,
+  communication,
 });
 export default rootReducer;

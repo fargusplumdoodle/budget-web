@@ -7,7 +7,7 @@ import budgetReducer, { getBudgetStateFromList } from "./budgetReducer";
 import initialState from "../initialState";
 import { range } from "lodash";
 import { BudgetState } from "../types/stateTypes";
-import { Budget } from "../models/types";
+import { Budget } from "../data/budgets/types";
 
 /*
 Asserts that the expected budgets form the appropriate budget state data structure

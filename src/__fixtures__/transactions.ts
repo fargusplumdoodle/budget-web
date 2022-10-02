@@ -1,6 +1,6 @@
 import { parseISO } from "date-fns";
 import budgets from "./budgets";
-import {Transaction} from "../store/transactions/types";
+import { Transaction } from "../store/data/transactions/types";
 
 const transactions: Transaction[] = [
   {

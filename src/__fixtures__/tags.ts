@@ -1,7 +1,7 @@
 import { Tag } from "../store/models/types";
 import { modelById, modelByName } from "../store/models/utils";
 import transactions from "./transactions";
-import {Transaction} from "../store/transactions/types";
+import { Transaction } from "../store/data/transactions/types";
 
 const getTagsFromTransactions = (trans: Transaction[]): Tag[] => {
   const allTags = trans.reduce(

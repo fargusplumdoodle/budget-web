@@ -8,7 +8,7 @@ import IncomeForm from "../../components/forms/transaction_legacy/IncomeForm";
 import { TabPanel, tabProps } from "../../components/tabs";
 import TransferForm from "../../components/forms/transaction_legacy/TransferForm";
 import settings from "../../app/settings";
-import {Transaction} from "../../store/transactions/types";
+import { Transaction } from "../../store/data/transactions/types";
 
 const ADD = 0;
 const INCOME = 1;

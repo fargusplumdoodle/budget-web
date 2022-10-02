@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Autocomplete, TextField } from "@mui/material";
-import { Budget } from "../../../store/models/types";
 import { store } from "../../../store/configureStore";
 import { ExpressionInputProps } from "../types";
+import { Budget } from "../../../store/data/budgets/types";
 
 interface Props extends ExpressionInputProps<Budget[]> {
   [k: string]: any;

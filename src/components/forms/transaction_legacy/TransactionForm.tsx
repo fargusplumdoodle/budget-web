@@ -10,7 +10,6 @@ import {
 import FormControlLabel from "@mui/material/FormControlLabel";
 import * as React from "react";
 import { Tag } from "../../../store/models/types";
-import { generateTransaction } from "../../../util/generators/generators";
 import { RootState } from "../../../store/configureStore";
 import { useSelector } from "react-redux";
 import { FormItem, transactionSchema } from "../../../util/form";
@@ -28,7 +27,8 @@ import BudgetsInput from "../inputs/ControlledBudgetInput";
 import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
 import ControlledDateInput from "../inputs/ControlledDateInput";
 import TagsInput from "../../query/inputs/TagsInput";
-import {Transaction} from "../../../store/transactions/types";
+import { Transaction } from "../../../store/data/transactions/types";
+import { generateTransaction } from "../../../store/data/transactions/__fixtures__/generateTransaction";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;

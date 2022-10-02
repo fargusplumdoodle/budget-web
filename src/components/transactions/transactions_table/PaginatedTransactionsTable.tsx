@@ -12,7 +12,7 @@ import { commaSeparatedTagNames } from "../../../util/formatters";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { openTransactionPane } from "../../../store/actions/transactionActions";
 import { useDispatch } from "react-redux";
-import {Transaction} from "../../../store/transactions/types";
+import { Transaction } from "../../../store/data/transactions/types";
 
 interface TransactionTableProps {
   transactions: Transaction[];

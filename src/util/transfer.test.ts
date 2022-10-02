@@ -8,7 +8,7 @@ import {
   generateTestTag,
 } from "./generators/test_generators";
 import { resetAuth } from "../store/auth";
-import {Transaction} from "../store/transactions/types";
+import { Transaction } from "../store/data/transactions/types";
 
 describe("Test create transfer transactions", () => {
   const budget1 = generateTestBudget();

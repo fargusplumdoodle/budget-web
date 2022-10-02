@@ -8,8 +8,8 @@ import {
   updateTransaction,
 } from "../../store/actions/transactionActions";
 import { CircularProgress, Grid, Typography } from "@mui/material";
-import {getTransactionHash} from "../../store/transactions/utils";
-import {Transaction} from "../../store/transactions/types";
+import { getTransactionHash } from "../../store/data/transactions/utils";
+import { Transaction } from "../../store/data/transactions/types";
 
 const TransactionPane: FunctionComponent<Props> = () => {
   const dispatch = useDispatch();

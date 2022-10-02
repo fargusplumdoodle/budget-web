@@ -11,7 +11,7 @@ import "../../../views/transactions_list/TransactionsTable.css";
 import { commaSeparatedTagNames } from "../../../util/formatters";
 import { useDispatch } from "react-redux";
 import { openTransactionPane } from "../../../store/actions/transactionActions";
-import {Transaction} from "../../../store/transactions/types";
+import { Transaction } from "../../../store/data/transactions/types";
 
 interface TransactionTableProps {
   transactions: Transaction[];

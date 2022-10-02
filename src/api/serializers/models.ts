@@ -1,4 +1,4 @@
-import { Budget, Tag, UserInfo } from "../../store/models/types";
+import { Tag, UserInfo } from "../../store/models/types";
 import {
   SerializedBudget,
   SerializedTag,
@@ -7,11 +7,12 @@ import {
 } from "../types";
 import { store } from "../../store/configureStore";
 import { fromCents, getAPIDate, toCents } from "../util";
-import { setBudgetParents } from "../../store/models/utils";
 import lowerCase from "lodash/lowerCase";
 import capitalize from "lodash/capitalize";
 import { format } from "date-fns";
-import {Transaction} from "../../store/transactions/types";
+import { Transaction } from "../../store/data/transactions/types";
+import { Budget } from "../../store/data/budgets/types";
+import { setBudgetParents } from "../../store/data/budgets/utils";
 
 export const serializeTag = (tag: Tag): SerializedTag => {
   return {
@@ -63,7 +64,7 @@ export function deserializeTransaction(
   return {
     id: trans.id!,
     amount: fromCents(trans.amount),
-    status: 'loaded',
+    status: "loaded",
     date: getAPIDate(trans.date),
     budget: budget,
     tags: trans.tags.map((tag) => deserializeTag(tag)),
