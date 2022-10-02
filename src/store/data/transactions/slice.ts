@@ -11,7 +11,7 @@ import {
   addModelToList,
 } from "../../models/utils";
 
-const initialState: TransactionState = {
+export const initialState: TransactionState = {
   list: [],
   byId: {},
 };
@@ -41,7 +41,7 @@ const transactionSlice = createSlice({
     },
     updateTransaction(state, { payload }: UpdateTransactionPayloadAction) {
       const transaction: Transaction = { ...payload.newTransaction };
-      state.list = addModelToList(state.list, transaction)
+      state.list = addModelToList(state.list, transaction);
       state.byId[transaction.id!] = transaction;
     },
   },

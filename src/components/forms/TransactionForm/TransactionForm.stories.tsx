@@ -25,7 +25,12 @@ const initialTransaction: Transaction = {
 const Template: ComponentStory<typeof TransactionForm> = () => {
   const [transaction, setTransaction] = useState({ ...initialTransaction });
   return (
-    <TransactionForm transaction={transaction} onSubmit={setTransaction} />
+    <TransactionForm
+      transaction={transaction}
+      onSubmit={setTransaction}
+      onDelete={() => null}
+      loading={false}
+    />
   );
 };
 

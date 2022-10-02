@@ -68,9 +68,9 @@ const AddTransactionsPage: FunctionComponent = () => {
 
         <TabPanel value={tab} index={INCOME}>
           <IncomeForm
-            onCreateTransactions={(newTransactions: Transaction[]) => {
-              setTransactions([...newTransactions, ...transactions]);
-            }}
+          // onCreateTransactions={(newTransactions: Transaction[]) => {
+          //   setTransactions([...newTransactions, ...transactions]);
+          // }}
           />
         </TabPanel>
 

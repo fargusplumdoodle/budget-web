@@ -15,7 +15,7 @@ const BudgetInput: FunctionComponent<Props> = () => {
   const {
     field: { value, onChange },
   } = useController({ name: "budget" });
-  const budgets = useSelector((state: RootState) => state.budgets.list);
+  const budgets = useSelector(selectBudgetList);
 
   return (
     <>
@@ -27,8 +27,8 @@ const BudgetInput: FunctionComponent<Props> = () => {
           disablePortal
           value={value}
           disableClearable
-          onChange={(_, value) => onChange(value)}
-          renderInput={(params) => (
+          onChange={(_: any, value: Budget) => onChange(value)}
+          renderInput={(params: any) => (
             <TextField
               {...params}
               label="Budgets"
@@ -39,9 +39,11 @@ const BudgetInput: FunctionComponent<Props> = () => {
             />
           )}
           options={budgets}
-          getOptionLabel={(budget) => capitalize((budget as Budget).name)}
-          isOptionEqualToValue={(option, budget) =>
-            (option as Budget).id === (budget as Budget).id
+          getOptionLabel={(budget: Budget) =>
+            capitalize((budget as Budget).name)
+          }
+          isOptionEqualToValue={(option: Budget, budget: Budget) =>
+            option.id === budget.id
           }
         />
       </Grid>

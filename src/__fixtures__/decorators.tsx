@@ -12,6 +12,7 @@ export const stateDecorator = (stateOverrides: Partial<RootState> = {}) => {
       ...budgets,
       root: budgets.byName.root,
       status: "loaded",
+      lastFetch: new Date().toISOString(),
     },
     tags: {
       ...tags,

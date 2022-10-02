@@ -65,7 +65,11 @@ const TransactionForm: FunctionComponent<Props> = ({
           <Grid item container justifyContent="flex-end" gap={1}>
             {transaction?.id && (
               <Grid item>
-                <Button variant="text" color="error" onClick={onDelete}>
+                <Button
+                  variant="text"
+                  color="error"
+                  onClick={() => onDelete(transaction)}
+                >
                   DELETE
                 </Button>
               </Grid>

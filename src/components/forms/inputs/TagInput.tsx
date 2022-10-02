@@ -53,10 +53,8 @@ const TagInput: FunctionComponent<Props> = () => {
           )}
           value={value}
           options={tags}
-          getOptionLabel={(tag) => capitalize((tag as Tag).name)}
-          isOptionEqualToValue={(option, tag) =>
-            (option as Tag).id === (tag as Tag).id
-          }
+          getOptionLabel={(tag: Tag) => capitalize(tag.name)}
+          isOptionEqualToValue={(option: Tag, tag: Tag) => option.id === tag.id}
           onChange={(_, tag) => onChange(tag)}
         />
 

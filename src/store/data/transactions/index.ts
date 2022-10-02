@@ -1,4 +1,9 @@
-export { default as transactionReducer } from "./slice";
+export {
+  initialState as initialTransactionState,
+  sliceKey as transactionKey,
+  default as transactionReducer,
+} from "./slice";
+export { default as transactionSaga } from "./saga";
 export * from "./slice";
 export * from "./saga";
 export * from "./types";

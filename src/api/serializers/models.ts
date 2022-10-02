@@ -64,7 +64,6 @@ export function deserializeTransaction(
   return {
     id: trans.id!,
     amount: fromCents(trans.amount),
-    status: "loaded",
     date: getAPIDate(trans.date),
     budget: budget,
     tags: trans.tags.map((tag) => deserializeTag(tag)),

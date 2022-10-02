@@ -1,7 +1,6 @@
 import { sliceKey as authKey } from "../auth";
-import { sliceKey as transactionKey } from "../data/transactions";
-import { sliceKey as budgetKey } from "../data/budgets";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { budgetKey, transactionKey } from "../data";
 
 export type CommunicationKey =
   | typeof authKey
