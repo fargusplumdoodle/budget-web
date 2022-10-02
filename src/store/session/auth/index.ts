@@ -4,7 +4,7 @@ export {
   refreshAuthToken,
   setAuth,
   resetAuth,
-  sliceKey,
+  sliceKey as authKey,
   default as authReducer,
 } from "./slice";
 export { selectAuthState } from "./selectors";

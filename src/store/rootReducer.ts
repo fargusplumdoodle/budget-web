@@ -1,22 +1,14 @@
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { authReducer } from "./auth";
 import ui from "./reducers/uiReducer";
-import tags from "./reducers/tagReducer";
 import userInfo from "./reducers/userInfoReducer";
-import panes from "./reducers/panesReducer";
-import { reducer as communication } from "./communication";
+import { communicationReducer } from "./communication";
 import { dataReducer } from "./data";
+import { locationReducer } from "./location";
+import { sessionReducer } from "./session";
 
 const rootReducer = combineReducers({
-  auth: persistReducer(
-    {
-      key: "auth",
-      storage,
-    },
-    authReducer
-  ),
   ui: persistReducer(
     {
       key: "UI",
@@ -25,8 +17,9 @@ const rootReducer = combineReducers({
     ui
   ),
   userInfo,
-  panes,
-  communication,
+  location: locationReducer,
+  session: sessionReducer,
+  communication: communicationReducer,
   data: dataReducer,
 });
 export default rootReducer;

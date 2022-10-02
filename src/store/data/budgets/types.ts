@@ -1,5 +1,4 @@
-import { ExternalState } from "../../types/stateTypes";
-import { Model } from "../../models/types";
+import { Model } from "../../types";
 
 export interface Budget extends Model {
   name: string;
@@ -12,7 +11,7 @@ export interface Budget extends Model {
   outcome_per_month: number;
 }
 
-export interface BudgetState extends ExternalState {
+export interface BudgetState {
   list: Budget[];
   byId: { [k: number]: Budget };
   byName: { [k: string]: Budget };

@@ -1,6 +1,7 @@
-import { ExternalState } from "../types/stateTypes";
+export type StateStatus = "loading" | "loaded" | "error" | "init";
 
-export interface AuthState extends ExternalState {
+export interface AuthState {
+  status: StateStatus;
   authenticated: boolean;
   expiresAt: string;
   tokenType: string;

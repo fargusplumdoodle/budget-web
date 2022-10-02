@@ -1,6 +1,7 @@
-import { Model, Tag } from "../../models/types";
+import { Model} from "../../models/types";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Budget } from "../budgets/types";
+import {Tag} from "../tags";
 
 export interface Transaction extends Model {
   amount: number;

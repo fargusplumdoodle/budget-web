@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { closeAllPanes } from "../../store/actions/panesActions";
 import TransactionPane from "../../components/panes/TransactionPane";
+import { selectMobileDrawerOpen } from "../../store/location";
 
 const Pane = styled(Dialog)(() => ({
   left: "auto",
@@ -21,7 +22,7 @@ const PaneContent = styled(DialogContent)(() => ({
 
 const PaneProvider: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const pane = useSelector((state: RootState) => state.panes.current);
+  const pane = useSelector(selectMobileDrawerOpen);
 
   return (
     <Pane open={!!pane} onClose={() => dispatch(closeAllPanes())}>

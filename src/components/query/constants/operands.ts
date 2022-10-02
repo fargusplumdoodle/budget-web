@@ -1,6 +1,5 @@
 import { Checkbox } from "@mui/material";
 import { toCents } from "../../../api/util";
-import { Tag } from "../../../store/models/types";
 import BudgetsInput from "../inputs/BudgetsInput";
 import CurrencyInput from "../inputs/DescriptionInput";
 import DateInput from "../inputs/DateInput";
@@ -14,6 +13,7 @@ import {
 } from "./operators";
 import DescriptionInput from "../inputs/DescriptionInput";
 import { Budget } from "../../../store/data/budgets/types";
+import {Tag} from "../../../store/data/tags";
 
 export const OPERANDS: { [name: string]: Operand<any> } = {
   amount: {

@@ -10,3 +10,4 @@ ReactDOM.render(
   </AppProvider>,
   document.getElementById("root")
 );
+export { rootReducer } from "./store/rootReducer";

@@ -1,10 +1,10 @@
-import rootReducer from "./reducers";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import initialState from "./initialState";
 import { persistStore } from "redux-persist";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./saga";
+import rootReducer from "./rootReducer";
 
 declare global {
   interface Window {

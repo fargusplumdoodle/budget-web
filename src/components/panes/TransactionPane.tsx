@@ -1,40 +1,37 @@
 import React, { FunctionComponent, useState } from "react";
-import { RootState } from "../../store/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import TransactionForm from "../forms/TransactionForm/TransactionForm";
+import { CircularProgress, Grid, Typography } from "@mui/material";
 import {
+  Transaction,
+  selectPaneEditTransaction,
   createTransaction,
   deleteTransaction,
   updateTransaction,
-} from "../../store/actions/transactionActions";
-import { CircularProgress, Grid, Typography } from "@mui/material";
-import { getTransactionHash } from "../../store/data/transactions/utils";
-import { Transaction } from "../../store/data/transactions/types";
+  selectRequestByModel,
+} from "../../store";
 
-const TransactionPane: FunctionComponent<Props> = () => {
+const TransactionPane: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const initialTransaction = useSelector(
-    (state: RootState) => state.panes.transaction
-  );
+  const initialTransaction = useSelector(selectPaneEditTransaction);
   const [savingTransaction, setSavingTransaction] =
     useState(initialTransaction);
-  // TODO: Close pane on save
 
-  const transactionHash = savingTransaction
-    ? getTransactionHash(savingTransaction)
-    : "";
-
-  const stateStatus = useSelector(
-    (state: RootState) => state.transactions.stateStatus
+  const requestState = useSelector(
+    selectRequestByModel("transaction", savingTransaction)
   );
-  const loading = stateStatus[transactionHash]
-    ? stateStatus[transactionHash]?.status !== "loaded"
-    : false;
+  const loading = requestState ? requestState.status !== "loaded" : false;
 
   const onSubmit = (newTransaction: Transaction) => {
     setSavingTransaction(newTransaction);
-    const submitFn = newTransaction.id ? updateTransaction : createTransaction;
-    dispatch(submitFn(newTransaction));
+    if (newTransaction.id)
+      dispatch(
+        updateTransaction({
+          newTransaction,
+          oldTransaction: initialTransaction!,
+        })
+      );
+    else dispatch(createTransaction(newTransaction));
   };
 
   return (

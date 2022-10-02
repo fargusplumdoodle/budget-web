@@ -1,11 +1,13 @@
-import { sliceKey as authKey } from "../auth";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { budgetKey, transactionKey } from "../data";
+import { budgetKey, tagKey, transactionKey } from "../data";
+import { authKey, userSettingsKey } from "../session";
 
 export type CommunicationKey =
   | typeof authKey
   | typeof transactionKey
-  | typeof budgetKey;
+  | typeof budgetKey
+  | typeof tagKey
+  | typeof userSettingsKey;
 
 export type CRUDAction = "create" | "update" | "delete" | "retrieve";
 export type RequestStatus = "loading" | "loaded" | "error";

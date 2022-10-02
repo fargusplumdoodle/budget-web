@@ -1,4 +1,4 @@
-import { Tag, UserInfo } from "../../store/models/types";
+import { UserInfo } from "../../store/models/types";
 import {
   SerializedBudget,
   SerializedTag,
@@ -13,6 +13,8 @@ import { format } from "date-fns";
 import { Transaction } from "../../store/data/transactions/types";
 import { Budget } from "../../store/data/budgets/types";
 import { setBudgetParents } from "../../store/data/budgets/utils";
+import { Tag } from "../../store/data/tags";
+import { UserSettingsState } from "../../store/session/userSettings";
 
 export const serializeTag = (tag: Tag): SerializedTag => {
   return {
@@ -108,9 +110,13 @@ export function deserializeBudgets(
   return setBudgetParents(budgets);
 }
 
-export function serializeUserInfo(userInfo: UserInfo): SerializedUserInfo {
+export function serializeUserInfo(
+  userInfo: UserSettingsState
+): SerializedUserInfo {
   return {
     expected_monthly_net_income: toCents(userInfo.expected_monthly_net_income),
+    theme: userInfo.theme.themeName,
+    darkMode: userInfo.theme.darkMode,
   };
 }
 export function deserializeUserInfo(userInfo: SerializedUserInfo): UserInfo {
@@ -118,5 +124,9 @@ export function deserializeUserInfo(userInfo: SerializedUserInfo): UserInfo {
     expected_monthly_net_income: fromCents(
       userInfo.expected_monthly_net_income
     ),
+    theme: {
+      themeName: userInfo.theme,
+      darkMode: userInfo.darkMode,
+    },
   };
 }

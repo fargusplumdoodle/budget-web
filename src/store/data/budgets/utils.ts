@@ -8,11 +8,12 @@ import {
 } from "../../communication";
 import { BUDGET_ROOT_NAME } from "../../../api/constants";
 import { store } from "../../configureStore";
-import { modelById } from "../../models/utils";
+import { selectBudgetList } from "./selectors";
+import { modelById } from "../../utils";
 
 export const getBudgetHash = (budget: Budget): string => {
   const message = `
-  ${budget.id || ""}
+  ${budget.id! || ""}
   ${budget.name}
   ${budget.parentId}
   ${budget.balance}
@@ -37,7 +38,7 @@ export const getRootBudget = (budgets: Budget[]): Budget | null =>
 
 export const getBudgetChildren = (budget: Budget): Budget[] => {
   const state = store.getState();
-  return state.budgets.list.filter((b) => {
+  return selectBudgetList(state).filter((b) => {
     return b.parentId! === budget.id;
   });
 };
@@ -49,4 +50,3 @@ export const setBudgetParents = (budgets: Budget[]): Budget[] => {
     return budget;
   });
 };
-

@@ -1,4 +1,4 @@
-import { UserInfo } from "../../store/models/types";
+import { SystemThemeOption } from "@fargusplumdoodle/themes";
 
 interface SerializedModel {
   id?: number;
@@ -35,6 +35,8 @@ export interface SerializedBudget extends SerializedModel {
   outcome_per_month: number;
 }
 
-export interface SerializedUserInfo extends UserInfo {
-  // currently identical
+export interface SerializedUserInfo {
+  expected_monthly_net_income: number;
+  theme: SystemThemeOption;
+  darkMode: boolean;
 }

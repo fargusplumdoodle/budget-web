@@ -9,11 +9,11 @@ import {
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import TagFormDialog from "../tag/TagFormDialog";
-import { Tag } from "../../../store/models/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/configureStore";
 import { getMuiFilledInputStyles } from "@fargusplumdoodle/themes";
 import capitalize from "lodash/capitalize";
+import {Tag} from "../../../store/data/tags";
 
 interface Props {}
 

@@ -2,17 +2,18 @@ import { RootState } from "../../configureStore";
 import { differenceInHours, parseISO } from "date-fns";
 
 export const selectBudgetById = (id: number) => (state: RootState) =>
-  state.budgets.byId[id];
+  state.data.budgets.byId[id];
 
 export const selectBudgetByName = (name: string) => (state: RootState) =>
-  state.budgets.byName[name];
+  state.data.budgets.byName[name];
 
-export const selectBudgetRoot = () => (state: RootState) => state.budgets.root;
+export const selectBudgetRoot = () => (state: RootState) =>
+  state.data.budgets.root;
 
-export const selectBudgetList = (state: RootState) => state.budgets.list;
+export const selectBudgetList = (state: RootState) => state.data.budgets.list;
 
 export const selectBudgetsLastFetched = (state: RootState) =>
-  state.budgets.lastFetch;
+  state.data.budgets.lastFetch;
 
 export const selectBudgetFetchRequired = (state: RootState) => {
   const list = selectBudgetList(state);

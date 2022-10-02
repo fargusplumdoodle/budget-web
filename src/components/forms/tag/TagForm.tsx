@@ -4,11 +4,11 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormItem, tagSchema } from "../../../util/form";
 import { generateTag } from "../../../util/generators/generators";
-import { Tag } from "../../../store/models/types";
 import { Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { ProviderContext, withSnackbar } from "notistack";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
 import api from "../../../api";
+import {Tag} from "../../../store/data/tags";
 
 interface Props extends ProviderContext {
   tag?: Tag;

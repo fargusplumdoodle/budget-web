@@ -1,9 +1,7 @@
-import { Tag } from "../../store/models/types";
 import { makePaginatedRequest, makeRequest } from "../util";
 import { SerializedTag } from "../types";
 import { deserializeTag, serializeTag } from "../serializers";
-import { store } from "../../store/configureStore";
-import { loadTagsSuccess } from "../../store/actions/tagActions";
+import { Tag } from "../../store/data/tags";
 
 export async function receiveTags(): Promise<Tag[]> {
   const serializedTags = await makePaginatedRequest<SerializedTag>(
@@ -17,8 +15,21 @@ export async function createTag(data: Tag): Promise<Tag> {
     url: "/api/v2/tag/",
     data: serializeTag(data),
   });
-  const tag = deserializeTag(r!.data as SerializedTag);
+  return deserializeTag(r!.data as SerializedTag);
+}
 
-  store.dispatch(loadTagsSuccess([tag]));
-  return tag;
+export async function updateTag(tag: Tag): Promise<Tag> {
+  const r = await makeRequest({
+    method: "put",
+    url: `/api/v2/tag/${tag.id}/`,
+    data: serializeTag(tag),
+  });
+  return deserializeTag(r!.data as SerializedTag);
+}
+
+export async function deleteTag(tag: Tag): Promise<void> {
+  await makeRequest({
+    method: "delete",
+    url: `/api/v2/tag/${tag.id}/`,
+  });
 }

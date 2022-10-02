@@ -1,9 +1,9 @@
-import { UserInfo } from "../../store/models/types";
 import { makeRequest } from "../util";
 import { SerializedUserInfo } from "../types";
 import { deserializeUserInfo, serializeUserInfo } from "../serializers";
+import { UserSettingsState } from "../../store";
 
-export async function receiveUserInfo(): Promise<UserInfo> {
+export async function receiveUserInfo(): Promise<UserSettingsState> {
   const r = await makeRequest({
     method: "get",
     url: "/api/v2/user/info",
@@ -11,7 +11,9 @@ export async function receiveUserInfo(): Promise<UserInfo> {
   return deserializeUserInfo(r!.data as SerializedUserInfo);
 }
 
-export async function updateUserInfo(userInfo: UserInfo): Promise<UserInfo> {
+export async function updateUserInfo(
+  userInfo: UserSettingsState
+): Promise<UserSettingsState> {
   const r = await makeRequest({
     method: "put",
     url: "/api/v2/user/info",

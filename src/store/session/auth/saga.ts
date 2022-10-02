@@ -8,7 +8,7 @@ import {
 } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AuthState } from "./types";
-import * as authApi from "../../api/endpoints/auth";
+import * as authApi from "../../../api/endpoints/auth";
 import axios from "axios";
 
 function* executeRequestAuthToken({ payload }: PayloadAction<AuthState>) {

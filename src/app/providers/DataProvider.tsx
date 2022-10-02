@@ -19,6 +19,8 @@ import { fetchAllBudgets } from "../../store/data/budgets/slice";
 import { selectBudgetFetchRequired } from "../../store/data/budgets/selectors";
 import { selectRequestById } from "../../store/communication";
 import capitalize from "lodash/capitalize";
+import { selectTagFetchRequired } from "../../store/data";
+import { fetchAllTags } from "../../store/data/tags/slice";
 
 interface DataProviderProps {
   children: ReactNode | ReactNode[];
@@ -32,6 +34,8 @@ const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
   const budgetRequestState = useSelector(
     selectRequestById("budget", "retrieve")
   );
+  const tagFetchRequired = useSelector(selectTagFetchRequired);
+  const tagRequestState = useSelector(selectRequestById("tag", "retrieve"));
 
   const dataRequired = useMemo(
     () => [
@@ -40,8 +44,13 @@ const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
         requestState: budgetRequestState,
         action: fetchAllBudgets({}),
       },
+      {
+        fetchRequired: tagFetchRequired,
+        requestState: tagRequestState,
+        action: fetchAllTags({}),
+      },
     ],
-    [budgetRequestState, budgetFetchRequired]
+    [budgetRequestState, budgetFetchRequired, tagFetchRequired, tagRequestState]
   );
 
   const loading = dataRequired.some(
