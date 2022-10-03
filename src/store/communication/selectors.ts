@@ -1,6 +1,6 @@
 import { CommunicationKey } from "./types";
-import { RootState } from "../configureStore";
 import { getId } from "./utils";
+import { RootState } from "../types";
 
 export const selectRequestByModel = <T>(
   key: CommunicationKey,
@@ -10,9 +10,6 @@ export const selectRequestByModel = <T>(
   return (state: RootState) => state.communication[id];
 };
 
-export const selectRequestById = (
-  key: CommunicationKey,
-  id: string | number | null
-) => {
-  return (state: RootState) => state.communication[id!];
-};
+export const selectRequestById =
+  (key: CommunicationKey, id: string | number | null) => (state: RootState) =>
+    state.communication[getId(key, id)];

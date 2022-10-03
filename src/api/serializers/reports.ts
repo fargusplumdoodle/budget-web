@@ -16,8 +16,8 @@ export function deserializeMultipleValuesReport(
   const series: GraphSeries[] = [];
 
   const byId = reportType.name.startsWith("budget")
-    ? state.budgets.byId
-    : state.tags.byId;
+    ? state.data.budgets.byId
+    : state.data.tags.byId;
 
   for (const id in data) {
     series.push({

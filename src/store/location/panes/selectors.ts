@@ -1,4 +1,4 @@
-import { RootState } from "../../configureStore";
+import { RootState } from "../../types";
 
 export const selectOpenPane = (state: RootState) =>
   state.location.panes.current;

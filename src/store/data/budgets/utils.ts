@@ -7,8 +7,6 @@ import {
   RequestStatus,
 } from "../../communication";
 import { BUDGET_ROOT_NAME } from "../../../api/constants";
-import { store } from "../../configureStore";
-import { selectBudgetList } from "./selectors";
 import { modelById } from "../../utils";
 
 export const getBudgetHash = (budget: Budget): string => {
@@ -27,7 +25,7 @@ export const getBudgetRequest = (
   status: RequestStatus
 ) =>
   makeRequest({
-    id: budget ? getId("budget", budget) : action,
+    id: getId("budget", budget || action),
     key: "budget",
     action,
     status,
@@ -36,9 +34,11 @@ export const getBudgetRequest = (
 export const getRootBudget = (budgets: Budget[]): Budget | null =>
   budgets.find((b) => b.name === BUDGET_ROOT_NAME) || null;
 
-export const getBudgetChildren = (budget: Budget): Budget[] => {
-  const state = store.getState();
-  return selectBudgetList(state).filter((b) => {
+export const getBudgetChildren = (
+  budget: Budget,
+  budgets: Budget[]
+): Budget[] => {
+  return budgets.filter((b) => {
     return b.parentId! === budget.id;
   });
 };

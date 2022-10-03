@@ -5,6 +5,8 @@ import { styled } from "@mui/material";
 import { getTransparent } from "@fargusplumdoodle/themes/dist/util";
 import { Budget } from "../../store/data/budgets/types";
 import { getBudgetChildren } from "../../store/data/budgets/utils";
+import { useSelector } from "react-redux";
+import { selectBudgetList } from "../../store";
 
 interface Props {
   budget: Budget;
@@ -22,7 +24,8 @@ const TreeItem = styled(MuiTreeItem)(({ theme }) => ({
 }));
 
 const NavigationBudgetTreeItem: FunctionComponent<Props> = ({ budget }) => {
-  const children = getBudgetChildren(budget);
+  const budgets = useSelector(selectBudgetList);
+  const children = getBudgetChildren(budget, budgets);
   return (
     <TreeItem nodeId={budget.id!.toString()} label={capitalize(budget.name)}>
       {children.map((child) => (

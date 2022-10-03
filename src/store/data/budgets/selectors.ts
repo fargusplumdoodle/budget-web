@@ -1,11 +1,12 @@
-import { RootState } from "../../configureStore";
 import { differenceInHours, parseISO } from "date-fns";
+import lowerCase from "lodash/lowerCase";
+import { RootState } from "../../types";
 
 export const selectBudgetById = (id: number) => (state: RootState) =>
   state.data.budgets.byId[id];
 
 export const selectBudgetByName = (name: string) => (state: RootState) =>
-  state.data.budgets.byName[name];
+  state.data.budgets.byName[lowerCase(name)];
 
 export const selectBudgetRoot = (state: RootState) => state.data.budgets.root;
 

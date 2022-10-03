@@ -18,7 +18,7 @@ const DateInput: FunctionComponent<Props> = () => {
         openTo="day"
         minDate={settings.minDate}
         views={["year", "month", "day"]}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params: any) => <TextField {...params} />}
         value={value}
         onChange={onChange}
       />

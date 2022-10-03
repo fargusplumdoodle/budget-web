@@ -17,7 +17,7 @@ export const getTagRequest = (
   status: RequestStatus
 ) =>
   makeRequest({
-    id: tag ? getId("tag", tag) : action,
+    id: getId("tag", tag || action),
     key: "tag",
     action,
     status,

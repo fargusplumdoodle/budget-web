@@ -4,7 +4,6 @@ import { Box, styled, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { sum } from "lodash";
 import { formatCurrency } from "../../util/formatters";
-import { getAverageOutcomePerMonth } from "../../util/stats";
 import { EXPECTED_BUDGETS } from "../../app/settings";
 
 import StackedWave from "../../assets/StackedWave.svg";
@@ -48,16 +47,9 @@ const StatusOverview: FunctionComponent = () => {
   const [monthlyOutcome, setMonthlyOutcome] = React.useState<number>(0.01);
   const totalBudgetBalance = sum(budgets.map((budget) => budget.balance));
 
-  React.useEffect(() => {
-    getAverageOutcomePerMonth().then((r) => setMonthlyOutcome(r));
-  }, []);
-
   return (
     <Container>
       <Stats>
-        <Typography variant="body1">
-          Monthly Outcome: {formatCurrency(monthlyOutcome, false)}
-        </Typography>
         <Typography variant="body1">
           Savings: {formatCurrency(savings.balance, false)}
         </Typography>

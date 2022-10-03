@@ -15,9 +15,9 @@ const DateInput: React.FunctionComponent<Props> = (props) => {
       openTo="day"
       minDate={settings.minDate}
       views={["year", "month", "day"]}
-      renderInput={(params) => <TextField {...params} />}
+      renderInput={(params: any) => <TextField {...params} />}
       {...props}
-      onChange={(date) => {
+      onChange={(date: any) => {
         if (date) {
           props.onChange(date);
         }

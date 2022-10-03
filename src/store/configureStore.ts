@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose } from "redux";
+import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import { persistStore } from "redux-persist";
 import createSagaMiddleware from "redux-saga";
@@ -26,5 +26,3 @@ export function configureStore() {
 export const store = configureStore();
 sagaMiddleware.run(rootSaga);
 export const persistor = persistStore(store);
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;

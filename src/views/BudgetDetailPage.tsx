@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Card, Grid, Stack, SxProps, Typography } from "@mui/material";
 import { capitalize } from "lodash";
-import { RootState } from "../store/configureStore";
 import { formatCurrency } from "../util/formatters";
 import DashboardTile from "../components/dashboard/DashboardTile";
 import BudgetTransactionTable from "../components/budget/BudgetTransactionTable";
 import { ReportTypes } from "../api/types";
 import LineGraph from "../components/report/LineGraph";
 import SpendingSummary from "../components/report/spending_summary/SpendingSummary";
+import { RootState, selectBudgetById } from "../store";
 
 const classes: { [id: string]: SxProps } = {
   header: {
@@ -33,9 +33,7 @@ const classes: { [id: string]: SxProps } = {
 
 const BudgetDetailPage: React.FC = function () {
   const params = useParams();
-  const budget = useSelector(
-    (state: RootState) => state.budgets.byId[parseInt(params.id!)]
-  );
+  const budget = useSelector(selectBudgetById(parseInt(params.id!)));
   const queryParams = new URLSearchParams({
     budget__includes: budget.id!.toString(),
   });

@@ -1,7 +1,7 @@
-import { modelById, modelByName } from "../store/models/utils";
+import { modelById, modelByName } from "../store";
 import transactions from "./transactions";
-import { Transaction } from "../store/data/transactions/types";
-import { Tag } from "../store/data/tags";
+import { Transaction } from "../store";
+import { Tag } from "../store";
 
 const getTagsFromTransactions = (trans: Transaction[]): Tag[] => {
   const allTags = trans.reduce(
@@ -18,6 +18,7 @@ const tags = {
   list,
   byId,
   byName,
+  lastFetch: new Date().toISOString(),
 };
 
 export default tags;

@@ -9,7 +9,7 @@ import {
 
 export const getTransactionHash = (transaction: Transaction): string => {
   const message = `
-  ${transaction.id || ""}
+  ${transaction.id}
   ${transaction.amount}
   ${transaction.description}
   ${transaction.date}

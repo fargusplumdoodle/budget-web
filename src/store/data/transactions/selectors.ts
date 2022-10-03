@@ -1,4 +1,4 @@
-import { RootState } from "../../configureStore";
+import { RootState } from "../../types";
 
 export const selectTransactionById = (id: number) => (state: RootState) =>
   state.data.transactions.byId[id];

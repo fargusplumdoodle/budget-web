@@ -18,8 +18,10 @@ import capitalize from "lodash/capitalize";
 import {
   fetchAllBudgets,
   fetchAllTags,
+  fetchUserSettings,
   resetAuth,
   selectBudgetFetchRequired,
+  selectFetchUserSettingsRequired,
   selectRequestById,
   selectTagFetchRequired,
 } from "../../store";
@@ -39,6 +41,13 @@ const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
   const tagFetchRequired = useSelector(selectTagFetchRequired);
   const tagRequestState = useSelector(selectRequestById("tag", "retrieve"));
 
+  const userSettingsFetchRequired = useSelector(
+    selectFetchUserSettingsRequired
+  );
+  const userSettingsRequestState = useSelector(
+    selectRequestById("userSettings", "retrieve")
+  );
+
   const dataRequired = useMemo(
     () => [
       {
@@ -50,6 +59,11 @@ const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
         fetchRequired: tagFetchRequired,
         requestState: tagRequestState,
         action: fetchAllTags({}),
+      },
+      {
+        fetchRequired: userSettingsFetchRequired,
+        requestState: userSettingsRequestState,
+        action: fetchUserSettings({}),
       },
     ],
     [budgetRequestState, budgetFetchRequired, tagFetchRequired, tagRequestState]
@@ -67,6 +81,8 @@ const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
   const fetchingRequired = dataRequired.some(
     ({ fetchRequired }) => fetchRequired
   );
+
+  console.log({ fetchingRequired, loading, error, loaded, dataRequired });
 
   useEffect(() => {
     if (!fetchingRequired || awaitingFetches) return;

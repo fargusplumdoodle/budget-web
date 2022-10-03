@@ -1,10 +1,10 @@
 import * as utils from "../utils";
 import { selectRequestById, selectRequestByModel } from "../selectors";
 import { Transaction } from "../../data/transactions/types";
-import { RootState } from "../../configureStore";
 import { CommunicationState } from "../types";
 import generateRequestState from "../__fixtures__/generateRequestState";
 import { generateTransaction } from "../../data/transactions/__fixtures__/generateTransaction";
+import { RootState } from "../../types";
 
 const getCommunicationState = (
   args: CommunicationState = {}

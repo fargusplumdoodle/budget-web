@@ -8,4 +8,5 @@ export interface ThemeSettings {
 export interface UserSettingsState {
   expected_monthly_net_income: number;
   theme: ThemeSettings;
+  lastFetched: string | null;
 }

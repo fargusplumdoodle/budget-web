@@ -47,7 +47,9 @@ const ThemeForm: FunctionComponent = () => {
           {Object.entries(THEMES).map(([theme, themeOption]) => (
             <ThemeOption
               key={theme}
-              onChange={() => dispatch(setSystemTheme({ themeName, darkMode }))}
+              onChange={() =>
+                dispatch(setSystemTheme({ themeName: theme, darkMode }))
+              }
               darkMode={darkMode}
               selected={theme === themeName}
               themeOption={themeOption}

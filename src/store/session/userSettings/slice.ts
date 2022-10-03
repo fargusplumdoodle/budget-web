@@ -4,6 +4,7 @@ import { ThemeSettings, UserSettingsState } from "./types";
 
 export const initialState: UserSettingsState = {
   expected_monthly_net_income: -1,
+  lastFetched: null,
   theme: {
     themeName: DEFAULT_THEME,
     darkMode: true,

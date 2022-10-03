@@ -1,10 +1,11 @@
+import lowerCase from "lodash/lowerCase";
 import { Model } from "./types";
 
 export const modelById = <T extends Model>(models: T[]) =>
   Object.fromEntries(models.map((model) => [model.id, model]));
 
 export const modelByName = <T extends { name: string }>(models: T[]) =>
-  Object.fromEntries(models.map((model) => [model.name, model]));
+  Object.fromEntries(models.map((model) => [lowerCase(model.name), model]));
 
 export const addModelsToList = <T extends Model>(
   stateList: T[],

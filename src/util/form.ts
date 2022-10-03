@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import { Box, styled } from "@mui/material";
 import { store } from "../store/configureStore";
+import { selectBudgetByName, selectTagByName } from "../store";
 
 export interface Option<T> {
   label: String;
@@ -25,8 +26,7 @@ export const budgetSchema = yup
       .string()
       .max(20)
       .test("name is unique", "Budget Name must be unique", (value) => {
-        const state = store.getState();
-        return !Boolean(state.budgets.byName[value!]);
+        return !Boolean(selectBudgetByName(value!)(store.getState()));
       })
       .required(),
     monthlyAllocation: yup.number().positive().integer(),
@@ -62,8 +62,7 @@ export const tagSchema = yup.object({
     .string()
     .max(30)
     .test("name is unique", "Tag Name must be unique", (value) => {
-      const state = store.getState();
-      return !Boolean(state.tags.byName[value!]);
+      return !Boolean(selectTagByName(value!)(store.getState()))
     })
     .required(),
 });

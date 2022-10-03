@@ -18,7 +18,10 @@ const paneSlice = createSlice({
     closeAllPanes() {
       return { ...initialState };
     },
-    openTransactionPane(state: PanesState, action: PayloadAction<Transaction>) {
+    openTransactionPane(
+      state: PanesState,
+      action: PayloadAction<Transaction | null>
+    ) {
       state.current = "transaction";
       state.transaction = action.payload;
     },

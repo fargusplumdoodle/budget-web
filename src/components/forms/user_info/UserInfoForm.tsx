@@ -1,12 +1,15 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { RootState } from "../../../store/configureStore";
 import { FormItem, userInfoSchema } from "../../../util/form";
 import { Button, CircularProgress, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ControlledAmountInput from "../inputs/ControlledAmountInput";
-import { selectUserSettings, UserSettingsState } from "../../../store";
+import {
+  RootState,
+  selectUserSettings,
+  UserSettingsState,
+} from "../../../store";
 
 const classes = {
   root: {

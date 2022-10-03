@@ -3,7 +3,6 @@ import { FunctionComponent } from "react";
 import { Box, Card, styled, Typography } from "@mui/material";
 import StatusOverview from "../components/dashboard/StatusOverview";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/configureStore";
 import { ProviderContext, withSnackbar } from "notistack";
 import LineGraph from "../components/report/LineGraph";
 import BudgetTable from "../components/budget/BudgetTable";
@@ -12,7 +11,7 @@ import SpendingSummary from "../components/report/spending_summary/SpendingSumma
 import { DateTime } from "luxon";
 import { EXPECTED_BUDGETS } from "../app/settings";
 import { fadeIn } from "../theme/animations";
-import { selectBudgetByName, selectBudgetList } from "../store";
+import { RootState, selectBudgetByName, selectBudgetList } from "../store";
 
 interface OwnProps extends ProviderContext {}
 

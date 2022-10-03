@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import * as React from "react";
-import { RootState } from "../../../store/configureStore";
 import { useSelector } from "react-redux";
 import { FormItem, transactionSchema } from "../../../util/form";
 import { Controller, useForm } from "react-hook-form";
@@ -29,6 +28,7 @@ import TagsInput from "../../query/inputs/TagsInput";
 import { Transaction } from "../../../store/data/transactions/types";
 import { generateTransaction } from "../../../store/data/transactions/__fixtures__/generateTransaction";
 import { Tag } from "../../../store/data/tags";
+import { RootState } from "../../../store";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
@@ -43,7 +43,7 @@ const TransactionForm = (props: Props) => {
   const isEdit = Boolean(
     Boolean(props["transaction"]) && props.transaction!.id
   );
-  const budgets = useSelector((state: RootState) => state.budgets);
+  const budgets = useSelector((state: RootState) => state.data.budgets);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [transactionSign, setTransactionSign]: [Sign, any] = useState(
@@ -113,8 +113,7 @@ const TransactionForm = (props: Props) => {
           : Math.abs(data.amount),
     };
     const submitFn = isEdit
-      ? (t: Transaction) =>
-          api.transaction.updateTransaction(props.transaction!, t)
+      ? (t: Transaction) => api.transaction.updateTransaction(t)
       : (t: Transaction) => api.transaction.createTransaction(t);
 
     const callback = isEdit ? props.onUpdateCallback : props.onCreateCallback;

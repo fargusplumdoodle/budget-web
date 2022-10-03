@@ -1,5 +1,5 @@
-import { RootState } from "../../configureStore";
 import { differenceInHours, parseISO } from "date-fns";
+import { RootState } from "../../types";
 
 export const selectTagById = (id: number) => (state: RootState) =>
   state.data.tags.byId[id];

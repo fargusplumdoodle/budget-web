@@ -190,5 +190,7 @@ const budgets = {
   list,
   byId,
   byName,
+  root: root,
+  lastFetch: new Date().toISOString(),
 };
 export default budgets;

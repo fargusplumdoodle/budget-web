@@ -9,6 +9,7 @@ import {
 import { Budget, BudgetState } from "./types";
 import { BUDGET_ROOT_NAME } from "../../../api/constants";
 import { getRootBudget } from "./utils";
+import lowerCase from "lodash/lowerCase";
 
 export const initialState: BudgetState = {
   list: [],
@@ -34,7 +35,7 @@ const budgetSlice = createSlice({
       const budget: Budget = payload;
       state.list = addModelToList(state.list, budget);
       state.byId[budget.id!] = budget;
-      state.byName[budget.name] = budget;
+      state.byName[lowerCase(budget.name)] = budget;
 
       if (budget.name === BUDGET_ROOT_NAME) {
         state.root = budget;
@@ -47,7 +48,7 @@ const budgetSlice = createSlice({
       const budget: Budget = payload;
       state.list = [...state.list.filter(allObjectsExcept(budget.id!))];
       delete state.byId[budget.id!];
-      delete state.byName[budget.name];
+      delete state.byName[lowerCase(budget.name)];
     },
     updateBudget(state, _) {
       return state;

@@ -2,7 +2,7 @@ import axios from "axios";
 import settings from "../../app/settings";
 import { store } from "../../store/configureStore";
 import parseISO from "date-fns/parseISO";
-import { AuthState, refreshAuthToken } from "../../store";
+import { AuthState, refreshAuthToken, selectAuthState } from "../../store";
 
 // TODO: MOVE SOMEWHERE
 interface tokenResponse {
@@ -77,13 +77,13 @@ export async function refreshToken(refreshToken: string): Promise<AuthState> {
 }
 
 export const checkAuth = async () => {
-  const state = store.getState();
+  const auth = selectAuthState(store.getState());
 
-  if (!state.auth.authenticated) {
+  if (!auth.authenticated) {
     throw Error("ah not authenticated");
   }
 
-  if (parseISO(state.auth.expiresAt) <= new Date()) {
+  if (parseISO(auth.expiresAt) <= new Date()) {
     await store.dispatch(refreshAuthToken());
   }
 };

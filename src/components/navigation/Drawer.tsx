@@ -13,9 +13,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import NavigationBudgetTreeItem from "./NavigationBudgetTreeItem";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/configureStore";
 import { ROUTES } from "../../app/AppRoutes";
-import { selectBudgetRoot } from "../../store";
+import { RootState, selectBudgetRoot } from "../../store";
 
 const GradientBox = styled(Grid)(({ theme }) => ({
   background: `linear-gradient(0deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,

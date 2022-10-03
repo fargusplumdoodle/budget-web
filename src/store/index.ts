@@ -5,4 +5,3 @@ export * from "./data";
 
 export * from "./utils";
 export * from "./types";
-export { default as rootReducer } from "./rootReducer";

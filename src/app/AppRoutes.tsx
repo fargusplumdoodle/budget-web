@@ -34,7 +34,8 @@ export type RouteType = {
 export const ROUTES: { [name: string]: RouteType } = {
   DASHBOARD: {
     path: "/",
-    element: <DashboardPage />,
+    // element: <DashboardPage />,
+    element: <QueryView />,
     title: "Dashboard",
     icon: Dashboard,
   },
