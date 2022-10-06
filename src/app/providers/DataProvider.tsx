@@ -82,8 +82,6 @@ const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
     ({ fetchRequired }) => fetchRequired
   );
 
-  console.log({ fetchingRequired, loading, error, loaded, dataRequired });
-
   useEffect(() => {
     if (!fetchingRequired || awaitingFetches) return;
     setAwaitingFetches(true);

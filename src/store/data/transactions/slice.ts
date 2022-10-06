@@ -38,6 +38,7 @@ const transactionSlice = createSlice({
       const transaction: Transaction = payload;
       state.list = [...state.list.filter(allObjectsExcept(transaction.id!))];
       delete state.byId[transaction.id!];
+      return state;
     },
     updateTransaction(state, { payload }: UpdateTransactionPayloadAction) {
       const transaction: Transaction = { ...payload.newTransaction };

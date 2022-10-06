@@ -59,7 +59,7 @@ const Drawer: FunctionComponent = () => {
   return (
     <Container container direction="row" wrap="nowrap">
       <GradientBox item />
-      <Content item container direction="column" spacing={2}>
+      <Content item container direction="column" spacing={2} wrap="nowrap">
         <Grid
           item
           component={Typography}

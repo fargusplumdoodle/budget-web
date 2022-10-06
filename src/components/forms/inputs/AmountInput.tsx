@@ -22,8 +22,10 @@ const AmountInput: FunctionComponent<Props> = () => {
     field: { value, onChange },
   } = useController({ name: "amount" });
 
-  const [textInput, setTextInput] = useState<string>(value.toString());
-  const [sign, setSign] = useState<Sign>("-");
+  const [textInput, setTextInput] = useState<string>(
+    Math.abs(value).toString()
+  );
+  const [sign, setSign] = useState<Sign>(value > 0 ? "+" : "-");
 
   const getValue = (withSign: Sign): number => {
     const floatValue = Math.abs(parseFloat(textInput));

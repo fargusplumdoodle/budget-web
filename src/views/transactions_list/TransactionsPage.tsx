@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
-import PaginatedTransactionsTable from "../../components/transactions/transactions_table/PaginatedTransactionsTable";
+import PaginatedTransactionsTable from "../../components/transactions_legacy/transactions_table/PaginatedTransactionsTable";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
 import api from "../../api";
 import Card from "@mui/material/Card";
@@ -10,6 +10,7 @@ import QueryForm from "../../components/query";
 import { Expression } from "../../components/query/types";
 import { getQueryParametersFromExpressions } from "../../api/util";
 import { Transaction } from "../../store/data/transactions/types";
+import { TransactionList } from "../../components/transactions/";
 
 interface Props {}
 
@@ -51,32 +52,25 @@ const TransactionsPage: FunctionComponent<Props> = () => {
           onChangeExpressions={onChangeExpressions}
         />
       </Box>
-      <Card>
-        {!loading ? (
-          <Box sx={{ width: "100%" }}>
-            <LinearProgress />
-          </Box>
-        ) : (
-          <PaginatedTransactionsTable
-            showBudget
-            transactions={transactions}
-            onUpdateCallback={(trans: Transaction) =>
-              updateValuesList<Transaction>(
-                trans,
-                transactions,
-                setTransactions
-              )
-            }
-            onDeleteCallback={(trans: Transaction) => {
-              removeFromValuesList<Transaction>(
-                trans,
-                transactions,
-                setTransactions
-              );
-            }}
-          />
-        )}
-      </Card>
+      {!loading ? (
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress />
+        </Box>
+      ) : (
+        <TransactionList
+          transactions={transactions}
+          onUpdateCallback={(trans: Transaction) =>
+            updateValuesList<Transaction>(trans, transactions, setTransactions)
+          }
+          onDeleteCallback={(trans: Transaction) => {
+            removeFromValuesList<Transaction>(
+              trans,
+              transactions,
+              setTransactions
+            );
+          }}
+        />
+      )}
 
       <ApiErrorDialog
         error={apiError}

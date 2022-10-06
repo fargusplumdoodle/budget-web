@@ -42,7 +42,7 @@ const ResponsiveDrawer: FunctionComponent = () => {
         }}
         open
       >
-        <Paper elevation={2} sx={{ height: "100%" }}>
+        <Paper elevation={2} sx={{ height: "inherit" }}>
           <Drawer />
         </Paper>
       </MuiDrawer>

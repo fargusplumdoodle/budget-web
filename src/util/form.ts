@@ -62,7 +62,7 @@ export const tagSchema = yup.object({
     .string()
     .max(30)
     .test("name is unique", "Tag Name must be unique", (value) => {
-      return !Boolean(selectTagByName(value!)(store.getState()))
+      return !Boolean(selectTagByName(value!)(store.getState()));
     })
     .required(),
 });

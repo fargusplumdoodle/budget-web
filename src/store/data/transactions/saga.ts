@@ -9,6 +9,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { Transaction, UpdateTransactionPayloadAction } from "./types";
 import { getTransactionRequest } from "./utils";
 import api from "../../../api/";
+import { closeAllPanes } from "../../";
 
 function* executeCreateTransaction({
   payload: transaction,
@@ -51,6 +52,7 @@ function* executeDeleteTransaction({
   try {
     yield call(api.transaction.deleteTransaction, transaction);
     yield put(getTransactionRequest(transaction, "delete", "loaded"));
+    yield put(closeAllPanes());
   } catch {
     yield put(getTransactionRequest(transaction, "delete", "error"));
   }

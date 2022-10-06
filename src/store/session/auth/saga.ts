@@ -17,7 +17,6 @@ function* executeRequestAuthToken({ payload }: PayloadAction<AuthState>) {
       authApi.retrieveToken,
       payload.authCode
     );
-    console.log("here", response);
     yield put(setAuth(response));
   } catch {
     yield put(setAuth({ ...payload, status: "error" }));
