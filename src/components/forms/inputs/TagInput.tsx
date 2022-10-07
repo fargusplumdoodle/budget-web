@@ -8,7 +8,6 @@ import {
   TextField,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import TagFormDialog from "../tag/TagFormDialog";
 import { useSelector } from "react-redux";
 import { getMuiFilledInputStyles } from "@fargusplumdoodle/themes";
 import capitalize from "lodash/capitalize";
@@ -18,10 +17,7 @@ interface Props {}
 
 const TagInput: FunctionComponent<Props> = () => {
   const tags = useSelector(selectTagList);
-  const [newTagDialogOpen, setNewTagDialogOpen] = useState(false);
   const {
-    getValues,
-    setValue,
     formState: { errors },
   } = useFormContext();
 
@@ -46,7 +42,7 @@ const TagInput: FunctionComponent<Props> = () => {
               label="Tags"
               fullWidth
               error={!!errors.tags}
-              // helperText={errors ? errors.tags?.message : ""}
+              helperText={errors ? errors.tags?.message : ""}
               placeholder="Tags"
             />
           )}
@@ -54,7 +50,8 @@ const TagInput: FunctionComponent<Props> = () => {
           options={tags}
           getOptionLabel={(tag: Tag) => capitalize(tag.name)}
           isOptionEqualToValue={(option: Tag, tag: Tag) => option.id === tag.id}
-          onChange={(_, tag) => onChange(tag)}
+          // @ts-ignore
+          onChange={(_, tag: Tag) => onChange(tag)}
         />
 
         <Grid
@@ -84,16 +81,6 @@ const TagInput: FunctionComponent<Props> = () => {
           {capitalize(errors.tags?.message)}
         </FormHelperText>
       )}
-
-      <TagFormDialog
-        open={newTagDialogOpen}
-        onClose={() => {
-          setNewTagDialogOpen(false);
-        }}
-        onSubmitCallback={(tag: Tag) => {
-          setValue("tags", [...(getValues("tags") as Tag[]), tag]);
-        }}
-      />
     </>
   );
 };

@@ -17,7 +17,6 @@ import { Add, Remove } from "@mui/icons-material";
 import { ProviderContext, withSnackbar } from "notistack";
 import { useState } from "react";
 import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
-import TagFormDialog from "../tag/TagFormDialog";
 import api from "../../../api";
 import ControlledAmountInput from "../inputs/ControlledAmountInput";
 import { InputErrorMessage } from "../types";
@@ -137,6 +136,7 @@ const TransactionForm = (props: Props) => {
 
   const onTagChange = (tags: Tag[]) => {
     setForceRerender(!forceRerender); // l333t hacks
+    // @ts-ignore
     setValue("tags", tags);
     if (tags.length > 0) {
       const lastTag = tags[tags.length - 1];
@@ -291,16 +291,6 @@ const TransactionForm = (props: Props) => {
         error={apiError}
         onClose={() => {
           setApiError(null);
-        }}
-      />
-
-      <TagFormDialog
-        open={newTagDialogOpen}
-        onClose={() => {
-          setNewTagDialogOpen(false);
-        }}
-        onSubmitCallback={(tag: Tag) => {
-          setValue("tags", [...(getValues("tags") as Tag[]), tag]);
         }}
       />
     </>

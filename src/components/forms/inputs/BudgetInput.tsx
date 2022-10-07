@@ -26,7 +26,8 @@ const BudgetInput: FunctionComponent<Props> = () => {
           disablePortal
           value={value}
           disableClearable
-          onChange={(_, value) => onChange(value as Budget)}
+          // @ts-ignore
+          onChange={(_: any, value: Budget) => onChange(value)}
           renderInput={(params: any) => (
             <TextField
               {...params}

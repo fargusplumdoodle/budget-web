@@ -119,7 +119,9 @@ export function serializeUserInfo(
     darkMode: userInfo.theme.darkMode,
   };
 }
-export function deserializeUserInfo(userInfo: SerializedUserInfo): UserInfo {
+export function deserializeUserInfo(
+  userInfo: SerializedUserInfo
+): UserSettingsState {
   return {
     expected_monthly_net_income: fromCents(
       userInfo.expected_monthly_net_income
@@ -128,5 +130,6 @@ export function deserializeUserInfo(userInfo: SerializedUserInfo): UserInfo {
       themeName: userInfo.theme,
       darkMode: userInfo.darkMode,
     },
+    lastFetched: new Date().toISOString(),
   };
 }
