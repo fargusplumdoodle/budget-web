@@ -1,10 +1,10 @@
 import { Grid, GridProps, styled, Typography } from "@mui/material";
 import React, { FunctionComponent } from "react";
 import { links } from "./constants";
-import { getCurrentRoute } from "../../util/routing";
 import { useNavigate } from "react-router-dom";
 import { getTransparent } from "@fargusplumdoodle/themes/dist/util";
 import NavigationBudgetTree from "../budget/NavigationBudgetTree";
+import useRoute from "../../hooks/useRoute";
 
 const GradientBox = styled(Grid)(({ theme }) => ({
   background: `linear-gradient(0deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
@@ -41,7 +41,7 @@ const Link = styled(Grid, {
 }));
 
 const Drawer: FunctionComponent = () => {
-  const currentRoute = getCurrentRoute();
+  const currentRoute = useRoute();
   const navigate = useNavigate();
   return (
     <Container container direction="row" wrap="nowrap">
@@ -72,7 +72,7 @@ const Drawer: FunctionComponent = () => {
               item
               container
               key={route.path}
-              active={currentRoute!.path === route.path}
+              active={currentRoute?.path === route.path}
               gap={1}
               alignItems="center"
               onClick={() => navigate(route.path)}

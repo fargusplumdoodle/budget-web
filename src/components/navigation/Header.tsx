@@ -2,20 +2,19 @@ import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import { FunctionComponent } from "react";
 import { ROUTES } from "../../app/AppRoutes";
-import { getCurrentRoute } from "../../util/routing";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch } from "react-redux";
 import { AddCircle, Settings } from "@mui/icons-material";
 import { openTransactionPane, toggleMobileDrawer } from "../../store";
+import { useRoute } from "../../hooks";
 
 interface HeaderProps {}
 
 const Header: FunctionComponent<HeaderProps> = () => {
   const dispatch = useDispatch();
+  const currentRoute = useRoute();
 
-  const currentRoute = getCurrentRoute();
-
-  if (window.location.pathname === ROUTES.AUTH_CALLBACK.path) {
+  if (!currentRoute || currentRoute.path === ROUTES.AUTH_CALLBACK.path) {
     return <></>;
   }
 
