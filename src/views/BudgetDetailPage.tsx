@@ -8,8 +8,8 @@ import DashboardTile from "../components/dashboard/DashboardTile";
 import BudgetTransactionTable from "../components/budget/BudgetTransactionTable";
 import LineGraph from "../components/report/LineGraph";
 import SpendingSummary from "../components/report/spending_summary/SpendingSummary";
-import { RootState, selectBudgetById } from "../store";
-import { ReportTypes } from "../api/report";
+import { selectBudgetById } from "../store";
+import { ReportTypes, TimeBuckets } from "../api/report";
 
 const classes: { [id: string]: SxProps } = {
   header: {
@@ -87,10 +87,7 @@ const BudgetDetailPage: React.FC = function () {
           </DashboardTile>
 
           <DashboardTile>
-            <SpendingSummary
-              queryParams={queryParams}
-              defaultTimebucketSize="one_week"
-            />
+            <SpendingSummary queryParams={queryParams} />
           </DashboardTile>
         </Stack>
       </Grid>

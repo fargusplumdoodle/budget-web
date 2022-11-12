@@ -52,13 +52,3 @@ export interface GraphReport {
   dates: string[];
   series: GraphSeries[];
 }
-
-export type ReportFetchFunc = (
-  timeBucketSize: TimeBucketSize,
-  query?: URLSearchParams
-) => Promise<GraphReport>;
-
-export interface SerializedSingleValueReport {
-  dates: string[];
-  data: number[];
-}

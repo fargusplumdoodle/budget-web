@@ -1,5 +1,5 @@
-import { RelativeTimeBucket } from "../../../api";
 import getDaysInMonth from "date-fns/getDaysInMonth";
+import { RelativeTimeBucket } from "../api/report";
 
 export const adaptMonthlyValue = (
   monthlyValue: number,

@@ -14,9 +14,7 @@ const classes = {
   },
 };
 
-interface UserInfoPageProps extends ProviderContext {}
-
-const UserInfoPage: React.FC<UserInfoPageProps> = function () {
+const UserInfoPage: React.FC = function () {
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const dispatch = useDispatch();
 
