@@ -13,98 +13,18 @@ import { fadeIn } from "../theme/animations";
 import { RootState, selectBudgetByName, selectBudgetList } from "../store";
 import { ReportTypes } from "../api/report";
 
-interface OwnProps extends ProviderContext {}
+interface Props extends ProviderContext {}
 
-type Props = OwnProps;
-
-const CardArea = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  gap: theme.spacing(3),
-  height: "100%",
-  width: "100%",
-  opacity: 0.8,
-  flexWrap: "wrap",
-  marginTop: theme.spacing(3),
-}));
-
-const DashboardCard = styled(Card)(({ theme }) => ({
-  padding: theme.spacing(1),
-  minWidth: 300,
-  flexGrow: 1,
-  [theme.breakpoints.down(977)]: {
-    width: "100%",
-    maxWidth: "100%",
-  },
-  ":nth-of-type(odd)": {
-    animation: `${fadeIn} 500ms linear 0.1s 1 normal forwards`,
-    opacity: 0,
-  },
-  ":nth-of-type(even)": {
-    animation: `${fadeIn} 500ms linear 0.3s 1 normal forwards`,
-    opacity: 0,
-  },
-}));
-
-const DashboardPage: FunctionComponent<Props> = () => {
-  const budgets = useSelector(selectBudgetList);
-  const savings = useSelector(selectBudgetByName(EXPECTED_BUDGETS.SAVINGS));
-  if (budgets.length === 0) {
-    return <></>;
-  }
-
-  const query = new URLSearchParams({
-    date__gte: DateTime.now().minus({ months: 3 }).toISODate(),
-    budgets__excludes: savings.id!.toString(),
-  });
-
-  return (
-    <Box>
-      <Box
-        sx={{
-          height: [],
-        }}
-      >
-        <StatusOverview />
-      </Box>
-
-      <CardArea>
-        <DashboardCard>
-          <BudgetTable budgets={budgets} />
-        </DashboardCard>
-
-        <DashboardCard>
-          <Typography variant="h5">Balance</Typography>
-          <LineGraph
-            hideDateLte
-            hideTimebucketSelector
-            defaultTimebucketSize="one_week"
-            reportTypes={[ReportTypes.BUDGET_BALANCE]}
-          />
-        </DashboardCard>
-
-        <DashboardCard>
-          <Typography variant="h5">Pulse</Typography>
-          <LineGraph
-            queryParams={query}
-            hideDateLte
-            hideTimebucketSelector
-            defaultTimebucketSize="one_week"
-            reportTypes={[ReportTypes.INCOME, ReportTypes.OUTCOME]}
-          />
-        </DashboardCard>
-
-        <DashboardCard>
-          <Typography variant="h5">Spending Summary</Typography>
-          <SpendingSummary
-            queryParams={query}
-            defaultTimebucketSize="one_month"
-          />
-        </DashboardCard>
-      </CardArea>
+const DashboardPage: FunctionComponent<Props> = () => (
+  <Box>
+    <Box
+      sx={{
+        height: [],
+      }}
+    >
+      <StatusOverview />
     </Box>
-  );
-};
+  </Box>
+);
 
 export default withSnackbar(DashboardPage);

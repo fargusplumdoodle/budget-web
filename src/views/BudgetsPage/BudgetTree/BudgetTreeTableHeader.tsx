@@ -3,9 +3,7 @@ import { Grid, IconButton, Typography } from "@mui/material";
 import { BUDGET_STATS_TABLE_WIDTH } from "./constants";
 import BudgetTreeTableValue from "./BudgetTreeTableValue";
 
-interface Props {}
-
-const BudgetTreeTableHeader: FunctionComponent<Props> = (props) => (
+const BudgetTreeTableHeader: FunctionComponent = () => (
   <Grid
     container
     item

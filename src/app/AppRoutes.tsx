@@ -1,6 +1,6 @@
-import { Route, Routes } from 'react-router-dom';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import { Route, Routes } from "react-router-dom";
+import * as React from "react";
+import { FunctionComponent } from "react";
 import {
   Dashboard,
   Settings,
@@ -9,11 +9,11 @@ import {
   AttachMoney,
   TrendingUp,
   Search,
-} from '@mui/icons-material';
-import { SvgIconTypeMap } from '@mui/material';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
-import Callback from '../components/auth/Callback';
-import InitLoading from '../components/InitLoading';
+} from "@mui/icons-material";
+import { SvgIconTypeMap } from "@mui/material";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
+import Callback from "../components/auth/Callback";
+import InitLoading from "../components/InitLoading";
 import {
   DashboardPage,
   BudgetsPage,
@@ -21,63 +21,62 @@ import {
   TransactionsPage,
   UserInfoPage,
   BudgetDetailPage,
-} from '../views';
-import QueryView from '../views/QueryView';
+} from "../views";
+import QueryView from "../views/QueryView";
 
 export type RouteType = {
   path: string;
   element: React.ReactElement | React.FunctionComponent;
   title?: string;
-  icon?: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
+  icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
 };
 
 export const ROUTES: { [name: string]: RouteType } = {
   DASHBOARD: {
-    path: '/',
-    // element: <DashboardPage />,
-    element: <QueryView />,
-    title: 'Dashboard',
+    path: "/",
+    element: <DashboardPage />,
+    title: "Dashboard",
     icon: Dashboard,
   },
-  AUTH_CALLBACK: { path: '/auth/callback', element: <Callback /> },
+  AUTH_CALLBACK: { path: "/auth/callback", element: <Callback /> },
   QUERY: {
-    path: '/transactions/query',
+    path: "/transactions/query",
     element: <QueryView />,
-    title: 'Query',
+    title: "Query",
     icon: Search,
   },
   TRANSACTIONS_LIST: {
-    path: '/transactions/list',
+    path: "/transactions/list",
     element: <TransactionsPage />,
-    title: 'Transactions',
+    title: "Transactions",
     icon: List,
   },
   TRANSACTIONS_ADD: {
-    path: '/transactions/add',
+    path: "/transactions/add",
     element: <AddTransactionsPage />,
-    title: 'Add Transactions',
+    title: "Add Transactions",
     icon: Add,
   },
   TRANSACTION_REPORT: {
-    path: '/transactions/reports',
+    path: "/transactions/reports",
     element: <InitLoading />,
-    title: 'Reports',
+    title: "Reports",
     icon: TrendingUp,
   },
   SETTINGS: {
-    path: '/user/info',
+    path: "/user/info",
     element: <UserInfoPage />,
-    title: 'Settings',
+    title: "Settings",
     icon: Settings,
   },
   BUDGET_LIST: {
-    path: '/budget',
+    path: "/budget",
     element: <BudgetsPage />,
-    title: 'Budgets',
+    title: "Budgets",
     icon: AttachMoney,
   },
   BUDGET_DETAIL: {
-    path: '/budget/:id',
+    path: "/budget/:id",
     element: <BudgetDetailPage />,
   },
 };

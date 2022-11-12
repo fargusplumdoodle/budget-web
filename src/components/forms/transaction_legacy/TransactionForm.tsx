@@ -6,28 +6,28 @@ import {
   FormHelperText,
   CircularProgress,
   ToggleButtonGroup,
-} from '@mui/material';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Add, Remove } from '@mui/icons-material';
-import { ProviderContext, withSnackbar } from 'notistack';
-import { useState } from 'react';
-import { FormItem, transactionSchema } from '../../../util/form';
-import ApiErrorDialog, { ApiError } from '../../ApiErrorDialog';
-import api from '../../../api';
-import ControlledAmountInput from '../inputs/ControlledAmountInput';
-import { InputErrorMessage } from '../types';
-import BudgetsInput from '../inputs/ControlledBudgetInput';
-import ControlledDescriptionInput from '../inputs/ControlledDescriptionInput';
-import ControlledDateInput from '../inputs/ControlledDateInput';
-import TagsInput from '../../query/inputs/TagsInput';
-import { Transaction } from '../../../store/data/transactions/types';
-import { generateTransaction } from '../../../store/data/transactions/__fixtures__/generateTransaction';
-import { Tag } from '../../../store/data/tags';
-import { RootState } from '../../../store';
+} from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import * as React from "react";
+import { useSelector } from "react-redux";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Add, Remove } from "@mui/icons-material";
+import { ProviderContext, withSnackbar } from "notistack";
+import { useState } from "react";
+import { FormItem, transactionSchema } from "../../../util/form";
+import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
+import api from "../../../api";
+import ControlledAmountInput from "../inputs/ControlledAmountInput";
+import { InputErrorMessage } from "../types";
+import BudgetsInput from "../inputs/ControlledBudgetInput";
+import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
+import ControlledDateInput from "../inputs/ControlledDateInput";
+import TagsInput from "../../query/inputs/TagsInput";
+import { Transaction } from "../../../store/data/transactions/types";
+import { generateTransaction } from "../../../store/data/transactions/__fixtures__/generateTransaction";
+import { Tag } from "../../../store/data/tags";
+import { RootState } from "../../../store";
 
 interface Props extends ProviderContext {
   transaction?: Transaction;
@@ -36,34 +36,32 @@ interface Props extends ProviderContext {
   onDeleteCallback?: (trans: Transaction) => void;
 }
 
-type Sign = '+' | '-';
+type Sign = "+" | "-";
 
 function TransactionForm(props: Props) {
-  const isEdit = Boolean(
-    Boolean(props.transaction) && props.transaction!.id,
-  );
+  const isEdit = Boolean(Boolean(props.transaction) && props.transaction!.id);
   const budgets = useSelector((state: RootState) => state.data.budgets);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<ApiError | null>(null);
   const [transactionSign, setTransactionSign]: [Sign, any] = useState(
-    isEdit ? (props.transaction!.amount > 0 ? '+' : '-') : '-',
+    isEdit ? (props.transaction!.amount > 0 ? "+" : "-") : "-"
   );
-  const [newTagDialogOpen, setNewTagDialogOpen] = useState(false);
+  const [_, setNewTagDialogOpen] = useState(false);
   // I hate this so much, but this whole component needs to be rewritten anyway
   const [forceRerender, setForceRerender] = useState(false);
 
   const defaultValues = isEdit
     ? { ...props.transaction, amount: Math.abs(props.transaction!.amount) }
     : generateTransaction({
-      id: null,
-      date: new Date(),
-      description: '',
-      amount: 0,
-      budget: budgets.byName.food,
-      tags: [],
-      income: false,
-      transfer: false,
-    });
+        id: null,
+        date: new Date(),
+        description: "",
+        amount: 0,
+        budget: budgets.byName.food,
+        tags: [],
+        income: false,
+        transfer: false,
+      });
 
   const {
     control,
@@ -79,7 +77,7 @@ function TransactionForm(props: Props) {
   const handleSignChange = (
     // @ts-ignore
     event: MouseEvent<HTMLElement, MouseEvent>,
-    value: any,
+    value: any
   ) => {
     if (!value) {
       return;
@@ -88,14 +86,14 @@ function TransactionForm(props: Props) {
   };
 
   const onClickDelete = () => {
-    if (!window.confirm('Are you sure you want to delete this transaction?')) {
+    if (!window.confirm("Are you sure you want to delete this transaction?")) {
       return;
     }
     setLoading(true);
     api.transaction.deleteTransaction(props.transaction!).then(() => {
       setLoading(false);
-      props.enqueueSnackbar('Successfully deleted transaction', {
-        variant: 'success',
+      props.enqueueSnackbar("Successfully deleted transaction", {
+        variant: "success",
       });
     });
     props.onDeleteCallback!(props.transaction!);
@@ -107,7 +105,7 @@ function TransactionForm(props: Props) {
     const transaction: Transaction = {
       ...data,
       amount:
-        transactionSign === '-'
+        transactionSign === "-"
           ? 0 - Math.abs(data.amount)
           : Math.abs(data.amount),
     };
@@ -121,10 +119,10 @@ function TransactionForm(props: Props) {
       .then((trans: Transaction) => {
         setLoading(false);
         props.enqueueSnackbar(
-          `Successfully ${isEdit ? 'updated' : 'added'} transaction`,
+          `Successfully ${isEdit ? "updated" : "added"} transaction`,
           {
-            variant: 'success',
-          },
+            variant: "success",
+          }
         );
         callback!(trans);
       })
@@ -137,13 +135,14 @@ function TransactionForm(props: Props) {
   const onTagChange = (tags: Tag[]) => {
     setForceRerender(!forceRerender); // l333t hacks
     // @ts-ignore
-    setValue('tags', tags);
+    setValue("tags", tags);
     if (tags.length > 0) {
       const lastTag = tags[tags.length - 1];
 
-      if (lastTag.common_budget) setValue('budget', lastTag.common_budget);
+      if (lastTag.common_budget) setValue("budget", lastTag.common_budget);
 
-      if (lastTag.common_transaction_amount) setValue('amount', Math.abs(lastTag.common_transaction_amount));
+      if (lastTag.common_transaction_amount)
+        setValue("amount", Math.abs(lastTag.common_transaction_amount));
     }
   };
   return (
@@ -154,18 +153,18 @@ function TransactionForm(props: Props) {
           justifyContent="flex-start"
           alignItems="stretch"
           sx={{
-            maxWidth: '615px',
+            maxWidth: "615px",
           }}
         >
           <FormItem
             sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
             }}
           >
             <TagsInput
-              value={getValues('tags') as Tag[]}
+              value={getValues("tags") as Tag[]}
               textFieldProps={{
                 helperText: (errors.tags as InputErrorMessage)?.message,
                 error: !!errors.tags,
@@ -193,7 +192,7 @@ function TransactionForm(props: Props) {
           <div>
             <FormItem
               sx={{
-                display: 'flex',
+                display: "flex",
               }}
             >
               <ControlledAmountInput
@@ -201,14 +200,14 @@ function TransactionForm(props: Props) {
                 control={control}
                 errors={errors.amount}
                 showError={false}
-                sx={{ width: '100%', marginRight: 1 }}
+                sx={{ width: "100%", marginRight: 1 }}
               />
               <ToggleButtonGroup
                 exclusive
                 onChange={handleSignChange}
                 aria-label="text alignment"
                 value={transactionSign}
-                sx={{ marginLeft: 'auto' }}
+                sx={{ marginLeft: "auto" }}
               >
                 <ToggleButton value="+" aria-label="left aligned">
                   <Add />
@@ -222,7 +221,7 @@ function TransactionForm(props: Props) {
               sx={{ marginLeft: 1 }}
               error={Boolean(errors.amount)}
             >
-              {errors.amount ? errors.amount.message : ''}
+              {errors.amount ? errors.amount.message : ""}
             </FormHelperText>
           </div>
 
@@ -238,7 +237,7 @@ function TransactionForm(props: Props) {
             <ControlledDateInput
               name="date"
               control={control}
-              sx={{ width: '100%' }}
+              sx={{ width: "100%" }}
             />
           </FormItem>
 
@@ -267,13 +266,13 @@ function TransactionForm(props: Props) {
             </FormItem>
           )}
 
-          <FormItem sx={{ display: 'flex', flexDirection: 'row' }}>
-            <Button sx={{ width: '100%' }} type="submit" disabled={loading}>
-              {loading ? <CircularProgress /> : 'SUBMIT'}
+          <FormItem sx={{ display: "flex", flexDirection: "row" }}>
+            <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
+              {loading ? <CircularProgress /> : "SUBMIT"}
             </Button>
             {isEdit ? (
               <Button
-                sx={{ width: '100%' }}
+                sx={{ width: "100%" }}
                 color="error"
                 onClick={onClickDelete}
                 type="submit"

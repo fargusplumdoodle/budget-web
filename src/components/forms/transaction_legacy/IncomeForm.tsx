@@ -1,14 +1,14 @@
-import { Button, CircularProgress, Stack } from '@mui/material';
-import * as React from 'react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { withSnackbar } from 'notistack';
-import { FormItem, incomeSchema } from '../../../util/form';
-import ApiErrorDialog, { ApiError } from '../../ApiErrorDialog';
-import ControlledAmountInput from '../inputs/ControlledAmountInput';
-import ControlledDescriptionInput from '../inputs/ControlledDescriptionInput';
-import ControlledDateInput from '../inputs/ControlledDateInput';
+import { Button, CircularProgress, Stack } from "@mui/material";
+import * as React from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { withSnackbar } from "notistack";
+import { FormItem, incomeSchema } from "../../../util/form";
+import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
+import ControlledAmountInput from "../inputs/ControlledAmountInput";
+import ControlledDescriptionInput from "../inputs/ControlledDescriptionInput";
+import ControlledDateInput from "../inputs/ControlledDateInput";
 
 export interface IncomeFormData {
   amount: number;
@@ -17,12 +17,12 @@ export interface IncomeFormData {
 }
 
 function IncomeForm() {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [apiError, setApiError] = useState<ApiError | null>(null);
 
   const defaultValues = {
     amount: 0,
-    description: '',
+    description: "",
     date: new Date(),
   };
 
@@ -35,7 +35,7 @@ function IncomeForm() {
     defaultValues,
   });
 
-  const onSubmit = (data: IncomeFormData): void => {
+  const onSubmit = (_: IncomeFormData): void => {
     // setLoading(true);
     // const transactions = createIncomeTransactions({
     //   ...data,
@@ -64,7 +64,7 @@ function IncomeForm() {
     //     setLoading(false);
     //     setApiError(err);
     //   });
-    alert('TODO');
+    alert("TODO");
   };
 
   return (
@@ -75,12 +75,12 @@ function IncomeForm() {
           justifyContent="flex-start"
           alignItems="stretch"
           sx={{
-            maxWidth: '615px',
+            maxWidth: "615px",
           }}
         >
           <FormItem
             sx={{
-              display: 'flex',
+              display: "flex",
             }}
           >
             <ControlledAmountInput
@@ -88,7 +88,7 @@ function IncomeForm() {
               control={control}
               errors={errors.amount}
               showError
-              sx={{ width: '100%', marginRight: 1 }}
+              sx={{ width: "100%", marginRight: 1 }}
             />
           </FormItem>
 
@@ -104,11 +104,11 @@ function IncomeForm() {
             <ControlledDateInput
               name="date"
               control={control}
-              sx={{ width: '100%' }}
+              sx={{ width: "100%" }}
             />
           </FormItem>
-          <Button sx={{ width: '100%' }} type="submit" disabled={loading}>
-            {loading ? <CircularProgress /> : 'SUBMIT'}
+          <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
+            {loading ? <CircularProgress /> : "SUBMIT"}
           </Button>
         </Stack>
       </form>

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { BudgetsPageContextType } from "./BudgetPageContext";
 import { defaultBudgetPageContext } from "./constants";
 import {
-  RELATIVE_TIME_BUCKETS_OPTIONS,
   RelativeTimeBucket,
   RelativeTimeBucketOption,
   ReportTypes,
@@ -36,6 +35,7 @@ const useBudgetsPage = () => {
     requestSpentThisPeriod(analysisPeriod.value).then(() => {
       setLoading(false);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [analysisPeriod]);
 
   const setAnalysisPeriod = (newAnalysisPeriod: RelativeTimeBucketOption) => {
