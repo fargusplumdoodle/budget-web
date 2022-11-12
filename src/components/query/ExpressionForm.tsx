@@ -1,4 +1,4 @@
-import { Delete } from "@mui/icons-material";
+import { Delete } from '@mui/icons-material';
 import {
   styled,
   Button,
@@ -10,41 +10,41 @@ import {
   TextField,
   Grid,
   AutocompleteRenderInputParams,
-} from "@mui/material";
-import { FunctionComponent, useState } from "react";
-import { fadeInAndUp } from "../../theme/animations";
-import { Expression, Operand, Operator } from "./types";
-import { OPERANDS } from "./constants/operands";
+} from '@mui/material';
+import { FunctionComponent, useState } from 'react';
+import { fadeInAndUp } from '../../theme/animations';
+import { Expression, Operand, Operator } from './types';
+import { OPERANDS } from './constants/operands';
 
 const Dialog = styled(MuiDialog)(() => ({
   animation: `${fadeInAndUp} 0.2s`,
   '& [class*="MuiPaper-root"]': {
-    overflowY: "visible",
+    overflowY: 'visible',
   },
 }));
 
 const Container = styled(Grid)(({ theme }) => ({
-  alignContent: "center",
-  flexDirection: "column",
+  alignContent: 'center',
+  flexDirection: 'column',
   width: 232,
-  [theme.breakpoints.down("sm")]: {
-    flexWrap: "wrap",
-    justifyContent: "center",
+  [theme.breakpoints.down('sm')]: {
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     width: 288,
   },
 }));
 
 const Field = styled(Grid)(() => ({
   minWidth: 132,
-  width: "100%",
+  width: '100%',
 }));
 
 const DialogActions = styled(MuiDialogActions)(() => ({
-  display: "flex",
+  display: 'flex',
 }));
 
 export const DeleteButton = styled(Button)(() => ({
-  marginRight: "auto",
+  marginRight: 'auto',
 }));
 
 interface ExpressionFormProps {
@@ -84,19 +84,15 @@ const ExpressionForm: FunctionComponent<ExpressionFormProps> = ({
             value={state?.operand}
             isOptionEqualToValue={(
               option: Operand<any>,
-              value: Operand<any>
-            ) => {
-              return option.name === value.name;
-            }}
+              value: Operand<any>,
+            ) => option.name === value.name}
             // @ts-ignore
-            onChange={(e, operand: Operand<any>) =>
-              setState({
-                ...state,
-                value: operand.getDefaultValue(),
-                operator: operand.operators[0],
-                operand,
-              })
-            }
+            onChange={(e, operand: Operand<any>) => setState({
+              ...state,
+              value: operand.getDefaultValue(),
+              operator: operand.operators[0],
+              operand,
+            })}
           />
           <Field
             item
@@ -111,14 +107,10 @@ const ExpressionForm: FunctionComponent<ExpressionFormProps> = ({
             getOptionLabel={(option: Operator<any>) => option.name}
             isOptionEqualToValue={(
               option: Operator<any>,
-              value: Operator<any>
-            ) => {
-              return option.name === value.name;
-            }}
+              value: Operator<any>,
+            ) => option.name === value.name}
             // @ts-ignore
-            onChange={(_e, operator: Operator<any>) =>
-              setState({ ...state, operator })
-            }
+            onChange={(_e, operator: Operator<any>) => setState({ ...state, operator })}
           />
           <Field item xs>
             <state.operand.input

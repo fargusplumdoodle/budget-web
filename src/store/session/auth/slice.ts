@@ -1,17 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { AuthState } from "./types";
+import { createSlice } from '@reduxjs/toolkit';
+import { AuthState } from './types';
 
 export const initialState: AuthState = {
-  status: "init",
+  status: 'init',
   authenticated: false,
-  accessToken: "",
-  authCode: "",
-  refreshToken: "",
-  expiresAt: "",
-  tokenType: "",
+  accessToken: '',
+  authCode: '',
+  refreshToken: '',
+  expiresAt: '',
+  tokenType: '',
 };
 
-export const sliceKey = "auth";
+export const sliceKey = 'auth';
 const transactionSlice = createSlice({
   name: sliceKey,
   initialState,
@@ -20,17 +20,18 @@ const transactionSlice = createSlice({
       return { ...initialState };
     },
     requestAuthToken(state, action) {
-      state.status = "loading";
+      state.status = 'loading';
       state.authCode = action.payload.authCode;
     },
     refreshAuthToken(state) {
-      state.status = "loading";
+      state.status = 'loading';
     },
     setAuth(_, action) {
       return action.payload;
     },
   },
 });
-export const { resetAuth, setAuth, refreshAuthToken, requestAuthToken } =
-  transactionSlice.actions;
+export const {
+  resetAuth, setAuth, refreshAuthToken, requestAuthToken,
+} = transactionSlice.actions;
 export default transactionSlice.reducer;

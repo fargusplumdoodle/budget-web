@@ -1,8 +1,8 @@
-import * as faker from "faker";
-import { getUniqueNumber } from "./utils";
-import { Transaction } from "../../store/data/transactions/types";
-import { Budget } from "../../store/data/budgets/types";
-import { Tag } from "../../store/data/tags";
+import * as faker from 'faker';
+import { getUniqueNumber } from './utils';
+import { Transaction } from '../../store/data/transactions/types';
+import { Budget } from '../../store/data/budgets/types';
+import { Tag } from '../../store/data/tags';
 
 export function generateTestBudget(args: Object = {}): Budget {
   return {
@@ -25,7 +25,7 @@ export function generateTestTransaction(args: Object = {}): Transaction {
   return {
     id: getUniqueNumber(),
     amount: getUniqueNumber(),
-    budget: budget,
+    budget,
     date: new Date(),
     income: false,
     tags: [],

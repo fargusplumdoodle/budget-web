@@ -1,5 +1,5 @@
-import { BUDGET_ROOT_NAME } from "../api/constants";
-import { Budget, modelById } from "../store";
+import { BUDGET_ROOT_NAME } from '../api/constants';
+import { Budget, modelById } from '../store';
 
 const root = {
   id: 0,
@@ -15,7 +15,7 @@ const root = {
 
 const transportation = {
   id: 1,
-  name: "Transportation",
+  name: 'Transportation',
   monthlyAllocation: 500,
   balance: 450,
   parent: root,
@@ -27,7 +27,7 @@ const transportation = {
 
 const personal = {
   id: 10,
-  name: "Personal",
+  name: 'Personal',
   monthlyAllocation: 500,
   balance: 450,
   parent: root,
@@ -39,7 +39,7 @@ const personal = {
 
 const car = {
   id: 2,
-  name: "Car",
+  name: 'Car',
   monthlyAllocation: 100,
   balance: 450,
   parent: transportation,
@@ -51,7 +51,7 @@ const car = {
 
 const bike = {
   id: 3,
-  name: "Bike",
+  name: 'Bike',
   monthlyAllocation: 100,
   balance: 450,
   parent: transportation,
@@ -63,7 +63,7 @@ const bike = {
 
 const gas = {
   id: 3,
-  name: "Gas",
+  name: 'Gas',
   monthlyAllocation: 100,
   balance: 450,
   parent: car,
@@ -75,7 +75,7 @@ const gas = {
 
 const carParts = {
   id: 4,
-  name: "Car Parts",
+  name: 'Car Parts',
   monthlyAllocation: 100,
   balance: 450,
   parent: car,
@@ -87,7 +87,7 @@ const carParts = {
 
 const music = {
   id: 11,
-  name: "Music",
+  name: 'Music',
   monthlyAllocation: 500,
   balance: 450,
   parent: personal,
@@ -99,7 +99,7 @@ const music = {
 
 const doritos = {
   id: 11,
-  name: "Doritos",
+  name: 'Doritos',
   monthlyAllocation: 500,
   balance: 450,
   parent: personal,
@@ -111,7 +111,7 @@ const doritos = {
 
 const food = {
   id: 12,
-  name: "Food",
+  name: 'Food',
   monthlyAllocation: 500,
   balance: 450,
   parent: root,
@@ -123,7 +123,7 @@ const food = {
 
 const groceries = {
   id: 13,
-  name: "Groceries",
+  name: 'Groceries',
   monthlyAllocation: 500,
   balance: 450,
   parent: food,
@@ -135,7 +135,7 @@ const groceries = {
 
 const restaurant = {
   id: 14,
-  name: "Restaurant",
+  name: 'Restaurant',
   monthlyAllocation: 500,
   balance: 450,
   parent: food,
@@ -147,7 +147,7 @@ const restaurant = {
 
 const housing = {
   id: 15,
-  name: "Housing",
+  name: 'Housing',
   monthlyAllocation: 500,
   balance: 450,
   parent: root,
@@ -190,7 +190,7 @@ const budgets = {
   list,
   byId,
   byName,
-  root: root,
+  root,
   lastFetch: new Date().toISOString(),
 };
 export default budgets;

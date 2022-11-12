@@ -1,3 +1,3 @@
-import NavigationBudgetTree from "./NavigationBudgetTree";
+import NavigationBudgetTree from './NavigationBudgetTree';
 
 export default NavigationBudgetTree;

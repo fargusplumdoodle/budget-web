@@ -9,6 +9,8 @@ export const selectTagByName = (name: string) => (state: RootState) =>
 
 export const selectTagList = (state: RootState) => state.data.tags.list;
 
+export const selectTagsById = (state: RootState) => state.data.tags.byId;
+
 export const selectTagsLastFetched = (state: RootState) =>
   state.data.tags.lastFetch;
 

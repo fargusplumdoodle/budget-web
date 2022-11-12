@@ -1,4 +1,4 @@
-import { ROUTES } from "../../app/AppRoutes";
+import { ROUTES } from '../../app/AppRoutes';
 
 export const links = [
   ROUTES.DASHBOARD,

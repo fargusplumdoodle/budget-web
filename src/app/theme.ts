@@ -1,15 +1,15 @@
-import { ThemeOptions } from "@mui/material";
+import { ThemeOptions } from '@mui/material';
 
 export const colors = {
-  purple: "rgba(173, 20, 177, 1)",
-  lightBlue: "rgba(24, 119, 177, 1)",
-  lightBlue2: "rgba(8, 138, 161, 1)",
-  darkBlue: "rgba(39, 10, 148, 1)",
-  subtleBlue: "rgba(24, 119, 177, 0.08)",
-  textBlue: "rgba(23, 113, 168, 1)",
-  red: "rgba(244, 67, 54, 1)",
+  purple: 'rgba(173, 20, 177, 1)',
+  lightBlue: 'rgba(24, 119, 177, 1)',
+  lightBlue2: 'rgba(8, 138, 161, 1)',
+  darkBlue: 'rgba(39, 10, 148, 1)',
+  subtleBlue: 'rgba(24, 119, 177, 0.08)',
+  textBlue: 'rgba(23, 113, 168, 1)',
+  red: 'rgba(244, 67, 54, 1)',
 
-  dark: "#1D1F20",
+  dark: '#1D1F20',
 };
 
 export const transparentColors = {
@@ -25,10 +25,10 @@ export const transparentColors = {
 
 export const theme: ThemeOptions = {
   palette: {
-    mode: "dark",
+    mode: 'dark',
     secondary: {
       main: colors.purple,
-      contrastText: "#f7f7f7",
+      contrastText: '#f7f7f7',
     },
     primary: {
       main: colors.lightBlue,
@@ -39,8 +39,8 @@ export const theme: ThemeOptions = {
       paper: colors.dark,
     },
     warning: {
-      main: "#2f271b",
-      light: "#8a7045",
+      main: '#2f271b',
+      light: '#8a7045',
     },
   },
 };

@@ -1,1 +1,1 @@
-export * from "./SpendingSummary";
+export * from './SpendingSummary';

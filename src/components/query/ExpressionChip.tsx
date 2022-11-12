@@ -1,9 +1,11 @@
-import { Cancel } from "@mui/icons-material";
-import { Box, keyframes, styled, Typography } from "@mui/material";
-import * as React from "react";
-import { FunctionComponent } from "react";
-import { colors, transparentColors } from "../../app/theme";
-import { Expression } from "./types";
+import { Cancel } from '@mui/icons-material';
+import {
+  Box, keyframes, styled, Typography,
+} from '@mui/material';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
+import { colors, transparentColors } from '../../app/theme';
+import { Expression } from './types';
 
 export const shrinkRight = keyframes`
   0% {
@@ -30,30 +32,30 @@ export const fadeRight = keyframes`
 `;
 
 const Container = styled(Box)(() => ({
-  display: "flex",
+  display: 'flex',
   backgroundColor: colors.subtleBlue,
   color: colors.textBlue,
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "0 8px",
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '0 8px',
   borderRadius: 4,
   height: 36,
 
-  "&:hover": {
+  '&:hover': {
     animation: `${shrinkRight} 250ms linear 0s 1 normal forwards`,
     svg: {
-      display: "block",
+      display: 'block',
       animation: `${fadeRight} 250ms linear 0s 1 normal forwards`,
     },
   },
 }));
 
-const Label = styled(Typography)(() => ({ whiteSpace: "nowrap" }));
+const Label = styled(Typography)(() => ({ whiteSpace: 'nowrap' }));
 
 const DeleteButton = styled(Cancel)(() => ({
   padding: 0,
   paddingLeft: 5,
-  display: "none",
+  display: 'none',
   zIndex: 2,
 }));
 
@@ -67,17 +69,15 @@ const ExpressionChip: FunctionComponent<ExpressionChipProps> = ({
   expression,
   onClick,
   onDelete,
-}) => {
-  return (
-    <Container>
-      <Label variant="caption" onClick={() => onClick(expression)}>
-        {`${expression.operand.label} ${
-          expression.operator.name
-        } ${expression.operand.inputLabel(expression.value)}`}
-      </Label>
-      <DeleteButton onClick={() => onDelete(expression)} />
-    </Container>
-  );
-};
+}) => (
+  <Container>
+    <Label variant="caption" onClick={() => onClick(expression)}>
+      {`${expression.operand.label} ${
+        expression.operator.name
+      } ${expression.operand.inputLabel(expression.value)}`}
+    </Label>
+    <DeleteButton onClick={() => onDelete(expression)} />
+  </Container>
+);
 
 export default ExpressionChip;

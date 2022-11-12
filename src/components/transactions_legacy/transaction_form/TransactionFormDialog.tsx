@@ -1,9 +1,9 @@
-import * as React from "react";
-import { FunctionComponent } from "react";
-import Dialog from "@mui/material/Dialog";
-import { DialogContent, DialogTitle } from "@mui/material";
-import TransactionForm from "../../forms/transaction_legacy/TransactionForm";
-import { Transaction } from "../../../store/data/transactions/types";
+import * as React from 'react';
+import { FunctionComponent } from 'react';
+import Dialog from '@mui/material/Dialog';
+import { DialogContent, DialogTitle } from '@mui/material';
+import TransactionForm from '../../forms/transaction_legacy/TransactionForm';
+import { Transaction } from '../../../store/data/transactions/types';
 
 interface Props {
   open: boolean;
@@ -15,10 +15,14 @@ interface Props {
 }
 
 const TransactionFormDialog: FunctionComponent<Props> = (props) => {
-  const isEdit = Boolean(props["transaction"]) && props.transaction!.id;
+  const isEdit = Boolean(props.transaction) && props.transaction!.id;
   return (
     <Dialog onClose={props.onClose} open={props.open}>
-      <DialogTitle>{isEdit ? "Edit" : "Add"} Transaction</DialogTitle>
+      <DialogTitle>
+        {isEdit ? 'Edit' : 'Add'}
+        {' '}
+        Transaction
+      </DialogTitle>
       <DialogContent>
         <TransactionForm
           transaction={props.transaction}

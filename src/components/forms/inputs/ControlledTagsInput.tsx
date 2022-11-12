@@ -1,9 +1,9 @@
-import * as React from "react";
-import { Control, Path } from "react-hook-form";
-import { SxProps, TextField } from "@mui/material";
-import { InputErrorMessage } from "../types";
-import ControlledAutocomplete from "./ControlledAutoComplete";
-import { Tag } from "../../../store/data/tags";
+import * as React from 'react';
+import { Control, Path } from 'react-hook-form';
+import { SxProps, TextField } from '@mui/material';
+import { InputErrorMessage } from '../types';
+import ControlledAutocomplete from './ControlledAutoComplete';
+import { Tag } from '../../../store/data/tags';
 
 interface Props<FormT> {
   name: Path<FormT>;
@@ -22,9 +22,9 @@ function ControlledTagsInput<FormT>({
   errors,
   ...autoCompleteOptions
 }: Props<FormT>) {
-  const sx = autoCompleteOptions["sx"]
+  const sx = autoCompleteOptions.sx
     ? autoCompleteOptions.sx
-    : { width: "100%" };
+    : { width: '100%' };
   return (
     <ControlledAutocomplete<Tag, FormT>
       name={name}
@@ -35,9 +35,7 @@ function ControlledTagsInput<FormT>({
       limitTags={2}
       options={options}
       disableClearable
-      isOptionEqualToValue={(option, value) => {
-        return option.id === value.id;
-      }}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
       sx={sx}
       getOptionLabel={(option: Tag | string) => (option as Tag).name}
       renderInput={(params) => (
@@ -45,7 +43,7 @@ function ControlledTagsInput<FormT>({
           {...params}
           label="Tags"
           error={Boolean(errors)}
-          helperText={errors ? errors.message : ""}
+          helperText={errors ? errors.message : ''}
           placeholder="Tags"
         />
       )}

@@ -6,10 +6,10 @@ import { capitalize } from "lodash";
 import { formatCurrency } from "../util/formatters";
 import DashboardTile from "../components/dashboard/DashboardTile";
 import BudgetTransactionTable from "../components/budget/BudgetTransactionTable";
-import { ReportTypes } from "../api/types";
 import LineGraph from "../components/report/LineGraph";
 import SpendingSummary from "../components/report/spending_summary/SpendingSummary";
 import { RootState, selectBudgetById } from "../store";
+import { ReportTypes } from "../api/report";
 
 const classes: { [id: string]: SxProps } = {
   header: {

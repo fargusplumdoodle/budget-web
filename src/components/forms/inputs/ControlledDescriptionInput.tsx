@@ -1,7 +1,7 @@
-import * as React from "react";
-import { Control, Controller, Path } from "react-hook-form";
-import { TextField } from "@mui/material";
-import { InputErrorMessage } from "../types";
+import * as React from 'react';
+import { Control, Controller, Path } from 'react-hook-form';
+import { TextField } from '@mui/material';
+import { InputErrorMessage } from '../types';
 
 interface Props<FormT> {
   name: Path<FormT>;
@@ -22,9 +22,9 @@ function ControlledDescriptionInput<FormT>({
         <TextField
           label="Description"
           error={Boolean(errors)}
-          helperText={errors ? errors.message : ""}
+          helperText={errors ? errors.message : ''}
           placeholder="Description"
-          sx={{ width: "100%" }}
+          sx={{ width: '100%' }}
           {...field}
         />
       )}

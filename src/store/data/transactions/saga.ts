@@ -1,60 +1,60 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { PayloadAction } from '@reduxjs/toolkit';
 import {
   createTransaction,
   deleteTransaction,
   loadTransaction,
   updateTransaction,
-} from "./slice";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { Transaction, UpdateTransactionPayloadAction } from "./types";
-import { getTransactionRequest } from "./utils";
-import api from "../../../api/";
-import { closeAllPanes } from "../../";
+} from './slice';
+import { Transaction, UpdateTransactionPayloadAction } from './types';
+import { getTransactionRequest } from './utils';
+import api from '../../../api';
+import { closeAllPanes } from '../..';
 
 function* executeCreateTransaction({
   payload: transaction,
 }: PayloadAction<Transaction>) {
-  yield put(getTransactionRequest(transaction, "create", "loading"));
+  yield put(getTransactionRequest(transaction, 'create', 'loading'));
   try {
     const response: Transaction = yield call(
       api.transaction.createTransaction,
-      transaction
+      transaction,
     );
     yield put(loadTransaction(response));
-    yield put(getTransactionRequest(transaction, "create", "loaded"));
+    yield put(getTransactionRequest(transaction, 'create', 'loaded'));
   } catch {
-    yield put(getTransactionRequest(transaction, "create", "error"));
+    yield put(getTransactionRequest(transaction, 'create', 'error'));
   }
 }
 
 function* executeUpdateTransaction({
   payload: { newTransaction: transaction },
 }: UpdateTransactionPayloadAction) {
-  yield put(getTransactionRequest(transaction, "update", "loading"));
+  yield put(getTransactionRequest(transaction, 'update', 'loading'));
 
   try {
     const response: Transaction = yield call(
       api.transaction.updateTransaction,
-      transaction
+      transaction,
     );
-    yield put(getTransactionRequest(transaction, "update", "loaded"));
+    yield put(getTransactionRequest(transaction, 'update', 'loaded'));
     yield put(loadTransaction(response));
   } catch {
-    yield put(getTransactionRequest(transaction, "update", "error"));
+    yield put(getTransactionRequest(transaction, 'update', 'error'));
   }
 }
 
 function* executeDeleteTransaction({
   payload: transaction,
 }: PayloadAction<Transaction>) {
-  yield put(getTransactionRequest(transaction, "delete", "loading"));
+  yield put(getTransactionRequest(transaction, 'delete', 'loading'));
 
   try {
     yield call(api.transaction.deleteTransaction, transaction);
-    yield put(getTransactionRequest(transaction, "delete", "loaded"));
+    yield put(getTransactionRequest(transaction, 'delete', 'loaded'));
     yield put(closeAllPanes());
   } catch {
-    yield put(getTransactionRequest(transaction, "delete", "error"));
+    yield put(getTransactionRequest(transaction, 'delete', 'error'));
   }
 }
 

@@ -1,8 +1,8 @@
 export const routeIdValueRegex = /\d+/;
-export const routeIdSubstitutionString = ":id";
+export const routeIdSubstitutionString = ':id';
 
 export function routeWithId(route: string, id: string | number): string {
-  return route.replace(":id", id.toString());
+  return route.replace(':id', id.toString());
 }
 
 export function getCurrentRouteId() {

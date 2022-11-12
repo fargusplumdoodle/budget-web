@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Grid, TextField } from "@mui/material";
 import { useController } from "react-hook-form";
-import { DatePicker } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
 import settings from "../../../app/settings";
 
 interface Props {}

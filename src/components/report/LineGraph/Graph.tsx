@@ -1,24 +1,21 @@
-import Chart from "react-apexcharts";
 import * as React from "react";
-import { GraphSeries, GraphReport, ReportType } from "../../../api/types";
-import { useEffect, useState } from "react";
-import { Box, CircularProgress } from "@mui/material";
-import api from "../../../api";
+import { CircularProgress } from "@mui/material";
+import {ReportType} from "../../../api/report";
 
 type LineGraphProps = {
   reportTypes: ReportType[];
   queryParams: URLSearchParams;
 };
 
-const LineGraph: React.FC<LineGraphProps> = function ({
-  reportTypes,
-  queryParams,
-}) {
+const LineGraph: React.FC<LineGraphProps> = () => <CircularProgress />;
+
+/*
+TODO:
   const [reportSeries, setReportSeries] = useState<GraphSeries[]>([]);
   const [dates, setDates] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    const promises: Promise<GraphReport>[] = [];
+    const promises: Promise<SerializedReport>[] = [];
     setLoading(true);
 
     reportTypes.forEach(async (reportType) => {
@@ -29,7 +26,7 @@ const LineGraph: React.FC<LineGraphProps> = function ({
       setLoading(false);
       setReportSeries(
         reports
-          .map((report) => report.series)
+          .map((report) => deserializeMultipleValuesReport(report).series)
           .reduce((previousValue, currentValue) => [
             ...previousValue,
             ...currentValue,
@@ -56,5 +53,6 @@ const LineGraph: React.FC<LineGraphProps> = function ({
     </Box>
   );
 };
+ */
 
 export default LineGraph;

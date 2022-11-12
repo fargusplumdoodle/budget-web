@@ -1,13 +1,13 @@
-import Dialog from "@mui/material/Dialog";
-import * as React from "react";
-import { FunctionComponent } from "react";
+import Dialog from '@mui/material/Dialog';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
 import {
   Button,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from "@mui/material";
+} from '@mui/material';
 
 export interface ApiError {
   response: { data: string };

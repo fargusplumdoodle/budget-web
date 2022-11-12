@@ -1,12 +1,13 @@
-import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
-import React from "react";
-import { FunctionComponent } from "react";
-import { ROUTES } from "../../app/AppRoutes";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useDispatch } from "react-redux";
-import { AddCircle, Settings } from "@mui/icons-material";
-import { openTransactionPane, toggleMobileDrawer } from "../../store";
-import { useRoute } from "../../hooks";
+import {
+  AppBar, Grid, IconButton, Toolbar, Typography,
+} from '@mui/material';
+import React, { FunctionComponent } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useDispatch } from 'react-redux';
+import { AddCircle, Settings } from '@mui/icons-material';
+import { ROUTES } from '../../app/AppRoutes';
+import { openTransactionPane, toggleMobileDrawer } from '../../store';
+import { useRoute } from '../../hooks';
 
 interface HeaderProps {}
 
@@ -22,7 +23,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
     <AppBar
       position="static"
       color="transparent"
-      sx={{ '&[class*="MuiAppBar-root"]': { boxShadow: "none" } }}
+      sx={{ '&[class*="MuiAppBar-root"]': { boxShadow: 'none' } }}
     >
       <Toolbar>
         <Grid
@@ -38,7 +39,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
               aria-label="open drawer"
               edge="start"
               onClick={() => dispatch(toggleMobileDrawer())}
-              sx={{ display: { sm: "none" } }}
+              sx={{ display: { sm: 'none' } }}
             >
               <MenuIcon />
             </Grid>

@@ -4,7 +4,7 @@ export {
   sliceKey as communicationKey,
   makeRequest,
   updateRequestStatus,
-} from "./slice";
-export * from "./types";
-export * from "./utils";
-export * from "./selectors";
+} from './slice';
+export * from './types';
+export * from './utils';
+export * from './selectors';

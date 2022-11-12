@@ -3,11 +3,11 @@ import { DateTime } from "luxon";
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import api from "../../../api";
-import { GraphReport, ReportTypes, TimeBucketSize } from "../../../api/types";
 import { Classes } from "../../../util/types";
 import ReportForm from "../../forms/reports/ReportForm";
 import SpendingSummaryTable from "./SpendingSummaryTable";
 import { SpendingSummaryData } from "./types";
+import {GraphReport, ReportTypes, TimeBucketSize} from "../../../api/report";
 
 const classes: Classes = {
   root: {},

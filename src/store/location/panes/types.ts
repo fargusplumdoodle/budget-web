@@ -1,6 +1,6 @@
-import { Transaction } from "../../data";
+import { Transaction } from '../../data';
 
-export type Pane = "theme" | "transaction";
+export type Pane = 'theme' | 'transaction';
 
 export interface PanesState {
   current: Pane | null;

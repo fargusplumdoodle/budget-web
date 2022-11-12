@@ -1,17 +1,17 @@
-import React, { FunctionComponent, useState } from "react";
-import { useController, useFormContext } from "react-hook-form";
+import React, { FunctionComponent, useState } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
 import {
   Autocomplete,
   FormHelperText,
   Button,
   Grid,
   TextField,
-} from "@mui/material";
-import { Add } from "@mui/icons-material";
-import { useSelector } from "react-redux";
-import { getMuiFilledInputStyles } from "@fargusplumdoodle/themes";
-import capitalize from "lodash/capitalize";
-import { selectTagList, Tag } from "../../../store";
+} from '@mui/material';
+import { Add } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
+import { getMuiFilledInputStyles } from '@fargusplumdoodle/themes';
+import capitalize from 'lodash/capitalize';
+import { selectTagList, Tag } from '../../../store';
 
 interface Props {}
 
@@ -23,7 +23,7 @@ const TagInput: FunctionComponent<Props> = () => {
 
   const {
     field: { value, onChange },
-  } = useController({ name: "tags" });
+  } = useController({ name: 'tags' });
 
   return (
     <>
@@ -42,7 +42,7 @@ const TagInput: FunctionComponent<Props> = () => {
               label="Tags"
               fullWidth
               error={!!errors.tags}
-              helperText={errors ? errors.tags?.message : ""}
+              helperText={errors ? errors.tags?.message : ''}
               placeholder="Tags"
             />
           )}
@@ -59,15 +59,14 @@ const TagInput: FunctionComponent<Props> = () => {
           component={Button}
           xs={1}
           sx={(theme) => {
-            const { backgroundColor, hoverBackground } =
-              getMuiFilledInputStyles(theme.palette.mode);
+            const { backgroundColor, hoverBackground } = getMuiFilledInputStyles(theme.palette.mode);
             return {
               backgroundColor,
               color:
-                theme.palette.mode === "light"
-                  ? "text.disabled"
+                theme.palette.mode === 'light'
+                  ? 'text.disabled'
                   : theme.palette.text.primary,
-              "&:hover": {
+              '&:hover': {
                 backgroundColor: hoverBackground,
               },
             };

@@ -6,7 +6,7 @@ export {
   loadUserSettings,
   setSystemTheme,
   updateUserSettings,
-} from "./slice";
-export { default as userSettingsSaga } from "./saga";
-export * from "./selectors";
-export * from "./types";
+} from './slice';
+export { default as userSettingsSaga } from './saga';
+export * from './selectors';
+export * from './types';

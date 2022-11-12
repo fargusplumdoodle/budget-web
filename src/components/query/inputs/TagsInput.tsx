@@ -1,8 +1,8 @@
-import * as React from "react";
-import { Autocomplete, styled, TextField } from "@mui/material";
-import { ExpressionInputProps } from "../types";
-import { selectTagList, Tag } from "../../../store";
-import { useSelector } from "react-redux";
+import * as React from 'react';
+import { Autocomplete, styled, TextField } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { ExpressionInputProps } from '../types';
+import { selectTagList, Tag } from '../../../store';
 
 interface Props extends ExpressionInputProps<Tag[]> {
   [k: string]: any;
@@ -12,7 +12,7 @@ interface Props extends ExpressionInputProps<Tag[]> {
 }
 
 const Input = styled(Autocomplete)(() => ({
-  width: "100%",
+  width: '100%',
 }));
 
 const TagsInput: React.FunctionComponent<Props> = ({
@@ -28,9 +28,7 @@ const TagsInput: React.FunctionComponent<Props> = ({
       multiple
       limitTags={2}
       disableClearable
-      isOptionEqualToValue={(option, value) => {
-        return (option as Tag).id === (value as Tag).id;
-      }}
+      isOptionEqualToValue={(option, value) => (option as Tag).id === (value as Tag).id}
       getOptionLabel={(option) => (option as Tag).name}
       renderInput={(params: any) => (
         <TextField {...textFieldProps} {...params} placeholder="Tags" />

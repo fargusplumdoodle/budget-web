@@ -1,8 +1,8 @@
-import { ThemeOption, THEMES } from "@fargusplumdoodle/themes";
-import React, { FunctionComponent, ReactNode, useMemo } from "react";
-import { useSelector } from "react-redux";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { selectThemeSettings } from "../../store";
+import { ThemeOption, THEMES } from '@fargusplumdoodle/themes';
+import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { selectThemeSettings } from '../../store';
 
 interface ThemeProviderProps {
   children: ReactNode | ReactNode[];

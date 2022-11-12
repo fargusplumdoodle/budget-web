@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from "react";
-import { useController, useFormContext } from "react-hook-form";
-import { Autocomplete, Grid, TextField } from "@mui/material";
-import { useSelector } from "react-redux";
-import capitalize from "lodash/capitalize";
-import { Budget, selectBudgetList } from "../../../store";
+import React, { FunctionComponent } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
+import { Autocomplete, Grid, TextField } from '@mui/material';
+import { useSelector } from 'react-redux';
+import capitalize from 'lodash/capitalize';
+import { Budget, selectBudgetList } from '../../../store';
 
 interface Props {}
 
@@ -13,41 +13,35 @@ const BudgetInput: FunctionComponent<Props> = () => {
   } = useFormContext();
   const {
     field: { value, onChange },
-  } = useController({ name: "budget" });
+  } = useController({ name: 'budget' });
   const budgets = useSelector(selectBudgetList);
 
   return (
-    <>
-      <Grid container wrap="nowrap" gap={1}>
-        <Grid
-          item
-          xs
-          component={Autocomplete}
-          disablePortal
-          value={value}
-          disableClearable
+    <Grid container wrap="nowrap" gap={1}>
+      <Grid
+        item
+        xs
+        component={Autocomplete}
+        disablePortal
+        value={value}
+        disableClearable
           // @ts-ignore
-          onChange={(_: any, value: Budget) => onChange(value)}
-          renderInput={(params: any) => (
-            <TextField
-              {...params}
-              label="Budgets"
-              fullWidth
-              error={!!errors.message}
-              helperText={errors ? errors.message : ""}
-              placeholder="Budgets"
-            />
-          )}
-          options={budgets}
-          getOptionLabel={(budget: Budget) =>
-            capitalize((budget as Budget).name)
-          }
-          isOptionEqualToValue={(option: Budget, budget: Budget) =>
-            option.id === budget.id
-          }
-        />
-      </Grid>
-    </>
+        onChange={(_: any, value: Budget) => onChange(value)}
+        renderInput={(params: any) => (
+          <TextField
+            {...params}
+            label="Budgets"
+            fullWidth
+            error={!!errors.message}
+            helperText={errors ? errors.message : ''}
+            placeholder="Budgets"
+          />
+        )}
+        options={budgets}
+        getOptionLabel={(budget: Budget) => capitalize((budget as Budget).name)}
+        isOptionEqualToValue={(option: Budget, budget: Budget) => option.id === budget.id}
+      />
+    </Grid>
   );
 };
 

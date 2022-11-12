@@ -1,5 +1,5 @@
-import { Transaction } from "../types";
-import { generateBudget } from "../../../../util/generators/generators";
+import { Transaction } from '../types';
+import { generateBudget } from '../../../../util/generators/generators';
 
 export function generateTransaction(args: Object = {}): Transaction {
   return {

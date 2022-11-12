@@ -1,9 +1,9 @@
-import * as React from "react";
-import { FunctionComponent } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, SxProps } from "@mui/material";
-import settings from "../../app/settings";
-import { resetAuth, selectAuthState } from "../../store";
+import * as React from 'react';
+import { FunctionComponent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, SxProps } from '@mui/material';
+import settings from '../../app/settings';
+import { resetAuth, selectAuthState } from '../../store';
 
 interface Props {
   sx?: SxProps;
@@ -25,7 +25,7 @@ const AuthButton: FunctionComponent<Props> = ({ sx }) => {
         }
       }}
     >
-      {auth ? "LOG OUT" : "LOG IN"}
+      {auth ? 'LOG OUT' : 'LOG IN'}
     </Button>
   );
 };

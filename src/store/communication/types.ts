@@ -1,6 +1,6 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { budgetKey, tagKey, transactionKey } from "../data";
-import { authKey, userSettingsKey } from "../session";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { budgetKey, tagKey, transactionKey } from '../data';
+import { authKey, userSettingsKey } from '../session';
 
 export type CommunicationKey =
   | typeof authKey
@@ -9,8 +9,8 @@ export type CommunicationKey =
   | typeof tagKey
   | typeof userSettingsKey;
 
-export type CRUDAction = "create" | "update" | "delete" | "retrieve";
-export type RequestStatus = "loading" | "loaded" | "error";
+export type CRUDAction = 'create' | 'update' | 'delete' | 'retrieve';
+export type RequestStatus = 'loading' | 'loaded' | 'error';
 
 export interface RequestState {
   key: CommunicationKey;

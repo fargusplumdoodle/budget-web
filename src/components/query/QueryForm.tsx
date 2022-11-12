@@ -1,31 +1,33 @@
-import * as React from "react";
-import { Add, Clear } from "@mui/icons-material";
-import { Box, IconButton, styled, Typography } from "@mui/material";
-import { useState } from "react";
-import ExpressionForm from "./ExpressionForm";
-import { OPERANDS } from "./constants/operands";
-import { OPERATORS } from "./constants/operators";
-import ExpressionChip from "./ExpressionChip";
-import { Expression } from "./types";
-import { removeFromValuesList, updateValuesList } from "../../util/state";
+import * as React from 'react';
+import { Add, Clear } from '@mui/icons-material';
+import {
+  Box, IconButton, styled, Typography,
+} from '@mui/material';
+import { useState } from 'react';
+import ExpressionForm from './ExpressionForm';
+import { OPERANDS } from './constants/operands';
+import { OPERATORS } from './constants/operators';
+import ExpressionChip from './ExpressionChip';
+import { Expression } from './types';
+import { removeFromValuesList, updateValuesList } from '../../util/state';
 
 const Container = styled(Box)(({ theme: { spacing } }) => ({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   gap: spacing(1),
 }));
 
 const TitleContainer = styled(Box)(() => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
 }));
 
 const QueryContainer = styled(Box)(({ theme: { spacing } }) => ({
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  flexWrap: "wrap",
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  flexWrap: 'wrap',
   gap: spacing(1),
 }));
 
@@ -43,7 +45,7 @@ export default function QueryForm({
   showReports,
 }: QueryFormProps) {
   const [editExpression, setEditExpression] = useState<Expression<any> | null>(
-    null
+    null,
   );
 
   const handleAddExpression = () => {
@@ -61,7 +63,7 @@ export default function QueryForm({
     removeFromValuesList<Expression<any>>(
       expression,
       expressions,
-      onChangeExpressions
+      onChangeExpressions,
     );
     setEditExpression(null);
   };
@@ -70,7 +72,7 @@ export default function QueryForm({
     updateValuesList<Expression<any>>(
       expression,
       expressions,
-      onChangeExpressions
+      onChangeExpressions,
     );
     setEditExpression(null);
   };
@@ -94,9 +96,7 @@ export default function QueryForm({
             <ExpressionChip
               key={expression.id}
               expression={expression}
-              onClick={(expression: Expression<any>) =>
-                setEditExpression(expression)
-              }
+              onClick={(expression: Expression<any>) => setEditExpression(expression)}
               onDelete={handleDeleteExpression}
             />
           ))}
@@ -113,7 +113,7 @@ export default function QueryForm({
 
       {editExpression && (
         <ExpressionForm
-          open={true}
+          open
           expression={editExpression}
           onDelete={handleDeleteExpression}
           onUpdate={handleUpdateExpression}

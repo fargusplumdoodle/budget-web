@@ -1,16 +1,16 @@
 import * as React from "react";
 import { ReactElement } from "react";
 import { SnackbarProvider } from "notistack";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
 import AuthProvider from "./AuthProvider";
 import BudgetThemeProvider from "./BudgetThemeProvider";
 import PaneProvider from "./PaneProvider";
-import { persistor, store } from "../../store/configureStore";
-import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "../../store";
 import DataProvider from "./DataProvider";
-import { LocalizationProvider } from "@mui/lab";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 type AppProviderProps = {
   children: ReactElement[] | ReactElement;
@@ -32,10 +32,10 @@ const AppProvider: React.FC<AppProviderProps> = function ({ children }) {
               >
                 <AuthProvider>
                   <DataProvider>
-                    {/*<LocalizationProvider dateAdapter={AdapterDateFns}>*/}
-                    <PaneProvider />
-                    {children}
-                    {/*</LocalizationProvider>*/}
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <PaneProvider />
+                      {children}
+                    </LocalizationProvider>
                   </DataProvider>
                 </AuthProvider>
               </SnackbarProvider>

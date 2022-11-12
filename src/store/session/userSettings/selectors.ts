@@ -1,15 +1,12 @@
-import { RootState } from "../../types";
-import { differenceInHours, parseISO } from "date-fns";
-import { selectBudgetList, selectBudgetsLastFetched } from "../../data";
+import { differenceInHours, parseISO } from 'date-fns';
+import { RootState } from '../../types';
+import { selectBudgetList, selectBudgetsLastFetched } from '../../data';
 
-export const selectUserSettings = (state: RootState) =>
-  state.session.userSettings;
+export const selectUserSettings = (state: RootState) => state.session.userSettings;
 
-export const selectThemeSettings = (state: RootState) =>
-  state.session.userSettings.theme;
+export const selectThemeSettings = (state: RootState) => state.session.userSettings.theme;
 
-export const selectUserSettingsLastFetched = (state: RootState) =>
-  state.session.userSettings.lastFetched;
+export const selectUserSettingsLastFetched = (state: RootState) => state.session.userSettings.lastFetched;
 
 export const selectFetchUserSettingsRequired = (state: RootState) => {
   const settings = selectUserSettings(state);

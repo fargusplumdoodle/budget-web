@@ -1,25 +1,26 @@
 import { makeRequest } from "../util";
-import { GraphReport, ReportType } from "../types/reports";
-import {
-  deserializeMultipleValuesReport,
-  deserializeSingleValueReport,
-} from "../serializers";
+import { RelativeTimeBucket, ReportType, SerializedReport } from "../report";
+import { dateURLParamsFromRelativeTimeBucket } from "../report/utils";
 
 export default async function report(
   reportType: ReportType,
   query: URLSearchParams
-): Promise<GraphReport> {
+): Promise<SerializedReport> {
   const params = new URLSearchParams(query);
 
   const r = await makeRequest({
     method: "get",
     url: `/api/v2/reports/${reportType.name}/`,
-    params: params,
+    params,
   });
 
-  const serializer = reportType.multiple
-    ? deserializeMultipleValuesReport
-    : deserializeSingleValueReport;
+  return r!.data;
+}
 
-  return serializer(reportType, r!.data);
+export async function relativeReport(
+  reportType: ReportType,
+  relativeTimeBucket: RelativeTimeBucket
+): Promise<SerializedReport> {
+  const params = dateURLParamsFromRelativeTimeBucket(relativeTimeBucket);
+  return await report(reportType, params);
 }

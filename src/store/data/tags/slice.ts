@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
   addModelsToList,
   addModelToList,
   allObjectsExcept,
   modelById,
   modelByName,
-} from "../..";
-import { Tag, TagState } from "./types";
+} from '../..';
+import { Tag, TagState } from './types';
 
 export const initialState: TagState = {
   list: [],
@@ -15,7 +15,7 @@ export const initialState: TagState = {
   lastFetch: null,
 };
 
-export const sliceKey = "tag";
+export const sliceKey = 'tag';
 const tagSlice = createSlice({
   name: sliceKey,
   initialState,

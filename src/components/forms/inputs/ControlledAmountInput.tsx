@@ -1,13 +1,13 @@
-import * as React from "react";
-import { Control, Controller, Path } from "react-hook-form";
+import * as React from 'react';
+import { Control, Controller, Path } from 'react-hook-form';
 import {
   FormHelperText,
   Input,
   InputAdornment,
   InputLabel,
   SxProps,
-} from "@mui/material";
-import { InputErrorMessage } from "../types";
+} from '@mui/material';
+import { InputErrorMessage } from '../types';
 
 interface Props<FormT> {
   name: Path<FormT>;
@@ -26,7 +26,7 @@ function ControlledAmountInput<FormT>({
   showError,
   label,
 }: Props<FormT>) {
-  const sxOptions = { width: "100%", marginRight: 1, ...sx };
+  const sxOptions = { width: '100%', marginRight: 1, ...sx };
   const id = `amount-input-${name}`;
   return (
     <>

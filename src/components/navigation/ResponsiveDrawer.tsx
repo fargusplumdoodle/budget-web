@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Drawer as MuiDrawer, Paper, Grid } from "@mui/material";
-import Drawer from "./Drawer";
 import { useDispatch, useSelector } from "react-redux";
+import Drawer from "./Drawer";
 import { DRAWER_WIDTH } from "./constants";
 import { selectMobileDrawerOpen, toggleMobileDrawer } from "../../store";
 

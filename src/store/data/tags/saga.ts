@@ -1,4 +1,5 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { PayloadAction } from '@reduxjs/toolkit';
 import {
   createTag,
   deleteTag,
@@ -6,55 +7,54 @@ import {
   loadTag,
   loadTags,
   updateTag,
-} from "./slice";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { Tag } from "./types";
-import { getTagRequest } from "./utils";
-import api from "../../../api/";
+} from './slice';
+import { Tag } from './types';
+import { getTagRequest } from './utils';
+import api from '../../../api';
 
 function* executeCreateTag({ payload: tag }: PayloadAction<Tag>) {
-  yield put(getTagRequest(tag, "create", "loading"));
+  yield put(getTagRequest(tag, 'create', 'loading'));
   try {
     const response: Tag = yield call(api.tag.createTag, tag);
-    yield put(getTagRequest(tag, "create", "loaded"));
+    yield put(getTagRequest(tag, 'create', 'loaded'));
     yield put(loadTag(response));
   } catch {
-    yield put(getTagRequest(tag, "create", "error"));
+    yield put(getTagRequest(tag, 'create', 'error'));
   }
 }
 
 function* executeUpdateTag({ payload: tag }: PayloadAction<Tag>) {
-  yield put(getTagRequest(tag, "update", "loading"));
+  yield put(getTagRequest(tag, 'update', 'loading'));
 
   try {
     const response: Tag = yield call(api.tag.updateTag, tag);
     yield put(loadTag(response));
-    yield put(getTagRequest(tag, "update", "loaded"));
+    yield put(getTagRequest(tag, 'update', 'loaded'));
   } catch {
-    yield put(getTagRequest(tag, "update", "error"));
+    yield put(getTagRequest(tag, 'update', 'error'));
   }
 }
 
 function* executeDeleteTag({ payload: tag }: PayloadAction<Tag>) {
-  yield put(getTagRequest(tag, "delete", "loading"));
+  yield put(getTagRequest(tag, 'delete', 'loading'));
 
   try {
     yield call(api.tag.deleteTag, tag);
-    yield put(getTagRequest(tag, "delete", "loaded"));
+    yield put(getTagRequest(tag, 'delete', 'loaded'));
   } catch {
-    yield put(getTagRequest(tag, "delete", "error"));
+    yield put(getTagRequest(tag, 'delete', 'error'));
   }
 }
 
 function* executeFetchAllTags() {
-  yield put(getTagRequest(null, "retrieve", "loading"));
+  yield put(getTagRequest(null, 'retrieve', 'loading'));
 
   try {
     const response: Tag[] = yield call(api.tag.receiveTags);
     yield put(loadTags(response));
-    yield put(getTagRequest(null, "retrieve", "loaded"));
+    yield put(getTagRequest(null, 'retrieve', 'loaded'));
   } catch {
-    yield put(getTagRequest(null, "retrieve", "error"));
+    yield put(getTagRequest(null, 'retrieve', 'error'));
   }
 }
 

@@ -5,11 +5,11 @@ import { DateTime } from "luxon";
 import * as React from "react";
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
-import { timeBuckets, TimeBucketSize } from "../../../api/types";
 import { mergeURLSearchParams } from "../../../api/util";
 import { Classes } from "../../../util/types";
 import ControlledAutocomplete from "../../forms/inputs/ControlledAutoComplete";
 import ControlledDateInput from "../../forms/inputs/ControlledDateInput";
+import {timeBuckets, TimeBucketSize} from "../../../api/report";
 
 const classes: Classes = {
   root: {},

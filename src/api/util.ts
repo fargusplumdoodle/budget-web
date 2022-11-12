@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { store } from "../store/configureStore";
-import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { DateTime } from "luxon";
 import { round } from "lodash";
+import { store } from "../store/configureStore";
+import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { Expression } from "../components/query/types";
 import { checkAuth } from "./endpoints/auth";
 import { resetAuth, selectAuthState } from "../store";
@@ -37,7 +37,7 @@ export async function makePaginatedRequest<T>(
 ): Promise<T[]> {
   const queryParams: PaginatedQueryParams = {
     page_size: pageSize,
-    page: page,
+    page,
   };
 
   const r = await makeRequest({
@@ -109,7 +109,7 @@ export function mergeURLSearchParams(
   paramList.forEach((qp) => {
     if (!qp) return;
 
-    for (var [key, val] of qp.entries()) {
+    for (const [key, val] of qp.entries()) {
       params.append(key, val);
     }
   });

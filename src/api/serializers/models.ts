@@ -1,26 +1,24 @@
+import lowerCase from 'lodash/lowerCase';
+import capitalize from 'lodash/capitalize';
+import { format } from 'date-fns';
 import {
   SerializedBudget,
   SerializedTag,
   SerializedTransaction,
   SerializedUserInfo,
-} from "../types";
-import { store } from "../../store/configureStore";
-import { fromCents, getAPIDate, toCents } from "../util";
-import lowerCase from "lodash/lowerCase";
-import capitalize from "lodash/capitalize";
-import { format } from "date-fns";
-import { Transaction } from "../../store/data/transactions/types";
-import { Budget } from "../../store/data/budgets/types";
-import { setBudgetParents } from "../../store/data/budgets/utils";
-import { Tag } from "../../store/data/tags";
-import { UserSettingsState } from "../../store/session/userSettings";
-import { selectBudgetById } from "../../store";
+} from '../types';
+import { store } from '../../store/configureStore';
+import { fromCents, getAPIDate, toCents } from '../util';
+import { Transaction } from '../../store/data/transactions/types';
+import { Budget } from '../../store/data/budgets/types';
+import { setBudgetParents } from '../../store/data/budgets/utils';
+import { Tag } from '../../store/data/tags';
+import { UserSettingsState } from '../../store/session/userSettings';
+import { selectBudgetById } from '../../store';
 
-export const serializeTag = (tag: Tag): SerializedTag => {
-  return {
-    name: lowerCase(tag.name),
-  };
-};
+export const serializeTag = (tag: Tag): SerializedTag => ({
+  name: lowerCase(tag.name),
+});
 
 export const deserializeTag = (tag: SerializedTag): Tag => {
   const state = store.getState();
@@ -42,13 +40,13 @@ export const deserializeTag = (tag: SerializedTag): Tag => {
 };
 
 export function serializeTransaction(
-  trans: Transaction
+  trans: Transaction,
 ): SerializedTransaction {
   return {
     amount: toCents(trans.amount),
-    description: trans.description || "",
+    description: trans.description || '',
     budget: trans.budget.id!,
-    date: format(trans.date, "yyyy-MM-dd"),
+    date: format(trans.date, 'yyyy-MM-dd'),
     income: trans.income,
     transfer: trans.transfer,
     tags: trans.tags.map((tag) => serializeTag(tag)),
@@ -56,7 +54,7 @@ export function serializeTransaction(
 }
 
 export function deserializeTransaction(
-  trans: SerializedTransaction
+  trans: SerializedTransaction,
 ): Transaction {
   const state = store.getState();
   const budget = selectBudgetById(trans.budget)(state);
@@ -67,7 +65,7 @@ export function deserializeTransaction(
     id: trans.id!,
     amount: fromCents(trans.amount),
     date: getAPIDate(trans.date),
-    budget: budget,
+    budget,
     tags: trans.tags.map((tag) => deserializeTag(tag)),
     created: trans.created!,
     modified: trans.modified!,
@@ -104,14 +102,14 @@ export function deserializeBudget(budget: SerializedBudget): Budget {
   };
 }
 export function deserializeBudgets(
-  serializedBudgets: SerializedBudget[]
+  serializedBudgets: SerializedBudget[],
 ): Budget[] {
   const budgets = serializedBudgets.map((b) => deserializeBudget(b));
   return setBudgetParents(budgets);
 }
 
 export function serializeUserInfo(
-  userInfo: UserSettingsState
+  userInfo: UserSettingsState,
 ): SerializedUserInfo {
   return {
     expected_monthly_net_income: toCents(userInfo.expected_monthly_net_income),
@@ -120,11 +118,11 @@ export function serializeUserInfo(
   };
 }
 export function deserializeUserInfo(
-  userInfo: SerializedUserInfo
+  userInfo: SerializedUserInfo,
 ): UserSettingsState {
   return {
     expected_monthly_net_income: fromCents(
-      userInfo.expected_monthly_net_income
+      userInfo.expected_monthly_net_income,
     ),
     theme: {
       themeName: userInfo.theme,

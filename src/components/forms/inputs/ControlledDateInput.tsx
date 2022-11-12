@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Control, Controller, Path } from "react-hook-form";
 import { SxProps, TextField } from "@mui/material";
-import { DatePicker } from "@mui/lab";
 import settings from "../../../app/settings";
+import { DatePicker } from "@mui/x-date-pickers";
 
 interface Props<FormT> {
   name: Path<FormT>;

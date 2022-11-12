@@ -1,17 +1,17 @@
-import * as React from "react";
-import { useState } from "react";
-import ApiErrorDialog, { ApiError } from "../components/ApiErrorDialog";
-import { Button, Card } from "@mui/material";
-import UserInfoForm from "../components/forms/user_info/UserInfoForm";
-import { ProviderContext, withSnackbar } from "notistack";
-import { useDispatch } from "react-redux";
-import api from "../api";
-import AuthButton from "../components/auth/AuthButton";
-import { UserSettingsState, openThemePane, updateUserSettings } from "../store";
+import * as React from 'react';
+import { useState } from 'react';
+import { Button, Card } from '@mui/material';
+import { ProviderContext, withSnackbar } from 'notistack';
+import { useDispatch } from 'react-redux';
+import UserInfoForm from '../components/forms/user_info/UserInfoForm';
+import ApiErrorDialog, { ApiError } from '../components/ApiErrorDialog';
+import api from '../api';
+import AuthButton from '../components/auth/AuthButton';
+import { UserSettingsState, openThemePane, updateUserSettings } from '../store';
 
 const classes = {
   root: {
-    maxWidth: "500px",
+    maxWidth: '500px',
   },
 };
 

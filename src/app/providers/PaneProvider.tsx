@@ -1,21 +1,21 @@
-import React, { FunctionComponent } from "react";
-import { Dialog, DialogContent, styled } from "@mui/material";
-import ThemeForm from "../../components/forms/ThemeForm";
-import { useDispatch, useSelector } from "react-redux";
-import { closeAllPanes, selectOpenPane } from "../../store";
-import TransactionPane from "../../components/panes/TransactionPane";
+import React, { FunctionComponent } from 'react';
+import { Dialog, DialogContent, styled } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import ThemeForm from '../../components/forms/ThemeForm';
+import { closeAllPanes, selectOpenPane } from '../../store';
+import TransactionPane from '../../components/panes/TransactionPane';
 
 const Pane = styled(Dialog)(() => ({
-  left: "auto",
-  bottom: "auto",
-  "& [class*=MuiDialog-paper]": {
+  left: 'auto',
+  bottom: 'auto',
+  '& [class*=MuiDialog-paper]': {
     margin: 0,
     borderRadius: 0,
   },
 }));
 const PaneContent = styled(DialogContent)(() => ({
   width: 360 - 1,
-  height: "100vh",
+  height: '100vh',
 }));
 
 const PaneProvider: FunctionComponent = () => {
@@ -25,8 +25,8 @@ const PaneProvider: FunctionComponent = () => {
   return (
     <Pane open={!!pane} onClose={() => dispatch(closeAllPanes())}>
       <PaneContent>
-        {pane === "theme" && <ThemeForm />}
-        {pane === "transaction" && <TransactionPane />}
+        {pane === 'theme' && <ThemeForm />}
+        {pane === 'transaction' && <TransactionPane />}
       </PaneContent>
     </Pane>
   );

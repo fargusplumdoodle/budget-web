@@ -1,63 +1,65 @@
-import { call, select, put, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+  call, select, put, takeEvery, takeLatest,
+} from 'redux-saga/effects';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { Simulate } from 'react-dom/test-utils';
 import {
   fetchUserSettings,
   loadUserSettings,
   setSystemTheme,
   updateUserSettings,
-} from "./slice";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { getUserSettingsRequest } from "./utils";
-import api from "../../../api/";
-import { ThemeSettings, UserSettingsState } from "./types";
-import { Simulate } from "react-dom/test-utils";
-import { selectUserSettings } from "./selectors";
+} from './slice';
+import { getUserSettingsRequest } from './utils';
+import api from '../../../api';
+import { ThemeSettings, UserSettingsState } from './types';
+import { selectUserSettings } from './selectors';
 
 function* executeUpdateUserSettings({
   payload: userSettings,
 }: PayloadAction<UserSettingsState>) {
-  yield put(getUserSettingsRequest("update", "loading"));
+  yield put(getUserSettingsRequest('update', 'loading'));
 
   try {
     const response: UserSettingsState = yield call(
       api.userInfo.updateUserInfo,
-      userSettings
+      userSettings,
     );
     yield put(loadUserSettings(response));
-    yield put(getUserSettingsRequest("update", "loaded"));
+    yield put(getUserSettingsRequest('update', 'loaded'));
   } catch {
-    yield put(getUserSettingsRequest("update", "error"));
+    yield put(getUserSettingsRequest('update', 'error'));
   }
 }
 
 function* executeFetchUserSettings() {
-  yield put(getUserSettingsRequest("retrieve", "loading"));
+  yield put(getUserSettingsRequest('retrieve', 'loading'));
 
   try {
     const response: UserSettingsState = yield call(
-      api.userInfo.receiveUserInfo
+      api.userInfo.receiveUserInfo,
     );
     yield put(loadUserSettings(response));
-    yield put(getUserSettingsRequest("retrieve", "loaded"));
+    yield put(getUserSettingsRequest('retrieve', 'loaded'));
   } catch {
-    yield put(getUserSettingsRequest("retrieve", "error"));
+    yield put(getUserSettingsRequest('retrieve', 'error'));
   }
 }
 
 function* executeSetSystemTheme({
   payload: theme,
 }: PayloadAction<ThemeSettings>) {
-  yield put(getUserSettingsRequest("update", "loading"));
+  yield put(getUserSettingsRequest('update', 'loading'));
   const existingSettings: UserSettingsState = yield select(selectUserSettings);
 
   try {
     const response: UserSettingsState = yield call(
       api.userInfo.updateUserInfo,
-      { ...existingSettings, theme }
+      { ...existingSettings, theme },
     );
     yield put(loadUserSettings(response));
-    yield put(getUserSettingsRequest("update", "loaded"));
+    yield put(getUserSettingsRequest('update', 'loaded'));
   } catch {
-    yield put(getUserSettingsRequest("update", "error"));
+    yield put(getUserSettingsRequest('update', 'error'));
   }
 }
 

@@ -6,7 +6,7 @@ export {
   resetAuth,
   sliceKey as authKey,
   default as authReducer,
-} from "./slice";
-export { selectAuthState } from "./selectors";
-export { authSaga } from "./saga";
-export * from "./types";
+} from './slice';
+export { selectAuthState } from './selectors';
+export { authSaga } from './saga';
+export * from './types';

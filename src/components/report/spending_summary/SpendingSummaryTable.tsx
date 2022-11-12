@@ -6,9 +6,9 @@ import {
   TableContainer,
   Typography,
   TableBody,
-} from "@mui/material";
-import * as React from "react";
-import { SpendingSummaryData } from "./types";
+} from '@mui/material';
+import * as React from 'react';
+import { SpendingSummaryData } from './types';
 
 interface SpendingSummaryTableProps {
   data: SpendingSummaryData[];
@@ -17,19 +17,17 @@ interface SpendingSummaryTableProps {
 const SpendingSummaryTable: React.FC<SpendingSummaryTableProps> = ({
   data,
 }) => {
-  const headers = ["Date", "Income", "Outcome"];
+  const headers = ['Date', 'Income', 'Outcome'];
   return (
     <TableContainer sx={{ maxHeight: 574 }}>
       <Table>
         <TableHead>
           <TableRow>
-            {headers.map((headerName) => {
-              return (
-                <TableCell key={headerName}>
-                  <Typography>{headerName}</Typography>
-                </TableCell>
-              );
-            })}
+            {headers.map((headerName) => (
+              <TableCell key={headerName}>
+                <Typography>{headerName}</Typography>
+              </TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>

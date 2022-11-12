@@ -1,11 +1,11 @@
-import { Box, styled } from "@mui/material";
-import { FunctionComponent, useState } from "react";
-import { Expression } from "../components/query/types";
-import QueryForm from "../components/query";
+import { Box, styled } from '@mui/material';
+import { FunctionComponent, useState } from 'react';
+import { Expression } from '../components/query/types';
+import QueryForm from '../components/query';
 
 const Container = styled(Box)(({ theme: { spacing } }) => ({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   gap: spacing(1),
 }));
 

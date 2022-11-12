@@ -1,4 +1,4 @@
-import { store } from "./configureStore";
+import { store } from './configureStore';
 
 export interface Model {
   id: number | null;

@@ -1,9 +1,9 @@
-import { applyMiddleware, compose, createStore } from "redux";
-import thunk from "redux-thunk";
-import { persistStore } from "redux-persist";
-import createSagaMiddleware from "redux-saga";
-import rootSaga from "./saga";
-import rootReducer from "./rootReducer";
+import { applyMiddleware, compose, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import { persistStore } from 'redux-persist';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './saga';
+import rootReducer from './rootReducer';
 
 declare global {
   interface Window {
@@ -14,13 +14,12 @@ declare global {
 const sagaMiddleware = createSagaMiddleware();
 
 export function configureStore() {
-  const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   return createStore(
     rootReducer,
     {},
-    composeEnhancers(applyMiddleware(thunk), applyMiddleware(sagaMiddleware))
+    composeEnhancers(applyMiddleware(thunk), applyMiddleware(sagaMiddleware)),
   );
 }
 export const store = configureStore();
