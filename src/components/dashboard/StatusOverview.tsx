@@ -17,6 +17,7 @@ const Container = styled(Box)(({ theme }) => ({
   alignItems: "center",
   backgroundImage: `url(${StackedWave})`,
   backgroundRepeat: "no-repeat",
+  borderRadius: 20,
   backgroundSize: "cover",
   padding: theme.spacing(4),
   [theme.breakpoints.down("sm")]: {
