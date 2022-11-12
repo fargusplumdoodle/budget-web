@@ -6,6 +6,8 @@ commands=(
 )
 pids=()
 
+npx prettier --write ./src
+
 # run processes and store pids in array
 for ((i = 0; i < ${#commands[@]}; i++))
 do
