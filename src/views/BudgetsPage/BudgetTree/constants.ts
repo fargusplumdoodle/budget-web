@@ -1,0 +1,1 @@
+export const BUDGET_STATS_TABLE_WIDTH = 450;
