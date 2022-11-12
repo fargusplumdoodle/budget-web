@@ -1,11 +1,11 @@
-import sha1 from 'sha1';
-import { Transaction } from './types';
+import sha1 from "sha1";
+import { Transaction } from "./types";
 import {
   CRUDAction,
   getId,
   makeRequest,
   RequestStatus,
-} from '../../communication';
+} from "../../communication";
 
 export const getTransactionHash = (transaction: Transaction): string => {
   const message = `
@@ -22,10 +22,11 @@ export const getTransactionHash = (transaction: Transaction): string => {
 export const getTransactionRequest = (
   transaction: Transaction,
   action: CRUDAction,
-  status: RequestStatus,
-) => makeRequest({
-  id: getId('transaction', transaction),
-  key: 'transaction',
-  action,
-  status,
-});
+  status: RequestStatus
+) =>
+  makeRequest({
+    id: getId("transaction", transaction),
+    key: "transaction",
+    action,
+    status,
+  });

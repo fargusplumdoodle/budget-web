@@ -1,16 +1,16 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import { Typography } from '@mui/material';
-import '../../../views/transactions_list/TransactionsTable.css';
-import { useDispatch } from 'react-redux';
-import { commaSeparatedTagNames } from '../../../util/formatters';
-import { openTransactionPane, Transaction } from '../../../store';
+import * as React from "react";
+import { FunctionComponent } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { Typography } from "@mui/material";
+import "../../../views/transactions_list/TransactionsTable.css";
+import { useDispatch } from "react-redux";
+import { commaSeparatedTagNames } from "../../../util/formatters";
+import { openTransactionPane, Transaction } from "../../../store";
 
 interface TransactionTableProps {
   transactions: Transaction[];
@@ -21,9 +21,9 @@ interface TransactionTableProps {
 }
 
 const TransactionTable: FunctionComponent<TransactionTableProps> = (
-  props: TransactionTableProps,
+  props: TransactionTableProps
 ) => {
-  const headers = ['Budget', 'Tags', 'Description', 'Date', 'Amount'];
+  const headers = ["Budget", "Tags", "Description", "Date", "Amount"];
   const dispatch = useDispatch();
 
   return (
@@ -49,9 +49,7 @@ const TransactionTable: FunctionComponent<TransactionTableProps> = (
               <TableCell>{trans.budget.name}</TableCell>
               <TableCell>{commaSeparatedTagNames(trans)}</TableCell>
               <TableCell>{trans.description}</TableCell>
-              <TableCell>
-                {trans.date.toLocaleDateString('en-CA')}
-              </TableCell>
+              <TableCell>{trans.date.toLocaleDateString("en-CA")}</TableCell>
               <TableCell>{trans.amount}</TableCell>
             </TableRow>
           ))}

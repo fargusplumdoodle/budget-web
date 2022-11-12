@@ -1,3 +1,3 @@
-import BudgetTree from './BudgetTree';
+import BudgetTree from "./BudgetTree";
 
 export default BudgetTree;

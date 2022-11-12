@@ -1,28 +1,22 @@
-import {
-  Box, Card, styled, Tab, Tabs,
-} from '@mui/material';
-import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
-import './AddTransactionsPage.css';
-import TransactionForm from '../../components/forms/transaction_legacy/TransactionForm';
-import TransactionTable from '../../components/transactions_legacy/transactions_table/TransactionsTable';
-import IncomeForm from '../../components/forms/transaction_legacy/IncomeForm';
-import { TabPanel, tabProps } from '../../components/tabs';
-import TransferForm from '../../components/forms/transaction_legacy/TransferForm';
-import settings from '../../app/settings';
-import { Transaction } from '../../store/data/transactions/types';
+import { Box, Card, styled, Tab, Tabs } from "@mui/material";
+import * as React from "react";
+import { FunctionComponent, useState } from "react";
+import "./AddTransactionsPage.css";
+import TransactionTable from "../../components/transactions_legacy/transactions_table/TransactionsTable";
+import { TabPanel, tabProps } from "../../components/tabs";
+import TransferForm from "../../components/forms/transaction_legacy/TransferForm";
+import settings from "../../app/settings";
+import { Transaction } from "../../store/data/transactions/types";
 
-const ADD = 0;
-const INCOME = 1;
 const TRANSFER = 2;
 
 const Container = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  flexDirection: 'row',
-  [theme.breakpoints.down('md')]: {
-    flexDirection: 'column',
-    alignItems: 'center',
+  display: "flex",
+  justifyContent: "space-between",
+  flexDirection: "row",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    alignItems: "center",
   },
 }));
 
@@ -37,7 +31,7 @@ const TransactionsContainer = styled(Card)(() => ({
 
 const AddTransactionsPage: FunctionComponent = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [tab, setTab] = useState<number>(ADD);
+  const [tab, setTab] = useState<number>(TRANSFER);
 
   const handleTabChange = (_: React.SyntheticEvent, newTab: number) => {
     setTab(newTab);
@@ -50,27 +44,13 @@ const AddTransactionsPage: FunctionComponent = () => {
           value={tab}
           onChange={handleTabChange}
           sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
           }}
         >
-          <Tab label="Add" {...tabProps(ADD)} />
-          <Tab label="Income" {...tabProps(INCOME)} />
           <Tab label="Transfer" {...tabProps(TRANSFER)} />
         </Tabs>
-
-        <TabPanel value={tab} index={ADD}>
-          <TransactionForm
-            onCreateCallback={(trans) => {
-              setTransactions([trans, ...transactions]);
-            }}
-          />
-        </TabPanel>
-
-        <TabPanel value={tab} index={INCOME}>
-          <IncomeForm />
-        </TabPanel>
 
         <TabPanel value={tab} index={TRANSFER}>
           <TransferForm
@@ -85,7 +65,7 @@ const AddTransactionsPage: FunctionComponent = () => {
         <TransactionTable
           onUpdateCallback={(trans: Transaction) => {
             const index = transactions.findIndex(
-              (t: Transaction) => t.id === trans.id,
+              (t: Transaction) => t.id === trans.id
             );
             setTransactions([
               ...transactions.slice(0, index),
@@ -95,7 +75,7 @@ const AddTransactionsPage: FunctionComponent = () => {
           }}
           onDeleteCallback={(trans: Transaction) => {
             const index = transactions.findIndex(
-              (t: Transaction) => t.id === trans.id,
+              (t: Transaction) => t.id === trans.id
             );
             setTransactions([
               ...transactions.slice(0, index),

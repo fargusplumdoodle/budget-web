@@ -1,9 +1,9 @@
-import { InputAdornment, styled, TextField } from '@mui/material';
-import { ChangeEvent, FunctionComponent, useState } from 'react';
-import { ExpressionInputProps } from '../types';
+import { InputAdornment, styled, TextField } from "@mui/material";
+import { ChangeEvent, FunctionComponent, useState } from "react";
+import { ExpressionInputProps } from "../types";
 
 const Input = styled(TextField)(() => ({
-  width: '100%',
+  width: "100%",
 }));
 
 const CurrencyInput: FunctionComponent<ExpressionInputProps<number>> = ({

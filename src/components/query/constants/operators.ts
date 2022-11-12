@@ -1,45 +1,45 @@
-import { Operator } from '../types';
+import { Operator } from "../types";
 
 export const OPERATORS: { [name: string]: Operator<any> } = {
   greaterThan: {
-    name: '>',
-    djangoExpression: '__gt',
+    name: ">",
+    djangoExpression: "__gt",
   },
   lessThan: {
-    name: '<',
-    djangoExpression: '__lt',
+    name: "<",
+    djangoExpression: "__lt",
   },
   lessThanEqual: {
-    name: '<=',
-    djangoExpression: '__lte',
+    name: "<=",
+    djangoExpression: "__lte",
   },
   greaterThanEqual: {
-    name: '>=',
-    djangoExpression: '__gte',
+    name: ">=",
+    djangoExpression: "__gte",
   },
   equal: {
-    name: '==',
-    djangoExpression: '',
+    name: "==",
+    djangoExpression: "",
   },
   icontains: {
-    name: 'icontains',
-    djangoExpression: '__icontains',
+    name: "icontains",
+    djangoExpression: "__icontains",
   },
   iexact: {
-    name: 'iexact',
-    djangoExpression: '__iexact',
+    name: "iexact",
+    djangoExpression: "__iexact",
   },
   includes: {
-    name: 'includes',
-    djangoExpression: '__includes',
+    name: "includes",
+    djangoExpression: "__includes",
   },
   excludes: {
-    name: 'excludes',
-    djangoExpression: '__excludes',
+    name: "excludes",
+    djangoExpression: "__excludes",
   },
   none: {
-    name: 'none',
-    djangoExpression: '__none',
+    name: "none",
+    djangoExpression: "__none",
   },
 };
 

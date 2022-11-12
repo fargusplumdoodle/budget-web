@@ -1,16 +1,14 @@
-import { styled, TextField } from '@mui/material';
-import { FunctionComponent } from 'react';
-import { ExpressionInputProps } from '../types';
+import { styled, TextField } from "@mui/material";
+import { FunctionComponent } from "react";
+import { ExpressionInputProps } from "../types";
 
 const Input = styled(TextField)(() => ({
-  width: '100%',
+  width: "100%",
 }));
 
 const CurrencyInput: FunctionComponent<ExpressionInputProps<string>> = ({
   value,
   onChange,
-}) => (
-  <Input defaultValue={value} onChange={(e) => onChange(e.target.value)} />
-);
+}) => <Input defaultValue={value} onChange={(e) => onChange(e.target.value)} />;
 
 export default CurrencyInput;

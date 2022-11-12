@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import TransactionForm from './TransactionForm';
-import budgets from '../../../__fixtures__/budgets';
-import { stateDecorator } from '../../../__fixtures__/decorators';
-import { Transaction } from '../../../store/data/transactions/types';
+import React, { useState } from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import TransactionForm from "./TransactionForm";
+import budgets from "../../../__fixtures__/budgets";
+import { stateDecorator } from "../../../__fixtures__/decorators";
+import { Transaction } from "../../../store/data/transactions/types";
 
 export default {
-  title: 'TransactionForm',
+  title: "TransactionForm",
   component: TransactionForm,
   decorators: [stateDecorator()],
 } as ComponentMeta<typeof TransactionForm>;
@@ -14,7 +14,7 @@ export default {
 const initialTransaction: Transaction = {
   id: null,
   amount: -50,
-  description: '',
+  description: "",
   budget: budgets.byName.doritos,
   date: new Date(),
   income: false,

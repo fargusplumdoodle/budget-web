@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { FormHelperText, Grid, TextField } from '@mui/material';
-import { useController, useFormContext } from 'react-hook-form';
-import capitalize from 'lodash/capitalize';
+import React, { FunctionComponent } from "react";
+import { FormHelperText, Grid, TextField } from "@mui/material";
+import { useController, useFormContext } from "react-hook-form";
+import capitalize from "lodash/capitalize";
 
 interface Props {}
 
@@ -11,7 +11,7 @@ const DescriptionInput: FunctionComponent<Props> = () => {
   } = useFormContext();
   const {
     field: { value, onChange },
-  } = useController({ name: 'description' });
+  } = useController({ name: "description" });
 
   return (
     <>
@@ -25,7 +25,7 @@ const DescriptionInput: FunctionComponent<Props> = () => {
       </Grid>
       {!!errors.tags && (
         <FormHelperText error>
-          {capitalize(errors.description?.message)}
+          {capitalize((errors.description?.message as string) || "")}
         </FormHelperText>
       )}
     </>

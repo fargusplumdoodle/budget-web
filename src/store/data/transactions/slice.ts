@@ -1,22 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 import {
   Transaction,
   TransactionState,
   UpdateTransactionPayloadAction,
-} from './types';
+} from "./types";
 import {
   allObjectsExcept,
   modelById,
   addModelsToList,
   addModelToList,
-} from '../..';
+} from "../..";
 
 export const initialState: TransactionState = {
   list: [],
   byId: {},
 };
 
-export const sliceKey = 'transaction';
+export const sliceKey = "transaction";
 const transactionSlice = createSlice({
   name: sliceKey,
   initialState,

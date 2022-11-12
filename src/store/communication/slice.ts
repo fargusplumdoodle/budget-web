@@ -1,13 +1,13 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   CommunicationState,
   RequestState,
   UpdateRequestStatusPayloadAction,
-} from './types';
+} from "./types";
 
 export const initialState: CommunicationState = {};
 
-export const sliceKey = 'communication';
+export const sliceKey = "communication";
 const communicationSlice = createSlice({
   name: sliceKey,
   initialState,

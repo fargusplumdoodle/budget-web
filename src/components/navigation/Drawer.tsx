@@ -1,21 +1,19 @@
-import {
-  Grid, GridProps, styled, Typography,
-} from '@mui/material';
-import React, { FunctionComponent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getTransparent } from '@fargusplumdoodle/themes/dist/util';
-import { links } from './constants';
-import NavigationBudgetTree from '../budget/NavigationBudgetTree';
-import useRoute from '../../hooks/useRoute';
+import { Grid, GridProps, styled, Typography } from "@mui/material";
+import React, { FunctionComponent } from "react";
+import { useNavigate } from "react-router-dom";
+import { getTransparent } from "@fargusplumdoodle/themes/dist/util";
+import { links } from "./constants";
+import NavigationBudgetTree from "../budget/NavigationBudgetTree";
+import useRoute from "../../hooks/useRoute";
 
 const GradientBox = styled(Grid)(({ theme }) => ({
   background: `linear-gradient(0deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
-  height: '100%',
+  height: "100%",
   width: 3,
 }));
 
 const Container = styled(Grid)(() => ({
-  height: '100%',
+  height: "100%",
 }));
 
 const Content = styled(Grid)(({ theme }) => ({
@@ -27,12 +25,12 @@ interface LinkProps extends GridProps {
 }
 
 const Link = styled(Grid, {
-  shouldForwardProp: (prop) => prop !== 'active',
+  shouldForwardProp: (prop) => prop !== "active",
 })<LinkProps>(({ active, theme }) => ({
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
-  borderRadius: '10px',
-  cursor: 'pointer',
-  '&:hover': {
+  borderRadius: "10px",
+  cursor: "pointer",
+  "&:hover": {
     backgroundColor: getTransparent(theme.palette.secondary.main, 0.4),
     color: theme.palette.secondary.contrastText,
   },

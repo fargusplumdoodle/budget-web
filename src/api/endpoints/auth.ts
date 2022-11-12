@@ -1,8 +1,8 @@
-import axios from 'axios';
-import parseISO from 'date-fns/parseISO';
-import settings from '../../app/settings';
-import { store } from '../../store/configureStore';
-import { AuthState, refreshAuthToken, selectAuthState } from '../../store';
+import axios from "axios";
+import parseISO from "date-fns/parseISO";
+import settings from "../../app/settings";
+import { store } from "../../store/configureStore";
+import { AuthState, refreshAuthToken, selectAuthState } from "../../store";
 
 // TODO: MOVE SOMEWHERE
 interface tokenResponse {
@@ -18,14 +18,14 @@ interface tokenResponse {
 
 // TODO: MOVE TO SERIALIZERS
 function getAuthStateFromTokenResponse(
-  tokenResponse: tokenResponse,
+  tokenResponse: tokenResponse
 ): AuthState {
   const expiresAt = new Date();
   expiresAt.setSeconds(expiresAt.getSeconds() + tokenResponse.expires_in);
   return {
-    status: 'loaded',
+    status: "loaded",
     accessToken: tokenResponse.access_token,
-    authCode: '',
+    authCode: "",
     refreshToken: tokenResponse.refresh_token,
     tokenType: tokenResponse.token_type,
     expiresAt: expiresAt.toISOString(),
@@ -39,15 +39,15 @@ export async function retrieveToken(code: string): Promise<AuthState> {
     client_secret: settings.auth.clientSecret,
     code,
     redirect_uri: settings.auth.callbackUrl,
-    grant_type: 'authorization_code',
+    grant_type: "authorization_code",
   };
 
   const r = await axios({
-    method: 'post',
-    url: '/o/token/',
+    method: "post",
+    url: "/o/token/",
     data: requestData,
     headers: {
-      'Cache-Control': 'no-cache',
+      "Cache-Control": "no-cache",
     },
   });
 
@@ -60,15 +60,15 @@ export async function refreshToken(refreshToken: string): Promise<AuthState> {
     client_id: settings.auth.clientId,
     client_secret: settings.auth.clientSecret,
     refresh_token: refreshToken,
-    grant_type: 'refresh_token',
+    grant_type: "refresh_token",
   };
 
   const r = await axios({
-    method: 'post',
-    url: '/o/token/',
+    method: "post",
+    url: "/o/token/",
     data: requestData,
     headers: {
-      'Cache-Control': 'no-cache',
+      "Cache-Control": "no-cache",
     },
   });
 
@@ -80,7 +80,7 @@ export const checkAuth = async () => {
   const auth = selectAuthState(store.getState());
 
   if (!auth.authenticated) {
-    throw Error('ah not authenticated');
+    throw Error("ah not authenticated");
   }
 
   if (parseISO(auth.expiresAt) <= new Date()) {

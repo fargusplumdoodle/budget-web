@@ -1,3 +1,3 @@
-import ThemeForm from './ThemeForm';
+import ThemeForm from "./ThemeForm";
 
 export default ThemeForm;

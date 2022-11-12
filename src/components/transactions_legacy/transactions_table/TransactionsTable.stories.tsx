@@ -1,23 +1,23 @@
-import * as React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import * as React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import TransactionsTable from './TransactionsTable';
+import TransactionsTable from "./TransactionsTable";
 import {
   createCallback,
   createSampleTransactions,
-} from '../../../util/storybook';
+} from "../../../util/storybook";
 
 export default {
-  title: 'Transactions Table',
+  title: "Transactions Table",
   component: TransactionsTable,
 } as ComponentMeta<typeof TransactionsTable>;
 
 const defaultArgs = {
   transactions: createSampleTransactions(),
   showBudget: true,
-  onCreateCallback: createCallback('create'),
-  onUpdateCallback: createCallback('update'),
-  onDeleteCallback: createCallback('delete'),
+  onCreateCallback: createCallback("create"),
+  onUpdateCallback: createCallback("update"),
+  onDeleteCallback: createCallback("delete"),
 };
 
 const Template: ComponentStory<typeof TransactionsTable> = function (args) {

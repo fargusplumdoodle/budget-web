@@ -1,33 +1,32 @@
-import * as React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import * as React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Card } from '@mui/material';
-import PaginatedTransactionsTable from './PaginatedTransactionsTable';
+import { Card } from "@mui/material";
+import PaginatedTransactionsTable from "./PaginatedTransactionsTable";
 import {
   createCallback,
   createSampleTransactions,
-} from '../../../util/storybook';
+} from "../../../util/storybook";
 
 export default {
-  title: 'Paginated Transactions Table',
+  title: "Paginated Transactions Table",
   component: PaginatedTransactionsTable,
 } as ComponentMeta<typeof PaginatedTransactionsTable>;
 
 const defaultArgs = {
   transactions: createSampleTransactions(),
   showBudget: true,
-  onCreateCallback: createCallback('create'),
-  onUpdateCallback: createCallback('update'),
-  onDeleteCallback: createCallback('delete'),
+  onCreateCallback: createCallback("create"),
+  onUpdateCallback: createCallback("update"),
+  onDeleteCallback: createCallback("delete"),
 };
 
 const Template: ComponentStory<typeof PaginatedTransactionsTable> = function (
-  args,
+  args
 ) {
   return (
     <Card>
-      <PaginatedTransactionsTable {...defaultArgs} {...args} />
-      ;
+      <PaginatedTransactionsTable {...defaultArgs} {...args} />;
     </Card>
   );
 };

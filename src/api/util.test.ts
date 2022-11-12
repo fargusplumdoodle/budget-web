@@ -1,7 +1,7 @@
-import { fromCents, toCents } from './util';
+import { fromCents, toCents } from "./util";
 
-describe('Currency Conversion tests', () => {
-  test('That no rounding errors occur', () => {
+describe("Currency Conversion tests", () => {
+  test("That no rounding errors occur", () => {
     // These numbers have been identified as causing
     // rounding errors
     const tests = [

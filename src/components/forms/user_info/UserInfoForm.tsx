@@ -1,15 +1,15 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Button, CircularProgress, Stack } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Button, Stack } from "@mui/material";
+import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormItem, userInfoSchema } from "../../../util/form";
-import ControlledAmountInput from "../inputs/ControlledAmountInput";
 import {
   RootState,
   selectUserSettings,
   UserSettingsState,
 } from "../../../store";
+import AmountInput from "../inputs/AmountInput";
 
 const classes = {
   root: {
@@ -26,33 +26,24 @@ const UserInfoForm: React.FC<UserInfoFormProps> = function ({
   onSubmit,
   userInfo,
 }) {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const formMethods = useForm({
     resolver: yupResolver(userInfoSchema),
     defaultValues: userInfo,
   });
 
   return (
     <Stack spacing={2} sx={classes.root}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormItem>
-          <ControlledAmountInput
-            label="Expected Monthly Net Income"
-            name="expected_monthly_net_income"
-            control={control}
-            errors={errors.expected_monthly_net_income}
-            showError
-            sx={{ width: "100%", marginRight: 1 }}
-          />
-        </FormItem>
+      <FormProvider {...formMethods}>
+        <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+          <FormItem>
+            <AmountInput />
+          </FormItem>
 
-        <FormItem>
-          <Button type="submit">'SUBMIT'</Button>
-        </FormItem>
-      </form>
+          <FormItem>
+            <Button type="submit">'SUBMIT'</Button>
+          </FormItem>
+        </form>
+      </FormProvider>
     </Stack>
   );
 };

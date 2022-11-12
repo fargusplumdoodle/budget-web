@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import { Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../app/AppRoutes';
-import { routeWithId } from '../../util/routing';
-import { formatCurrency } from '../../util/formatters';
-import { Budget } from '../../store/data/budgets/types';
+import * as React from "react";
+import { FunctionComponent } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../app/AppRoutes";
+import { routeWithId } from "../../util/routing";
+import { formatCurrency } from "../../util/formatters";
+import { Budget } from "../../store/data/budgets/types";
 
 interface OwnProps {
   budgets: Budget[];
@@ -21,9 +21,9 @@ type Props = OwnProps;
 
 const BudgetTable: FunctionComponent<Props> = (props: Props) => {
   const navigate = useNavigate();
-  const headers = ['Name', 'Monthly Allocation', 'balance'];
+  const headers = ["Name", "Monthly Allocation", "balance"];
   return (
-    <TableContainer sx={{ alignContent: 'center' }}>
+    <TableContainer sx={{ alignContent: "center" }}>
       <Table aria-label="budget overview">
         <TableHead>
           <TableRow>

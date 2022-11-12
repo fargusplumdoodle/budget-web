@@ -1,12 +1,10 @@
-import {
-  modelById, modelByName, Transaction, Tag,
-} from '../store';
-import transactions from './transactions';
+import { modelById, modelByName, Transaction, Tag } from "../store";
+import transactions from "./transactions";
 
 const getTagsFromTransactions = (trans: Transaction[]): Tag[] => {
   const allTags = trans.reduce(
     (tags: Tag[], transaction) => [...tags, ...transaction.tags],
-    [],
+    []
   );
   return Object.values(modelById(allTags));
 };

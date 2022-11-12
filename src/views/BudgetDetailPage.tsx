@@ -4,12 +4,8 @@ import { useSelector } from "react-redux";
 import { Box, Card, Grid, Stack, SxProps, Typography } from "@mui/material";
 import { capitalize } from "lodash";
 import { formatCurrency } from "../util/formatters";
-import DashboardTile from "../components/dashboard/DashboardTile";
 import BudgetTransactionTable from "../components/budget/BudgetTransactionTable";
-import LineGraph from "../components/report/LineGraph";
-import SpendingSummary from "../components/report/spending_summary/SpendingSummary";
 import { selectBudgetById } from "../store";
-import { ReportTypes, TimeBuckets } from "../api/report";
 
 const classes: { [id: string]: SxProps } = {
   header: {
@@ -34,9 +30,6 @@ const classes: { [id: string]: SxProps } = {
 const BudgetDetailPage: React.FC = function () {
   const params = useParams();
   const budget = useSelector(selectBudgetById(parseInt(params.id!)));
-  const queryParams = new URLSearchParams({
-    budget__includes: budget.id!.toString(),
-  });
 
   if (!budget) {
     return <Typography variant="h1">ooof, can't find that one</Typography>;
@@ -71,24 +64,6 @@ const BudgetDetailPage: React.FC = function () {
           <Card>
             <BudgetTransactionTable budget={budget} />
           </Card>
-        </Stack>
-      </Grid>
-
-      <Grid item xs={6} justifyContent="center" alignItems="center">
-        <Stack spacing={1}>
-          <DashboardTile>
-            <LineGraph
-              queryParams={queryParams}
-              reportTypes={[
-                ReportTypes.BUDGET_BALANCE,
-                ReportTypes.BUDGET_DELTA,
-              ]}
-            />
-          </DashboardTile>
-
-          <DashboardTile>
-            <SpendingSummary queryParams={queryParams} />
-          </DashboardTile>
         </Stack>
       </Grid>
     </Grid>

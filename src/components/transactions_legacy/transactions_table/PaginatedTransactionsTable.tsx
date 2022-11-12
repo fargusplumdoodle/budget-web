@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import { TableFooter, TablePagination, Typography } from '@mui/material';
-import '../../../views/transactions_list/TransactionsTable.css';
-import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions';
-import { useDispatch } from 'react-redux';
-import { commaSeparatedTagNames } from '../../../util/formatters';
-import { openTransactionPane, Transaction } from '../../../store';
+import * as React from "react";
+import { FunctionComponent, useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { TableFooter, TablePagination, Typography } from "@mui/material";
+import "../../../views/transactions_list/TransactionsTable.css";
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+import { useDispatch } from "react-redux";
+import { commaSeparatedTagNames } from "../../../util/formatters";
+import { openTransactionPane, Transaction } from "../../../store";
 
 interface TransactionTableProps {
   transactions: Transaction[];
@@ -23,24 +23,25 @@ interface TransactionTableProps {
 }
 
 const PaginatedTransactionsTable: FunctionComponent<TransactionTableProps> = (
-  props: TransactionTableProps,
+  props: TransactionTableProps
 ) => {
   const minimumRowsPerPage = 10;
   const [rowsPerPage, setRowsPerPage] = useState(
-    props.defaultRowsPerPage || minimumRowsPerPage,
+    props.defaultRowsPerPage || minimumRowsPerPage
   );
   const [page, setPage] = useState(0);
   const dispatch = useDispatch();
 
-  const headers = props.showBudget ? ['budget'] : [];
-  headers.push('Tags', 'Description', 'Date', 'Amount');
-  const rowsPerPageOptions = [5, 10, 25, 50, 100, { label: 'All', value: -1 }];
-  const rows = rowsPerPage > 0 && props.transactions.length > minimumRowsPerPage
-    ? props.transactions.slice(
-      page * rowsPerPage,
-      page * rowsPerPage + rowsPerPage,
-    )
-    : props.transactions;
+  const headers = props.showBudget ? ["budget"] : [];
+  headers.push("Tags", "Description", "Date", "Amount");
+  const rowsPerPageOptions = [5, 10, 25, 50, 100, { label: "All", value: -1 }];
+  const rows =
+    rowsPerPage > 0 && props.transactions.length > minimumRowsPerPage
+      ? props.transactions.slice(
+          page * rowsPerPage,
+          page * rowsPerPage + rowsPerPage
+        )
+      : props.transactions;
 
   return (
     <TableContainer>
@@ -67,9 +68,7 @@ const PaginatedTransactionsTable: FunctionComponent<TransactionTableProps> = (
               ) : null}
               <TableCell>{commaSeparatedTagNames(trans)}</TableCell>
               <TableCell>{trans.description}</TableCell>
-              <TableCell>
-                {trans.date.toLocaleDateString('en-CA')}
-              </TableCell>
+              <TableCell>{trans.date.toLocaleDateString("en-CA")}</TableCell>
               <TableCell>{trans.amount}</TableCell>
             </TableRow>
           ))}
@@ -83,7 +82,7 @@ const PaginatedTransactionsTable: FunctionComponent<TransactionTableProps> = (
               page={page}
               SelectProps={{
                 inputProps: {
-                  'aria-label': 'rows per page',
+                  "aria-label": "rows per page",
                 },
                 native: true,
               }}

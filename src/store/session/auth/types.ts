@@ -1,4 +1,4 @@
-export type StateStatus = 'loading' | 'loaded' | 'error' | 'init';
+export type StateStatus = "loading" | "loaded" | "error" | "init";
 
 export interface AuthState {
   status: StateStatus;

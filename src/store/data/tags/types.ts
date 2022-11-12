@@ -1,5 +1,5 @@
-import { Model } from '../..';
-import { Budget } from '../budgets';
+import { Model } from "../..";
+import { Budget } from "../budgets";
 
 export interface Tag extends Model {
   name: string;

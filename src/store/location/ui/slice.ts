@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UIState } from './types';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UIState } from "./types";
 
 export const initialState: UIState = {
   mobileDrawerOpen: false,
 };
 
-export const sliceKey = 'ui';
+export const sliceKey = "ui";
 const uiSlice = createSlice({
   name: sliceKey,
   initialState,

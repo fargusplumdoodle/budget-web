@@ -1,19 +1,18 @@
-import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useSelector } from 'react-redux';
-import { Button, CircularProgress, Stack } from '@mui/material';
-import { ProviderContext, withSnackbar } from 'notistack';
-import { FormItem, transferSchema } from '../../../util/form';
-import ApiErrorDialog, { ApiError } from '../../ApiErrorDialog';
-import { createTransaction } from '../../../api/endpoints/transaction';
-import { createTransferTransactions } from '../../../util/transfer';
-import ControlledAmountInput from '../inputs/ControlledAmountInput';
-import ControlledBudgetInput from '../inputs/ControlledBudgetInput';
-import { InputErrorMessage } from '../types';
-import ControlledDescriptionInput from '../inputs/ControlledDescriptionInput';
-import { Transaction, Budget, selectBudgetList } from '../../../store';
+import * as React from "react";
+import { FunctionComponent, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useSelector } from "react-redux";
+import { Button, CircularProgress, Stack } from "@mui/material";
+import { ProviderContext, withSnackbar } from "notistack";
+import { FormItem, transferSchema } from "../../../util/form";
+import ApiErrorDialog, { ApiError } from "../../ApiErrorDialog";
+import { createTransaction } from "../../../api/endpoints/transaction";
+import { createTransferTransactions } from "../../../util/transfer";
+import { Transaction, Budget, selectBudgetList } from "../../../store";
+import BudgetInput from "../inputs/BudgetInput";
+import DescriptionInput from "../inputs/DescriptionInput";
+import { AmountInput } from "../inputs";
 
 interface Props extends ProviderContext {
   onCreateCallback: (transactions: Transaction[]) => void;
@@ -34,18 +33,13 @@ const TransferForm: FunctionComponent<Props> = (props) => {
 
   const defaultValues = {
     amount: 0,
-    description: '',
+    description: "",
     date: new Date(),
     fromBudget: budgets[0],
     toBudget: budgets[1],
   };
 
-  const {
-    control,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm({
+  const formMethods = useForm({
     resolver: yupResolver(transferSchema),
     defaultValues,
   });
@@ -57,20 +51,20 @@ const TransferForm: FunctionComponent<Props> = (props) => {
       amount: 0 - Math.abs(data.amount),
     });
     const createTransactionPromises: Promise<Transaction>[] = transactions.map(
-      (transaction: Transaction) => createTransaction(transaction),
+      (transaction: Transaction) => createTransaction(transaction)
     );
 
     Promise.allSettled(createTransactionPromises)
       .then((promiseStates: PromiseSettledResult<Transaction>[]): void => {
         setLoading(false);
-        props.enqueueSnackbar('Successfully created income transactions', {
-          variant: 'success',
+        props.enqueueSnackbar("Successfully created income transactions", {
+          variant: "success",
         });
         props.onCreateCallback(
           promiseStates
-            .filter((p) => p.status === 'fulfilled')
+            .filter((p) => p.status === "fulfilled")
             // @ts-ignore
-            .map((promise) => promise.value),
+            .map((promise) => promise.value)
         );
       })
       .catch((err) => {
@@ -80,62 +74,26 @@ const TransferForm: FunctionComponent<Props> = (props) => {
   };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack
-          spacing={2}
-          justifyContent="flex-start"
-          alignItems="stretch"
-          sx={{
-            maxWidth: '615px',
-          }}
-        >
-          <FormItem>
-            <ControlledAmountInput
-              name="amount"
-              control={control}
-              errors={errors.amount}
-              showError
-              sx={{ width: '100%', marginRight: 1 }}
-            />
-          </FormItem>
-
-          <FormItem>
-            <ControlledDescriptionInput
-              name="description"
-              control={control}
-              errors={errors.description}
-            />
-          </FormItem>
-
-          <FormItem>
-            <ControlledBudgetInput<TransferFormData>
-              name="fromBudget"
-              control={control}
-              getValues={getValues}
-              defaultValue={budgets[0]}
-              options={budgets.filter((b) => b.id !== getValues('toBudget').id)}
-              errors={errors.fromBudget as InputErrorMessage}
-            />
-          </FormItem>
-
-          <FormItem>
-            <ControlledBudgetInput<TransferFormData>
-              name="toBudget"
-              control={control}
-              getValues={getValues}
-              defaultValue={budgets[1]}
-              options={budgets.filter(
-                (b) => b.id !== getValues('fromBudget').id,
-              )}
-              errors={errors.toBudget as InputErrorMessage}
-            />
-          </FormItem>
-
-          <Button sx={{ width: '100%' }} type="submit" disabled={loading}>
-            {loading ? <CircularProgress /> : 'SUBMIT'}
-          </Button>
-        </Stack>
-      </form>
+      <FormProvider {...formMethods}>
+        <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+          <Stack
+            spacing={2}
+            justifyContent="flex-start"
+            alignItems="stretch"
+            sx={{
+              maxWidth: "615px",
+            }}
+          >
+            <AmountInput />
+            <DescriptionInput />
+            <BudgetInput name="fromBudget" />
+            <BudgetInput name="toBudget" />
+            <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
+              {loading ? <CircularProgress /> : "SUBMIT"}
+            </Button>
+          </Stack>
+        </form>
+      </FormProvider>
 
       <ApiErrorDialog
         error={apiError}

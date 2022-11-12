@@ -1,7 +1,7 @@
-import * as yup from 'yup';
-import { Box, styled } from '@mui/material';
-import { store } from '../store/configureStore';
-import { selectBudgetByName, selectTagByName } from '../store';
+import * as yup from "yup";
+import { Box, styled } from "@mui/material";
+import { store } from "../store/configureStore";
+import { selectBudgetByName, selectTagByName } from "../store";
 
 export interface Option<T> {
   label: String;
@@ -11,7 +11,10 @@ interface hasName {
   name: String;
 }
 
-export const getOption = <T extends hasName>(obj: T): Option<T> => ({ label: obj.name, value: obj });
+export const getOption = <T extends hasName>(obj: T): Option<T> => ({
+  label: obj.name,
+  value: obj,
+});
 
 export const FormItem = styled(Box)(({ theme }) => ({
   ...theme.typography.body2,
@@ -23,7 +26,11 @@ export const budgetSchema = yup
     name: yup
       .string()
       .max(20)
-      .test('name is unique', 'Budget Name must be unique', (value) => !selectBudgetByName(value!)(store.getState()))
+      .test(
+        "name is unique",
+        "Budget Name must be unique",
+        (value) => !selectBudgetByName(value!)(store.getState())
+      )
       .required(),
     monthlyAllocation: yup.number().positive().integer(),
   })
@@ -31,7 +38,7 @@ export const budgetSchema = yup
 
 export const transactionSchema = yup
   .object({
-    tags: yup.array().min(1, 'Must have at least one tag').required(),
+    tags: yup.array().min(1, "Must have at least one tag").required(),
     amount: yup.number().required(),
     description: yup.string().max(300),
     date: yup.date().required(),
@@ -57,7 +64,11 @@ export const tagSchema = yup.object({
   name: yup
     .string()
     .max(30)
-    .test('name is unique', 'Tag Name must be unique', (value) => !selectTagByName(value!)(store.getState()))
+    .test(
+      "name is unique",
+      "Tag Name must be unique",
+      (value) => !selectTagByName(value!)(store.getState())
+    )
     .required(),
 });
 

@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { ThemeOption as ThemeOptionType } from '@fargusplumdoodle/themes';
-import { Grid, Tooltip, Typography } from '@mui/material';
-import capitalise from 'lodash/capitalize';
+import React, { FunctionComponent } from "react";
+import { ThemeOption as ThemeOptionType } from "@fargusplumdoodle/themes";
+import { Grid, Tooltip, Typography } from "@mui/material";
+import capitalise from "lodash/capitalize";
 
 interface Props {
   themeOption: ThemeOptionType;
@@ -11,7 +11,7 @@ interface Props {
   [prop: string]: any;
 }
 
-const colors = ['primary', 'secondary', 'error', 'warning', 'info', 'success'];
+const colors = ["primary", "secondary", "error", "warning", "info", "success"];
 
 const ThemeOption: FunctionComponent<Props> = ({
   themeOption,
@@ -31,14 +31,14 @@ const ThemeOption: FunctionComponent<Props> = ({
       wrap="nowrap"
       alignItems="center"
       sx={(theme) => ({
-        borderRadius: '4px',
-        width: '100%',
+        borderRadius: "4px",
+        width: "100%",
         paddingRight: 1,
-        backgroundColor: selected ? 'primary.main' : 'opaque',
+        backgroundColor: selected ? "primary.main" : "opaque",
         color: selected
           ? theme.palette.primary.contrastText
           : theme.palette.text.primary,
-        cursor: 'pointer',
+        cursor: "pointer",
       })}
       {...other}
     >
@@ -54,8 +54,8 @@ const ThemeOption: FunctionComponent<Props> = ({
                 width: 32,
                 height: 32,
                 backgroundColor: palette[color].main,
-                borderTopLeftRadius: color === colors[0] ? '4px' : undefined,
-                borderBottomLeftRadius: color === colors[0] ? '4px' : undefined,
+                borderTopLeftRadius: color === colors[0] ? "4px" : undefined,
+                borderBottomLeftRadius: color === colors[0] ? "4px" : undefined,
               }}
             />
           </Tooltip>

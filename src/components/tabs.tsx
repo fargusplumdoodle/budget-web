@@ -1,10 +1,10 @@
-import { Box } from '@mui/material';
-import * as React from 'react';
+import { Box } from "@mui/material";
+import * as React from "react";
 
 export function tabProps(tab: number) {
   return {
     id: `simple-tab-${tab}`,
-    'aria-controls': `simple-tabpanel-${tab}`,
+    "aria-controls": `simple-tabpanel-${tab}`,
   };
 }
 
@@ -15,9 +15,7 @@ interface TabPanelProps {
 }
 
 export function TabPanel(props: TabPanelProps) {
-  const {
-    children, value, index, ...other
-  } = props;
+  const { children, value, index, ...other } = props;
 
   return (
     <div

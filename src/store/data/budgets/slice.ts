@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
-import lowerCase from 'lodash/lowerCase';
+import { createSlice } from "@reduxjs/toolkit";
+import lowerCase from "lodash/lowerCase";
 import {
   addModelsToList,
   addModelToList,
   allObjectsExcept,
   modelById,
   modelByName,
-} from '../..';
-import { Budget, BudgetState } from './types';
-import { BUDGET_ROOT_NAME } from '../../../api/constants';
-import { getRootBudget } from './utils';
+} from "../..";
+import { Budget, BudgetState } from "./types";
+import { BUDGET_ROOT_NAME } from "../../../api/constants";
+import { getRootBudget } from "./utils";
 
 export const initialState: BudgetState = {
   list: [],
@@ -19,7 +19,7 @@ export const initialState: BudgetState = {
   lastFetch: null,
 };
 
-export const sliceKey = 'budget';
+export const sliceKey = "budget";
 const budgetSlice = createSlice({
   name: sliceKey,
   initialState,
