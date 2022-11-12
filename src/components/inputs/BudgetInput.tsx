@@ -3,7 +3,7 @@ import { useController, useFormContext } from "react-hook-form";
 import { Autocomplete, Grid, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 import capitalize from "lodash/capitalize";
-import { Budget, selectBudgetList } from "../../../store";
+import { Budget, selectBudgetList } from "../../store";
 
 interface Props {
   name?: string;

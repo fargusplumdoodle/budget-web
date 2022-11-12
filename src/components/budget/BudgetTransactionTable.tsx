@@ -1,12 +1,10 @@
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import { Box, LinearProgress } from "@mui/material";
-import PaginatedTransactionsTable from "../transactions_legacy/transactions_table/PaginatedTransactionsTable";
-import { removeFromValuesList, updateValuesList } from "../../util/state";
 import api from "../../api";
 import ApiErrorDialog, { ApiError } from "../ApiErrorDialog";
-import { Transaction } from "../../store/data/transactions/types";
-import { Budget } from "../../store/data/budgets/types";
+import { Budget, Transaction } from "../../store";
+import { TransactionList } from "../transactions";
 
 interface Props {
   budget: Budget;
@@ -39,20 +37,7 @@ const BudgetTransactionTable: FunctionComponent<Props> = ({ budget }) => {
           <LinearProgress />
         </Box>
       ) : (
-        <PaginatedTransactionsTable
-          showBudget={false}
-          transactions={transactions}
-          onUpdateCallback={(trans: Transaction) =>
-            updateValuesList<Transaction>(trans, transactions, setTransactions)
-          }
-          onDeleteCallback={(trans: Transaction) => {
-            removeFromValuesList<Transaction>(
-              trans,
-              transactions,
-              setTransactions
-            );
-          }}
-        />
+        <TransactionList transactions={transactions} />
       )}
 
       <ApiErrorDialog

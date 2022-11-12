@@ -3,8 +3,8 @@ import React, { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTransparent } from "@fargusplumdoodle/themes/dist/util";
 import { links } from "./constants";
-import NavigationBudgetTree from "../budget/NavigationBudgetTree";
-import useRoute from "../../hooks/useRoute";
+import NavigationBudgetTree from "../../budget/NavigationBudgetTree";
+import useRoute from "../../../hooks/useRoute";
 
 const GradientBox = styled(Grid)(({ theme }) => ({
   background: `linear-gradient(0deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,

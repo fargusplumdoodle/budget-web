@@ -1,11 +1,10 @@
-import { ROUTES } from "../../app/AppRoutes";
+import { ROUTES } from "../../../app/AppRoutes";
 
 export const links = [
   ROUTES.DASHBOARD,
-  ROUTES.TRANSACTIONS_ADD,
+  ROUTES.TRANSFER,
   ROUTES.TRANSACTIONS_LIST,
   ROUTES.BUDGET_LIST,
-  ROUTES.QUERY,
   ROUTES.SETTINGS,
 ];
 

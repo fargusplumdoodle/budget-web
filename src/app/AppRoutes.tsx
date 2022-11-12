@@ -4,7 +4,7 @@ import { FunctionComponent } from "react";
 import {
   Dashboard,
   Settings,
-  Add,
+  CompareArrows,
   List,
   AttachMoney,
   TrendingUp,
@@ -17,12 +17,11 @@ import InitLoading from "../components/InitLoading";
 import {
   DashboardPage,
   BudgetsPage,
-  AddTransactionsPage,
+  TransferPage,
   TransactionsPage,
   UserInfoPage,
   BudgetDetailPage,
 } from "../views";
-import QueryView from "../views/QueryView";
 
 export type RouteType = {
   path: string;
@@ -39,23 +38,17 @@ export const ROUTES: { [name: string]: RouteType } = {
     icon: Dashboard,
   },
   AUTH_CALLBACK: { path: "/auth/callback", element: <Callback /> },
-  QUERY: {
-    path: "/transactions/query",
-    element: <QueryView />,
-    title: "Query",
-    icon: Search,
-  },
   TRANSACTIONS_LIST: {
     path: "/transactions/list",
     element: <TransactionsPage />,
     title: "Transactions",
     icon: List,
   },
-  TRANSACTIONS_ADD: {
-    path: "/transactions/add",
-    element: <AddTransactionsPage />,
-    title: "Add Transactions",
-    icon: Add,
+  TRANSFER: {
+    path: "/transactions/transfer",
+    element: <TransferPage />,
+    title: "Transfer",
+    icon: CompareArrows,
   },
   TRANSACTION_REPORT: {
     path: "/transactions/reports",

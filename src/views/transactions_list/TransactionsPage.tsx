@@ -1,15 +1,13 @@
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
-import Card from "@mui/material/Card";
 import { Box, LinearProgress } from "@mui/material";
-import PaginatedTransactionsTable from "../../components/transactions_legacy/transactions_table/PaginatedTransactionsTable";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
 import api from "../../api";
 import ApiErrorDialog, { ApiError } from "../../components/ApiErrorDialog";
 import QueryForm from "../../components/query";
 import { Expression } from "../../components/query/types";
 import { getQueryParametersFromExpressions } from "../../api/util";
-import { Transaction } from "../../store/data/transactions/types";
+import { Transaction } from "../../store/";
 import { TransactionList } from "../../components/transactions";
 
 interface Props {}

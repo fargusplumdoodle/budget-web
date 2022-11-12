@@ -5,11 +5,11 @@ import { cloneDeep } from "lodash";
 import { Button, Grid } from "@mui/material";
 import { transactionSchema } from "../../../util/form";
 import budgets from "../../../__fixtures__/budgets";
-import TagInput from "../inputs/TagInput";
-import BudgetInput from "../inputs/BudgetInput";
-import AmountInput from "../inputs/AmountInput";
-import DescriptionInput from "../inputs/DescriptionInput";
-import DateInput from "../inputs/DateInput";
+import TagInput from "../../inputs/TagInput";
+import BudgetInput from "../../inputs/BudgetInput";
+import AmountInput from "../../inputs/AmountInput";
+import DescriptionInput from "../../inputs/DescriptionInput";
+import DateInput from "../../inputs/DateInput";
 import { Transaction } from "../../../store";
 
 interface Props {

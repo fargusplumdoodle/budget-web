@@ -1,8 +1,8 @@
 import * as React from "react";
 import Header from "../components/navigation/Header";
 import "./App.css";
-import AppRoutes from "./AppRoutes";
 import { Grid, styled } from "@mui/material";
+import AppRoutes from "./AppRoutes";
 import ResponsiveDrawer from "../components/navigation/ResponsiveDrawer";
 
 const Content = styled(Grid)(({ theme }) => ({

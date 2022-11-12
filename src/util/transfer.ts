@@ -1,4 +1,4 @@
-import { TransferFormData } from "../components/forms/transaction_legacy/TransferForm";
+import { TransferFormData } from "../components/forms/TransferForm";
 import { store } from "../store/configureStore";
 import { Transaction } from "../store/data/transactions/types";
 import { selectTagByName } from "../store";

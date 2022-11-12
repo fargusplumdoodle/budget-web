@@ -11,7 +11,7 @@ import { Add } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { getMuiFilledInputStyles } from "@fargusplumdoodle/themes";
 import capitalize from "lodash/capitalize";
-import { selectTagList, Tag } from "../../../store";
+import { selectTagList, Tag } from "../../store";
 
 interface Props {}
 

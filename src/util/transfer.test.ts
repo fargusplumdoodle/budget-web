@@ -1,7 +1,7 @@
 import { loadBudgetsSuccess } from "../store/actions/budgetActions";
 import { loadTagsSuccess } from "../store/actions/tagActions";
 import { store } from "../store/configureStore";
-import { TransferFormData } from "../components/forms/transaction_legacy/TransferForm";
+import { TransferFormData } from "../components/forms/TransferForm";
 import { createTransferTransactions } from "./transfer";
 import {
   generateTestBudget,

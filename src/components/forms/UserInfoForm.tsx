@@ -3,12 +3,8 @@ import { connect } from "react-redux";
 import { Button, Stack } from "@mui/material";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormItem, userInfoSchema } from "../../../util/form";
-import {
-  RootState,
-  selectUserSettings,
-  UserSettingsState,
-} from "../../../store";
+import { FormItem, userInfoSchema } from "../../util/form";
+import { RootState, selectUserSettings, UserSettingsState } from "../../store";
 import AmountInput from "../inputs/AmountInput";
 
 const classes = {
