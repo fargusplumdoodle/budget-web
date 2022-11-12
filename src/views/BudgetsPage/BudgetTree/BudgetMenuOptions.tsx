@@ -1,57 +1,71 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { FunctionComponent } from 'react';
-import { MoreVert } from '@mui/icons-material';
-import { IconButton, Typography } from '@mui/material';
-import { Budget } from '../../../store';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { FunctionComponent } from "react";
+import { MoreVert } from "@mui/icons-material";
+import { IconButton, Typography } from "@mui/material";
+import { Budget, selectBudgetByName } from "../../../store";
+import { routeWithId } from "../../../util/routing";
+import { ROUTES } from "../../../app/AppRoutes";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 interface Props {
   budgetName: string;
 }
 
 const BudgetMenuOptions: FunctionComponent<Props> = ({ budgetName }) => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const budget = useSelector(selectBudgetByName(budgetName));
+  const buttonId = "budget-menu";
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleEdit = () => {
+    handleClose();
+  };
+
+  const handleViewBudgetPage = () => {
+    handleClose();
+    navigate(routeWithId(ROUTES.BUDGET_DETAIL.path, budget.id!));
   };
 
   return (
     <>
       <IconButton
-        id="demo-positioned-button"
-        aria-controls={open ? 'demo-positioned-menu' : undefined}
+        id={buttonId}
+        aria-controls={open ? buttonId : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
+        aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
         <MoreVert />
       </IconButton>
       <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
+        aria-labelledby={buttonId}
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
       >
-        <MenuItem onClick={handleClose}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>View</MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Typography color="error">Delete</Typography>
-        </MenuItem>
+        <MenuItem onClick={handleEdit}>Edit</MenuItem>
+        <MenuItem onClick={handleViewBudgetPage}>View</MenuItem>
       </Menu>
     </>
   );
