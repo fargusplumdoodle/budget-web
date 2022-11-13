@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { TreeItemContentProps, useTreeItem } from "@mui/lab";
+import { Warning } from "@mui/icons-material";
 import React from "react";
 import clsx from "clsx";
 import { Grid, Typography } from "@mui/material";
@@ -71,6 +72,7 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
         onClick(event);
       }
     };
+    const showWarning = !!spent && !!allocated && spent < allocated;
 
     // @ts-ignore
     return (
@@ -102,11 +104,24 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
         >
           <Grid
             item
-            component={Typography}
-            variant="body2"
+            container
+            alignItems="center"
+            wrap="nowrap"
+            justifyContent="flex-start"
             sx={{ flexGrow: 1, paddingRight: 1 }}
+            gap={1}
           >
-            {capitalize(budgetName)}
+            <Grid item component={Typography} variant="body2">
+              {capitalize(budgetName)}
+            </Grid>
+            {showWarning && (
+              <Grid
+                item
+                component={Warning}
+                sx={(theme) => ({ color: theme.palette.warning.main })}
+                fontSize="small"
+              />
+            )}
           </Grid>
           <Grid
             item
