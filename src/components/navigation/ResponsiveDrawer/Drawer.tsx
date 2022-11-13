@@ -14,6 +14,7 @@ const GradientBox = styled(Grid)(({ theme }) => ({
 
 const Container = styled(Grid)(() => ({
   height: "100%",
+  borderRadius: 0,
 }));
 
 const Content = styled(Grid)(({ theme }) => ({

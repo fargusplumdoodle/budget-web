@@ -5,7 +5,6 @@ export const links = [
   ROUTES.TRANSFER,
   ROUTES.TRANSACTIONS_LIST,
   ROUTES.BUDGET_LIST,
-  ROUTES.SETTINGS,
 ];
 
 export const DRAWER_WIDTH = 248;

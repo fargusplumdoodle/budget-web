@@ -1,5 +1,5 @@
 import * as React from "react";
-import Header from "../components/navigation/Header";
+import { Header } from "../components/navigation/Header";
 import "./App.css";
 import { Grid, styled } from "@mui/material";
 import AppRoutes from "./AppRoutes";
