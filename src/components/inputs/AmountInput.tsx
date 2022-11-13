@@ -48,9 +48,9 @@ const AmountInput: FunctionComponent<Props> = () => {
             fullWidth
             sx={{
               "& input": {
-                "-moz-appearance": "textfield",
-                "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
-                  "-webkit-appearance": "none",
+                MozAppearance: "textfield",
+                "&::WebkitOuterSpinButton, &::WebkitInnerSpinButton": {
+                  WebkitAppearance: "none",
                 },
               },
             }}
