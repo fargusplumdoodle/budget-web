@@ -38,7 +38,6 @@ const Header: FunctionComponent<HeaderProps> = () => {
               aria-label="open drawer"
               edge="start"
               onClick={() => dispatch(toggleMobileDrawer())}
-              sx={{ display: { sm: "none" } }}
             >
               <MenuIcon />
             </Grid>
