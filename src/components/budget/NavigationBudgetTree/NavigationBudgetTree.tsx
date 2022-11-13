@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useMemo } from "react";
 import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -20,7 +20,7 @@ const NavigationBudgetTree: FunctionComponent = () => {
   const budgets = useSelector(selectBudgetList)!;
   const currentRouteId =
     currentRoute!.path === ROUTES.BUDGET_DETAIL.path && getCurrentRouteId();
-  const defaultExpanded = getNodeBudgetIds(budgets);
+  const defaultExpanded = useMemo(() => getNodeBudgetIds(budgets), [budgets]);
 
   return (
     <TreeView
@@ -28,7 +28,7 @@ const NavigationBudgetTree: FunctionComponent = () => {
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
       selected={currentRouteId || ""}
-      defaultExpanded={defaultExpanded}
+      expanded={defaultExpanded}
       onNodeFocus={(_: any, nodeId: string) =>
         navigate(routeWithId(ROUTES.BUDGET_DETAIL.path, nodeId))
       }

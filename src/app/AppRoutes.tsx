@@ -8,7 +8,6 @@ import {
   List,
   AttachMoney,
   TrendingUp,
-  Search,
 } from "@mui/icons-material";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
@@ -17,10 +16,10 @@ import InitLoading from "../components/InitLoading";
 import {
   DashboardPage,
   BudgetsPage,
-  TransferPage,
   TransactionsPage,
   UserInfoPage,
   BudgetDetailPage,
+  TransferPage,
 } from "../views";
 
 export type RouteType = {

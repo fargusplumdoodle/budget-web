@@ -11,7 +11,7 @@ function BudgetTree() {
   const rootBudget = useSelector(selectBudgetRoot);
   return (
     <TreeView
-      aria-label="budget navigation"
+      aria-label="budget tree"
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
       defaultExpanded={[rootBudget!.id!.toString()]}
