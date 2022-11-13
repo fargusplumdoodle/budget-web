@@ -1,14 +1,14 @@
 import { SerializedReport } from "../../api/report";
-import { SpentThisPeriod } from "./BudgetPageContext";
+import { SpentThisPeriodReport } from "../../store";
 
 export const deserializeReportData = ({
   data: serializedReportData,
-}: SerializedReport): SpentThisPeriod => {
+}: SerializedReport): SpentThisPeriodReport => {
   const flattenReport = (
-    acc: SpentThisPeriod,
+    acc: SpentThisPeriodReport,
     [id, reportData]: [string, number[]]
   ) => {
-    acc[parseInt(id)] = reportData[0];
+    acc![parseInt(id)] = reportData[0];
     return acc;
   };
 

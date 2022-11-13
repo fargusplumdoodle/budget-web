@@ -7,8 +7,8 @@ import {
 } from "../../api/report";
 
 interface Props {
-  analysisPeriod: RelativeTimeBucketOption;
-  setAnalysisPeriod: (analysisPeriod: RelativeTimeBucketOption) => void;
+  analysisPeriod: RelativeTimeBucket;
+  setAnalysisPeriod: (analysisPeriod: RelativeTimeBucket) => void;
 }
 
 const BudgetsPageHeader: FunctionComponent<Props> = ({
@@ -35,7 +35,7 @@ const BudgetsPageHeader: FunctionComponent<Props> = ({
         component={Autocomplete}
         disablePortal
         disableClearable
-        value={analysisPeriod}
+        value={RELATIVE_TIME_BUCKETS_OPTIONS[analysisPeriod]}
         id="time-period-select"
         options={Object.values(RELATIVE_TIME_BUCKETS_OPTIONS)}
         sx={(theme) => ({
@@ -44,7 +44,7 @@ const BudgetsPageHeader: FunctionComponent<Props> = ({
             display: "none",
           },
         })}
-        onChange={(_e, option: any) => setAnalysisPeriod(option)}
+        onChange={(_e, option: any) => setAnalysisPeriod(option.value)}
         renderInput={(params) => (
           <TextField {...params} label="Analysis Period" />
         )}

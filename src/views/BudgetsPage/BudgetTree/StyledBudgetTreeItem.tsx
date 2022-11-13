@@ -12,7 +12,7 @@ type StyledTreeItemProps = TreeItemProps & {
   budgetName: string;
   balance: number;
   allocated: number | null;
-  spent: number;
+  spent: number | null;
   averageSpent: number | null;
 };
 

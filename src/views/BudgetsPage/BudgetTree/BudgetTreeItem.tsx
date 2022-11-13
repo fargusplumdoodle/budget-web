@@ -1,8 +1,13 @@
-import React, { FunctionComponent, useContext } from "react";
-import { Budget, getBudgetChildren } from "../../../store";
-import BudgetsPageContext from "../BudgetPageContext";
+import React, { FunctionComponent } from "react";
+import {
+  Budget,
+  getBudgetChildren,
+  selectAnalysisPeriod,
+  selectBudgetPageSpendingReportByAnalysisPeriod,
+} from "../../../store";
 import { adaptMonthlyValue } from "./utils";
 import StyledBudgetTreeItem from "./StyledBudgetTreeItem";
+import { useSelector } from "react-redux";
 
 interface Props {
   budget: Budget;
@@ -11,15 +16,17 @@ interface Props {
 
 const BudgetTreeItem: FunctionComponent<Props> = ({ budget, budgets }) => {
   const children = getBudgetChildren(budget, budgets);
-  const { analysisPeriod, spentThisPeriod } = useContext(BudgetsPageContext);
-  const allocated = adaptMonthlyValue(
-    budget.monthlyAllocation,
-    analysisPeriod.value
+  const analysisPeriod = useSelector(selectAnalysisPeriod);
+  const spentThisPeriod = useSelector(
+    selectBudgetPageSpendingReportByAnalysisPeriod(analysisPeriod)
   );
+
+  const allocated = adaptMonthlyValue(budget.monthlyAllocation, analysisPeriod);
   const averageSpent = adaptMonthlyValue(
     budget.outcome_per_month,
-    analysisPeriod.value
+    analysisPeriod
   );
+  const spent = spentThisPeriod ? spentThisPeriod[budget.id!] : null;
 
   return (
     <StyledBudgetTreeItem
@@ -27,7 +34,7 @@ const BudgetTreeItem: FunctionComponent<Props> = ({ budget, budgets }) => {
       budgetName={budget.name}
       balance={budget.balance}
       allocated={allocated}
-      spent={spentThisPeriod[budget.id!]}
+      spent={spent}
       averageSpent={averageSpent}
     >
       {children.map((child) => (

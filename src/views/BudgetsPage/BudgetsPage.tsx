@@ -2,13 +2,11 @@ import * as React from "react";
 import { Card, CircularProgress, Grid } from "@mui/material";
 import BudgetTree from "./BudgetTree";
 import BudgetTreeTableHeader from "./BudgetTree/BudgetTreeTableHeader";
-import BudgetsPageContext from "./BudgetPageContext";
 import useBudgetsPage from "./useBudgetsPage";
 import BudgetsPageHeader from "./BudgetsPageHeader";
 
 const BudgetsPage: React.FC = function () {
-  const { context, loading, analysisPeriod, setAnalysisPeriod } =
-    useBudgetsPage();
+  const { loading, analysisPeriod, setAnalysisPeriod } = useBudgetsPage();
 
   if (loading)
     return (
@@ -34,9 +32,7 @@ const BudgetsPage: React.FC = function () {
         />
         <Grid item>
           <BudgetTreeTableHeader />
-          <BudgetsPageContext.Provider value={context}>
-            <BudgetTree />
-          </BudgetsPageContext.Provider>
+          <BudgetTree />
         </Grid>
       </Grid>
     </Card>
