@@ -11,6 +11,7 @@ import AmountInput from "../../inputs/AmountInput";
 import TextInput from "../../inputs/TextInput";
 import DateInput from "../../inputs/DateInput";
 import { Transaction } from "../../../store";
+import {getDefaultFormValues} from "./utils";
 
 interface Props {
   transaction: Transaction | null;
@@ -27,18 +28,7 @@ const TransactionForm: FunctionComponent<Props> = ({
 }) => {
   const formMethods = useForm({
     resolver: yupResolver(transactionSchema),
-    defaultValues: transaction
-      ? cloneDeep(transaction)
-      : {
-          id: null,
-          amount: 0,
-          description: "",
-          budget: budgets.byName["food"],
-          date: new Date(),
-          income: false,
-          transfer: false,
-          tags: [],
-        },
+    defaultValues: getDefaultFormValues(transaction),
     mode: "onSubmit",
   });
 
