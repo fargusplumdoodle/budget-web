@@ -58,8 +58,8 @@ const AllocationInput: FunctionComponent<Props> = ({
   }) => {
     const newValue = getValue(inputValue);
     const monthlyValue = valueToMonthly(newValue, allocationPeriodValue);
-    onChangeProp(monthlyValue);
-    console.log({ newValue, monthlyValue });
+    const roundedValue = Math.round(monthlyValue);
+    onChangeProp(roundedValue);
   };
 
   const handleAllocationPeriodChange = (

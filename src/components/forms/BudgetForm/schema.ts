@@ -3,15 +3,7 @@ import { selectBudgetByName, store } from "../../../store";
 
 export const budgetFormSchema = yup
   .object({
-    name: yup
-      .string()
-      .max(20)
-      .test(
-        "name is unique",
-        "Budget Name must be unique",
-        (value) => !selectBudgetByName(value!)(store.getState())
-      )
-      .required(),
+    name: yup.string().max(20).required(),
     monthlyAllocation: yup.number().positive().integer().required(),
     parent: yup.object().required(),
   })

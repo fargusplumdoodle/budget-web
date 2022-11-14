@@ -1,8 +1,6 @@
 import { BudgetFormType } from "./type";
 import { Budget, selectBudgetRoot, store } from "../../../store";
 import { cloneDeep } from "lodash";
-import { TimeBuckets } from "../../../api/report";
-import { valueToMonthly } from "../../../reports";
 
 export const budgetFormFromBudget = ({
   id,
@@ -27,14 +25,14 @@ export const getInitialBudgetFormValues = (): BudgetFormType => {
   };
 };
 
-export const getDefaultFormValues = (budget: Budget | null) =>
-  budget ? budgetFormFromBudget(budget) : getInitialBudgetFormValues();
+export const getDefaultFormValues = (budget: Budget | null) => {
+  return budget ? budgetFormFromBudget(budget) : getInitialBudgetFormValues();
+};
 
 export const budgetFromBudgetForm = ({
   id,
   name,
-  allocation,
-  allocationPeriod,
+  monthlyAllocation,
   parent,
 }: BudgetFormType): Budget => ({
   id,

@@ -11,7 +11,7 @@ import { createTransaction } from "../../api/endpoints/transaction";
 import { createTransferTransactions } from "../../util/transfer";
 import { Transaction, Budget, selectBudgetList } from "../../store";
 import BudgetInput from "../inputs/BudgetInput";
-import DescriptionInput from "../inputs/DescriptionInput";
+import TextInput from "../inputs/TextInput";
 import { AmountInput } from "../inputs";
 
 interface Props extends ProviderContext {
@@ -85,7 +85,7 @@ const TransferForm: FunctionComponent<Props> = (props) => {
             }}
           >
             <AmountInput />
-            <DescriptionInput />
+            <TextInput fieldName="description" label="Description" />
             <BudgetInput name="fromBudget" />
             <BudgetInput name="toBudget" />
             <Button sx={{ width: "100%" }} type="submit" disabled={loading}>

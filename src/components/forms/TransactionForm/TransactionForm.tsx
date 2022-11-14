@@ -8,7 +8,7 @@ import budgets from "../../../__fixtures__/budgets";
 import TagInput from "../../inputs/TagInput";
 import BudgetInput from "../../inputs/BudgetInput";
 import AmountInput from "../../inputs/AmountInput";
-import DescriptionInput from "../../inputs/DescriptionInput";
+import TextInput from "../../inputs/TextInput";
 import DateInput from "../../inputs/DateInput";
 import { Transaction } from "../../../store";
 
@@ -56,7 +56,7 @@ const TransactionForm: FunctionComponent<Props> = ({
             <AmountInput />
           </Grid>
           <Grid item>
-            <DescriptionInput />
+            <TextInput fieldName="description" label="Description" />
           </Grid>
           <Grid item>
             <DateInput />

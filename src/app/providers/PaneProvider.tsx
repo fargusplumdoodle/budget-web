@@ -15,7 +15,7 @@ const Pane = styled(Dialog)(() => ({
   },
 }));
 const PaneContent = styled(DialogContent)(() => ({
-  width: 360 - 1,
+  width: 360 - 24,
   height: "100vh",
 }));
 

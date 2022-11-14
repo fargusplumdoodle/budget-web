@@ -3,7 +3,7 @@ import { PanesState } from "./types";
 import { Budget, Transaction } from "../../data";
 
 export const initialState: PanesState = {
-  current: "budget",
+  current: null,
   transaction: null,
   budget: null,
 };

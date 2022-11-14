@@ -3,33 +3,37 @@ import { FormHelperText, Grid, TextField } from "@mui/material";
 import { useController, useFormContext } from "react-hook-form";
 import capitalize from "lodash/capitalize";
 
-interface Props {}
+interface Props {
+  fieldName: string;
+  label: string;
+}
 
-const DescriptionInput: FunctionComponent<Props> = () => {
+const TextInput: FunctionComponent<Props> = ({ fieldName, label }) => {
   const {
     formState: { errors },
   } = useFormContext();
   const {
     field: { value, onChange },
-  } = useController({ name: "description" });
+  } = useController({ name: fieldName });
+  console.log("text input", { value, errors });
 
   return (
     <>
       <Grid container wrap="nowrap" gap={1}>
         <TextField
           fullWidth
-          label="Description"
+          label={label}
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
       </Grid>
       {!!errors.tags && (
         <FormHelperText error>
-          {capitalize((errors.description?.message as string) || "")}
+          {capitalize((errors[fieldName]?.message as string) || "")}
         </FormHelperText>
       )}
     </>
   );
 };
 
-export default DescriptionInput;
+export default TextInput;
