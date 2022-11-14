@@ -45,18 +45,6 @@ export const transactionSearchSchema = yup
   })
   .required();
 
-export const tagSchema = yup.object({
-  name: yup
-    .string()
-    .max(30)
-    .test(
-      "name is unique",
-      "Tag Name must be unique",
-      (value) => !selectTagByName(value!)(store.getState())
-    )
-    .required(),
-});
-
 export const incomeSchema = yup
   .object({
     amount: yup.number().min(0.01).required(),

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card } from "@mui/material";
 import { useDispatch } from "react-redux";
 import UserInfoForm from "../components/forms/UserInfoForm";
-import ApiErrorDialog, { ApiError } from "../components/ApiErrorDialog";
+import { ApiErrorDialog, ApiError } from "../components";
 import { updateUserSettings, UserSettingsState } from "../store";
 
 const classes = {

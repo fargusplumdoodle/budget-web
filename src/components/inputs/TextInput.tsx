@@ -15,7 +15,6 @@ const TextInput: FunctionComponent<Props> = ({ fieldName, label }) => {
   const {
     field: { value, onChange },
   } = useController({ name: fieldName });
-  console.log("text input", { value, errors });
 
   return (
     <>

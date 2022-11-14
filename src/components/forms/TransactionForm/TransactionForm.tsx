@@ -11,7 +11,7 @@ import AmountInput from "../../inputs/AmountInput";
 import TextInput from "../../inputs/TextInput";
 import DateInput from "../../inputs/DateInput";
 import { Transaction } from "../../../store";
-import {getDefaultFormValues} from "./utils";
+import { getDefaultFormValues } from "./utils";
 
 interface Props {
   transaction: Transaction | null;
@@ -59,7 +59,7 @@ const TransactionForm: FunctionComponent<Props> = ({
                   color="error"
                   onClick={() => onDelete(transaction)}
                 >
-                  DELETE
+                  Delete
                 </Button>
               </Grid>
             )}

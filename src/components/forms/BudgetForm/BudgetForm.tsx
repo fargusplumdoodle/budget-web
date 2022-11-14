@@ -28,11 +28,8 @@ const BudgetForm: FunctionComponent<Props> = ({
 
   const handleSubmit = (budgetForm: BudgetFormType) => {
     const budget = budgetFromBudgetForm(budgetForm);
-    console.log("handleSubmit", { budget });
     onSubmit(budget);
   };
-
-  console.log("form errors", formMethods.formState.errors);
 
   return (
     <FormProvider {...formMethods}>

@@ -1,4 +1,4 @@
-import { selectBudgetByName, store, Transaction} from "../../../store";
+import { selectBudgetByName, store, Transaction } from "../../../store";
 import cloneDeep from "lodash/cloneDeep";
 
 export const getDefaultTransaction = () => {
@@ -16,5 +16,5 @@ export const getDefaultTransaction = () => {
 };
 
 export const getDefaultFormValues = (transaction: Transaction | null) => {
-  return transaction? cloneDeep(transaction) : getDefaultTransaction();
+  return transaction ? cloneDeep(transaction) : getDefaultTransaction();
 };

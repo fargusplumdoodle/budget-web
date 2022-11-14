@@ -2,7 +2,7 @@ import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import { Box, LinearProgress } from "@mui/material";
 import api from "../../api";
-import ApiErrorDialog, { ApiError } from "../ApiErrorDialog";
+import { ApiError, ApiErrorDialog } from "../";
 import { Budget, Transaction } from "../../store";
 import { TransactionList } from "../transactions";
 

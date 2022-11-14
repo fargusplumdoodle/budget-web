@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { Button, CircularProgress, Stack } from "@mui/material";
 import { ProviderContext, withSnackbar } from "notistack";
 import { FormItem, transferSchema } from "../../util/form";
-import ApiErrorDialog, { ApiError } from "../ApiErrorDialog";
+import { ApiError, ApiErrorDialog } from "../";
 import { createTransaction } from "../../api/endpoints/transaction";
 import { createTransferTransactions } from "../../util/transfer";
 import { Transaction, Budget, selectBudgetList } from "../../store";

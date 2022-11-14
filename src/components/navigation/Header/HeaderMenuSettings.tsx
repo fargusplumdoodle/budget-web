@@ -27,7 +27,6 @@ const HeaderMenuSettings: FunctionComponent<Props> = () => {
   };
 
   const handleOpenThemePane = () => {
-    console.log("opening theme pane");
     handleClose();
     dispatch(openThemePane());
   };

@@ -11,6 +11,7 @@ import { persistor, store } from "../../store";
 import DataProvider from "./DataProvider";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import TagDialogProvider from "./TagDialogProvider";
 
 type AppProviderProps = {
   children: ReactElement[] | ReactElement;
@@ -34,7 +35,7 @@ const AppProvider: React.FC<AppProviderProps> = function ({ children }) {
                   <DataProvider>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <PaneProvider />
-                      {children}
+                      <TagDialogProvider>{children}</TagDialogProvider>
                     </LocalizationProvider>
                   </DataProvider>
                 </AuthProvider>

@@ -3,7 +3,7 @@ import { FunctionComponent, useState } from "react";
 import { Box, LinearProgress } from "@mui/material";
 import { removeFromValuesList, updateValuesList } from "../../util/state";
 import api from "../../api";
-import ApiErrorDialog, { ApiError } from "../../components/ApiErrorDialog";
+import { ApiError, ApiErrorDialog } from "../../components";
 import QueryForm from "../../components/query";
 import { Expression } from "../../components/query/types";
 import { getQueryParametersFromExpressions } from "../../api/util";
