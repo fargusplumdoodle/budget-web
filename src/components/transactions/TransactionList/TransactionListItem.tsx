@@ -21,9 +21,7 @@ const TransactionListItem: FunctionComponent<Props> = ({ transaction }) => {
       <Grid
         container
         gap={1}
-        padding={1}
-        paddingTop={2}
-        paddingBottom={2}
+        p={2}
         direction="row"
         justifyContent="space-between"
         wrap="nowrap"
@@ -45,12 +43,13 @@ const TransactionListItem: FunctionComponent<Props> = ({ transaction }) => {
         <Grid
           item
           container
-          xs={2}
-          direction="column"
-          justifyContent="center"
-          alignItems="middle"
+          justifyContent="flex-end"
+          alignItems="center"
+          xs={1}
         >
-          <Typography variant="body1">{transaction.amount}</Typography>
+          <Typography variant="body1" textAlign="right">
+            {transaction.amount}
+          </Typography>
         </Grid>
       </Grid>
     </Background>
