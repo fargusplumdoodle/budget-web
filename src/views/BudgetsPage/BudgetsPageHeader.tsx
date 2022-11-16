@@ -44,8 +44,8 @@ const BudgetsPageHeader: FunctionComponent<Props> = ({
             display: "none",
           },
         })}
-        onChange={(_e, option: any) => setAnalysisPeriod(option.value)}
-        renderInput={(params) => (
+        onChange={(_e: any, option: any) => setAnalysisPeriod(option.value)}
+        renderInput={(params: any) => (
           <TextField {...params} label="Analysis Period" />
         )}
       />
