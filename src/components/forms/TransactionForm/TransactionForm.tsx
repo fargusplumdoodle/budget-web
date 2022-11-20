@@ -40,7 +40,7 @@ const TransactionForm: FunctionComponent<Props> = ({
             <TagInput />
           </Grid>
           <Grid item>
-            <BudgetInput />
+            <BudgetInput budgetFilter={(b) => !b.isNode} label="Budget" />
           </Grid>
           <Grid item>
             <AmountInput />

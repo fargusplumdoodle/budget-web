@@ -14,6 +14,7 @@ import { adaptMonthlyValue, valueToMonthly } from "../../reports";
 
 interface Props {
   fieldName?: string;
+  disabled?: boolean;
 }
 
 type AllocationPeriods =
@@ -32,6 +33,7 @@ const AllocationPeriodOptions = {
 
 const AllocationInput: FunctionComponent<Props> = ({
   fieldName = "monthlyAllocation",
+  disabled = false,
 }) => {
   const {
     formState: { errors },
@@ -93,6 +95,7 @@ const AllocationInput: FunctionComponent<Props> = ({
             value={textInput}
             onChange={(e) => setTextInput(e.target.value)}
             onBlur={() => onChange({})}
+            disabled={disabled}
           />
         </Grid>
         <Grid item xs>
@@ -115,6 +118,7 @@ const AllocationInput: FunctionComponent<Props> = ({
                 placeholder="Per"
               />
             )}
+            disabled={disabled}
             options={Object.values(AllocationPeriodOptions)}
           />
         </Grid>

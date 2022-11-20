@@ -6,9 +6,14 @@ import capitalize from "lodash/capitalize";
 interface Props {
   fieldName: string;
   label: string;
+  disabled?: boolean;
 }
 
-const TextInput: FunctionComponent<Props> = ({ fieldName, label }) => {
+const TextInput: FunctionComponent<Props> = ({
+  fieldName,
+  label,
+  disabled = false,
+}) => {
   const {
     formState: { errors },
   } = useFormContext();
@@ -24,6 +29,7 @@ const TextInput: FunctionComponent<Props> = ({ fieldName, label }) => {
           label={label}
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          disabled={disabled}
         />
       </Grid>
       {!!errors.tags && (
