@@ -4,11 +4,13 @@ import { Grid, Typography } from "@mui/material";
 interface Props {
   hideOnSmallScreen?: boolean;
   value: number | string | null;
+  color?: string;
 }
 
 const BudgetTreeTableValue: FunctionComponent<Props> = ({
   hideOnSmallScreen = false,
   value,
+  color = "text.main",
 }) => {
   const formattedValue = typeof value === "number" ? Math.round(value) : value;
   return (
@@ -17,6 +19,7 @@ const BudgetTreeTableValue: FunctionComponent<Props> = ({
       component={Typography}
       variant="caption"
       textAlign="center"
+      color={color}
       sx={(theme) => ({
         width: 100,
         [theme.breakpoints.down("sm")]: {

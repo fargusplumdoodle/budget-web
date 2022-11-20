@@ -11,8 +11,9 @@ import BudgetMenuOptions from "./BudgetMenuOptions";
 
 interface Props extends TreeItemContentProps {
   allocated: number | null;
-  averageSpent: number | null;
-  spent: number;
+  income: number | null;
+  outcome: number | null;
+  difference: number | null;
   balance: number;
   budgetName: string;
 }
@@ -47,8 +48,9 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
       // My props
       budgetName,
       allocated,
-      averageSpent,
-      spent,
+      income,
+      outcome,
+      difference,
       balance,
       ...other
     } = props;
@@ -72,7 +74,8 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
         onClick(event);
       }
     };
-    const showWarning = !!spent && !!allocated && spent < allocated;
+    const showWarning =
+      difference !== null && allocated !== null && difference < allocated;
 
     // @ts-ignore
     return (
@@ -137,8 +140,13 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
             })}
           >
             <BudgetTreeTableValue value={allocated} hideOnSmallScreen />
-            <BudgetTreeTableValue value={averageSpent} hideOnSmallScreen />
-            <BudgetTreeTableValue value={spent} hideOnSmallScreen />
+            <BudgetTreeTableValue value={income} hideOnSmallScreen />
+            <BudgetTreeTableValue value={outcome} hideOnSmallScreen />
+            <BudgetTreeTableValue
+              value={difference}
+              hideOnSmallScreen
+              color={difference > 0 ? "success.main" : "error.main"}
+            />
             <BudgetTreeTableValue value={balance} />
           </Grid>
         </Grid>

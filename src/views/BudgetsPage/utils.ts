@@ -1,11 +1,11 @@
 import { SerializedReport } from "../../api/report";
-import { SpentThisPeriodReport } from "../../store";
+import { BudgetFinancialReport } from "../../store";
 
 export const deserializeReportData = ({
   data: serializedReportData,
-}: SerializedReport): SpentThisPeriodReport => {
+}: SerializedReport): BudgetFinancialReport => {
   const flattenReport = (
-    acc: SpentThisPeriodReport,
+    acc: BudgetFinancialReport,
     [id, reportData]: [string, number[]]
   ) => {
     acc![parseInt(id)] = reportData[0];

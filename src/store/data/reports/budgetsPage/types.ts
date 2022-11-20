@@ -2,15 +2,17 @@ import { RelativeTimeBucketReport } from "../types";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RelativeTimeBucket } from "../../../../api/report";
 
-export type SpentThisPeriodReport = {
+export type BudgetFinancialReport = {
   [budgetId: number]: number;
 } | null;
 
 export type BudgetsPageReportState = {
-  spendingReport: RelativeTimeBucketReport<SpentThisPeriodReport>;
+  incomeReport: RelativeTimeBucketReport<BudgetFinancialReport>;
+  outcomeReport: RelativeTimeBucketReport<BudgetFinancialReport>;
 };
 
 export type SpendingReportPayloadAction = PayloadAction<{
   analysisPeriod: RelativeTimeBucket;
-  spentThisPeriod: SpentThisPeriodReport;
+  incomeReport?: BudgetFinancialReport;
+  outcomeReport?: BudgetFinancialReport;
 }>;

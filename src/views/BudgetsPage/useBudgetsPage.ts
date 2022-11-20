@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   loadSpendingReport,
   selectAnalysisPeriod,
-  selectBudgetPageSpendingReportByAnalysisPeriod,
+  selectBudgetPageState,
   setAnalysisPeriod,
 } from "../../store/";
 
@@ -15,31 +15,37 @@ const useBudgetsPage = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const analysisPeriod = useSelector(selectAnalysisPeriod);
-  const spentThisPeriod = useSelector(
-    selectBudgetPageSpendingReportByAnalysisPeriod(analysisPeriod)
-  );
 
-  const requestSpentThisPeriod = async (
-    relativeTimeBucket: RelativeTimeBucket
-  ) => {
-    const serializedReport = await relativeReport(
-      ReportTypes.BUDGET_DELTA,
+  const reports = useSelector(selectBudgetPageState);
+
+  const requestReports = async (relativeTimeBucket: RelativeTimeBucket) => {
+    const serializedIncomeReport = await relativeReport(
+      ReportTypes.BUDGET_INCOME,
+      relativeTimeBucket
+    );
+    const serializedOutcomeReport = await relativeReport(
+      ReportTypes.BUDGET_OUTCOME,
       relativeTimeBucket
     );
 
     dispatch(
       loadSpendingReport({
         analysisPeriod,
-        spentThisPeriod: deserializeReportData(serializedReport),
+        incomeReport: deserializeReportData(serializedIncomeReport),
+        outcomeReport: deserializeReportData(serializedOutcomeReport),
       })
     );
   };
 
   useEffect(() => {
-    if (spentThisPeriod) return;
+    if (
+      reports.incomeReport[analysisPeriod] &&
+      reports.outcomeReport[analysisPeriod]
+    )
+      return;
 
     setLoading(true);
-    requestSpentThisPeriod(analysisPeriod).then(() => {
+    requestReports(analysisPeriod).then(() => {
       setLoading(false);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

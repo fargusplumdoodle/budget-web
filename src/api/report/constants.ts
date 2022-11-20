@@ -83,15 +83,27 @@ export const ReportTypes: { [name: string]: ReportType } = {
     currency: true,
     multiple: true,
   },
-  TAG_DELTA: {
-    name: "tag_delta",
-    label: "Δ",
-    currency: true,
-    multiple: true,
-  },
   BUDGET_BALANCE: {
     name: "budget_balance",
     label: "balance",
+    currency: true,
+    multiple: true,
+  },
+  BUDGET_INCOME: {
+    name: "budget_income",
+    label: "balance",
+    currency: true,
+    multiple: true,
+  },
+  BUDGET_OUTCOME: {
+    name: "budget_outcome",
+    label: "balance",
+    currency: true,
+    multiple: true,
+  },
+  TAG_DELTA: {
+    name: "tag_delta",
+    label: "Δ",
     currency: true,
     multiple: true,
   },

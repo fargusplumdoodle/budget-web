@@ -2,13 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   BudgetsPageReportState,
   SpendingReportPayloadAction,
-  SpentThisPeriodReport,
+  BudgetFinancialReport,
 } from "./types";
 import { generateReportForEachRelativeTimeBucket } from "../utils";
 
 export const initialState: BudgetsPageReportState = {
-  spendingReport:
-    generateReportForEachRelativeTimeBucket<SpentThisPeriodReport>(null),
+  incomeReport:
+    generateReportForEachRelativeTimeBucket<BudgetFinancialReport>(null),
+  outcomeReport:
+    generateReportForEachRelativeTimeBucket<BudgetFinancialReport>(null),
 };
 
 export const sliceKey = "budgetPageReport";
@@ -20,8 +22,9 @@ const budgetPageReport = createSlice({
       state: BudgetsPageReportState,
       { payload }: SpendingReportPayloadAction
     ) {
-      const { analysisPeriod, spentThisPeriod } = payload;
-      state.spendingReport[analysisPeriod] = { ...spentThisPeriod };
+      const { analysisPeriod, incomeReport, outcomeReport } = payload;
+      if (incomeReport) state.incomeReport[analysisPeriod] = incomeReport;
+      if (outcomeReport) state.outcomeReport[analysisPeriod] = outcomeReport;
     },
   },
 });

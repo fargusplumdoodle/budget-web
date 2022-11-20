@@ -34,8 +34,9 @@ const BudgetTreeTableHeader: FunctionComponent = () => (
       })}
     >
       <BudgetTreeTableValue value="Allocated" hideOnSmallScreen />
-      <BudgetTreeTableValue value="Average Spending" hideOnSmallScreen />
-      <BudgetTreeTableValue value="Spent" hideOnSmallScreen />
+      <BudgetTreeTableValue value="Income" hideOnSmallScreen />
+      <BudgetTreeTableValue value="Outcome" hideOnSmallScreen />
+      <BudgetTreeTableValue value="+/-" hideOnSmallScreen />
       <BudgetTreeTableValue value="Balance" />
     </Grid>
     <Grid item component={IconButton} aria-label="menu" sx={{ width: 45 }} />
