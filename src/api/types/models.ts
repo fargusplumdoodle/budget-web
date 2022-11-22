@@ -26,6 +26,7 @@ export interface SerializedTag extends SerializedModel {
 export interface SerializedBudget extends SerializedModel {
   name: string;
   monthly_allocation: number;
+  recursive_monthly_allocation?: number;
   balance: number;
   user?: number;
   rank?: number;

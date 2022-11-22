@@ -75,7 +75,7 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
       }
     };
     const showWarning =
-      difference !== null && allocated !== null && difference < allocated;
+      difference !== null && allocated !== null && difference < 0 - allocated;
 
     // @ts-ignore
     return (
@@ -145,7 +145,7 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
             <BudgetTreeTableValue
               value={difference}
               hideOnSmallScreen
-              color={difference > 0 ? "success.main" : "error.main"}
+              color={difference >= 0 ? "success.main" : "error.main"}
             />
             <BudgetTreeTableValue value={balance} />
           </Grid>

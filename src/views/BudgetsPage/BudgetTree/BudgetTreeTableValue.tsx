@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Grid, Typography } from "@mui/material";
+import { formatCurrency } from "../../../util/formatters";
 
 interface Props {
   hideOnSmallScreen?: boolean;
@@ -12,7 +13,8 @@ const BudgetTreeTableValue: FunctionComponent<Props> = ({
   value,
   color = "text.main",
 }) => {
-  const formattedValue = typeof value === "number" ? Math.round(value) : value;
+  const formattedValue =
+    typeof value === "number" ? formatCurrency(value, false, false) : value;
   return (
     <Grid
       item

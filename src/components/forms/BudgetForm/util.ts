@@ -7,11 +7,13 @@ export const budgetFormFromBudget = ({
   name,
   monthlyAllocation,
   parent,
+  isNode,
 }: Budget): BudgetFormType => ({
   id,
   name,
   parent: cloneDeep(parent),
   monthlyAllocation,
+  isNode,
 });
 
 export const getInitialBudgetFormValues = (): BudgetFormType => {
@@ -22,6 +24,7 @@ export const getInitialBudgetFormValues = (): BudgetFormType => {
     name: "",
     monthlyAllocation: 0,
     parent: rootBudget,
+    isNode: false,
   };
 };
 
@@ -34,14 +37,16 @@ export const budgetFromBudgetForm = ({
   name,
   monthlyAllocation,
   parent,
+  isNode,
 }: BudgetFormType): Budget => ({
   id,
   name,
   monthlyAllocation,
+  recursiveMonthlyAllocation: isNode ? 0 : monthlyAllocation,
+  isNode,
   parent,
   parentId: parent!.id,
   balance: 0,
-  isNode: false,
-  income_per_month: 0,
   outcome_per_month: 0,
+  income_per_month: 0,
 });

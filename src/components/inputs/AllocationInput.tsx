@@ -15,6 +15,7 @@ import { adaptMonthlyValue, valueToMonthly } from "../../reports";
 interface Props {
   fieldName?: string;
   disabled?: boolean;
+  setToZeroOnDisabled?: boolean;
 }
 
 type AllocationPeriods =
@@ -34,6 +35,7 @@ const AllocationPeriodOptions = {
 const AllocationInput: FunctionComponent<Props> = ({
   fieldName = "monthlyAllocation",
   disabled = false,
+  setToZeroOnDisabled = false,
 }) => {
   const {
     formState: { errors },
@@ -70,6 +72,14 @@ const AllocationInput: FunctionComponent<Props> = ({
     setAllocationPeriod(newAllocationPeriod);
     onChange({ allocationPeriodValue: newAllocationPeriod });
   };
+
+  useEffect(() => {
+    if (disabled && setToZeroOnDisabled) {
+      setTextInput("0");
+      onChangeProp("0");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disabled, setToZeroOnDisabled]);
 
   return (
     <>

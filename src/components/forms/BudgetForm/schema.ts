@@ -6,5 +6,6 @@ export const budgetFormSchema = yup
     name: yup.string().max(20).required(),
     monthlyAllocation: yup.number().integer().required(),
     parent: yup.object().required(),
+    isNode: yup.boolean(),
   })
   .required();

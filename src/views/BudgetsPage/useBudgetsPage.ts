@@ -6,6 +6,7 @@ import { deserializeReportData } from "./utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadSpendingReport,
+  openBudgetPane,
   selectAnalysisPeriod,
   selectBudgetPageState,
   setAnalysisPeriod,
@@ -17,6 +18,8 @@ const useBudgetsPage = () => {
   const analysisPeriod = useSelector(selectAnalysisPeriod);
 
   const reports = useSelector(selectBudgetPageState);
+
+  const addBudget = () => dispatch(openBudgetPane(null));
 
   const requestReports = async (relativeTimeBucket: RelativeTimeBucket) => {
     const serializedIncomeReport = await relativeReport(
@@ -56,6 +59,7 @@ const useBudgetsPage = () => {
     analysisPeriod,
     setAnalysisPeriod: (newAnalysisPeriod: RelativeTimeBucket) =>
       dispatch(setAnalysisPeriod(newAnalysisPeriod)),
+    addBudget,
   };
 };
 

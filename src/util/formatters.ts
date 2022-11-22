@@ -2,12 +2,15 @@ import { Transaction } from "../store/data/transactions/types";
 
 export function formatCurrency(
   amount: number,
-  showCents: boolean = true
+  showCents: boolean = true,
+  showDollarSign: boolean = true
 ): string {
   return new Intl.NumberFormat("en-US", {
-    currency: "USD",
-    style: "currency",
     maximumFractionDigits: showCents ? 2 : 0,
+    ...(showDollarSign && {
+      currency: "USD",
+      style: "currency",
+    }),
   }).format(amount);
 }
 

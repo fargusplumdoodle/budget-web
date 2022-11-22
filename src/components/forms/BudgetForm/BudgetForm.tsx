@@ -1,7 +1,16 @@
 import React, { FunctionComponent } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useController, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, Button, Grid } from "@mui/material";
+import {
+  Alert,
+  Button,
+  CircularProgress,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  Switch,
+  Typography,
+} from "@mui/material";
 import { Budget } from "../../../store";
 import { budgetFromBudgetForm, getDefaultFormValues } from "./util";
 import { budgetFormSchema } from "./schema";
@@ -9,14 +18,18 @@ import { BudgetFormType } from "./type";
 import { AllocationInput, BudgetInput } from "../../inputs";
 import TextInput from "../../inputs/TextInput";
 import { BUDGET_ROOT_NAME } from "../../../api/constants";
+import IsNodeSwitchInput from "./IsNodeSwitchInput";
+import BudgetAllocationInput from "./BudgetAllocationInput";
 
 interface Props {
+  isNewBudget: boolean;
   budget: Budget | null;
   onSubmit: (budget: Budget) => void;
   loading: boolean;
 }
 
 const BudgetForm: FunctionComponent<Props> = ({
+  isNewBudget,
   budget,
   onSubmit,
   loading,
@@ -38,6 +51,25 @@ const BudgetForm: FunctionComponent<Props> = ({
       <FormProvider {...formMethods}>
         <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
           <Grid container direction="column" gap={1}>
+            <Grid
+              item
+              container
+              wrap="nowrap"
+              justifyContent="space-between"
+              alignItems="center"
+              marginBottom={1}
+            >
+              <Grid item component={Typography} variant="body1">
+                {isNewBudget ? "Edit" : "Add"} Budget
+              </Grid>
+              {loading ? (
+                <Grid item component={CircularProgress} size={24} />
+              ) : (
+                <Grid item component={Typography} variant="body1">
+                  <IsNodeSwitchInput disabled={!isNewBudget} />
+                </Grid>
+              )}
+            </Grid>
             {isRootBudget && (
               <Grid item component={Alert} severity="info">
                 The Root budget cannot be modified
@@ -51,7 +83,7 @@ const BudgetForm: FunctionComponent<Props> = ({
               />
             </Grid>
             <Grid item>
-              <AllocationInput disabled={budget?.isNode} />
+              <BudgetAllocationInput />
             </Grid>
             <Grid item>
               <BudgetInput

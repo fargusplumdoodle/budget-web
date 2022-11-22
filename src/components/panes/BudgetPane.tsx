@@ -40,27 +40,12 @@ const BudgetPane: FunctionComponent = () => {
   };
 
   return (
-    <Grid container gap={2}>
-      <Grid item container wrap="nowrap" justifyContent="space-between">
-        <Grid item component={Typography} variant="body1">
-          {initialBudget ? "Edit" : "Add"} Budget
-        </Grid>
-        {loading ? (
-          <Grid item component={CircularProgress} size={24} />
-        ) : (
-          <Grid item component={Typography} variant="body1">
-            {initialBudget?.id}
-          </Grid>
-        )}
-      </Grid>
-      <Grid item>
-        <BudgetForm
-          budget={initialBudget}
-          onSubmit={onSubmit}
-          loading={loading}
-        />
-      </Grid>
-    </Grid>
+    <BudgetForm
+      isNewBudget={!initialBudget?.id}
+      budget={initialBudget}
+      onSubmit={onSubmit}
+      loading={loading}
+    />
   );
 };
 

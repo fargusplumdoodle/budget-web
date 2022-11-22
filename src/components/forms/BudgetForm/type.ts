@@ -6,4 +6,5 @@ export interface BudgetFormType {
   name: string;
   monthlyAllocation: number;
   parent: Budget | null;
+  isNode: boolean;
 }

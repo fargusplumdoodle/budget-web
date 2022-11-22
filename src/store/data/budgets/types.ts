@@ -9,6 +9,7 @@ export interface Budget extends Model {
   isNode: boolean;
   income_per_month: number;
   outcome_per_month: number;
+  recursiveMonthlyAllocation?: number;
 }
 
 export interface BudgetState {

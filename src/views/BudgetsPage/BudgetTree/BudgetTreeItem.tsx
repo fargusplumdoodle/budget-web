@@ -33,7 +33,10 @@ const BudgetTreeItem: FunctionComponent<Props> = ({ budget, budgets }) => {
   const outcome = useSelector(
     selectBudgetPageOutcomeReport(analysisPeriod, budget)
   );
-  const allocated = adaptMonthlyValue(budget.monthlyAllocation, analysisPeriod);
+  const allocated = adaptMonthlyValue(
+    budget.recursiveMonthlyAllocation!,
+    analysisPeriod
+  );
   const difference = getDifference(income, outcome);
 
   return (
