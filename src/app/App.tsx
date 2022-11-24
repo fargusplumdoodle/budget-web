@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Header } from "../components/navigation/Header";
-import "./App.css";
 import { Grid, styled } from "@mui/material";
 import AppRoutes from "./AppRoutes";
 import ResponsiveDrawer from "../components/navigation/ResponsiveDrawer";
