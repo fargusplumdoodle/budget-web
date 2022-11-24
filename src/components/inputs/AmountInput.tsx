@@ -6,9 +6,9 @@ import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
-  Typography,
 } from "@mui/material";
-import { Add, Remove } from "@mui/icons-material";
+import Add from "@mui/icons-material/Add";
+import Remove from "@mui/icons-material/Remove";
 import { useController, useFormContext } from "react-hook-form";
 import capitalize from "lodash/capitalize";
 

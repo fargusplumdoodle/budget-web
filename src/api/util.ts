@@ -1,11 +1,10 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { round } from "lodash";
+import round from "lodash/round";
 import { store } from "../store/configureStore";
 import { PaginatedQueryParams, PaginatedResponse } from "./types";
 import { Expression } from "../components/query/types";
 import { checkAuth } from "./endpoints/auth";
 import { resetAuth, selectAuthState } from "../store";
-import parseISO from "date-fns/parseISO";
 
 export async function makeRequest(params: AxiosRequestConfig) {
   await checkAuth();

@@ -2,7 +2,7 @@ import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { FunctionComponent } from "react";
-import { MoreVert } from "@mui/icons-material";
+import MoreVert from "@mui/icons-material/MoreVert";
 import { IconButton } from "@mui/material";
 import { openBudgetPane, selectBudgetByName } from "../../../store";
 import { routeWithId } from "../../../util/routing";

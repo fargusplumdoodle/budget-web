@@ -2,7 +2,7 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Settings } from "@mui/icons-material";
+import Settings from "@mui/icons-material/Settings";
 import { IconButton, Typography } from "@mui/material";
 import { openThemePane, resetAuth } from "../../../store";
 import { ROUTES } from "../../../app/AppRoutes";

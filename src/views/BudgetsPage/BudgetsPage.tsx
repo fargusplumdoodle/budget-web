@@ -4,7 +4,7 @@ import BudgetTree from "./BudgetTree";
 import BudgetTreeTableHeader from "./BudgetTree/BudgetTreeTableHeader";
 import useBudgetsPage from "./useBudgetsPage";
 import BudgetsPageHeader from "./BudgetsPageHeader";
-import { Add } from "@mui/icons-material";
+import Add from "@mui/icons-material/Add";
 
 const BudgetsPage: React.FC = function () {
   const { loading, analysisPeriod, setAnalysisPeriod, addBudget } =

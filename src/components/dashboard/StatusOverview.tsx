@@ -2,7 +2,7 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import { Box, styled, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { sum } from "lodash";
+import sum from "lodash/sum";
 import { formatCurrency } from "../../util/formatters";
 import { EXPECTED_BUDGETS } from "../../app/settings";
 

@@ -1,14 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import * as React from "react";
 import { FunctionComponent } from "react";
-import {
-  Dashboard,
-  Settings,
-  CompareArrows,
-  List,
-  AttachMoney,
-  TrendingUp,
-} from "@mui/icons-material";
+import Dashboard from "@mui/icons-material/Dashboard";
+import Settings from "@mui/icons-material/Settings";
+import CompareArrows from "@mui/icons-material/CompareArrows";
+import List from "@mui/icons-material/List";
+import AttachMoney from "@mui/icons-material/AttachMoney";
+import TrendingUp from "@mui/icons-material/TrendingUp";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import Callback from "../components/auth/Callback";

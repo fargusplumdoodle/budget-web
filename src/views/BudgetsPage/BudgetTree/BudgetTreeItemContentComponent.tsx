@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { TreeItemContentProps, useTreeItem } from "@mui/lab";
-import { Warning } from "@mui/icons-material";
+import Warning from "@mui/icons-material/Warning ";
 import React from "react";
 import clsx from "clsx";
 import { Grid, Typography } from "@mui/material";

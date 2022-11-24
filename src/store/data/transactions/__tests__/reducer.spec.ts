@@ -1,4 +1,4 @@
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash/cloneDeep";
 import exampleTransactions from "../../../../__fixtures__/transactions";
 import reducer, {
   createTransaction,

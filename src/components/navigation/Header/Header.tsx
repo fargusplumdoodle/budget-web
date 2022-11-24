@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { ROUTES } from "../../../app/AppRoutes";
 import { openTransactionPane, toggleMobileDrawer } from "../../../store";
 import { useRoute } from "../../../hooks";
-import { AddCircle } from "@mui/icons-material";
+import AddCircle from "@mui/icons-material/AddCircle";
 import HeaderMenuSettings from "./HeaderMenuSettings";
 
 interface HeaderProps {}

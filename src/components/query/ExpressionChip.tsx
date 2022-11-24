@@ -1,4 +1,4 @@
-import { Cancel } from "@mui/icons-material";
+import Cancel from "@mui/icons-material/Cancel";
 import { Box, keyframes, styled, Typography } from "@mui/material";
 import * as React from "react";
 import { FunctionComponent } from "react";

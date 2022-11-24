@@ -1,6 +1,6 @@
 import { BudgetFormType } from "./type";
 import { Budget, selectBudgetRoot, store } from "../../../store";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash/cloneDeep";
 
 export const budgetFormFromBudget = ({
   id,

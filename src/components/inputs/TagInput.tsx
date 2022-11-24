@@ -7,7 +7,7 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import Add from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { getMuiFilledInputStyles } from "@fargusplumdoodle/themes";
 import capitalize from "lodash/capitalize";
