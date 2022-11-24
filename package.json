@@ -27,13 +27,12 @@
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.2.1",
-    "redux-thunk": "2.3.0",
     "sha1": "^1.1.1",
     "web-vitals": "^2.1.2",
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "vite",
+    "start": "vite --port 3000",
     "build": "tsc -p ./tsconfig.json && vite build",
     "preview": "vite preview",
     "test": "react-scripts test",
