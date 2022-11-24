@@ -1,16 +1,15 @@
 import * as React from "react";
 import { useState } from "react";
-import { Button, Card } from "@mui/material";
-import { ProviderContext, withSnackbar } from "notistack";
+import { Card } from "@mui/material";
 import { useDispatch } from "react-redux";
 import UserInfoForm from "../components/forms/UserInfoForm";
-import ApiErrorDialog, { ApiError } from "../components/ApiErrorDialog";
-import AuthButton from "../components/auth/AuthButton";
-import { UserSettingsState, openThemePane, updateUserSettings } from "../store";
+import { ApiErrorDialog, ApiError } from "../components";
+import { updateUserSettings, UserSettingsState } from "../store";
 
 const classes = {
   root: {
-    maxWidth: "500px",
+    borderRadius: 4,
+    p: 4,
   },
 };
 
@@ -27,8 +26,6 @@ const UserInfoPage: React.FC = function () {
       <Card sx={classes.root}>
         <UserInfoForm onSubmit={onSubmit} />
       </Card>
-      <Button onClick={() => dispatch(openThemePane())}>SET THEMES</Button>
-      <AuthButton sx={{ m: 4 }} />
       <ApiErrorDialog
         error={apiError}
         onClose={() => {

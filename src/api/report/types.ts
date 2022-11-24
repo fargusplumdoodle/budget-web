@@ -26,6 +26,15 @@ export enum RelativeTimeBucket {
   ALL_TIME = "all_time",
 }
 
+export const RelativeTimeBucketToTimeBucket = {
+  [RelativeTimeBucket.TODAY]: TimeBuckets.ONE_DAY,
+  [RelativeTimeBucket.THIS_WEEK]: TimeBuckets.ONE_WEEK,
+  [RelativeTimeBucket.THIS_MONTH]: TimeBuckets.ONE_MONTH,
+  [RelativeTimeBucket.THIS_QUARTER]: TimeBuckets.THREE_MONTHS,
+  [RelativeTimeBucket.THIS_YEAR]: TimeBuckets.ONE_YEAR,
+  [RelativeTimeBucket.ALL_TIME]: TimeBuckets.ONE_MONTH,
+};
+
 export interface RelativeTimeBucketOption {
   label: string;
   value: RelativeTimeBucket;

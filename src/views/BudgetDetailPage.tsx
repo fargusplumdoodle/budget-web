@@ -2,7 +2,7 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Card, Grid, Stack, SxProps, Typography } from "@mui/material";
-import { capitalize } from "lodash";
+import capitalize from "lodash/capitalize";
 import { formatCurrency } from "../util/formatters";
 import BudgetTransactionTable from "../components/budget/BudgetTransactionTable";
 import { selectBudgetById } from "../store";

@@ -7,16 +7,26 @@ import { Budget, selectBudgetList } from "../../store";
 
 interface Props {
   name?: string;
+  budgetFilter?: (budget: Budget) => boolean;
+  disabled?: boolean;
+  label?: string;
 }
 
-const BudgetInput: FunctionComponent<Props> = ({ name = "budget" }) => {
+const BudgetInput: FunctionComponent<Props> = ({
+  name = "budget",
+  budgetFilter,
+  disabled = false,
+  label = "Budgets",
+}) => {
   const {
     formState: { errors },
   } = useFormContext();
   const {
     field: { value, onChange },
   } = useController({ name });
+
   const budgets = useSelector(selectBudgetList);
+  const budgetOptions = budgetFilter ? budgets.filter(budgetFilter) : budgets;
 
   return (
     <Grid container wrap="nowrap" gap={1}>
@@ -32,14 +42,15 @@ const BudgetInput: FunctionComponent<Props> = ({ name = "budget" }) => {
         renderInput={(params: any) => (
           <TextField
             {...params}
-            label="Budgets"
+            label={label}
             fullWidth
             error={!!errors.message}
             helperText={errors ? errors.message : ""}
-            placeholder="Budgets"
+            placeholder={label}
           />
         )}
-        options={budgets}
+        disabled={disabled}
+        options={budgetOptions}
         getOptionLabel={(budget: Budget) => capitalize((budget as Budget).name)}
         isOptionEqualToValue={(option: Budget, budget: Budget) =>
           option.id === budget.id

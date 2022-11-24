@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { TreeItemContentProps, useTreeItem } from "@mui/lab";
+import Warning from "@mui/icons-material/Warning ";
 import React from "react";
 import clsx from "clsx";
 import { Grid, Typography } from "@mui/material";
@@ -10,8 +11,9 @@ import BudgetMenuOptions from "./BudgetMenuOptions";
 
 interface Props extends TreeItemContentProps {
   allocated: number | null;
-  averageSpent: number | null;
-  spent: number;
+  income: number | null;
+  outcome: number | null;
+  difference: number | null;
   balance: number;
   budgetName: string;
 }
@@ -46,8 +48,9 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
       // My props
       budgetName,
       allocated,
-      averageSpent,
-      spent,
+      income,
+      outcome,
+      difference,
       balance,
       ...other
     } = props;
@@ -71,6 +74,8 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
         onClick(event);
       }
     };
+    const showWarning =
+      difference !== null && allocated !== null && difference < 0 - allocated;
 
     // @ts-ignore
     return (
@@ -102,11 +107,24 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
         >
           <Grid
             item
-            component={Typography}
-            variant="body2"
+            container
+            alignItems="center"
+            wrap="nowrap"
+            justifyContent="flex-start"
             sx={{ flexGrow: 1, paddingRight: 1 }}
+            gap={1}
           >
-            {capitalize(budgetName)}
+            <Grid item component={Typography} variant="body2">
+              {capitalize(budgetName)}
+            </Grid>
+            {showWarning && (
+              <Grid
+                item
+                component={Warning}
+                sx={(theme) => ({ color: theme.palette.warning.main })}
+                fontSize="small"
+              />
+            )}
           </Grid>
           <Grid
             item
@@ -122,8 +140,13 @@ const BudgetTreeItemContentComponent = React.forwardRef<any, Props>(
             })}
           >
             <BudgetTreeTableValue value={allocated} hideOnSmallScreen />
-            <BudgetTreeTableValue value={averageSpent} hideOnSmallScreen />
-            <BudgetTreeTableValue value={spent} hideOnSmallScreen />
+            <BudgetTreeTableValue value={income} hideOnSmallScreen />
+            <BudgetTreeTableValue value={outcome} hideOnSmallScreen />
+            <BudgetTreeTableValue
+              value={difference}
+              hideOnSmallScreen
+              color={difference >= 0 ? "success.main" : "error.main"}
+            />
             <BudgetTreeTableValue value={balance} />
           </Grid>
         </Grid>

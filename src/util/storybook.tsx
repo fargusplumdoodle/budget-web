@@ -1,4 +1,4 @@
-import { range } from "lodash";
+import range from "lodash/range";
 import { generateTestTransaction } from "./generators/test_generators";
 import { Transaction } from "../store/data/transactions/types";
 

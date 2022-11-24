@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ReactElement } from "react";
-import { SnackbarProvider } from "notistack";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
@@ -11,6 +10,7 @@ import { persistor, store } from "../../store";
 import DataProvider from "./DataProvider";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import TagDialogProvider from "./TagDialogProvider";
 
 type AppProviderProps = {
   children: ReactElement[] | ReactElement;
@@ -23,22 +23,14 @@ const AppProvider: React.FC<AppProviderProps> = function ({ children }) {
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter>
             <BudgetThemeProvider>
-              <SnackbarProvider
-                maxSnack={3}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-              >
-                <AuthProvider>
-                  <DataProvider>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <PaneProvider />
-                      {children}
-                    </LocalizationProvider>
-                  </DataProvider>
-                </AuthProvider>
-              </SnackbarProvider>
+              <AuthProvider>
+                <DataProvider>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <PaneProvider />
+                    <TagDialogProvider>{children}</TagDialogProvider>
+                  </LocalizationProvider>
+                </DataProvider>
+              </AuthProvider>
             </BudgetThemeProvider>
           </BrowserRouter>
         </PersistGate>

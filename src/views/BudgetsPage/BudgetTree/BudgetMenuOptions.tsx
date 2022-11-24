@@ -2,19 +2,20 @@ import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { FunctionComponent } from "react";
-import { MoreVert } from "@mui/icons-material";
+import MoreVert from "@mui/icons-material/MoreVert";
 import { IconButton } from "@mui/material";
-import { selectBudgetByName } from "../../../store";
+import { openBudgetPane, selectBudgetByName } from "../../../store";
 import { routeWithId } from "../../../util/routing";
 import { ROUTES } from "../../../app/AppRoutes";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 interface Props {
   budgetName: string;
 }
 
 const BudgetMenuOptions: FunctionComponent<Props> = ({ budgetName }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -30,11 +31,10 @@ const BudgetMenuOptions: FunctionComponent<Props> = ({ budgetName }) => {
   };
 
   const handleEdit = () => {
-    handleClose();
+    dispatch(openBudgetPane(budget));
   };
 
   const handleViewBudgetPage = () => {
-    handleClose();
     navigate(routeWithId(ROUTES.BUDGET_DETAIL.path, budget.id!));
   };
 

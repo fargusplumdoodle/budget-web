@@ -5,6 +5,7 @@ export {
   closeAllPanes,
   openThemePane,
   openTransactionPane,
+  openBudgetPane,
 } from "./slice";
 export * from "./types";
 export * from "./selectors";

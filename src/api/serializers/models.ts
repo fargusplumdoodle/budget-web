@@ -84,6 +84,7 @@ export function serializeBudget(budget: Budget): SerializedBudget {
     parent: budget.parentId!,
     income_per_month: toCents(budget.income_per_month),
     outcome_per_month: toCents(budget.outcome_per_month),
+    is_node: budget.isNode,
   };
 }
 
@@ -93,6 +94,7 @@ export function deserializeBudget(budget: SerializedBudget): Budget {
     id: budget.id!,
     name: budget.name,
     monthlyAllocation: fromCents(budget.monthly_allocation),
+    recursiveMonthlyAllocation: fromCents(budget.recursive_monthly_allocation!),
     balance: fromCents(budget.balance),
     isNode: budget.is_node!,
     parent: selectBudgetById(budget.parent!)(state) || null,

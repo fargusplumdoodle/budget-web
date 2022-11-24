@@ -5,3 +5,6 @@ export const selectOpenPane = (state: RootState) =>
 
 export const selectPaneEditTransaction = (state: RootState) =>
   state.location.panes.transaction;
+
+export const selectPaneEditBudget = (state: RootState) =>
+  state.location.panes.budget;

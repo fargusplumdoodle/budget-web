@@ -1,16 +1,15 @@
 import React, { FunctionComponent } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { cloneDeep } from "lodash";
 import { Button, Grid } from "@mui/material";
 import { transactionSchema } from "../../../util/form";
-import budgets from "../../../__fixtures__/budgets";
 import TagInput from "../../inputs/TagInput";
 import BudgetInput from "../../inputs/BudgetInput";
 import AmountInput from "../../inputs/AmountInput";
-import DescriptionInput from "../../inputs/DescriptionInput";
+import TextInput from "../../inputs/TextInput";
 import DateInput from "../../inputs/DateInput";
 import { Transaction } from "../../../store";
+import { getDefaultFormValues } from "./utils";
 
 interface Props {
   transaction: Transaction | null;
@@ -27,18 +26,7 @@ const TransactionForm: FunctionComponent<Props> = ({
 }) => {
   const formMethods = useForm({
     resolver: yupResolver(transactionSchema),
-    defaultValues: transaction
-      ? cloneDeep(transaction)
-      : {
-          id: null,
-          amount: 0,
-          description: "",
-          budget: budgets.byName["food"],
-          date: new Date(),
-          income: false,
-          transfer: false,
-          tags: [],
-        },
+    defaultValues: getDefaultFormValues(transaction),
     mode: "onSubmit",
   });
 
@@ -50,13 +38,13 @@ const TransactionForm: FunctionComponent<Props> = ({
             <TagInput />
           </Grid>
           <Grid item>
-            <BudgetInput />
+            <BudgetInput budgetFilter={(b) => !b.isNode} label="Budget" />
           </Grid>
           <Grid item>
             <AmountInput />
           </Grid>
           <Grid item>
-            <DescriptionInput />
+            <TextInput fieldName="description" label="Description" />
           </Grid>
           <Grid item>
             <DateInput />
@@ -69,7 +57,7 @@ const TransactionForm: FunctionComponent<Props> = ({
                   color="error"
                   onClick={() => onDelete(transaction)}
                 >
-                  DELETE
+                  Delete
                 </Button>
               </Grid>
             )}

@@ -21,21 +21,6 @@ export const FormItem = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-export const budgetSchema = yup
-  .object({
-    name: yup
-      .string()
-      .max(20)
-      .test(
-        "name is unique",
-        "Budget Name must be unique",
-        (value) => !selectBudgetByName(value!)(store.getState())
-      )
-      .required(),
-    monthlyAllocation: yup.number().positive().integer(),
-  })
-  .required();
-
 export const transactionSchema = yup
   .object({
     tags: yup.array().min(1, "Must have at least one tag").required(),
@@ -59,18 +44,6 @@ export const transactionSearchSchema = yup
     budgets: yup.array().required().nullable(),
   })
   .required();
-
-export const tagSchema = yup.object({
-  name: yup
-    .string()
-    .max(30)
-    .test(
-      "name is unique",
-      "Tag Name must be unique",
-      (value) => !selectTagByName(value!)(store.getState())
-    )
-    .required(),
-});
 
 export const incomeSchema = yup
   .object({

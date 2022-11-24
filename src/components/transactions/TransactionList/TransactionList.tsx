@@ -10,13 +10,10 @@ type Props = {
   onDeleteCallback?: (trans: Transaction) => void;
   defaultRowsPerPage?: number;
 };
-const Root = styled(Grid)({
-  maxWidth: 312,
-});
 
 function TransactionList({ transactions }: Props) {
   return (
-    <Root container gap={1} wrap="nowrap" direction="column">
+    <Grid container gap={1} wrap="nowrap" direction="column">
       {transactions.map(
         (transaction) =>
           transaction && (
@@ -25,7 +22,7 @@ function TransactionList({ transactions }: Props) {
             </Grid>
           )
       )}
-    </Root>
+    </Grid>
   );
 }
 

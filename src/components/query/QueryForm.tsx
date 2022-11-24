@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Add, Clear } from "@mui/icons-material";
+import Add from "@mui/icons-material/Add";
+import Clear from "@mui/icons-material/Clear";
 import { Box, IconButton, styled, Typography } from "@mui/material";
 import { useState } from "react";
 import ExpressionForm from "./ExpressionForm";

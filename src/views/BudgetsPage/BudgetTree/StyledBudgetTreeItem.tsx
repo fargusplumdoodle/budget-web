@@ -9,11 +9,12 @@ import {
 import BudgetTreeItemContentComponent from "./BudgetTreeItemContentComponent";
 
 type StyledTreeItemProps = TreeItemProps & {
-  budgetName: string;
-  balance: number;
   allocated: number | null;
-  spent: number | null;
-  averageSpent: number | null;
+  income: number | null;
+  outcome: number | null;
+  difference: number | null;
+  balance: number;
+  budgetName: string;
 };
 
 const TreeItem = styled(MuiTreeItem)(({ theme }) => ({
@@ -46,8 +47,15 @@ const TreeItem = styled(MuiTreeItem)(({ theme }) => ({
 }));
 
 function StyledBudgetTreeItem(props: StyledTreeItemProps) {
-  const { budgetName, allocated, averageSpent, spent, balance, ...other } =
-    props;
+  const {
+    budgetName,
+    allocated,
+    income,
+    outcome,
+    difference,
+    balance,
+    ...other
+  } = props;
   // @ts-nocheck
   return (
     <TreeItem
@@ -55,8 +63,9 @@ function StyledBudgetTreeItem(props: StyledTreeItemProps) {
       ContentProps={{
         budgetName,
         allocated,
-        averageSpent,
-        spent,
+        income,
+        outcome,
+        difference,
         balance,
       }}
       {...other}

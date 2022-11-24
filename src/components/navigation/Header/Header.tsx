@@ -2,10 +2,11 @@ import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
 import React, { FunctionComponent } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch } from "react-redux";
-import { AddCircle, Settings } from "@mui/icons-material";
-import { ROUTES } from "../../app/AppRoutes";
-import { openTransactionPane, toggleMobileDrawer } from "../../store";
-import { useRoute } from "../../hooks";
+import { ROUTES } from "../../../app/AppRoutes";
+import { openTransactionPane, toggleMobileDrawer } from "../../../store";
+import { useRoute } from "../../../hooks";
+import AddCircle from "@mui/icons-material/AddCircle";
+import HeaderMenuSettings from "./HeaderMenuSettings";
 
 interface HeaderProps {}
 
@@ -37,7 +38,6 @@ const Header: FunctionComponent<HeaderProps> = () => {
               aria-label="open drawer"
               edge="start"
               onClick={() => dispatch(toggleMobileDrawer())}
-              sx={{ display: { sm: "none" } }}
             >
               <MenuIcon />
             </Grid>
@@ -51,9 +51,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
                 sx={(theme) => ({ color: theme.palette.secondary.main })}
               />
             </IconButton>
-            <IconButton>
-              <Settings />
-            </IconButton>
+            <HeaderMenuSettings />
           </Grid>
         </Grid>
       </Toolbar>

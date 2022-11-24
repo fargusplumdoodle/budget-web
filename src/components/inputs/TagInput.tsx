@@ -7,15 +7,19 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import { Add } from "@mui/icons-material";
-import { useSelector } from "react-redux";
+import Add from "@mui/icons-material/Add";
+import { useDispatch, useSelector } from "react-redux";
 import { getMuiFilledInputStyles } from "@fargusplumdoodle/themes";
 import capitalize from "lodash/capitalize";
 import { selectTagList, Tag } from "../../store";
+import { editTag } from "../../store/location/ui/slice";
 
-interface Props {}
+interface Props {
+  onChangeSideEffect?: (tags: Tag[]) => void;
+}
 
 const TagInput: FunctionComponent<Props> = () => {
+  const dispatch = useDispatch();
   const tags = useSelector(selectTagList);
   const {
     formState: { errors },
@@ -58,6 +62,7 @@ const TagInput: FunctionComponent<Props> = () => {
           item
           component={Button}
           xs={1}
+          onClick={() => dispatch(editTag(null))}
           sx={(theme) => {
             const { backgroundColor, hoverBackground } =
               getMuiFilledInputStyles(theme.palette.mode);

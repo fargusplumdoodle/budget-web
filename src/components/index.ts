@@ -7,3 +7,4 @@ export * from "./panes";
 export * from "./navigation";
 export * from "./query";
 export * from "./transactions";
+export * from "./dialogs";

@@ -4,17 +4,16 @@ import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
 import { Button, CircularProgress, Stack } from "@mui/material";
-import { ProviderContext, withSnackbar } from "notistack";
 import { FormItem, transferSchema } from "../../util/form";
-import ApiErrorDialog, { ApiError } from "../ApiErrorDialog";
+import { ApiError, ApiErrorDialog } from "../";
 import { createTransaction } from "../../api/endpoints/transaction";
 import { createTransferTransactions } from "../../util/transfer";
 import { Transaction, Budget, selectBudgetList } from "../../store";
 import BudgetInput from "../inputs/BudgetInput";
-import DescriptionInput from "../inputs/DescriptionInput";
+import TextInput from "../inputs/TextInput";
 import { AmountInput } from "../inputs";
 
-interface Props extends ProviderContext {
+interface Props {
   onCreateCallback: (transactions: Transaction[]) => void;
 }
 
@@ -57,9 +56,6 @@ const TransferForm: FunctionComponent<Props> = (props) => {
     Promise.allSettled(createTransactionPromises)
       .then((promiseStates: PromiseSettledResult<Transaction>[]): void => {
         setLoading(false);
-        props.enqueueSnackbar("Successfully created income transactions", {
-          variant: "success",
-        });
         props.onCreateCallback(
           promiseStates
             .filter((p) => p.status === "fulfilled")
@@ -85,7 +81,7 @@ const TransferForm: FunctionComponent<Props> = (props) => {
             }}
           >
             <AmountInput />
-            <DescriptionInput />
+            <TextInput fieldName="description" label="Description" />
             <BudgetInput name="fromBudget" />
             <BudgetInput name="toBudget" />
             <Button sx={{ width: "100%" }} type="submit" disabled={loading}>
@@ -105,4 +101,4 @@ const TransferForm: FunctionComponent<Props> = (props) => {
   );
 };
 
-export default withSnackbar(TransferForm);
+export default TransferForm;

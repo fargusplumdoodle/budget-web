@@ -9,6 +9,7 @@ import {
   deleteTransaction,
   updateTransaction,
   selectRequestByModel,
+  closeAllPanes,
 } from "../../store";
 
 const TransactionPane: FunctionComponent = () => {
@@ -32,6 +33,7 @@ const TransactionPane: FunctionComponent = () => {
         })
       );
     } else dispatch(createTransaction(newTransaction));
+    dispatch(closeAllPanes());
   };
 
   return (

@@ -1,5 +1,4 @@
 import { applyMiddleware, compose, createStore } from "redux";
-import thunk from "redux-thunk";
 import { persistStore } from "redux-persist";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./saga";
@@ -20,7 +19,7 @@ export function configureStore() {
   return createStore(
     rootReducer,
     {},
-    composeEnhancers(applyMiddleware(thunk), applyMiddleware(sagaMiddleware))
+    composeEnhancers(applyMiddleware(sagaMiddleware))
   );
 }
 export const store = configureStore();
