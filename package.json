@@ -32,6 +32,7 @@
   },
   "scripts": {
     "start": "vite",
+    "start:docker": "vite --host 0.0.0.0",
     "build": "tsc -p ./tsconfig.json && vite build",
     "preview": "vite preview",
     "test": "react-scripts test",
@@ -39,7 +40,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
-  "proxy": "http://localhost:8000",
+  "proxy": "http://api:8000",
   "eslintConfig": {
     "extends": [
       "react-app",

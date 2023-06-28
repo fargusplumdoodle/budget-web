@@ -1,0 +1,15 @@
+FROM node:18
+
+RUN mkdir /code/
+WORKDIR /code
+ADD ./package.json .
+ADD ./package-lock.json .
+
+RUN npm install
+
+ADD . /code/
+
+ENV NODE_ENV=development
+EXPOSE 8000
+
+CMD ["npm", "run", "start:docker"]
